@@ -1,7 +1,7 @@
 # Sistema administrador de proyectos de software (SAPS)
-Este repositorio va a contener un proyecto elaborado para la clase de Ingenieria de Software I y es un sistema para administrar proyectos de software
+Este repositorio contiene el proyecto elaborado para la clase de Ingenieria de Software I y es un sistema para administrar proyectos de software
 
-####Miembros:
+#### Miembros:
   * Kevin Delgado Sandí [GitHub](https://github.com/KefDS)
   * Carlos Mata Guzmán [GitHub](https://github.com/carlosmataguzman)
   * Stefano Del Vecchio [GitHub](https://github.com/SDelVecchioC)
