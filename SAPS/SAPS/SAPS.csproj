@@ -359,6 +359,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Entidades\recurso_humano.cs" />
     <Compile Include="Fronteras\Recursos_Humanos.aspx.cs">
       <DependentUpon>Recursos_Humanos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -398,7 +399,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Base de Datos\" />
     <Folder Include="Controladoras\" />
-    <Folder Include="Entidades\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
