@@ -94,13 +94,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_telefono;
         
         /// <summary>
-        /// proyectos_asociados control.
+        /// drop_proyecto_asociado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox proyectos_asociados;
+        protected global::System.Web.UI.WebControls.DropDownList drop_proyecto_asociado;
         
         /// <summary>
         /// btn_miembro control.
@@ -137,5 +137,23 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_Cancelar;
+        
+        /// <summary>
+        /// btn_consultar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_consultar;
+        
+        /// <summary>
+        /// lista_rh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lista_rh;
     }
 }

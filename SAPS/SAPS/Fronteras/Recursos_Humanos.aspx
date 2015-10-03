@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Recursos_Humanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" %>
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
-    <br/>
+    <section id="page_header">
+        <div class="page-header">
+            <h1>SAPS <small>Recursos humanos</small></h1>
+        </div>
+    </section>
     <section id="botones_IME">
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
@@ -27,10 +31,12 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <asp:Label runat="server" CssClass="col-md-2 control-label" AssociatedControlID="drop_down_oficinas">Oficinas</asp:Label>
-                    <asp:DropDownList ID="drop_down_oficinas" runat="server" CssClass="col-md-4 form-control" Width="200px">
-                        <asp:ListItem Text="Oficina 1" Value="0"></asp:ListItem>
-                        <asp:ListItem Text="Oficina 2" Value="1"></asp:ListItem>
-                    </asp:DropDownList>
+                    <div class="col-md-4">
+                        <asp:DropDownList ID="drop_down_oficinas" runat="server" CssClass="form-control" Width="127.5px">
+                            <asp:ListItem Text="Oficina 1" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="Oficina 2" Value="1"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,23 +82,35 @@
         <div id="row4" class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" CssClass="col-md-2 control-label" AssociatedControlID="proyectos_asociados">Proyectos</asp:Label>
-                    <div class="aumenta-margin">
-                        <asp:ListBox runat="server" CssClass="col-md-4 form-control" ID="proyectos_asociados" Width="200px">
-                            <asp:ListItem Text="Proyecto1" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Proyecto2" Value="1"></asp:ListItem>
-                            <asp:ListItem Text="Proyecto3" Value="2"></asp:ListItem>
-                        </asp:ListBox>
-                    </div>    
+                    <asp:Label runat="server" CssClass="col-md-2 control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
+                    <div class="col-md-4">
+                        <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control" Width="127.5px">
+                            <asp:ListItem Text="Proyecto 1" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="Proyecto 2" Value="1"></asp:ListItem>
+                        </asp:DropDownList>    
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div id="radio_buttons">
-                        <asp:RadioButton runat="server" CssClass="col-md-3" Text="Miembro" ID="btn_miembro" />
-                        <asp:RadioButton runat="server" CssClass="col-md-3" ID="btn_admi" Text="Admi" />
+                        <div class="col-md-3">
+                            <asp:RadioButton runat="server" CssClass="col-md-3" Text="Miembro" ID="btn_miembro" />
+                        </div>
+                        <div class="col-md-3">
+                            <asp:RadioButton runat="server" CssClass="col-md-3" ID="btn_admi" Text="Administrador" />
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <br />
+    </section>
+    <section id="botones_aceptar_cancelar">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-8">
+                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
+                <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar"/>
             </div>
         </div>
     </section>
@@ -103,12 +121,21 @@
             </div>
         </div>
     </section>
-    <section id="grid"></section>
-    <section id="botones_aceptar_cancelar">
+    <div id="label_lista_rh" class="row">
+        <div class="col-md-4 col-md-offset-1">
+            <h4>Recursos humanos disponibles</h4>
+        </div>
+    </div>
+    <br />
+    <section id="area_consultas" class="col-md-offset-3">
         <div class="row">
-            <div class="col-md-4 col-md-offset-8">
-                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
-                <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar"/>
+            <div class="col-md-2">
+                <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_consultar" Enabled="true" Text="Consultar" />
+            </div>
+            <div class="col-md-8">
+                <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente -->
+                <div runat="server" class="list-group" id="lista_rh">
+                </div>
             </div>
         </div>
     </section>
