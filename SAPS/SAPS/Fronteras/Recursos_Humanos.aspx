@@ -90,9 +90,13 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_rol" CssClass="col-md-2 control-label">Rol</asp:Label>
+                    <asp:Label runat="server" CssClass="col-md-2 control-label" AssociatedControlID="drop_rol">Rol</asp:Label>
                     <div class="col-md-4">
-                        <asp:TextBox runat="server" ID="input_rol" CssClass="form-control" />
+                        <asp:DropDownList ID="drop_rol" runat="server" CssClass="form-control" Width="127.5px" >
+                            <asp:ListItem Text="Lider" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="Usuario" Value="1"></asp:ListItem>
+                            <asp:ListItem Text="Tester" Value="2"></asp:ListItem>
+                        </asp:DropDownList> 
                     </div>
                 </div>
             </div>
