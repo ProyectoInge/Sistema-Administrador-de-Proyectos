@@ -28,15 +28,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" CssClass="col-md-2 control-label" AssociatedControlID="drop_down_oficinas">Oficinas</asp:Label>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="drop_down_oficinas" runat="server" CssClass="form-control" Width="127.5px">
-                            <asp:ListItem Text="Oficina 1" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Oficina 2" Value="1"></asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
+                    <asp:Label runat="server" AssociatedControlID="radio_btn_miembro" CssClass="col-md-4 control-label">Miembro</asp:Label>
+                    <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
+                        uno de ellos seleccionado.-->
+                    <asp:RadioButton runat="server" CssClass ="col-md-2" ID="radio_btn_miembro" GroupName="lista_radio_buttons" />
                 </div>
             </div>
         </div>
@@ -52,10 +49,10 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_rol" CssClass="col-md-2 control-label">Rol</asp:Label>
-                    <div class="col-md-4">
-                        <asp:TextBox runat="server" ID="input_rol" CssClass="form-control" />
-                    </div>
+                    <asp:Label runat="server" CssClass="col-md-4 control-label" AssociatedControlID="radio_btn_administrador">Administrador</asp:Label>
+                    <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
+                        uno de ellos seleccionado.-->
+                    <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="col-md-2" GroupName="lista_radio_buttons" />
                 </div>
             </div>
         </div>
@@ -71,35 +68,31 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="col-md-2 control-label">Telefono</asp:Label>
+                    <asp:Label runat="server" CssClass="col-md-2 control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
                     <div class="col-md-4">
-                        <asp:TextBox runat="server" ID="input_telefono" CssClass="form-control" TextMode="Phone"/>
+                        <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control" Width="127.5px" >
+                            <asp:ListItem Text="Proyecto 1" Value="0"></asp:ListItem>
+                            <asp:ListItem Text="Proyecto 2" Value="1"></asp:ListItem>
+                        </asp:DropDownList>    
                     </div>
-                </div>
+                </div>  
             </div>
         </div>
         <br />
         <div id="row4" class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" CssClass="col-md-2 control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
+                    <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="col-md-2 control-label">Telefono</asp:Label>
                     <div class="col-md-4">
-                        <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control" Width="127.5px">
-                            <asp:ListItem Text="Proyecto 1" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Proyecto 2" Value="1"></asp:ListItem>
-                        </asp:DropDownList>    
+                        <asp:TextBox runat="server" ID="input_telefono" CssClass="form-control" TextMode="Phone"/>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div id="radio_buttons">
-                        <div class="col-md-3">
-                            <asp:RadioButton runat="server" CssClass="col-md-3" Text="Miembro" ID="btn_miembro" />
-                        </div>
-                        <div class="col-md-3">
-                            <asp:RadioButton runat="server" CssClass="col-md-3" ID="btn_admi" Text="Administrador" />
-                        </div>
+                    <asp:Label runat="server" AssociatedControlID="input_rol" CssClass="col-md-2 control-label">Rol</asp:Label>
+                    <div class="col-md-4">
+                        <asp:TextBox runat="server" ID="input_rol" CssClass="form-control" />
                     </div>
                 </div>
             </div>
@@ -107,11 +100,9 @@
         <br />
     </section>
     <section id="botones_aceptar_cancelar">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-8">
-                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
-                <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar"/>
-            </div>
+        <div class="col-md-4 col-md-offset-8">
+            <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
+            <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar"/>
         </div>
     </section>
     <section id="linea_separadora">
@@ -133,7 +124,8 @@
                 <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_consultar" Enabled="true" Text="Consultar" />
             </div>
             <div class="col-md-8">
-                <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente -->
+                <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente o
+                    en el archivo Recursos_Humanos.aspx.cs en el constructro hay un ejemplo de como llenarla -->
                 <div runat="server" class="list-group" id="lista_rh">
                 </div>
             </div>
