@@ -112,6 +112,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.DropDownList drop_rol;
         
         /// <summary>
+        /// label_contrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_contrasena;
+        
+        /// <summary>
+        /// input_contrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_contrasena;
+        
+        /// <summary>
         /// btn_Aceptar control.
         /// </summary>
         /// <remarks>

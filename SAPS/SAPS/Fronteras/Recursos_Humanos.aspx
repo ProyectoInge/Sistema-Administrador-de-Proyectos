@@ -22,7 +22,7 @@
         <div id="row1" class="row"">
             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_name" CssClass="col-md-2 control-label">Nombre</asp:Label>
+                    <asp:Label runat="server" AssociatedControlID="input_name" CssClass="col-md-3 control-label">Nombre</asp:Label>
                     <div class="col-md-4">
                         <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
                     </div>
@@ -41,7 +41,7 @@
         <div id="row2" class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="col-md-2 control-label">Usuario</asp:Label>
+                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="col-md-3 control-label">Usuario</asp:Label>
                     <div class="col-md-4">
                         <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
                     </div>
@@ -60,9 +60,9 @@
         <div id="row3" class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="col-md-2 control-label">Correo</asp:Label>
+                    <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="col-md-3 control-label">Correo</asp:Label>
                     <div class="col-md-4">
-                        <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email"/>
+                        <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" />
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
         <div id="row4" class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="col-md-2 control-label">Telefono</asp:Label>
+                    <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="col-md-3 control-label">Telefono</asp:Label>
                     <div class="col-md-4">
                         <asp:TextBox runat="server" ID="input_telefono" CssClass="form-control" TextMode="Phone"/>
                     </div>
@@ -102,11 +102,22 @@
             </div>
         </div>
         <br />
+        <div id="row5" class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <asp:Label runat="server" ID="label_contrasena" CssClass="col-md-3" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
+                    <div class="col-md-4">
+                        <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
     </section>
     <section id="botones_aceptar_cancelar">
         <div class="col-md-4 col-md-offset-8">
             <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
-            <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar"/>
+            <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click"/>
         </div>
     </section>
     <section id="linea_separadora">
@@ -116,16 +127,16 @@
             </div>
         </div>
     </section>
-    <div id="label_lista_rh" class="row">
+    <section id="label_lista_rh" class="row">
         <div class="col-md-4 col-md-offset-1">
             <h4>Recursos humanos disponibles</h4>
         </div>
-    </div>
+    </section>
     <br />
     <section id="area_consultas" class="col-md-offset-3">
         <div class="row">
             <div class="col-md-2">
-                <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_consultar" Enabled="true" Text="Consultar" />
+                <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_consultar" Enabled="true" Text="Consultar" OnClick="btn_consultar_Click" />
             </div>
             <div class="col-md-8">
                 <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente o

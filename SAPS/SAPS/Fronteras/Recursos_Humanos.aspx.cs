@@ -27,6 +27,39 @@ namespace SAPS.Fronteras
 
         }
 
+        private void btn_lista_click(object sender, EventArgs e)
+        {
+            activa_botones_ime();
+        }
+
+        protected void btn_Cancelar_Click(object sender, EventArgs e)
+        {
+            limpia_campos();
+        }
+
+        protected void btn_consultar_Click(object sender, EventArgs e)
+        {
+            activa_botones_ime();
+        }
+
+        //Metodos auxiliares de la calse
+        private void activa_botones_ime()
+        {
+            btn_eliminar.Enabled = true;
+            btn_modificar.Enabled = true;
+        }
+
+        private void limpia_campos()
+        {
+            radio_btn_miembro.Checked = false;
+            radio_btn_administrador.Checked = false;
+            input_name.Text = "";
+            input_correo.Text = "";
+            input_telefono.Text = "";
+            input_usuario.Text = "";
+            input_contrasena.Text = "";
+        }
+
         private void llena_recursos_humanos()
         {
             // Para llenar la tabla "tabla_consultas" dinámicamente
@@ -34,16 +67,11 @@ namespace SAPS.Fronteras
             {
                 Button btn = new Button();
                 btn.ID = "btn_lista_" + i;
-                btn.Text = "Opcion" + i;
+                btn.Text = "RH " + i;
                 btn.Click += new EventHandler(btn_lista_click);
                 btn.CssClass = "list-group-item col-md-8";
                 lista_rh.Controls.AddAt(i, btn);
             }
-        }
-
-        private void btn_lista_click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }
