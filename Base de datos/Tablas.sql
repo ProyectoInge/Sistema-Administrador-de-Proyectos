@@ -19,7 +19,8 @@ use proyectoDB;
 create table Oficina(
 	id_oficina			varchar(32) NOT NULL PRIMARY KEY,
 	nombre_oficina		varchar(64) NOT NULL,
-	telefono			varchar(16)
+	telefono			varchar(16),
+	nom_representante	varchar(64)
 );
 
 
@@ -31,12 +32,12 @@ create table ProyectoPruebas(
 	fecha_final			date,
 	nombre_sistema		varchar(64) NOT NULL,
 	obj_general			varchar(256),
-	nombre_proceso		varchar(64)
+	nombre_proceso		varchar(64),
+	eliminado			bit NOT NULL
 );
 
 create table RecursosHumanos(
 	username			varchar(64) NOT NULL PRIMARY KEY,
-	id_oficina			varchar(32) NOT NULL FOREIGN KEY REFERENCES Oficina(id_oficina),
 	id_proyecto			varchar(32)	FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
 	telefono			varchar(16),
 	nombre				varchar(64) NOT NULL,
