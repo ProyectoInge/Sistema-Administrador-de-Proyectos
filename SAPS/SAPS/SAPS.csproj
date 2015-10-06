@@ -180,7 +180,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Fronteras\Recursos_Humanos.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\Recursos_Humanos.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -334,6 +334,7 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Content Include="Codigo_Fuente\Base de Datos\BDRecursosHumanos.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -359,12 +360,12 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Entidades\RecursoHumano.cs" />
-    <Compile Include="Fronteras\Recursos_Humanos.aspx.cs">
+    <Compile Include="Codigo_Fuente\Entidades\RecursoHumano.cs" />
+    <Compile Include="Codigo_Fuente\Fronteras\Recursos_Humanos.aspx.cs">
       <DependentUpon>Recursos_Humanos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Fronteras\Recursos_Humanos.aspx.designer.cs">
+    <Compile Include="Codigo_Fuente\Fronteras\Recursos_Humanos.aspx.designer.cs">
       <DependentUpon>Recursos_Humanos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -397,8 +398,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Base de Datos\" />
-    <Folder Include="Controladoras\" />
+    <Folder Include="Codigo_Fuente\Controladoras\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
