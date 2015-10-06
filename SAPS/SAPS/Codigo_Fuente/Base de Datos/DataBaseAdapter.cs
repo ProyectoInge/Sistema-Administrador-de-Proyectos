@@ -12,6 +12,7 @@ using System.Web;
 namespace SAPS.App_Code.Base_de_Datos
 {
     public class DataBaseAdapter
+
     {
         String conexion = "Data Source=proyectopruebas.cph3bzyte6rr.us-west-2.rds.amazonaws.com,1433;" +
             "Initial Catalog=proyectoDB;" +
