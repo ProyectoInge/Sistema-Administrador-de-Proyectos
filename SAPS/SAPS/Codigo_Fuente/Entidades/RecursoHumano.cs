@@ -28,7 +28,13 @@ namespace SAPS.Entidades
         private bool m_es_administrador;
 
         public RecursoHumano(Object[] datos) {
-
+            m_usuario = datos[0].ToString();
+            m_nombre = datos[1].ToString();
+            m_correo = datos[2].ToString();
+            m_telefono = datos[3].ToString();
+            m_proyecto_asociado = datos[4].ToString();
+            m_contrasena = datos[5].ToString();         // REVISAR EL SET_CONTRASENA
+            m_es_administrador = Convert.ToBoolean(datos[6]);
         }
 
         public string usuario
@@ -64,7 +70,7 @@ namespace SAPS.Entidades
         public string contrasena
         {
             get { return m_contrasena; }
-            set { m_contrasena = value; }
+            set { m_contrasena = value; } // **** ESTO HAY QUE "HASHEARLO" ****
         }
 
         public bool es_administrador
