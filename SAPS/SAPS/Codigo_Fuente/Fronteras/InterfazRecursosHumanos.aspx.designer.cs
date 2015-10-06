@@ -49,15 +49,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_name;
         
         /// <summary>
-        /// radio_btn_miembro control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radio_btn_miembro;
-        
-        /// <summary>
         /// input_usuario control.
         /// </summary>
         /// <remarks>
@@ -65,6 +56,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_usuario;
+        
+        /// <summary>
+        /// radio_btn_miembro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton radio_btn_miembro;
         
         /// <summary>
         /// radio_btn_administrador control.

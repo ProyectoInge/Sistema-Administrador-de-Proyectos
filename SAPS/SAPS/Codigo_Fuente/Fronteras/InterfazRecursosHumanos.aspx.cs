@@ -63,13 +63,13 @@ namespace SAPS.Fronteras
         private void llena_recursos_humanos()
         {
             // Para llenar la tabla "tabla_consultas" dinámicamente
-            for (int i = 0; i < 4; ++i)
+            for (int i = 0; i < 10; ++i)
             {
                 Button btn = new Button();
                 btn.ID = "btn_lista_" + i;
                 btn.Text = "RH " + i;
                 btn.Click += new EventHandler(btn_lista_click);
-                btn.CssClass = "list-group-item col-md-8";
+                btn.CssClass = "list-group-item btn-block";
                 lista_rh.Controls.AddAt(i, btn);
             }
         }
