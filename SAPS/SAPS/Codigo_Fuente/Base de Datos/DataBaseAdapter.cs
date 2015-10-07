@@ -18,7 +18,7 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
             "User id=masterwizard;" +
             "Password=urenaselacome;";
 
-        public DataTable ejecutar_consulta(String consulta)
+        public DataTable obtener_resultado_consulta(String consulta)
         {
             SqlConnection conexionSQL = new SqlConnection(conexion);
             conexionSQL.Open(); //comienza a recibir consultas
@@ -27,10 +27,30 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
 
             SqlCommandBuilder constructorSQL = new SqlCommandBuilder(adaptadorSQL);
 
-            DataTable tabla = new DataTable();  // la tabla recibe el resultado del comando
-            adaptadorSQL.Fill(tabla);           //se rellena la tabla
+            DataTable tabla = new DataTable(); //la tabla recibe el resultado del comando
+            adaptadorSQL.Fill(tabla); //se popula la tabla
 
             return tabla;
+        }
+
+        public int ejecutar_consulta(String consulta)
+        {
+            try
+            {
+                SqlConnection conexionSQL = new SqlConnection(conexion);
+                conexionSQL.Open(); //comienza a recibir consultas
+                SqlCommand comandoSQL = new SqlCommand(consulta, conexionSQL);
+                comandoSQL.ExecuteNonQuery();
+                comandoSQL.Dispose();
+                conexionSQL.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error de ejecucion: " + ex.ToString());
+                return -1;
+            }
+
+            return 0;
         }
     }
 }
