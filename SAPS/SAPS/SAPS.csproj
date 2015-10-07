@@ -334,7 +334,6 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
-    <Content Include="Codigo_Fuente\Base de Datos\BDRecursosHumanos.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -347,6 +346,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Codigo_Fuente\Ayudantes\Seguridad.cs" />
+    <Compile Include="Codigo_Fuente\Base de Datos\BDRecursosHumanos.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\DataBaseAdapter.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
     <Compile Include="Contact.aspx.cs">

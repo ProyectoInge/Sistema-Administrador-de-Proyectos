@@ -27,11 +27,10 @@ namespace SAPS.App_Code.Base_de_Datos
 
             SqlCommandBuilder constructorSQL = new SqlCommandBuilder(adaptadorSQL);
 
-            DataTable tabla = new DataTable(); //la tabla recibe el resultado del comando
-            adaptadorSQL.Fill(tabla); //se popula la tabla
+            DataTable tabla = new DataTable();  // la tabla recibe el resultado del comando
+            adaptadorSQL.Fill(tabla);           //se rellena la tabla
 
             return tabla;
         }
     }
-
 }
