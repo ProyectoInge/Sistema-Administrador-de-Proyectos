@@ -16,13 +16,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SAPS.Codigo_Fuente.Controladoras;
 
 namespace SAPS.Fronteras
 {
     public partial class Recursos_Humanos : System.Web.UI.Page
     {
+        ControladoraRecursosHumanos m_controladora_rh;
         protected void Page_Load(object sender, EventArgs e)
         {
+            drop_proyecto_asociado.Enabled = false;
+            drop_rol.Enabled = false;
             llena_recursos_humanos();
 
         }
@@ -42,6 +46,18 @@ namespace SAPS.Fronteras
             activa_botones_ime();
         }
 
+
+        protected void radio_btn_miembro_CheckedChanged(object sender, EventArgs e)
+        {
+            drop_proyecto_asociado.Enabled = true;
+            drop_rol.Enabled = true;
+        }
+
+        protected void radio_btn_administrador_CheckedChanged(object sender, EventArgs e)
+        {
+            drop_proyecto_asociado.Enabled = false;
+            drop_rol.Enabled = false;
+        }
         //Metodos auxiliares de la clase
         private void activa_botones_ime()
         {
@@ -60,6 +76,8 @@ namespace SAPS.Fronteras
             input_contrasena.Text = "";
             btn_eliminar.Enabled = false;
             btn_modificar.Enabled = false;
+            drop_proyecto_asociado.Enabled = false;
+            drop_rol.Enabled = false;
         }
 
         private void llena_recursos_humanos()

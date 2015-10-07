@@ -46,7 +46,7 @@
                 <div class="col-md-1">
                     <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
                     uno de ellos seleccionado.-->
-                    <asp:RadioButton runat="server" CssClass ="form-group" ID="radio_btn_miembro" GroupName="lista_radio_buttons" />
+                    <asp:RadioButton runat="server" CssClass ="form-group" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack ="true"/>
                 </div>
                 <div class="col-md-2">
                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_btn_administrador">Administrador</asp:Label>
@@ -54,7 +54,7 @@
                 <div class="col-md-1">
                     <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
                         uno de ellos seleccionado.-->
-                    <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group" GroupName="lista_radio_buttons" />
+                    <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack ="true"/>
                 </div>
             </div>
         </div>
