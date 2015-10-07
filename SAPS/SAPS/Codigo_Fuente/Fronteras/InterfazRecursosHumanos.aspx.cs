@@ -156,6 +156,7 @@ namespace SAPS.Fronteras
                                                 {
                                                     // Solo me interesa que es administrador
                                                 }
+                                                a_retornar = true;
                                             }
                                             else
                                             {
