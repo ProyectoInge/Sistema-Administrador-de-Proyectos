@@ -42,7 +42,7 @@ namespace SAPS.Fronteras
             activa_botones_ime();
         }
 
-        //Metodos auxiliares de la calse
+        //Metodos auxiliares de la clase
         private void activa_botones_ime()
         {
             btn_eliminar.Enabled = true;
@@ -58,19 +58,24 @@ namespace SAPS.Fronteras
             input_telefono.Text = "";
             input_usuario.Text = "";
             input_contrasena.Text = "";
+            btn_eliminar.Enabled = false;
+            btn_modificar.Enabled = false;
         }
 
         private void llena_recursos_humanos()
         {
-            // Para llenar la tabla "tabla_consultas" dinámicamente
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 30; ++i)
             {
+                TableRow fila = new TableRow();
+                TableCell celda = new TableCell();
                 Button btn = new Button();
-                btn.ID = "btn_lista_" + i;
-                btn.Text = "RH " + i;
+                btn.ID = "btn_lista_" + i.ToString();
+                btn.Text = "rh " + i.ToString();
+                btn.CssClass = "btn btn-link btn-block";
                 btn.Click += new EventHandler(btn_lista_click);
-                btn.CssClass = "list-group-item btn-block";
-                lista_rh.Controls.AddAt(i, btn);
+                celda.Controls.AddAt(0, btn);
+                fila.Cells.Add(celda);
+                tabla_recursos_humanos.Rows.Add(fila);
             }
         }
     }
