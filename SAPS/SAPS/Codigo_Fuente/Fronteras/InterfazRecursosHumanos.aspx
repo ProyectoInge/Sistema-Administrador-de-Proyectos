@@ -17,12 +17,6 @@
         </div>
     </section>
     <br/>
-    <section id="mensaje_alerta" aria-hidden="false">
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="false">&times;</span></button>
-            <strong>Warning!</strong> Better check yourself, you're not looking too good.
-        </div>
-    </section>
     <br/>
     <section id="form" class="col-md-offset-1">
         <div id="row1" class="row"">
