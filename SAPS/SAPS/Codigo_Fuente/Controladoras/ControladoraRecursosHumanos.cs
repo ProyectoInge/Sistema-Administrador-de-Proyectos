@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using SAPS.Entidades;
 using SAPS.Codigo_Fuente.Base_de_Datos;
 using SAPS.Codigo_Fuente.Ayudantes;
 
@@ -12,12 +13,14 @@ namespace SAPS.Codigo_Fuente.Controladoras
     {
         // Variables de instancia
         Seguridad m_seguridad;
+        BDRecursosHumanos m_base_datos;
 
 
         // Constructor
         public ControladoraRecursosHumanos()
         {
-
+            m_seguridad = new Seguridad();
+            m_base_datos = new BDRecursosHumanos();
         }
 
 
@@ -25,27 +28,29 @@ namespace SAPS.Codigo_Fuente.Controladoras
 
         public int insertar_recurso_humano(Object[] datos) 
         {
-            return 0;
+            RecursoHumano recurso_humano = new RecursoHumano(datos);
+            return m_base_datos.insertar_recurso_humano(recurso_humano);
         }
 
         public int modificar_recurso_humano(Object[] datos) 
         {
-            return 0;
+            RecursoHumano recurso_humano = new RecursoHumano(datos);
+            return m_base_datos.modificar_recurso_humano(recurso_humano);
         }
 
         public int eliminar_recurso_humano(string nombre_usuario) 
         {
-            return 0;
+            return m_base_datos.eliminar_recurso_humano(nombre_usuario);
         }
         
         public DataTable consultar_recurso_humano(string nombre_usuario)
         {
-            return null;
+            return m_base_datos.consultar_recurso_humano(nombre_usuario);
         }
 
         public DataTable solicitar_recursos_disponibles()
         {
-            return null;
+            return m_base_datos.solicitar_recursos_disponibles();
         }
 
         // Módulo Seguridad
