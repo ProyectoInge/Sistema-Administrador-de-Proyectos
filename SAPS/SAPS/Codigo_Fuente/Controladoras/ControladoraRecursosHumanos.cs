@@ -5,21 +5,18 @@ using System.Web;
 using System.Data;
 using SAPS.Entidades;
 using SAPS.Codigo_Fuente.Base_de_Datos;
-using SAPS.Codigo_Fuente.Ayudantes;
 
 namespace SAPS.Codigo_Fuente.Controladoras
 {
     public class ControladoraRecursosHumanos
     {
         // Variables de instancia
-        Seguridad m_seguridad;
         BDRecursosHumanos m_base_datos;
 
 
         // Constructor
         public ControladoraRecursosHumanos()
         {
-            m_seguridad = new Seguridad();
             m_base_datos = new BDRecursosHumanos();
         }
 

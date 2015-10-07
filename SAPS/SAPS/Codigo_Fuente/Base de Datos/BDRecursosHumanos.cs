@@ -71,10 +71,8 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
         {
             string consulta = "SELECT nombre FROM RecursosHumanos";
 
-            Console.WriteLine("Ejecutando: "+consulta);
+            Console.WriteLine("Ejecutando: "+ consulta);
             return m_data_base_adapter.obtener_resultado_consulta(consulta);
-
-            return null;
         }
     }
 }
