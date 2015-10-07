@@ -141,11 +141,12 @@
                 <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_consultar" Enabled="true" Text="Consultar" OnClick="btn_consultar_Click" />
             </div>
             <div class="col-md-1"><!-- Espacio al propio--></div>
-            <div class="col-md-7">
+            <div class="col-md-7" style="height:200px; overflow-y:scroll">
+                <asp:Table runat="server" ID="tabla_recursos_humanos" CssClass="table table-hover form-group">
+
+                </asp:Table>
                 <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente o
-                    en el archivo Recursos_Humanos.aspx.cs en el constructro hay un ejemplo de como llenarla -->
-                <div runat="server" class="list-group" id="lista_rh">
-                </div>
+                    en el archivo InterfazRecursosHumanos.aspx.cs en el constructro hay un ejemplo de como llenarla -->
             </div>
         </div>
     </section>

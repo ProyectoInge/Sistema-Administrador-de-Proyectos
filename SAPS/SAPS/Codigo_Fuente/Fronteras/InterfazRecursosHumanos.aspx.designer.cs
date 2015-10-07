@@ -157,12 +157,12 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Button btn_consultar;
         
         /// <summary>
-        /// lista_rh control.
+        /// tabla_recursos_humanos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lista_rh;
+        protected global::System.Web.UI.WebControls.Table tabla_recursos_humanos;
     }
 }
