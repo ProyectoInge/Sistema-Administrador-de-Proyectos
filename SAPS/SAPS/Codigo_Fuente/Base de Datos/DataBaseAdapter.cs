@@ -9,7 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 
-namespace SAPS.App_Code.Base_de_Datos
+namespace SAPS.Codigo_Fuente.Base_de_Datos
 {
     public class DataBaseAdapter
     {

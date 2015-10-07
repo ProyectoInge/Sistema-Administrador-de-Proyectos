@@ -33,7 +33,7 @@ namespace SAPS.Entidades
             m_correo = datos[2].ToString();
             m_telefono = datos[3].ToString();
             m_proyecto_asociado = datos[4].ToString();
-            m_contrasena = datos[5].ToString();         // REVISAR EL SET_CONTRASENA
+            m_contrasena = datos[5].ToString();         // SE ASUME QUE YA LLEGA HASHEADA LA CONTRASEÑA
             m_es_administrador = Convert.ToBoolean(datos[6]);
         }
 
