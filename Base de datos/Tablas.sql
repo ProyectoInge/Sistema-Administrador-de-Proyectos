@@ -1,7 +1,7 @@
 
 use proyectoDB;
 
-/*	
+
 
 	drop table Ejecucion;
 	drop table NecesitaDe;
@@ -14,7 +14,7 @@ use proyectoDB;
 	drop table ProyectoPruebas;
 	drop table Oficina;
 
-*/
+
 
 create table Oficina(
 	id_oficina			varchar(32) NOT NULL PRIMARY KEY,
@@ -32,12 +32,14 @@ create table ProyectoPruebas(
 	fecha_final			date,
 	nombre_sistema		varchar(64) NOT NULL,
 	obj_general			varchar(256),
-	nombre_proceso		varchar(64),
+	nombre_proyecto		varchar(64),
+	estado				varchar(32),
 	eliminado			bit NOT NULL
 );
 
 create table RecursosHumanos(
 	username			varchar(64) NOT NULL PRIMARY KEY,
+	cedula				varchar(16)  NOT NULL,
 	id_proyecto			varchar(32)	FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
 	telefono			varchar(16),
 	nombre				varchar(64) NOT NULL,
