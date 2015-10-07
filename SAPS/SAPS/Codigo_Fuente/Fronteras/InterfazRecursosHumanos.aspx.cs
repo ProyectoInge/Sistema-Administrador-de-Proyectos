@@ -87,6 +87,7 @@ namespace SAPS.Fronteras
             input_telefono.Text = "";
             input_usuario.Text = "";
             input_contrasena.Text = "";
+            input_cedula.Text = "";
             btn_eliminar.Enabled = false;
             btn_modificar.Enabled = false;
             drop_proyecto_asociado.Enabled = false;
@@ -101,6 +102,7 @@ namespace SAPS.Fronteras
             input_telefono.BackColor = System.Drawing.Color.White;
             input_usuario.BackColor = System.Drawing.Color.White;
             input_contrasena.BackColor = System.Drawing.Color.White;
+            input_cedula.BackColor = System.Drawing.Color.White;
         }
         private void llena_recursos_humanos()
         {
@@ -134,32 +136,51 @@ namespace SAPS.Fronteras
                         {
                             Regex revisa_numero = new Regex(@"(\(?\+?\d{3}\))?\d{4}-?\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);  //REGEX que valida numeros de telefono
                             Match acierta = revisa_numero.Match(input_telefono.Text);
-                            if (acierta.Success)    //coincide con la REGEX
+                            if (acierta.Success)    //coincide con la REGEX de numeros de telefono
                             {
-
-                                if (input_contrasena.Text != "")
+                                if(input_cedula.Text != "")
                                 {
-                                    if(radio_btn_administrador.Checked == true || radio_btn_miembro.Checked == true)
+                                    Regex revisa_cedula = new Regex(@"([0-7]|9)-\d{4}-\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                                    acierta = revisa_cedula.Match(input_cedula.Text);
+                                    if (acierta.Success)    //coincide con la REGEX de cedulas
                                     {
-                                        if (radio_btn_miembro.Checked == true)
+                                        if (input_contrasena.Text != "")
                                         {
-                                            // Agarro los campos de rol y proyecto
+                                            if (radio_btn_administrador.Checked == true || radio_btn_miembro.Checked == true)
+                                            {
+                                                if (radio_btn_miembro.Checked == true)
+                                                {
+                                                    // Agarro los campos de rol y proyecto
+                                                }
+                                                else
+                                                {
+                                                    // Solo me interesa que es administrador
+                                                }
+                                            }
+                                            else
+                                            {
+                                                a_retornar = false;
+                                            }
+
                                         }
                                         else
                                         {
-                                            // Solo me interesa que es administrador
+                                            input_contrasena.BackColor = System.Drawing.ColorTranslator.FromHtml(color_error.Trim());
+                                            SetFocus(input_contrasena);
+                                            a_retornar = false;
                                         }
                                     }
                                     else
                                     {
+                                        input_cedula.BackColor = System.Drawing.ColorTranslator.FromHtml(color_error.Trim());
+                                        SetFocus(input_cedula);
                                         a_retornar = false;
                                     }
-
                                 }
                                 else
                                 {
-                                    input_contrasena.BackColor = System.Drawing.ColorTranslator.FromHtml(color_error.Trim());
-                                    SetFocus(input_contrasena);
+                                    input_cedula.BackColor = System.Drawing.ColorTranslator.FromHtml(color_error.Trim());
+                                    SetFocus(input_cedula);
                                     a_retornar = false;
                                 }
                             }

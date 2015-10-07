@@ -65,7 +65,7 @@
                     <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="control-label">Correo</asp:Label>
                 </div>
                 <div class="col-md-3">
-                    <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" />
+                    <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" placeholder="ejemplo@ejemplo.com"/>
                 </div>
                 <div class="col-md-1"><!-- Espacio al propio--></div>
                 <div class="col-md-2">
@@ -103,6 +103,19 @@
         </div>
         <br />
         <div id="row5" class="row">
+            <div class="form-group">
+                <div class="col-md-2">
+                    <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula</asp:Label>
+                </div>
+                <div class="col-md-3">
+                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
+                </div>
+                <div class="col-md-1"><!-- Espacio al propio--></div>
+                <div class="col-md-5"><!-- Espacio al propio--></div>
+            </div>
+        </div>
+        <br />
+        <div id="row6" class="row">
             <div class="form-group">
                 <div class="col-md-2">
                     <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
