@@ -118,7 +118,7 @@
     </section>
     <section id="botones_aceptar_cancelar">
         <div class="col-md-3 col-md-offset-9">
-            <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
+            <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
             <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click"/>
         </div>
     </section>
@@ -134,7 +134,6 @@
             <h4>Recursos humanos disponibles</h4>
         </div>
     </section>
-    <br />
     <section id="area_consultas" class="col-md-offset-3">
         <div class="row">
             <div class="col-md-1">

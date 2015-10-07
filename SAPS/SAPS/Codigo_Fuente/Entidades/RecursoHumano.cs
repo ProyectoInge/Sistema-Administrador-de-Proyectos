@@ -70,7 +70,7 @@ namespace SAPS.Entidades
         public string contrasena
         {
             get { return m_contrasena; }
-            set { m_contrasena = value; } // **** ESTO HAY QUE "HASHEARLO" ****
+            set { m_contrasena = value; }
         }
 
         public bool es_administrador
