@@ -129,4 +129,3 @@ F:\Fabian\Documents\Inge Soft I\Sistema-Administrador-de-Proyectos\SAPS\SAPS\bin
 F:\Fabian\Documents\Inge Soft I\Sistema-Administrador-de-Proyectos\SAPS\SAPS\bin\Microsoft.Owin.Security.OAuth.xml
 F:\Fabian\Documents\Inge Soft I\Sistema-Administrador-de-Proyectos\SAPS\SAPS\obj\Debug\SAPS.dll
 F:\Fabian\Documents\Inge Soft I\Sistema-Administrador-de-Proyectos\SAPS\SAPS\obj\Debug\SAPS.pdb
-F:\Fabian\Documents\Inge Soft I\Sistema-Administrador-de-Proyectos\SAPS\SAPS\obj\Debug\SAPS.csprojResolveAssemblyReference.cache
