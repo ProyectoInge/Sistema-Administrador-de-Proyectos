@@ -58,6 +58,12 @@ namespace SAPS.Fronteras
             drop_proyecto_asociado.Enabled = false;
             drop_rol.Enabled = false;
         }
+
+        protected void btn_Aceptar_Click(object sender, EventArgs e)
+        {
+
+        }
+
         //Metodos auxiliares de la clase
         private void activa_botones_ime()
         {
@@ -96,5 +102,28 @@ namespace SAPS.Fronteras
                 tabla_recursos_humanos.Rows.Add(fila);
             }
         }
+
+        private bool valida_campos()
+        {
+            bool a_retornar = true;
+            if(input_name.Text != "")
+            {
+                if(input_correo.Text != "")
+                {
+                    if(input_usuario.Text != "")
+                    {
+                        if(input_telefono.Text != "")
+                        {
+                            if(input_contrasena.Text != "")
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }
+            return a_retornar;
+        }
+
     }
 }

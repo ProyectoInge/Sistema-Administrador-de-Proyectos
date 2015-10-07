@@ -17,6 +17,12 @@
         </div>
     </section>
     <br/>
+    <section id="mensaje_alerta" aria-hidden="false">
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="false">&times;</span></button>
+            <strong>Warning!</strong> Better check yourself, you're not looking too good.
+        </div>
+    </section>
     <br/>
     <section id="form" class="col-md-offset-1">
         <div id="row1" class="row"">
@@ -118,7 +124,7 @@
     </section>
     <section id="botones_aceptar_cancelar">
         <div class="col-md-3 col-md-offset-9">
-            <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
+            <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
             <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click"/>
         </div>
     </section>
@@ -134,7 +140,6 @@
             <h4>Recursos humanos disponibles</h4>
         </div>
     </section>
-    <br />
     <section id="area_consultas" class="col-md-offset-3">
         <div class="row">
             <div class="col-md-1">
