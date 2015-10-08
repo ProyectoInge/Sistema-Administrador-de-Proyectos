@@ -17,6 +17,18 @@
         </div>
     </section>
     <br/>
+    <section id="alertas">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <b><asp:Label runat="server" ID="titulo_alerta" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
+            </div>
+            <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <b><asp:Label runat="server" ID="Label1" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
+            </div>
+        </div>
+    </section>
     <br/>
     <section id="form" class="col-md-offset-1">
         <div id="row1" class="row"">
@@ -159,6 +171,26 @@
                 </asp:Table>
                 <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente o
                     en el archivo InterfazRecursosHumanos.aspx.cs en el constructro hay un ejemplo de como llenarla -->
+            </div>
+        </div>
+    </section>
+    <section id="modal">
+        <!-- Bootstrap Modal Dialog -->
+        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title"><asp:Label ID="titulo_modal" runat="server" Text=""></asp:Label></h4>
+                            </div>
+                            <div class="modal-body">
+                                <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
     </section>

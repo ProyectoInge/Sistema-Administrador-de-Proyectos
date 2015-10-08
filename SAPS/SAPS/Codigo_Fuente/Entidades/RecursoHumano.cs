@@ -30,6 +30,7 @@ namespace SAPS.Entidades
         private string m_contrasena;
         private bool m_es_administrador;
         private string m_cedula;
+        private string m_rol;
 
         // Constructor
         public RecursoHumano(Object[] datos) {
@@ -43,6 +44,7 @@ namespace SAPS.Entidades
             m_contrasena = m_seguridad.hash_constrasena(datos[5].ToString());         // LA CONTRASEÑA HASHEADA AQUÍ
             m_es_administrador = Convert.ToBoolean(datos[6]);
             m_cedula = datos[7].ToString();
+            m_rol = datos[8].ToString();
         }
 
 
@@ -52,6 +54,12 @@ namespace SAPS.Entidades
         {
             get { return m_usuario; }
             set { m_usuario = value; }
+        }
+
+        public string rol
+        {
+            get { return m_rol; }
+            set { m_rol = value; }
         }
 
         public string nombre
