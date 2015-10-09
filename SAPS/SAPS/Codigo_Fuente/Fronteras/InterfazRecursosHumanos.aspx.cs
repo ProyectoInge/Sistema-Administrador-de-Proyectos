@@ -167,7 +167,6 @@ namespace SAPS.Fronteras
                                                 }
                                                 else
                                                 {
-                                                    /*
                                                     Object[] datos = new Object[8];
                                                     datos[0] = input_usuario.Text;
                                                     datos[1] = input_name.Text;
@@ -178,9 +177,8 @@ namespace SAPS.Fronteras
                                                     datos[6] = true;
                                                     datos[7] = input_cedula.Text;
                                                     datos[8] = "";  //es admi entonces no tiene un rol asociado
-                                                    */
 
-                                                    //int resultado = m_controladora_rh.insertar_recurso_humano(datos);
+                                                    int resultado = m_controladora_rh.insertar_recurso_humano(datos);
                                                     // TO DO -- manejar el codigo que devuelve
                                                 }
                                                 cuerpo_alerta_exito.Text = " Su operación no presentó ningún problema.";
