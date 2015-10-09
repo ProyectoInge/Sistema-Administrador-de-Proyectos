@@ -41,6 +41,46 @@ namespace SAPS.Codigo_Fuente.Ayudantes
 
 
         // Métodos
+
+        // Hashing algorithms used to verify one-way-hashed passwords:
+        // MD5 is used for backward compatibility with Commerce Server 2002. If you have no legacy data, MD5 can be removed.
+        // SHA256 is used on Windows Server 2003.
+        // SHA1 should be used on Windows XP (SHA256 is not supported).
+        public bool valida_contrasena_hash(string password, string profilePassword)
+        {
+            int saltLength = m_valor_salt * UnicodeEncoding.CharSize;
+
+            if (string.IsNullOrEmpty(profilePassword) ||
+                string.IsNullOrEmpty(password) ||
+                profilePassword.Length < saltLength)
+            {
+                return false;
+            }
+
+            // Strip the salt value off the front of the stored password.
+            string saltValue = profilePassword.Substring(0, saltLength);
+
+            foreach (string hashingAlgorithmName in HashingAlgorithms)
+            {
+                HashAlgorithm hash = HashAlgorithm.Create(hashingAlgorithmName);
+                string hashedPassword = funcion_hash(password, saltValue, hash);
+                if (profilePassword.Equals(hashedPassword, StringComparison.Ordinal))
+                    return true;
+            }
+
+            // None of the hashing algorithms could verify the password.
+            return false;
+        }
+
+        public string hash_constrasena(string contrasena)
+        {
+            // TO-DO: Hashear la contraseña
+            return "foobar";
+        }
+
+
+        // Métodos privados
+
         private static string genera_salt()
         {
             UnicodeEncoding utf16 = new UnicodeEncoding();
@@ -77,7 +117,7 @@ namespace SAPS.Codigo_Fuente.Ayudantes
             return null;
         }
 
-        private static string hash_contrasena(string clearData, string saltValue, HashAlgorithm hash)
+        private static string funcion_hash(string clearData, string saltValue, HashAlgorithm hash)
         {
             UnicodeEncoding encoding = new UnicodeEncoding();
 
@@ -130,34 +170,5 @@ namespace SAPS.Codigo_Fuente.Ayudantes
             return null;
         }
 
-        // Hashing algorithms used to verify one-way-hashed passwords:
-        // MD5 is used for backward compatibility with Commerce Server 2002. If you have no legacy data, MD5 can be removed.
-        // SHA256 is used on Windows Server 2003.
-        // SHA1 should be used on Windows XP (SHA256 is not supported).
-        public bool valida_contrasena_hash(string password, string profilePassword)
-        {
-            int saltLength = m_valor_salt * UnicodeEncoding.CharSize;
-
-            if (string.IsNullOrEmpty(profilePassword) ||
-                string.IsNullOrEmpty(password) ||
-                profilePassword.Length < saltLength)
-            {
-                return false;
-            }
-
-            // Strip the salt value off the front of the stored password.
-            string saltValue = profilePassword.Substring(0, saltLength);
-
-            foreach (string hashingAlgorithmName in HashingAlgorithms)
-            {
-                HashAlgorithm hash = HashAlgorithm.Create(hashingAlgorithmName);
-                string hashedPassword = hash_contrasena(password, saltValue, hash);
-                if (profilePassword.Equals(hashedPassword, StringComparison.Ordinal))
-                    return true;
-            }
-
-            // None of the hashing algorithms could verify the password.
-            return false;
-        }
     }
 }

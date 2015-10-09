@@ -14,11 +14,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SAPS.Codigo_Fuente.Ayudantes;
 
 namespace SAPS.Entidades
 {
     public class RecursoHumano
     { 
+        // Variables de instancia
+        private Seguridad m_seguridad;
         private string m_usuario;
         private string m_nombre;
         private string m_correo;
@@ -26,21 +29,37 @@ namespace SAPS.Entidades
         private string m_proyecto_asociado;
         private string m_contrasena;
         private bool m_es_administrador;
+        private string m_cedula;
+        private string m_rol;
 
+        // Constructor
         public RecursoHumano(Object[] datos) {
+            m_seguridad = new Seguridad();
+
             m_usuario = datos[0].ToString();
             m_nombre = datos[1].ToString();
             m_correo = datos[2].ToString();
             m_telefono = datos[3].ToString();
             m_proyecto_asociado = datos[4].ToString();
-            m_contrasena = datos[5].ToString();         // SE ASUME QUE YA LLEGA HASHEADA LA CONTRASEÑA
+            m_contrasena = m_seguridad.hash_constrasena(datos[5].ToString());         // LA CONTRASEÑA HASHEADA AQUÍ
             m_es_administrador = Convert.ToBoolean(datos[6]);
+            m_cedula = datos[7].ToString();
+            m_rol = datos[8].ToString();
         }
+
+
+        // Métodos
 
         public string usuario
         {
             get { return m_usuario; }
             set { m_usuario = value; }
+        }
+
+        public string rol
+        {
+            get { return m_rol; }
+            set { m_rol = value; }
         }
 
         public string nombre

@@ -33,9 +33,7 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
                 "\' );";
 
             Console.WriteLine("Ejecutando: " + consulta);
-            m_data_base_adapter.ejecutar_consulta(consulta);
-
-            return 0;
+            return m_data_base_adapter.ejecutar_consulta(consulta);
         }
 
         public int modificar_recurso_humano(RecursoHumano recurso_humano)
@@ -48,9 +46,7 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
                 "\';";
 
             Console.WriteLine("Ejecutando: " + consulta);
-            m_data_base_adapter.ejecutar_consulta(consulta);
-
-            return 0;
+            return m_data_base_adapter.ejecutar_consulta(consulta);
         }
 
         public int eliminar_recurso_humano(string nombre_usuario)
@@ -59,9 +55,7 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
                 "\';";
 
             Console.WriteLine("Ejecutando: " + consulta);
-            m_data_base_adapter.ejecutar_consulta(consulta);
-            
-            return 0;
+            return m_data_base_adapter.ejecutar_consulta(consulta);
         }
 
         public DataTable consultar_recurso_humano(string nombre_usuario)
@@ -70,19 +64,15 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
                 "\';";
 
             Console.WriteLine("Ejecutando: " + consulta);
-            m_data_base_adapter.ejecutar_consulta(consulta);
-
-            return null;
+            return m_data_base_adapter.obtener_resultado_consulta(consulta);
         }
 
         public DataTable solicitar_recursos_disponibles()
         {
             string consulta = "SELECT nombre FROM RecursosHumanos";
 
-            Console.WriteLine("Ejecutando: "+consulta);
-            m_data_base_adapter.ejecutar_consulta(consulta);
-
-            return null;
+            Console.WriteLine("Ejecutando: "+ consulta);
+            return m_data_base_adapter.obtener_resultado_consulta(consulta);
         }
     }
 }

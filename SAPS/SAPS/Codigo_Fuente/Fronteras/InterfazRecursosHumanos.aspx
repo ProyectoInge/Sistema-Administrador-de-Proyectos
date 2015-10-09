@@ -17,6 +17,18 @@
         </div>
     </section>
     <br/>
+    <section id="alertas">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <b><asp:Label runat="server" ID="titulo_alerta" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
+            </div>
+            <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <b><asp:Label runat="server" ID="Label1" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
+            </div>
+        </div>
+    </section>
     <br/>
     <section id="form" class="col-md-offset-1">
         <div id="row1" class="row"">
@@ -65,7 +77,7 @@
                     <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="control-label">Correo</asp:Label>
                 </div>
                 <div class="col-md-3">
-                    <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" />
+                    <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" placeholder="ejemplo@ejemplo.com"/>
                 </div>
                 <div class="col-md-1"><!-- Espacio al propio--></div>
                 <div class="col-md-2">
@@ -105,6 +117,19 @@
         <div id="row5" class="row">
             <div class="form-group">
                 <div class="col-md-2">
+                    <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula</asp:Label>
+                </div>
+                <div class="col-md-3">
+                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
+                </div>
+                <div class="col-md-1"><!-- Espacio al propio--></div>
+                <div class="col-md-5"><!-- Espacio al propio--></div>
+            </div>
+        </div>
+        <br />
+        <div id="row6" class="row">
+            <div class="form-group">
+                <div class="col-md-2">
                     <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
                 </div>
                 <div class="col-md-3">
@@ -134,6 +159,7 @@
             <h4>Recursos humanos disponibles</h4>
         </div>
     </section>
+    <br />
     <section id="area_consultas" class="col-md-offset-3">
         <div class="row">
             <div class="col-md-1">
@@ -146,6 +172,26 @@
                 </asp:Table>
                 <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente o
                     en el archivo InterfazRecursosHumanos.aspx.cs en el constructro hay un ejemplo de como llenarla -->
+            </div>
+        </div>
+    </section>
+    <section id="modal">
+        <!-- Bootstrap Modal Dialog -->
+        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title"><asp:Label ID="titulo_modal" runat="server" Text=""></asp:Label></h4>
+                            </div>
+                            <div class="modal-body">
+                                <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
     </section>
