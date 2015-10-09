@@ -1,16 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InterfazProyectosDePruebas.aspx.cs" Inherits="SAPS.Codigo_Fuente.Fronteras.InterfazProyectosDePruebas" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazProyectosDePruebas.aspx.cs" Inherits="SAPS.Codigo_Fuente.Fronteras.InterfazProyectosDePruebas" %>
 
-<!DOCTYPE html>
+<asp:Content ID="content_pdp" ContentPlaceHolderID="MainContent" runat="server">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>
-</body>
-</html>
+
+
+    </asp:Content>
+
+
