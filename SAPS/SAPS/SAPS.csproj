@@ -170,6 +170,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -348,7 +349,15 @@
     <Compile Include="Codigo_Fuente\Ayudantes\Seguridad.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDRecursosHumanos.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\DataBaseAdapter.cs" />
+    <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectosDePruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx.cs">
+      <DependentUpon>InterfazProyectosDePruebas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx.designer.cs">
+      <DependentUpon>InterfazProyectosDePruebas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
