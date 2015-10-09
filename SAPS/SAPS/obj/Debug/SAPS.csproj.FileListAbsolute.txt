@@ -130,3 +130,6 @@ F:\Fabian\Documents\Inge Soft I\Sistema-Administrador-de-Proyectos\SAPS\SAPS\bin
 F:\Fabian\Documents\Inge Soft I\Sistema-Administrador-de-Proyectos\SAPS\SAPS\obj\Debug\SAPS.dll
 F:\Fabian\Documents\Inge Soft I\Sistema-Administrador-de-Proyectos\SAPS\SAPS\obj\Debug\SAPS.pdb
 F:\Fabian\Documents\Inge Soft I\Sistema-Administrador-de-Proyectos\SAPS\SAPS\obj\Debug\SAPS.csprojResolveAssemblyReference.cache
+C:\Users\Jose\Documents\UCR\Ingeniera de Software 1\Sistema-Administrador-de-Proyectos\SAPS\SAPS\obj\Debug\SAPS.csprojResolveAssemblyReference.cache
+C:\Users\Jose\Documents\UCR\Ingeniera de Software 1\Sistema-Administrador-de-Proyectos\SAPS\SAPS\obj\Debug\SAPS.dll
+C:\Users\Jose\Documents\UCR\Ingeniera de Software 1\Sistema-Administrador-de-Proyectos\SAPS\SAPS\obj\Debug\SAPS.pdb
