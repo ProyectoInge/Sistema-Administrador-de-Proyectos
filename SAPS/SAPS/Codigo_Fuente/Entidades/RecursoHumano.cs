@@ -62,6 +62,12 @@ namespace SAPS.Entidades
             set { m_rol = value; }
         }
 
+        public string cedula
+        {
+            get { return m_cedula; }
+            set { m_cedula = value; }
+        }
+
         public string nombre
         {
             get { return m_nombre; }

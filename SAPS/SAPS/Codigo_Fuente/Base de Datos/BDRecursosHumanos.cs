@@ -28,16 +28,38 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
          */
         public int insertar_recurso_humano(RecursoHumano recurso_humano)
         {
-            string consulta = "INSERT INTO RecursosHumanos VALUES( \'" + recurso_humano.usuario +
-                "\' , \'" + recurso_humano.proyecto_asociado +
-                "\' , \'" + recurso_humano.telefono +
-                "\' , \'" + recurso_humano.contrasena +
-                "\' , \'" + recurso_humano.correo +
-                "\' , \'" + recurso_humano.es_administrador +
-                "\' );";
+            string consulta="";
+            int admin = recurso_humano.es_administrador ? 1 : 0; //si se tira el bool a la consulta, este imprime True o False, no 1 o 0.
+            if (recurso_humano.es_administrador)
+            {
+                consulta = "INSERT INTO RecursosHumanos VALUES( \'" + recurso_humano.usuario +
+                    "\' , \'" + recurso_humano.cedula +
+                    "' , null "+
+                    " , \'" + recurso_humano.telefono +
+                    "\' , \'"+recurso_humano.nombre +
+                    "\' , \'" + recurso_humano.contrasena +
+                    "\' , \'" + recurso_humano.correo +
+                    "' , null "+
+                    " , " + admin +
+                    " );\n";
+            }
+            else
+            {
+                
+                consulta = "INSERT INTO RecursosHumanos VALUES( \'" + recurso_humano.usuario +
+                    "\' , \'" + recurso_humano.proyecto_asociado +
+                    "\' , \'" + recurso_humano.telefono +
+                    "\' , \'" + recurso_humano.nombre +
+                    "\' , \'" + recurso_humano.contrasena +
+                    "\' , \'" + recurso_humano.correo +
+                    "\' , \'" + recurso_humano.rol + 
+                    "\' , " + admin +
+                    " );\n";
+            }
+            
 
             // DEBUG
-            Console.WriteLine("Ejecutando: " + consulta);
+            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
             return m_data_base_adapter.ejecutar_consulta(consulta);
         }
 
@@ -51,11 +73,12 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
                 "\', telefono = \'" + recurso_humano.telefono +
                 "\', nombre = \'" + recurso_humano.nombre +
                 "\', correo = \'" + recurso_humano.correo +
+                "\', rol = \'" + recurso_humano.rol +
                 "\' WHERE username = \'" + recurso_humano.usuario +
                 "\';";
 
             // DEBUG
-            Console.WriteLine("Ejecutando: " + consulta);
+            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
             return m_data_base_adapter.ejecutar_consulta(consulta);
         }
 
@@ -70,7 +93,7 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
                 "\';";
 
             // DEBUG
-            Console.WriteLine("Ejecutando: " + consulta);
+            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
             return m_data_base_adapter.ejecutar_consulta(consulta);
         }
 
@@ -84,7 +107,7 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
                 "\';";
 
             // DEBUG
-            Console.WriteLine("Ejecutando: " + consulta);
+            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
             return m_data_base_adapter.obtener_resultado_consulta(consulta);
         }
 
@@ -96,7 +119,7 @@ namespace SAPS.Codigo_Fuente.Base_de_Datos
             string consulta = "SELECT nombre FROM RecursosHumanos";
 
             // DEBUG
-            Console.WriteLine("Ejecutando: "+ consulta);
+            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
             return m_data_base_adapter.obtener_resultado_consulta(consulta);
         }
     }
