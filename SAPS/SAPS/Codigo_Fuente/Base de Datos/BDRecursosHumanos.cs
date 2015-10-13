@@ -17,6 +17,10 @@ using SAPS.Entidades;
 
 namespace SAPS.Base_de_Datos
 {
+    /** @brief capa encargada de comunicarse con la base de datos 
+      * para efectuar las correspondientes inserciones, modificaciones, eliminaciones y consultas SQL
+     *  relacionadas con los recusros humanos.
+     */
     public class BDRecursosHumanos
     {
         // Variables de instacia

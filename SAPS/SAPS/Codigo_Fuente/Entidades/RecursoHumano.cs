@@ -14,7 +14,7 @@ using SAPS.Ayudantes;
 
 namespace SAPS.Entidades
 {
-    /** @brief Esta clase entidad se encarga de crear objetos @c RecursoHumano 
+    /** @brief Esta clase entidad se encarga de crear objetos RecursoHumano 
      * para encapsular los atributos de un recurso humano de los proyectos.
      */
     public class RecursoHumano

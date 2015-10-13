@@ -11,9 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SAPS.Codigo_Fuente.Entidades
+namespace SAPS.Entidades
 {
-    /** @brief Esta clase entidad se encarga de crear objetos @c ProyectoPruebas para encapsular los atributos
+    /** @brief Esta clase entidad se encarga de crear objetos ProyectoPruebas para encapsular los atributos
      * de los proyectos.
      */
     public class ProyectoPruebas

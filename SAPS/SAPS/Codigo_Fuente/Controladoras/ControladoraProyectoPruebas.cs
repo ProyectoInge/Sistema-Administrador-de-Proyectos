@@ -11,8 +11,9 @@ using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SAPS.Entidades;
 
-namespace SAPS.Codigo_Fuente.Controladoras
+namespace SAPS.Controladoras
 {
     /** @brief efectuar las comunicaciones relacionadas con Proyecto Pruebas con la capa de
      * interfaz y la capa de  base de datos.
@@ -20,7 +21,7 @@ namespace SAPS.Codigo_Fuente.Controladoras
     public class ControladoraProyectoPruebas
     {
         //Variables de instancia
-
+        ProyectoPruebas m_entidad_proyecto;
         //Constructor
         public ControladoraProyectoPruebas()
         {
