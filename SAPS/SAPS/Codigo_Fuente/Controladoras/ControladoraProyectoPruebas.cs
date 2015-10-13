@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * Universidad de Costa Rica
+ * Escuela de Ciencias de la Computación e Informática
+ * Ingeniería de Software I
+ * Sistema Administrador de Proyectos de Software (SAPS)
+ * II Semestre 2015
+*/
+
+using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +14,9 @@ using System.Web;
 
 namespace SAPS.Codigo_Fuente.Controladoras
 {
+    /** @brief efectuar las comunicaciones relacionadas con Proyecto Pruebas con la capa de
+     * interfaz y la capa de  base de datos.
+     */
     public class ControladoraProyectoPruebas
     {
         //Variables de instancia
@@ -15,6 +26,7 @@ namespace SAPS.Codigo_Fuente.Controladoras
         {
 
         }
+        
         public int insertar_proyecto(Object[] datos)
         {
             return 0;
