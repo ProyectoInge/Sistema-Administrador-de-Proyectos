@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
-using SAPS.Codigo_Fuente.Base_de_Datos;
+using SAPS.Base_de_Datos;
 using SAPS.Entidades;
 
-namespace SAPS.Codigo_Fuente.Base_de_Datos
+namespace SAPS.Base_de_Datos
 {
     public class BDRecursosHumanos
     {

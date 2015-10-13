@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Globalization;
 using System.Collections.ObjectModel;
 
-namespace SAPS.Codigo_Fuente.Ayudantes
+namespace SAPS.Ayudantes
 {
     /* Metodos de seguridad para las contraseñas
     * Estos metodos se obtuvieron de:

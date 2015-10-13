@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using SAPS.Entidades;
-using SAPS.Codigo_Fuente.Base_de_Datos;
-using SAPS.Codigo_Fuente.Ayudantes;
+using SAPS.Base_de_Datos;
+using SAPS.Ayudantes;
 
-namespace SAPS.Codigo_Fuente.Controladoras
+namespace SAPS.Controladoras
 {
     public class ControladoraRecursosHumanos
     {
