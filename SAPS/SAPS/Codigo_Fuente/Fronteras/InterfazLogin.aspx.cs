@@ -60,7 +60,6 @@ namespace SAPS.Fronteras
                     SetFocus(input_contrasena);
 
                 }
-
             }
             else
             {
