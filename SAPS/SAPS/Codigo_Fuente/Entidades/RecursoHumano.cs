@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SAPS.Codigo_Fuente.Ayudantes;
+using SAPS.Ayudantes;
 
 namespace SAPS.Entidades
 {

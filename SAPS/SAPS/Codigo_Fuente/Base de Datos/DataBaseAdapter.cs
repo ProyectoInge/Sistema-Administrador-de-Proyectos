@@ -16,7 +16,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 
-namespace SAPS.Codigo_Fuente.Base_de_Datos
+namespace SAPS.Base_de_Datos
 {
     public class DataBaseAdapter
     {

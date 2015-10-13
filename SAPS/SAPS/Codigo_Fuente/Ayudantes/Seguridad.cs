@@ -16,7 +16,7 @@ using System.Security.Cryptography;
 using System.Globalization;
 using System.Collections.ObjectModel;
 
-namespace SAPS.Codigo_Fuente.Ayudantes
+namespace SAPS.Ayudantes
 {
     /* @brief Clase que encapsula los método para realizar funciones hash a las contraseñas.
      * 
