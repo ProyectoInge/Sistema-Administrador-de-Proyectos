@@ -21,7 +21,7 @@ namespace SAPS.Base_de_Datos
 
         public DataTable obtener_resultado_consulta(SqlCommand comando_sql)
         {
-            SqlConnection conexionSQL = new SqlConnection(conexion);   // TO DO xq no lleva un try catch?
+            SqlConnection conexionSQL = new SqlConnection(conexion);   // @todo investigar si no lleva un try catch?
             comando_sql.Connection = conexionSQL;
             comando_sql.Connection.Open();
             SqlDataAdapter adaptador_sql = new SqlDataAdapter(comando_sql); //recibe el resultado de la consulta

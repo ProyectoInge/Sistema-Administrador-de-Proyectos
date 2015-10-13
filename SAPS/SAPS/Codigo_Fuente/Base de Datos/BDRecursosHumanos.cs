@@ -88,12 +88,11 @@ namespace SAPS.Base_de_Datos
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_RECURSOS_DISPONILES");
             comando.CommandType = CommandType.StoredProcedure;
-            return null;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
         private void rellenar_parametros_recurso_humano(ref SqlCommand comando, RecursoHumano recurso_humano )
         {
-
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@username", SqlDbType.VarChar).Value = recurso_humano.usuario;
             comando.Parameters.Add("@cedula", SqlDbType.VarChar).Value = recurso_humano.cedula;
