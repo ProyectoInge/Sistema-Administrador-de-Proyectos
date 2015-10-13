@@ -164,12 +164,12 @@
     <Content Include="Account\ManageLogins.aspx" />
     <Content Include="Account\ManagePassword.aspx" />
     <Content Include="Account\OpenAuthProviders.ascx" />
-    <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
@@ -293,13 +293,6 @@
     <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
       <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Account\Register.aspx.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Account\Register.aspx.designer.cs">
-      <DependentUpon>Register.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Account\RegisterExternalLogin.aspx.cs">
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -352,6 +345,13 @@
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
     <Compile Include="Codigo_Fuente\Entidades\ProyectoPruebas.cs" />
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx.cs">
+      <DependentUpon>InterfazLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx.designer.cs">
+      <DependentUpon>InterfazLogin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx.cs">
       <DependentUpon>InterfazProyectosDePruebas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

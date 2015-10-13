@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data;
-using System.Data.SqlClient;
-using SAPS.Base_de_Datos;
+﻿using System.Data;
 using SAPS.Entidades;
 
 namespace SAPS.Base_de_Datos
