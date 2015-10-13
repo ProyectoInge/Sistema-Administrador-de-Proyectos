@@ -7,18 +7,13 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using SAPS.Controladoras;
 using System.Text.RegularExpressions;
 
 namespace SAPS.Fronteras
 {
-    /** @brief Esta clase frontera se encarga de obtener los datos y los eventos que el usuario selecciona,
-     * se lo pasa a la controladora de la clase recurso_humano. 
+    /** @brief Esta clase frontera se encarga de obtener los datos y los eventos que el usuario selecciona, se lo pasa a la controladora de la clase recurso_humano.
      */
     public partial class Recursos_Humanos : System.Web.UI.Page
     {
@@ -325,7 +320,6 @@ namespace SAPS.Fronteras
                                 }
                                 else
                                 {
-
                                     cuerpo_alerta_error.Text = "Es necesario ingresar un número de teléfono válido.";
                                     SetFocus(input_telefono);
                                     a_retornar = false;
@@ -340,7 +334,6 @@ namespace SAPS.Fronteras
                         }
                         else
                         {
-
                             cuerpo_alerta_error.Text = "Es necesario ingresar un correo electrónico.";
                             SetFocus(input_correo);
                             a_retornar = false;
@@ -348,7 +341,6 @@ namespace SAPS.Fronteras
                     }
                     else
                     {
-
                         cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
                         SetFocus(input_usuario);
                         a_retornar = false;
