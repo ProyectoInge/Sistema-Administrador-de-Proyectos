@@ -4,10 +4,6 @@
  * Ingeniería de Software I
  * Sistema Administrador de Proyectos de Software (SAPS)
  * II Semestre 2015
- * --------------------------------------------------------------------------------------------
- * Esta clase frontera se encarga de obtener los datos y los eventos que el usuario selecciona,
- * se lo pasa a la controladora de la clase recurso_humano.
- * --------------------------------------------------------------------------------------------
 */
 
 using System;
@@ -21,9 +17,12 @@ using System.Text.RegularExpressions;
 
 namespace SAPS.Fronteras
 {
+    /** @brief Esta clase frontera se encarga de obtener los datos y los eventos que el usuario selecciona,
+     * se lo pasa a la controladora de la clase recurso_humano. 
+     */
     public partial class Recursos_Humanos : System.Web.UI.Page
     {
-        //Variable de instancia
+        // Variables de instancia
         private ControladoraRecursosHumanos m_controladora_rh;
         char m_opcion; // i = insertar, m = modificar, e = eliminar
 
