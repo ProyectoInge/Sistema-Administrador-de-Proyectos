@@ -19,31 +19,31 @@ namespace SAPS.Base_de_Datos
             "User id=masterwizard;" +
             "Password=urenaselacome;";
 
-        public DataTable obtener_resultado_consulta(String consulta)
+        public DataTable obtener_resultado_consulta(SqlCommand comando_sql)
         {
-            SqlConnection conexionSQL = new SqlConnection(conexion);
-            conexionSQL.Open(); //comienza a recibir consultas
-            SqlCommand comandoSQL = new SqlCommand(consulta, conexionSQL);
-            SqlDataAdapter adaptadorSQL = new SqlDataAdapter(comandoSQL); //recibe el resultado de la consulta
-
-            SqlCommandBuilder constructorSQL = new SqlCommandBuilder(adaptadorSQL);
-
+            SqlConnection conexionSQL = new SqlConnection(conexion);   // TO DO xq no lleva un try catch?
+            comando_sql.Connection = conexionSQL;
+            comando_sql.Connection.Open();
+            SqlDataAdapter adaptador_sql = new SqlDataAdapter(comando_sql); //recibe el resultado de la consulta
+            SqlCommandBuilder constructor_sql= new SqlCommandBuilder(adaptador_sql);
             DataTable tabla = new DataTable(); //la tabla recibe el resultado del comando
-            adaptadorSQL.Fill(tabla); //se popula la tabla
+            adaptador_sql.Fill(tabla); //se popula la tabla
+            comando_sql.Dispose();
+            comando_sql.Connection.Close();
 
             return tabla;
         }
 
-        public int ejecutar_consulta(String consulta)
+        public int ejecutar_consulta(SqlCommand comando_sql)
         {
             try
             {
                 SqlConnection conexionSQL = new SqlConnection(conexion);
-                conexionSQL.Open(); //comienza a recibir consultas
-                SqlCommand comandoSQL = new SqlCommand(consulta, conexionSQL);
-                comandoSQL.ExecuteNonQuery();
-                comandoSQL.Dispose();
-                conexionSQL.Close();
+                comando_sql.Connection = conexionSQL;
+                comando_sql.Connection.Open();           
+                comando_sql.ExecuteNonQuery();
+                comando_sql.Dispose();
+                comando_sql.Connection.Close();
             }
             catch (Exception ex)
             {

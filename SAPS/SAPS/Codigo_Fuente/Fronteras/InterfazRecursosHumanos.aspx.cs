@@ -24,14 +24,15 @@ namespace SAPS.Fronteras
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
         {
-            m_controladora_rh = new ControladoraRecursosHumanos();
+            /*m_controladora_rh = new ControladoraRecursosHumanos();
             m_opcion = 'i';
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             drop_proyecto_asociado.Enabled = false;
             drop_rol.Enabled = false;
             activa_desactiva_botones_ime(false);
-            llena_recursos_humanos();
+            llena_recursos_humanos();*/
+
 
         }
 
