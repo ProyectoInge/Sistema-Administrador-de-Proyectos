@@ -1,3 +1,11 @@
+/*
+ * Universidad de Costa Rica
+ * Escuela de Ciencias de la Computación e Informática
+ * Ingeniería de Software I
+ * Sistema Administrador de Proyectos de Software (SAPS)
+ * II Semestre 2015
+*/
+
 using System;
 using System.Data;
 using SAPS.Entidades;
@@ -5,6 +13,9 @@ using SAPS.Base_de_Datos;
 
 namespace SAPS.Controladoras
 {
+    /** @brief efectuar las comunicaciones relacionadas con Recursos Humanos con la capa de
+     * interfaz y la capa de  base de datos.
+     */
     public class ControladoraRecursosHumanos
     {
         // Variables de instancia
@@ -21,7 +32,7 @@ namespace SAPS.Controladoras
         // Métodos
 
         /** @brief Método que asigna las operaciones necesarias para poder insertar un recurso humano.
-         * @param datos array que contiene los datos para poder crear un recurso humano.
+         * @param datos vector que contiene los datos para poder crear un recurso humano.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int insertar_recurso_humano(Object[] datos) 
@@ -31,7 +42,7 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder modificar un recurso humano.
-         * @param datos array que contiene los datos para poder crear un recurso humano.
+         * @param datos vector que contiene los datos para poder crear un recurso humano.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int modificar_recurso_humano(Object[] datos) 
@@ -41,7 +52,7 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder eliminar un recurso humano.
-         * @param datos array que contiene los datos para poder crear un recurso humano.
+         * @param nombre_usuario nombre de usuario del recursos humano a eliminar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int eliminar_recurso_humano(string nombre_usuario) 
@@ -50,7 +61,7 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar un recurso humano en específico.
-         * @param datos array que contiene los datos para poder crear un recurso humano.
+         * @param nombre_usuario nombre de usuario del recursos humano a consultar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public DataTable consultar_recurso_humano(string nombre_usuario)
@@ -59,7 +70,6 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar los recursos humanos disponibles.
-         * @param datos array que contiene los datos para poder crear un recurso humano.
          * @return DataTable con los resultados de la consultas.
          */
         public DataTable solicitar_recursos_disponibles()

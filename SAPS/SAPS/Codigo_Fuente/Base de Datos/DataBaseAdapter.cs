@@ -1,4 +1,11 @@
-﻿
+﻿/*
+ * Universidad de Costa Rica
+ * Escuela de Ciencias de la Computación e Informática
+ * Ingeniería de Software I
+ * Sistema Administrador de Proyectos de Software (SAPS)
+ * II Semestre 2015
+*/
+
 using System;
 using System.Data;
 using System.Data.SqlClient;

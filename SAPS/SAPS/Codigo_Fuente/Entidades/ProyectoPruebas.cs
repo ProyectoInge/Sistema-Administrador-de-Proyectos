@@ -4,16 +4,15 @@
  * Ingeniería de Software I
  * Sistema Administrador de Proyectos de Software (SAPS)
  * II Semestre 2015
- * ---------------------------------------------------------------------------------------------
- * Esta clase entidad se encarga de crear objetos "ProyectoPruebas" para encapsular los atributos
- * de los proyectos.
- * ---------------------------------------------------------------------------------------------
 */
 
 using System;
 
 namespace SAPS.Entidades
 {
+    /** @brief Esta clase entidad se encarga de crear objetos ProyectoPruebas para encapsular los atributos
+     * de los proyectos.
+     */
     public class ProyectoPruebas
     {
         private string m_id;

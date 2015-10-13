@@ -4,10 +4,6 @@
  * Ingeniería de Software I
  * Sistema Administrador de Proyectos de Software (SAPS)
  * II Semestre 2015
- * ---------------------------------------------------------------------------------------------
- * Esta clase entidad se encarga de crear objetos "RecursoHumano" para encapsular los atributos
- * de un recurso humano de los proyectos.
- * ---------------------------------------------------------------------------------------------
 */
 
 using System;
@@ -15,6 +11,9 @@ using SAPS.Ayudantes;
 
 namespace SAPS.Entidades
 {
+    /** @brief Esta clase entidad se encarga de crear objetos RecursoHumano 
+     * para encapsular los atributos de un recurso humano de los proyectos.
+     */
     public class RecursoHumano
     { 
         // Variables de instancia

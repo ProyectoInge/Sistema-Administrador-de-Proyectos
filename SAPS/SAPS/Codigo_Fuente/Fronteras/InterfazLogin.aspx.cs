@@ -47,6 +47,11 @@ namespace SAPS.Fronteras
                     {
                         Response.Redirect("~/"); // Si el usuario se autentica correctamente, lo dirige a la pantalla de inicio.
                     }
+                    else
+                    {
+                        alerta_error.Visible = true;
+                        cuerpo_alerta_error.Text = "Los datos ingresados no son válidos.";
+                    }
                 }
                 else
                 {

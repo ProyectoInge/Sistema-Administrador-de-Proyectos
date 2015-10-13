@@ -1,8 +1,24 @@
-﻿using System.Data;
+﻿/*
+ * Universidad de Costa Rica
+ * Escuela de Ciencias de la Computación e Informática
+ * Ingeniería de Software I
+ * Sistema Administrador de Proyectos de Software (SAPS)
+ * II Semestre 2015
+*/
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data;
 using SAPS.Entidades;
 
 namespace SAPS.Base_de_Datos
 {
+    /** @brief capa encargada de comunicarse con la base de datos 
+      * para efectuar las correspondientes inserciones, modificaciones, eliminaciones y consultas SQL
+     *  relacionadas con los recusros humanos.
+     */
     public class BDRecursosHumanos
     {
         // Variables de instacia
