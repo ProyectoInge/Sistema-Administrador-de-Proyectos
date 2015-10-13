@@ -45,6 +45,7 @@ create table RecursosHumanos(
 	nombre				varchar(64) NOT NULL,
 	contrasena			varchar(256) NOT NULL,
 	correo				varchar(64) NOT NULL,
+	rol					varchar(64),
 	es_administrador	bit NOT NULL
 );
 

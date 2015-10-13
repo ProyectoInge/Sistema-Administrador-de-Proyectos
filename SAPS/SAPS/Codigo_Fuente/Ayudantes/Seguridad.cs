@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * Universidad de Costa Rica
+ * Escuela de Ciencias de la Computación e Informática
+ * Ingeniería de Software I
+ * Sistema Administrador de Proyectos de Software (SAPS)
+ * II Semestre 2015
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,12 +16,13 @@ using System.Security.Cryptography;
 using System.Globalization;
 using System.Collections.ObjectModel;
 
-namespace SAPS.Codigo_Fuente.Ayudantes
+namespace SAPS.Ayudantes
 {
-    /* Metodos de seguridad para las contraseñas
-    * Estos metodos se obtuvieron de:
-    * genera_salt y hash_contrasena: https://msdn.microsoft.com/en-us/library/aa545602(v=cs.70).aspx
-    * valida_contrasena: https://msdn.microsoft.com/en-us/library/aa545760(v=cs.70).aspx
+    /* @brief Clase que encapsula los método para realizar funciones hash a las contraseñas.
+     * 
+     * Estos metodos se obtuvieron de:
+     * genera_salt y hash_contrasena: https://msdn.microsoft.com/en-us/library/aa545602(v=cs.70).aspx
+     * valida_contrasena: https://msdn.microsoft.com/en-us/library/aa545760(v=cs.70).aspx
     */
     public class Seguridad
     {

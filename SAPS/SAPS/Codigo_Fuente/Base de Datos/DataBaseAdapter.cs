@@ -1,4 +1,11 @@
-﻿
+﻿/*
+ * Universidad de Costa Rica
+ * Escuela de Ciencias de la Computación e Informática
+ * Ingeniería de Software I
+ * Sistema Administrador de Proyectos de Software (SAPS)
+ * II Semestre 2015
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +16,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 
-namespace SAPS.Codigo_Fuente.Base_de_Datos
+namespace SAPS.Base_de_Datos
 {
     public class DataBaseAdapter
     {
