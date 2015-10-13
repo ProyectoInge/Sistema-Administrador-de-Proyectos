@@ -65,7 +65,7 @@ namespace SAPS.Base_de_Datos
         {
             SqlCommand comando = new SqlCommand("ELIMINAR_RH");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario; 
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
@@ -91,7 +91,7 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
-        private void rellenar_parametros_recurso_humano(ref SqlCommand comando, RecursoHumano recurso_humano )
+        private void rellenar_parametros_recurso_humano(ref SqlCommand comando, RecursoHumano recurso_humano)
         {
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@username", SqlDbType.VarChar).Value = recurso_humano.usuario;
@@ -113,3 +113,4 @@ namespace SAPS.Base_de_Datos
         }
 
     }
+}
