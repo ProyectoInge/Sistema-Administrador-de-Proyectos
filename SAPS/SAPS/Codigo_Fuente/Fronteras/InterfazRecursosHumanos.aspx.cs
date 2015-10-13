@@ -7,18 +7,13 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using SAPS.Controladoras;
 using System.Text.RegularExpressions;
 
 namespace SAPS.Fronteras
 {
-    /** @brief Esta clase frontera se encarga de obtener los datos y los eventos que el usuario selecciona,
-     * se lo pasa a la controladora de la clase recurso_humano. 
+    /** @brief Esta clase frontera se encarga de obtener los datos y los eventos que el usuario selecciona, se lo pasa a la controladora de la clase recurso_humano.
      */
     public partial class Recursos_Humanos : System.Web.UI.Page
     {
@@ -29,14 +24,15 @@ namespace SAPS.Fronteras
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
         {
-            m_controladora_rh = new ControladoraRecursosHumanos();
+            /*m_controladora_rh = new ControladoraRecursosHumanos();
             m_opcion = 'i';
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             drop_proyecto_asociado.Enabled = false;
             drop_rol.Enabled = false;
             activa_desactiva_botones_ime(false);
-            llena_recursos_humanos();
+            llena_recursos_humanos();*/
+
 
         }
 
@@ -325,7 +321,6 @@ namespace SAPS.Fronteras
                                 }
                                 else
                                 {
-
                                     cuerpo_alerta_error.Text = "Es necesario ingresar un número de teléfono válido.";
                                     SetFocus(input_telefono);
                                     a_retornar = false;
@@ -340,7 +335,6 @@ namespace SAPS.Fronteras
                         }
                         else
                         {
-
                             cuerpo_alerta_error.Text = "Es necesario ingresar un correo electrónico.";
                             SetFocus(input_correo);
                             a_retornar = false;
@@ -348,7 +342,6 @@ namespace SAPS.Fronteras
                     }
                     else
                     {
-
                         cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
                         SetFocus(input_usuario);
                         a_retornar = false;
