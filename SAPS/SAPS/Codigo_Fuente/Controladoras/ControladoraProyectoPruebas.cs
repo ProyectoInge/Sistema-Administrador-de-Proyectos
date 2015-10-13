@@ -50,21 +50,21 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder eliminar un proyecto de pruebas.
-         * @param string con el nombre del proyecto que se desea eliminar.
+         * @param id_proyecto con el nombre del proyecto que se desea eliminar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int eliminar_proyecto(string nombre_proyecto)
+        public int eliminar_proyecto(int id_proyecto)
         {
-            return m_base_datos.eliminar_proyecto(nombre_proyecto);
+            return m_base_datos.eliminar_proyecto(id_proyecto);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar un proyecto de pruebas en específico.
-         * @param string con el nombre del proyecto que se desea cosultar.
+         * @param id_proyecto con el nombre del proyecto que se desea cosultar.
          * @return DataTable con los resultados de la consultas.
          */
-        public DataTable consultar_proyecto(string nombre_proyecto)
+        public DataTable consultar_proyecto(int id_proyecto)
         {
-            return m_base_datos.consultar_proyecto(nombre_proyecto);
+            return m_base_datos.consultar_proyecto(id_proyecto);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar los resucursos humanos dispinibles.
