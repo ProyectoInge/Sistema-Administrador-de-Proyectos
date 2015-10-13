@@ -40,39 +40,10 @@ namespace SAPS.Base_de_Datos
          */
         public int insertar_recurso_humano(RecursoHumano recurso_humano)
         {
-            string consulta="";
-            int admin = recurso_humano.es_administrador ? 1 : 0; //si se tira el bool a la consulta, este imprime True o False, no 1 o 0.
-            if (recurso_humano.es_administrador)
-            {
-                consulta = "INSERT INTO RecursosHumanos VALUES( \'" + recurso_humano.usuario +
-                    "\' , \'" + recurso_humano.cedula +
-                    "' , null "+
-                    " , \'" + recurso_humano.telefono +
-                    "\' , \'"+recurso_humano.nombre +
-                    "\' , \'" + recurso_humano.contrasena +
-                    "\' , \'" + recurso_humano.correo +
-                    "' , null "+
-                    " , " + admin +
-                    " );\n";
-            }
-            else
-            {
-                
-                consulta = "INSERT INTO RecursosHumanos VALUES( \'" + recurso_humano.usuario +
-                    "\' , \'" + recurso_humano.proyecto_asociado +
-                    "\' , \'" + recurso_humano.telefono +
-                    "\' , \'" + recurso_humano.nombre +
-                    "\' , \'" + recurso_humano.contrasena +
-                    "\' , \'" + recurso_humano.correo +
-                    "\' , \'" + recurso_humano.rol + 
-                    "\' , " + admin +
-                    " );\n";
-            }
-            
 
-            // DEBUG
-            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
-            return m_data_base_adapter.ejecutar_consulta(consulta);
+            SqlCommand comando = new SqlCommand("INSERTAR_RH");
+            rellenar_parametros_recurso_humano(ref comando, recurso_humano);
+            return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
         /** @brief Método que realiza la setencia SQL para modificar un recurso humano.
@@ -81,17 +52,9 @@ namespace SAPS.Base_de_Datos
          */
         public int modificar_recurso_humano(RecursoHumano recurso_humano)
         {
-            string consulta = "UPDATE RecursosHumanos SET id_proyecto = \'" + recurso_humano.proyecto_asociado +
-                "\', telefono = \'" + recurso_humano.telefono +
-                "\', nombre = \'" + recurso_humano.nombre +
-                "\', correo = \'" + recurso_humano.correo +
-                "\', rol = \'" + recurso_humano.rol +
-                "\' WHERE username = \'" + recurso_humano.usuario +
-                "\';";
-
-            // DEBUG
-            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
-            return m_data_base_adapter.ejecutar_consulta(consulta);
+            SqlCommand comando = new SqlCommand("MODIFICAR_RH");
+            rellenar_parametros_recurso_humano(ref comando, recurso_humano);
+            return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
 
@@ -101,12 +64,10 @@ namespace SAPS.Base_de_Datos
          */
         public int eliminar_recurso_humano(string nombre_usuario)
         {
-            string consulta = "DELETE FROM RecursosHumanos WHERE username = \'" + nombre_usuario +
-                "\';";
-
-            // DEBUG
-            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
-            return m_data_base_adapter.ejecutar_consulta(consulta);
+            SqlCommand comando = new SqlCommand("ELIMINAR_RH");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario; 
+            return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
         /** @brief Método que realiza la setencia SQL para conultar un recurso humano en específico.
@@ -115,12 +76,10 @@ namespace SAPS.Base_de_Datos
          */
         public DataTable consultar_recurso_humano(string nombre_usuario)
         {
-            string consulta = "SELECT * FROM RecursosHumanos WHERE username = \'" + nombre_usuario +
-                "\';";
-
-            // DEBUG
-            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
-            return m_data_base_adapter.obtener_resultado_consulta(consulta);
+            SqlCommand comando = new SqlCommand("CONSULTAR_RH");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
         /** @brief Método que realiza la setencia SQL para conultar todos recursos humanos que se encuentran en la Base de Datos.
@@ -128,11 +87,32 @@ namespace SAPS.Base_de_Datos
          */
         public DataTable solicitar_recursos_disponibles()
         {
-            string consulta = "SELECT nombre FROM RecursosHumanos";
-
-            // DEBUG
-            System.Diagnostics.Debug.Write("Ejecutando: " + consulta);
-            return m_data_base_adapter.obtener_resultado_consulta(consulta);
+            SqlCommand comando = new SqlCommand("CONSULTAR_RECURSOS_DISPONILES");
+            comando.CommandType = CommandType.StoredProcedure;
+            return null;
         }
+
+        private void rellenar_parametros_recurso_humano(ref SqlCommand comando, RecursoHumano recurso_humano )
+        {
+
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = recurso_humano.usuario;
+            comando.Parameters.Add("@cedula", SqlDbType.VarChar).Value = recurso_humano.cedula;
+            if (recurso_humano.es_administrador)
+            {
+                comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = DBNull.Value;
+            }
+            else
+            {
+                comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = recurso_humano.proyecto_asociado;
+            }
+            comando.Parameters.Add("@telefono", SqlDbType.VarChar).Value = recurso_humano.telefono;
+            comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = recurso_humano.nombre;
+            comando.Parameters.Add("@hashed", SqlDbType.VarChar).Value = recurso_humano.contrasena;
+            comando.Parameters.Add("@correo", SqlDbType.VarChar).Value = recurso_humano.correo;
+            comando.Parameters.Add("@rol", SqlDbType.VarChar).Value = recurso_humano.rol;
+            comando.Parameters.Add("@admin", SqlDbType.Bit).Value = recurso_humano.es_administrador ? 1 : 0;
+        }
+
     }
 }
