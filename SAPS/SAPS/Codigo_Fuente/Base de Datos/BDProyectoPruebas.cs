@@ -8,6 +8,7 @@
 
 using System.Data;
 using SAPS.Entidades;
+using System.Data.SqlClient;
 
 namespace SAPS.Base_de_Datos
 {
@@ -35,7 +36,10 @@ namespace SAPS.Base_de_Datos
          */
         public int insertar_proyecto(ProyectoPruebas proyecto)
         {
-            return 0;
+            // Procedimiento almacenado
+            SqlCommand comando = new SqlCommand("INSERTAR_PYP"); // Cambiar nombre
+            rellenar_parametros_proyecto_pruebas(ref comando, proyecto);
+            return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
         /** @brief Método que realiza la setencia SQL para modificar un proyecto.
@@ -44,7 +48,10 @@ namespace SAPS.Base_de_Datos
          */
         public int modificar_proyecto(ProyectoPruebas proyecto)
         {
-            return 0;
+            // Procedimiento almacenado
+            SqlCommand comando = new SqlCommand("MODIFICAR_PYP"); // Cambiar nombre
+            rellenar_parametros_proyecto_pruebas(ref comando, proyecto);
+            return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
 
@@ -54,7 +61,11 @@ namespace SAPS.Base_de_Datos
          */
         public int eliminar_proyecto(int id_proyecto)
         {
-            return 0;
+            // Procedimiento almacenado
+            SqlCommand comando = new SqlCommand("ELIMINAR_PYP"); // Cambiar nombre
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = id_proyecto;
+            return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
         /** @brief Método que realiza la setencia SQL para conultar un proyecto en específico.
@@ -63,7 +74,28 @@ namespace SAPS.Base_de_Datos
          */
         public DataTable consultar_proyecto(int id_proyecto)
         {
-            return null;
+            // Procedimiento almacenado
+            SqlCommand comando = new SqlCommand("CONSULTAR_PYP"); // Cambiar nombre
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = id_proyecto;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
+
+        // Métodos auxiliares
+        private void rellenar_parametros_proyecto_pruebas(ref SqlCommand comando, ProyectoPruebas proyecto)
+        {
+            comando.CommandType = CommandType.StoredProcedure;
+            /// @todo rellenar procedimineto almacenado
+
+            //comando.Parameters.Add("@id_oficina", SqlDbType.VarChar).Value = proyecto.; // Falta oficina
+            comando.Parameters.Add("@fecha_inicio", SqlDbType.VarChar).Value = proyecto.fecha_inicio;
+            comando.Parameters.Add("@fecha_asignacion", SqlDbType.VarChar).Value = proyecto.fecha_asignacion;
+            comando.Parameters.Add("@fecha_final", SqlDbType.VarChar).Value = proyecto.fecha_finalizacion;
+            comando.Parameters.Add("@nombre_sistema", SqlDbType.VarChar).Value = proyecto.nombre_sistema;
+            comando.Parameters.Add("@obj_general", SqlDbType.VarChar).Value = proyecto.objetivo;
+            comando.Parameters.Add("@nombre_proyecto", SqlDbType.VarChar).Value = proyecto.nombre;
+            comando.Parameters.Add("@estado", SqlDbType.VarChar).Value = proyecto.estado;
         }
     }
 

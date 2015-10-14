@@ -15,7 +15,7 @@ namespace SAPS.Entidades
      */
     public class ProyectoPruebas
     {
-        private string m_id;
+        private int m_id;
         private string m_nombre_sistema;
         private string m_estado;
         private DateTime m_fecha_inicio;
@@ -26,7 +26,7 @@ namespace SAPS.Entidades
 
         public ProyectoPruebas(Object[] datos)
         {
-            m_id = datos[0].ToString();
+            m_id = Convert.ToInt32(datos[0]);
             m_nombre_sistema = datos[1].ToString();
             m_estado = datos[2].ToString();
             m_objetivo = datos[3].ToString();
@@ -34,7 +34,6 @@ namespace SAPS.Entidades
             m_fecha_inicio = Convert.ToDateTime(datos[5]);
             m_fecha_asignacion = Convert.ToDateTime(datos[6]);
             m_fecha_finalizacion = Convert.ToDateTime(datos[7]);
-
         }
 
 
