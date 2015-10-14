@@ -197,7 +197,7 @@
     </section>
     <section id="modal">
         <!-- Bootstrap Modal Dialog -->
-        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" runat="server">
             <div class="modal-dialog">
                 <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                     <ContentTemplate>
@@ -212,8 +212,8 @@
                                 <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button runat="server" OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Cancelar" data-dismiss="modal" />
-                                <asp:Button runat="server" OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" data-dismiss="modal" />
+                                <asp:Button runat="server" OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Cancelar" />
+                                <asp:Button runat="server" OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar"/>
                             </div>
                         </div>
                     </ContentTemplate>

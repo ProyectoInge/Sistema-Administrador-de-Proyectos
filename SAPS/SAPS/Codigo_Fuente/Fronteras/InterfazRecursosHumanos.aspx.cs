@@ -240,13 +240,7 @@ namespace SAPS.Fronteras
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
                 upModal.Update();
 
-                if (m_modal_cancelar) { }
-                else
-                {
-                    cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
-                    alerta_exito.Visible = true;
-                    a_retornar = true;
-                }
+                a_retornar = true;
 
             }
             else
@@ -431,12 +425,16 @@ namespace SAPS.Fronteras
                 alerta_error.Visible = true;
                 SetFocus(input_usuario);
             }
+            modal_alerta.Visible = false;
+            cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
+            alerta_exito.Visible = true;
         }
 
         protected void btn_modal_cancelar_Click(object sender, EventArgs e)
         {
             m_result_eliminar = true;
             m_modal_cancelar = true;
+            modal_alerta.Visible = false;
         }
     }
 }
