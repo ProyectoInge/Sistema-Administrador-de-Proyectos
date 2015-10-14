@@ -109,3 +109,7 @@ create table Ejecucion(
 	fecha_ultima_ejec	date,
 	incidencias			varchar(512)
 );
+
+
+
+select * from  RecursosHumanos

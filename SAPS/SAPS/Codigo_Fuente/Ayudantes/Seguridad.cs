@@ -51,40 +51,39 @@ namespace SAPS.Ayudantes
 
         // Métodos
 
-        // Hashing algorithms used to verify one-way-hashed passwords:
-        // MD5 is used for backward compatibility with Commerce Server 2002. If you have no legacy data, MD5 can be removed.
-        // SHA256 is used on Windows Server 2003.
-        // SHA1 should be used on Windows XP (SHA256 is not supported).
-        public bool valida_contrasena_hash(string password, string profilePassword)
+        public bool valida_contrasena_hash(string tested_password, string savedPasswordHash)
         {
-            int saltLength = m_valor_salt * UnicodeEncoding.CharSize;
-
-            if (string.IsNullOrEmpty(profilePassword) ||
-                string.IsNullOrEmpty(password) ||
-                profilePassword.Length < saltLength)
-            {
-                return false;
-            }
-
-            // Strip the salt value off the front of the stored password.
-            string saltValue = profilePassword.Substring(0, saltLength);
-
-            foreach (string hashingAlgorithmName in HashingAlgorithms)
-            {
-                HashAlgorithm hash = HashAlgorithm.Create(hashingAlgorithmName);
-                string hashedPassword = funcion_hash(password, saltValue, hash);
-                if (profilePassword.Equals(hashedPassword, StringComparison.Ordinal))
-                    return true;
-            }
-
-            // None of the hashing algorithms could verify the password.
-            return false;
+            bool autorizado = true;
+            /* Extract the bytes */
+            byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
+            /* Get the salt */
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+            /* Compute the hash on the password the user entered */
+            var pbkdf2 = new Rfc2898DeriveBytes(tested_password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+            /* Compare the results */
+            for (int i = 0; i < 20; i++)
+                if (hashBytes[i + 16] != hash[i])
+                    autorizado = false;
+            return autorizado;
         }
 
         public string hash_constrasena(string contrasena)
         {
-            // TO-DO: Hashear la contraseña
-            return "foobar";
+            /// @todo Hashear la contraseña
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+            var pbkdf2 = new Rfc2898DeriveBytes(contrasena, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+            string hashed = Convert.ToBase64String(hashBytes);
+
+            //DEBUG
+            System.Diagnostics.Debug.Write("HASHED PWD: " + hashed);
+            return hashed;
         }
 
 

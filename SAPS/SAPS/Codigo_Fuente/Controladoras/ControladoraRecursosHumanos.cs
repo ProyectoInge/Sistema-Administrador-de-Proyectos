@@ -7,9 +7,6 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
 using SAPS.Entidades;
 using SAPS.Base_de_Datos;
@@ -98,9 +95,19 @@ namespace SAPS.Controladoras
          * @param contrasena string que contiene la contraseña digitada por el usuario.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int autenticar(string nombre_usuario, string contrasena) 
+        public int autenticar(string nombre_usuario, string contrasena_a_probar) 
         {
-            return 0;
+            int resultado_autenticacion = -1;
+            DataTable consulta_de_usuario = m_base_datos.consultar_recurso_humano(nombre_usuario);
+            if (consulta_de_usuario.Rows.Count != 0)
+            {
+                string contrasena_hasheada = m_base_datos.recuperar_contrasena(nombre_usuario);
+                Seguridad seguridad = new Seguridad();
+                bool resultado = seguridad.valida_contrasena_hash(contrasena_a_probar, contrasena_hasheada);
+                if (resultado)
+                    resultado_autenticacion = 0;
+            }
+            return resultado_autenticacion;              
         }
 
         /** @brief Método que cierra la sesión iniciada en una computadora.
