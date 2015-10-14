@@ -91,6 +91,15 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        public string recuperar_contrasena(string nombre_usuario)
+        {
+            SqlCommand comando = new SqlCommand("CONSULTAR_CONTRASENA");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
+            DataTable tabla_contrasena = m_data_base_adapter.obtener_resultado_consulta(comando);
+            return tabla_contrasena.Rows[0]["contrasena"].ToString();
+        }
+
         private void rellenar_parametros_recurso_humano(ref SqlCommand comando, RecursoHumano recurso_humano)
         {
             comando.CommandType = CommandType.StoredProcedure;
