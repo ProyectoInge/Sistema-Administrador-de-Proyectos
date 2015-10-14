@@ -7,10 +7,10 @@
 */
 
 using System;
+using SAPS.Ayudantes;
+using SAPS.Base_de_Datos;
 using System.Data;
 using SAPS.Entidades;
-using SAPS.Base_de_Datos;
-using SAPS.Ayudantes;
 
 namespace SAPS.Controladoras
 {
@@ -102,8 +102,7 @@ namespace SAPS.Controladoras
             if (consulta_de_usuario.Rows.Count != 0)
             {
                 string contrasena_hasheada = m_base_datos.recuperar_contrasena(nombre_usuario);
-                Seguridad seguridad = new Seguridad();
-                bool resultado = seguridad.valida_contrasena_hash(contrasena_a_probar, contrasena_hasheada);
+                bool resultado = Seguridad.valida_contrasena_hash(contrasena_a_probar, contrasena_hasheada);
                 if (resultado)
                     resultado_autenticacion = 0;
             }
