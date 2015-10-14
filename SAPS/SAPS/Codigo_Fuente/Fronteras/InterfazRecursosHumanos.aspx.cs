@@ -10,6 +10,7 @@ using System;
 using System.Web.UI.WebControls;
 using SAPS.Controladoras;
 using System.Text.RegularExpressions;
+using System.Data;
 
 namespace SAPS.Fronteras
 {
@@ -20,6 +21,8 @@ namespace SAPS.Fronteras
         // Variables de instancia
         private ControladoraRecursosHumanos m_controladora_rh;
         char m_opcion; // i = insertar, m = modificar, e = eliminar
+
+        string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
 
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
@@ -198,13 +201,19 @@ namespace SAPS.Fronteras
         private void llena_recursos_humanos()
         {
             // TO DO --> llenarlo con datos de la base de datos
-            for (int i = 0; i < 30; ++i)
+            DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
+            int cantidad_filas = tabla_de_datos.Rows.Count;
+            m_tabla_resultados = new string[2, cantidad_filas];
+
+            for (int i = 0; i <cantidad_filas; ++i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda = new TableCell();
                 Button btn = new Button();
+                m_tabla_resultados[0, i] = tabla_de_datos.Rows[i]["username"].ToString();
+                m_tabla_resultados[1, i] = tabla_de_datos.Rows[i]["nombre"].ToString();
                 btn.ID = "btn_lista_" + i.ToString();
-                btn.Text = "rh " + i.ToString();
+                btn.Text = m_tabla_resultados[1, i];
                 btn.CssClass = "btn btn-link btn-block";
                 btn.Click += new EventHandler(btn_lista_click);
                 celda.Controls.AddAt(0, btn);

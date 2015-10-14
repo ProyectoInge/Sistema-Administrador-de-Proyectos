@@ -86,7 +86,7 @@ namespace SAPS.Base_de_Datos
          */
         public DataTable solicitar_recursos_disponibles()
         {
-            SqlCommand comando = new SqlCommand("CONSULTAR_RECURSOS_DISPONILES");
+            SqlCommand comando = new SqlCommand("CONSULTAR_RECURSOS_DISPONIBLES");
             comando.CommandType = CommandType.StoredProcedure;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
@@ -99,16 +99,17 @@ namespace SAPS.Base_de_Datos
             if (recurso_humano.es_administrador)
             {
                 comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = DBNull.Value;
+                comando.Parameters.Add("@rol", SqlDbType.VarChar).Value = DBNull.Value;
             }
             else
             {
                 comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = recurso_humano.proyecto_asociado;
+                comando.Parameters.Add("@rol", SqlDbType.VarChar).Value = recurso_humano.rol;
             }
             comando.Parameters.Add("@telefono", SqlDbType.VarChar).Value = recurso_humano.telefono;
             comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = recurso_humano.nombre;
             comando.Parameters.Add("@hashed", SqlDbType.VarChar).Value = recurso_humano.contrasena;
             comando.Parameters.Add("@correo", SqlDbType.VarChar).Value = recurso_humano.correo;
-            comando.Parameters.Add("@rol", SqlDbType.VarChar).Value = recurso_humano.rol;
             comando.Parameters.Add("@admin", SqlDbType.Bit).Value = recurso_humano.es_administrador ? 1 : 0;
         }
 
