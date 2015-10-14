@@ -20,24 +20,46 @@ namespace SAPS.Entidades
     {
         private string m_id;
         private string m_nombre_sistema;
-        private string m_estado;
+        private string m_nombre_proceso;
+        private string m_nombre_lider;
+        private string m_objetivo;
+        private string m_oficina_asociada;
+        private string m_telefono1;
+        private string m_telefono2;
+        private string m_representante_oficina;
+        private string m_estado_proyecto;
         private DateTime m_fecha_inicio;
         private DateTime m_fecha_asignacion;
         private DateTime m_fecha_finalizacion;
-        private string m_objetivo;
-        private string m_nombre;
+        
+        
 
         public ProyectoPruebas(Object[] datos)
         {
-            m_id = datos[0].ToString();
-            m_nombre_sistema = datos[1].ToString();
-            m_estado = datos[2].ToString();
-            m_objetivo = datos[3].ToString();
-            m_nombre = datos[4].ToString();
-            m_fecha_inicio = Convert.ToDateTime(datos[5]);
-            m_fecha_asignacion = Convert.ToDateTime(datos[6]);
-            m_fecha_finalizacion = Convert.ToDateTime(datos[7]);
+            /**
+                Orden de recepcion de los datos
+                
+            0 - nombre de sistema
+            1 - nombre de proceso
+            2 - nombre de lider
+            3 - objetivo
+            4 - oficina asociada
+            5 - telefono 1
+            6 - telefono 2
+            7 - representante de ofcina
+            8 - estado de proyecto
 
+            */
+
+            m_nombre_sistema = datos[0].ToString();
+            m_nombre_proceso = datos[1].ToString();
+            m_nombre_lider = datos[2].ToString();
+            m_objetivo = datos[3].ToString();
+            m_oficina_asociada = datos[4].ToString();
+            m_telefono1 = datos[5].ToString();
+            m_telefono2 = datos[6].ToString();
+            m_representante_oficina = datos[7].ToString();
+            m_estado_proyecto = datos[8].ToString();
         }
 
 
@@ -52,12 +74,7 @@ namespace SAPS.Entidades
             get { return m_nombre_sistema; }
             set { m_nombre_sistema = value; }
         }
-
-        public string estado
-        {
-            get { return m_estado; }
-            set { m_estado = value; }
-        }
+        
         
         public string objetivo
         {
@@ -65,12 +82,7 @@ namespace SAPS.Entidades
             set { m_objetivo = value; }
         }
 
-        public string nombre
-        {
-            get { return m_nombre; }
-            set { m_nombre = value; }
-        }
-
+        
         public DateTime fecha_inicio
         {
             get { return m_fecha_inicio; }
