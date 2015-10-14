@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SAPS.Fronteras {
+namespace SAPS.Codigo_Fuente.Fronteras {
     
     
     public partial class InterfazProyectosDePruebas {
@@ -94,13 +94,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label cuerpo_alerta_exito;
         
         /// <summary>
-        /// input_name control.
+        /// input_system control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_name;
+        protected global::System.Web.UI.WebControls.TextBox input_system;
         
         /// <summary>
         /// drop_oficina_asociada control.
@@ -121,13 +121,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_process;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// drop_estado_proyecto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList drop_estado_proyecto;
         
         /// <summary>
         /// input_leader control.
@@ -139,12 +139,84 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_leader;
         
         /// <summary>
-        /// input_office control.
+        /// input_manager_office control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_office;
+        protected global::System.Web.UI.WebControls.TextBox input_manager_office;
+        
+        /// <summary>
+        /// input_phone1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_phone1;
+        
+        /// <summary>
+        /// input_phone2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_phone2;
+        
+        /// <summary>
+        /// input_objective control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_objective;
+        
+        /// <summary>
+        /// tabla_disenos_de_prueba control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tabla_disenos_de_prueba;
+        
+        /// <summary>
+        /// btn_Aceptar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Aceptar;
+        
+        /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
+        
+        /// <summary>
+        /// btn_consultar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_consultar;
+        
+        /// <summary>
+        /// tabla_proyectos_de_pruebas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tabla_proyectos_de_pruebas;
     }
 }
