@@ -17,7 +17,7 @@ use proyectoDB;
 
 
 create table Oficina(
-	id_oficina			varchar(32) NOT NULL PRIMARY KEY,
+	id_oficina			int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	nombre_oficina		varchar(64) NOT NULL,
 	telefono			varchar(16),
 	nom_representante	varchar(64)
@@ -25,8 +25,8 @@ create table Oficina(
 
 
 create table ProyectoPruebas(
-	id_proyecto			varchar(32) NOT NULL PRIMARY KEY,
-	id_oficina			varchar(32) NOT NULL FOREIGN KEY REFERENCES Oficina(id_oficina),
+	id_proyecto			int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	id_oficina			int NOT NULL FOREIGN KEY REFERENCES Oficina(id_oficina),
 	fecha_inicio		date,
 	fecha_asignacion	date,
 	fecha_final			date,
@@ -40,7 +40,7 @@ create table ProyectoPruebas(
 create table RecursosHumanos(
 	username			varchar(64) NOT NULL PRIMARY KEY,
 	cedula				varchar(16)  NOT NULL,
-	id_proyecto			varchar(32)	FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
+	id_proyecto			int FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
 	telefono			varchar(16),
 	nombre				varchar(64) NOT NULL,
 	contrasena			varchar(256) NOT NULL,
@@ -51,14 +51,14 @@ create table RecursosHumanos(
 
 create table MiembroPertenece(
 	username			varchar(64) NOT NULL FOREIGN KEY REFERENCES RecursosHumanos(username),
-	id_proyecto			varchar(32) NOT NULL FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
+	id_proyecto			int NOT NULL FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
 	rol					varchar(64) NOT NULL,
 	PRIMARY KEY(username, id_proyecto)
 );
 
 create table DisenoPrueba(
-	id_diseno			varchar(32) NOT NULL PRIMARY KEY,
-	id_proyecto			varchar(32) NOT NULL FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
+	id_diseno			int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	id_proyecto			int NOT NULL FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
 	nombre_diseno		varchar(64) NOT NULL,
 	fecha_inicio		date		NOT NULL,
 	tecnica_prueba		varchar(64),
@@ -67,14 +67,14 @@ create table DisenoPrueba(
 );
 
 create table Requerimientos(
-	id_requerimiento	varchar(32) NOT NULL PRIMARY KEY,
+	id_requerimiento	int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	nombre				varchar(64) NOT NULL,
 	a_probar			bit			NOT NULL
 );
 
 create table SePrueba(
-	id_diseno			varchar(32) NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
-	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
+	id_diseno			int IDENTITY(1,1) NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
+	id_requerimiento	int NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
 	criterio_aceptacion varchar(256) NOT NULL,
 	proposito			varchar(128) NOT NULL,
 	procedimiento		varchar(512) NOT NULL,
@@ -82,7 +82,7 @@ create table SePrueba(
 );
 
 create table CasoPrueba(
-	id_caso				varchar(32) NOT NULL PRIMARY KEY,
+	id_caso				int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	proposito			varchar(256),
 	datos_entrada		varchar(128),
 	flujo_central		varchar(512),
@@ -90,8 +90,8 @@ create table CasoPrueba(
 );
 
 create table NecesitaDe(
-	id_requerimientos	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
-	id_caso				varchar(32) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_requerimientos	int NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
+	id_caso				int NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
 	precondiciones		varchar(512),
 	variables			varchar(512),
 	restricciones		varchar(512),
@@ -100,7 +100,7 @@ create table NecesitaDe(
 
 create table Ejecucion(
 	num_ejecucion		int NOT NULL,
-	id_caso				varchar(32) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_caso				int NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
 	tipo_no_conformidad varchar(64),
 	desc_no_conformidad varchar(256),
 	justificacion		varchar(512),
@@ -110,6 +110,3 @@ create table Ejecucion(
 	incidencias			varchar(512)
 );
 
-
-
-select * from  RecursosHumanos
