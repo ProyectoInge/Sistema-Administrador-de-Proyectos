@@ -11,33 +11,33 @@ using SAPS.Ayudantes;
 
 namespace SAPS.Entidades
 {
-    /** @brief Esta clase entidad se encarga de crear objetos RecursoHumano 
-     * para encapsular los atributos de un recurso humano de los proyectos.
+    /** @brief Esta clase entidad se encarga de crear objetos RecursoHumano.
+     * Con esto se encapsular los atributos de un recurso humano de los proyectos.
      */
     public class RecursoHumano
     { 
         // Variables de instancia
-        private Seguridad m_seguridad;
         private string m_usuario;
         private string m_nombre;
         private string m_correo;
         private string m_telefono;
         private string m_proyecto_asociado;
         private string m_contrasena;
-        private bool m_es_administrador;
+        private bool   m_es_administrador;
         private string m_cedula;
         private string m_rol;
 
         // Constructor
+        /** @param datos Un vector tipo objeto que contiene toda la informaciòn necesaria
+        * para crear un recurso humano.
+        */
         public RecursoHumano(Object[] datos) {
-            m_seguridad = new Seguridad();
-
             m_usuario = datos[0].ToString();
             m_nombre = datos[1].ToString();
             m_correo = datos[2].ToString();
             m_telefono = datos[3].ToString();
             m_proyecto_asociado = datos[4].ToString();
-            m_contrasena = m_seguridad.hash_constrasena(datos[5].ToString());         // LA CONTRASEÑA HASHEADA AQUÍ
+            m_contrasena = Seguridad.hash_constrasena(datos[5].ToString());
             m_es_administrador = Convert.ToBoolean(datos[6]);
             m_cedula = datos[7].ToString();
             m_rol = datos[8].ToString();

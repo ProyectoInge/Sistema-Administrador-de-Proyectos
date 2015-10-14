@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" %>
+
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
     <section id="page_header">
         <div class="page-header">
@@ -16,22 +17,24 @@
             </div>
         </div>
     </section>
-    <br/>
+    <br />
     <section id="alertas">
         <div class="col-md-10 col-md-offset-1">
             <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <b><asp:Label runat="server" ID="titulo_alerta" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
+                <b>
+                    <asp:Label runat="server" ID="titulo_alerta" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
             </div>
             <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <b><asp:Label runat="server" ID="Label1" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
+                <b>
+                    <asp:Label runat="server" ID="Label1" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
             </div>
         </div>
     </section>
-    <br/>
+    <br />
     <section id="form" class="col-md-offset-1">
-        <div id="row1" class="row"">
+        <div id="row1" class="row">
             <div class="form-group">
                 <div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="input_name" CssClass="control-label">Nombre</asp:Label>
@@ -39,10 +42,12 @@
                 <div class="col-md-3">
                     <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
                 </div>
-            <div class="col-md-6"><!-- Espacio al propio--></div>
-         </div>
+                <div class="col-md-6">
+                    <!-- Espacio al propio-->
+                </div>
+            </div>
         </div>
-        <br/>
+        <br />
         <div id="row2" class="row">
             <div class="form-group">
                 <div class="col-md-2">
@@ -51,14 +56,16 @@
                 <div class="col-md-3">
                     <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
                 </div>
-                <div class="col-md-1"><!-- Espacio al propio--></div>
+                <div class="col-md-1">
+                    <!-- Espacio al propio-->
+                </div>
                 <div class="col-md-1">
                     <asp:Label runat="server" AssociatedControlID="radio_btn_miembro" CssClass="control-label">Miembro</asp:Label>
                 </div>
                 <div class="col-md-1">
                     <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
                     uno de ellos seleccionado.-->
-                    <asp:RadioButton runat="server" CssClass ="form-group" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack ="true"/>
+                    <asp:RadioButton runat="server" CssClass="form-group" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack="true" />
                 </div>
                 <div class="col-md-2">
                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_btn_administrador">Administrador</asp:Label>
@@ -66,20 +73,22 @@
                 <div class="col-md-1">
                     <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
                         uno de ellos seleccionado.-->
-                    <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack ="true"/>
+                    <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack="true" />
                 </div>
             </div>
         </div>
-        <br/>
+        <br />
         <div id="row3" class="row">
             <div class="form-group">
                 <div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="control-label">Correo</asp:Label>
                 </div>
                 <div class="col-md-3">
-                    <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" placeholder="ejemplo@ejemplo.com"/>
+                    <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" placeholder="ejemplo@ejemplo.com" />
                 </div>
-                <div class="col-md-1"><!-- Espacio al propio--></div>
+                <div class="col-md-1">
+                    <!-- Espacio al propio-->
+                </div>
                 <div class="col-md-2">
                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
                 </div>
@@ -87,7 +96,7 @@
                     <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control">
                         <asp:ListItem Text="Proyecto 1" Value="0"></asp:ListItem>
                         <asp:ListItem Text="Proyecto 2" Value="1"></asp:ListItem>
-                    </asp:DropDownList>    
+                    </asp:DropDownList>
                 </div>
             </div>
         </div>
@@ -98,9 +107,11 @@
                     <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="control-label">Telefono</asp:Label>
                 </div>
                 <div class="col-md-3">
-                    <asp:TextBox runat="server" ID="input_telefono" CssClass="form-control" TextMode="Phone"/>
+                    <asp:TextBox runat="server" ID="input_telefono" CssClass="form-control" TextMode="Phone" />
                 </div>
-                <div class="col-md-1"><!-- Espacio al propio--></div>
+                <div class="col-md-1">
+                    <!-- Espacio al propio-->
+                </div>
                 <div class="col-md-2">
                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_rol">Rol</asp:Label>
                 </div>
@@ -109,7 +120,7 @@
                         <asp:ListItem Text="Lider" Value="0"></asp:ListItem>
                         <asp:ListItem Text="Usuario" Value="1"></asp:ListItem>
                         <asp:ListItem Text="Tester" Value="2"></asp:ListItem>
-                    </asp:DropDownList> 
+                    </asp:DropDownList>
                 </div>
             </div>
         </div>
@@ -122,8 +133,12 @@
                 <div class="col-md-3">
                     <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
                 </div>
-                <div class="col-md-1"><!-- Espacio al propio--></div>
-                <div class="col-md-5"><!-- Espacio al propio--></div>
+                <div class="col-md-1">
+                    <!-- Espacio al propio-->
+                </div>
+                <div class="col-md-5">
+                    <!-- Espacio al propio-->
+                </div>
             </div>
         </div>
         <br />
@@ -135,8 +150,12 @@
                 <div class="col-md-3">
                     <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
                 </div>
-                <div class="col-md-1"><!-- Espacio al propio--></div>
-                <div class="col-md-5"><!-- Espacio al propio--></div>
+                <div class="col-md-1">
+                    <!-- Espacio al propio-->
+                </div>
+                <div class="col-md-5">
+                    <!-- Espacio al propio-->
+                </div>
             </div>
         </div>
         <br />
@@ -144,12 +163,12 @@
     <section id="botones_aceptar_cancelar">
         <div class="col-md-3 col-md-offset-9">
             <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
-            <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click"/>
+            <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
         </div>
     </section>
     <section id="linea_separadora">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">    
+            <div class="col-md-10 col-md-offset-1">
                 <hr />
             </div>
         </div>
@@ -165,10 +184,11 @@
             <div class="col-md-1">
                 <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_consultar" Enabled="true" Text="Consultar" OnClick="btn_consultar_Click" />
             </div>
-            <div class="col-md-1"><!-- Espacio al propio--></div>
-            <div class="col-md-7" style="height:200px; overflow-y:scroll">
+            <div class="col-md-1">
+                <!-- Espacio al propio-->
+            </div>
+            <div class="col-md-7" style="height: 200px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_recursos_humanos" CssClass="table table-hover form-group">
-
                 </asp:Table>
                 <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente o
                     en el archivo InterfazRecursosHumanos.aspx.cs en el constructro hay un ejemplo de como llenarla -->
@@ -183,11 +203,17 @@
                     <ContentTemplate>
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title"><asp:Label ID="titulo_modal" runat="server" Text=""></asp:Label></h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">
+                                    <asp:Label ID="titulo_modal" runat="server" Text=""></asp:Label>
+                                </h4>
                             </div>
                             <div class="modal-body">
                                 <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button runat="server" OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Cancelar" data-dismiss="modal" />
+                                <asp:Button runat="server" OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" data-dismiss="modal" />
                             </div>
                         </div>
                     </ContentTemplate>

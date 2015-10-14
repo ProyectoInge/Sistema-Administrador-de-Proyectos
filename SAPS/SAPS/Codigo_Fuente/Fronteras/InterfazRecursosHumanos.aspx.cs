@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using SAPS.Controladoras;
 using System.Text.RegularExpressions;
 using System.Data;
+using System.Web.UI;
 
 namespace SAPS.Fronteras
 {
@@ -20,15 +21,17 @@ namespace SAPS.Fronteras
     {
         // Variables de instancia
         private ControladoraRecursosHumanos m_controladora_rh;
-        char m_opcion; // i = insertar, m = modificar, e = eliminar
+        private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
+        private static bool m_result_eliminar = false;
+        private static bool m_modal_cancelar = false;
 
-        string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
+        private string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
+        private int m_tamano_tabla;
 
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
-            m_opcion = 'i';
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             drop_proyecto_asociado.Enabled = false;
@@ -42,6 +45,9 @@ namespace SAPS.Fronteras
          */
         private void btn_lista_click(object sender, EventArgs e)
         {
+            string nombre_usuario = ((Button)sender).Text;
+            string username = buscar_usuario(nombre_usuario);
+            llena_informacion_consulta(username);
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
         }
@@ -90,16 +96,17 @@ namespace SAPS.Fronteras
             // TO DO --> Modificar y eliminar, ahorita solo inserta
             if (valida_campos() == true)
             {
-                alerta_exito.Visible = true;
+                if (m_opcion != 'e')
+                {
+                    alerta_exito.Visible = true;
+                }
             }
             else
             {
-                alerta_error.Visible = true;
-                /*
-                titulo_modal.Text = "Error";
-                cuerpo_modal.Text = "Faltan datos que llenar";
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
-                upModal.Update();*/
+                if (m_opcion != 'e')
+                {
+                    alerta_error.Visible = true;
+                }
             }
         }
 
@@ -200,12 +207,11 @@ namespace SAPS.Fronteras
          */
         private void llena_recursos_humanos()
         {
-            // TO DO --> llenarlo con datos de la base de datos
             DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
-            int cantidad_filas = tabla_de_datos.Rows.Count;
-            m_tabla_resultados = new string[2, cantidad_filas];
+            m_tamano_tabla = tabla_de_datos.Rows.Count;
+            m_tabla_resultados = new string[2, m_tamano_tabla];
 
-            for (int i = 0; i <cantidad_filas; ++i)
+            for (int i = 0; i < m_tamano_tabla; ++i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda = new TableCell();
@@ -229,17 +235,19 @@ namespace SAPS.Fronteras
             bool a_retornar = true;
             if (m_opcion == 'e')
             {
-                if(input_usuario.Text != "")
-                {
-                  int resultado =  m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
-                  // TO DO --> manejar el codigo que devuelve
-                }
+                titulo_modal.Text = "¡Atención!";
+                cuerpo_modal.Text = " ¿Esta seguro que desea eliminar a " + input_usuario.Text + " del sistema?";
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                upModal.Update();
+
+                if (m_modal_cancelar) { }
                 else
                 {
-                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
-                    SetFocus(input_usuario);
-                    a_retornar = false;
+                    cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
+                    alerta_exito.Visible = true;
+                    a_retornar = true;
                 }
+
             }
             else
             {
@@ -287,14 +295,15 @@ namespace SAPS.Fronteras
                                                         if (m_opcion == 'i')
                                                         {
                                                             resultado = m_controladora_rh.insertar_recurso_humano(datos);
+                                                            cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
                                                         }
                                                         else
                                                         {
                                                             resultado = m_controladora_rh.modificar_recurso_humano(datos);
+                                                            cuerpo_alerta_exito.Text = " Se modificó el recurso humano correctamente.";
                                                         }
                                                         // TO DO --> manejar el codigo que devuelve
                                                     }
-                                                    cuerpo_alerta_exito.Text = " Su operación no presentó ningún problema.";
                                                     a_retornar = true;
                                                 }
                                                 else
@@ -364,5 +373,70 @@ namespace SAPS.Fronteras
             return a_retornar;
         }
 
+        /** @brief Metodo que sen encarga de obtener la informacion que corresponde a un usuario y desplegarla en los campos.
+         * @param String "username" que indica el nombre de usuario del recurso humano que se va a obtener la información.
+         */
+        private void llena_informacion_consulta(string username)
+        {
+            DataTable tabla_informacion = m_controladora_rh.consultar_recurso_humano(username);
+            if (tabla_informacion.Rows.Count > 0)
+            {
+                input_name.Text = tabla_informacion.Rows[0]["nombre"].ToString();
+                input_usuario.Text = username;
+                input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
+                input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
+                input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
+            }
+            else
+            {
+
+            }
+
+        }
+
+        /** @brief Metodo que busca en la tabla de [username, nombre] el username correspondiente a un nombre.
+         * @param String "nombre" que contiene el nombre del cual quiere recuperar el "username"
+         * @return String con el nombre de usuario correspondiente al usuario que se consulto.
+         */
+        private string buscar_usuario(string nombre)
+        {
+            string usuario = "";
+            int i = 0;
+            bool encontrado = false;
+            while (i < m_tamano_tabla && encontrado == false)
+            {
+                if (m_tabla_resultados[1, i] == nombre)
+                {
+                    usuario = m_tabla_resultados[0, i];
+                    encontrado = true;
+
+                }
+                ++i;
+            }
+            return usuario;
+        }
+
+        protected void btn_modal_aceptar_Click(object sender, EventArgs e)
+        {
+            if (input_usuario.Text != "")
+            {
+                int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
+                // TO DO --> manejar el codigo que devuelve
+                m_result_eliminar = true;
+
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
+                alerta_error.Visible = true;
+                SetFocus(input_usuario);
+            }
+        }
+
+        protected void btn_modal_cancelar_Click(object sender, EventArgs e)
+        {
+            m_result_eliminar = true;
+            m_modal_cancelar = true;
+        }
     }
 }

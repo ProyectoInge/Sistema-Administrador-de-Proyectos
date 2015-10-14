@@ -7,10 +7,10 @@
 */
 
 using System;
+using SAPS.Ayudantes;
+using SAPS.Base_de_Datos;
 using System.Data;
 using SAPS.Entidades;
-using SAPS.Base_de_Datos;
-using SAPS.Ayudantes;
 
 namespace SAPS.Controladoras
 {
@@ -78,6 +78,7 @@ namespace SAPS.Controladoras
             return m_base_datos.solicitar_recursos_disponibles();
         }
 
+
         // Módulo Seguridad
 
         /** @brief Método que reestablece la contraseña de un recurso humano.
@@ -87,6 +88,7 @@ namespace SAPS.Controladoras
          */
         public int restablecer_contrasena(string nombre_usuario, string nueva_contrasena) 
         {
+            /// @todo restablecer contraseña
             return 0;
         }
 
@@ -99,13 +101,16 @@ namespace SAPS.Controladoras
         {
             int resultado_autenticacion = -1;
             DataTable consulta_de_usuario = m_base_datos.consultar_recurso_humano(nombre_usuario);
+
+            // La consulta tuvo resultados
             if (consulta_de_usuario.Rows.Count != 0)
             {
                 string contrasena_hasheada = m_base_datos.recuperar_contrasena(nombre_usuario);
-                Seguridad seguridad = new Seguridad();
-                bool resultado = seguridad.valida_contrasena_hash(contrasena_a_probar, contrasena_hasheada);
+                bool resultado = Seguridad.valida_contrasena_hash(contrasena_a_probar, contrasena_hasheada);
                 if (resultado)
+                {
                     resultado_autenticacion = 0;
+                }
             }
             return resultado_autenticacion;              
         }
@@ -115,6 +120,7 @@ namespace SAPS.Controladoras
          */
         public int cerrar_sesion() 
         {
+            /// @todo cerrar sesion
             return 0;
         }
     }

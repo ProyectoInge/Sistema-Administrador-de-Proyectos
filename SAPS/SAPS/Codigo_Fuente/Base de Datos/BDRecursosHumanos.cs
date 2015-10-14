@@ -7,12 +7,9 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
-using SAPS.Entidades;
 using System.Data.SqlClient;
+using SAPS.Entidades;
 
 namespace SAPS.Base_de_Datos
 {
@@ -22,7 +19,7 @@ namespace SAPS.Base_de_Datos
      */
     public class BDRecursosHumanos
     {
-        // Variables de instacia
+        // Variables de instancia
         DataBaseAdapter m_data_base_adapter;
 
         // Constructor
@@ -30,6 +27,7 @@ namespace SAPS.Base_de_Datos
         {
             m_data_base_adapter = new DataBaseAdapter();
         }
+
 
         // Métodos
 
@@ -39,7 +37,7 @@ namespace SAPS.Base_de_Datos
          */
         public int insertar_recurso_humano(RecursoHumano recurso_humano)
         {
-
+            // Procedimiento almacenado
             SqlCommand comando = new SqlCommand("INSERTAR_RH");
             rellenar_parametros_recurso_humano(ref comando, recurso_humano);
             return m_data_base_adapter.ejecutar_consulta(comando);
@@ -51,6 +49,7 @@ namespace SAPS.Base_de_Datos
          */
         public int modificar_recurso_humano(RecursoHumano recurso_humano)
         {
+            // Procedimiento almacenado
             SqlCommand comando = new SqlCommand("MODIFICAR_RH");
             rellenar_parametros_recurso_humano(ref comando, recurso_humano);
             return m_data_base_adapter.ejecutar_consulta(comando);
@@ -63,6 +62,7 @@ namespace SAPS.Base_de_Datos
          */
         public int eliminar_recurso_humano(string nombre_usuario)
         {
+            // Procedimiento almacenado
             SqlCommand comando = new SqlCommand("ELIMINAR_RH");
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
@@ -75,24 +75,30 @@ namespace SAPS.Base_de_Datos
          */
         public DataTable consultar_recurso_humano(string nombre_usuario)
         {
+            // Procedimiento almacenado
             SqlCommand comando = new SqlCommand("CONSULTAR_RH");
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
-        /** @brief Método que realiza la setencia SQL para conultar todos recursos humanos que se encuentran en la Base de Datos.
+        /** @brief Método que realiza la setencia SQL para consultar todos recursos humanos que se encuentran en la Base de Datos.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public DataTable solicitar_recursos_disponibles()
         {
+            // Procedimiento almacenado
             SqlCommand comando = new SqlCommand("CONSULTAR_RECURSOS_DISPONIBLES");
             comando.CommandType = CommandType.StoredProcedure;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        /** @brief Método que realiza la setencia SQL para consultar la contraseña de un recurso humano especìfico que se encuentran en la Base de Datos.
+         * @return string con la contraseña del ususario.
+        */
         public string recuperar_contrasena(string nombre_usuario)
         {
+            // Procedimiento almacenado
             SqlCommand comando = new SqlCommand("CONSULTAR_CONTRASENA");
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
@@ -100,6 +106,13 @@ namespace SAPS.Base_de_Datos
             return tabla_contrasena.Rows[0]["contrasena"].ToString();
         }
 
+
+        // Métodos auxiliares
+
+        /** @brief Método auxiliar que rellena los parámetros de un recurso humano para poder realizar un procedimiento almacenado.
+        *  @param comando comando sql que contendrá el procedimiento y sus respectivos parámetros. Se envía por referencia por lo tanto se va a modificar.
+        *  @param recurso_humano recurso humano con la información necesaria para realizar el procedimiento.
+        */
         private void rellenar_parametros_recurso_humano(ref SqlCommand comando, RecursoHumano recurso_humano)
         {
             comando.CommandType = CommandType.StoredProcedure;
