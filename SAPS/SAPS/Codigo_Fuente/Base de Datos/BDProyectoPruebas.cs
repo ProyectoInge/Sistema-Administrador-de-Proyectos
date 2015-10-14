@@ -5,13 +5,8 @@
  * Sistema Administrador de Proyectos de Software (SAPS)
  * II Semestre 2015
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+
 using System.Data;
-using System.Data.SqlClient;
-using SAPS.Base_de_Datos;
 using SAPS.Entidades;
 
 namespace SAPS.Base_de_Datos
@@ -22,7 +17,7 @@ namespace SAPS.Base_de_Datos
      */
     public class BDProyectoPruebas
     {
-        // Variables de instacia
+        // Variables de instancia
         DataBaseAdapter m_data_base_adapter;
 
         // Constructor
@@ -31,16 +26,15 @@ namespace SAPS.Base_de_Datos
             m_data_base_adapter = new DataBaseAdapter();
         }
 
+
         // Métodos
+
         /** @brief Método que realiza la setencia SQL para insertar un proyecto.
          * @param proyecto a guardar en la base de datos.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int insertar_proyecto(ProyectoPruebas proyecto)
         {
-
-
-
             return 0;
         }
 
