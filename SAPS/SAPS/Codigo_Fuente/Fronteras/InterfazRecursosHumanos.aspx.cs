@@ -23,6 +23,7 @@ namespace SAPS.Fronteras
         char m_opcion; // i = insertar, m = modificar, e = eliminar
 
         string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
+        int m_tamano_tabla;
 
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
@@ -42,6 +43,10 @@ namespace SAPS.Fronteras
          */
         private void btn_lista_click(object sender, EventArgs e)
         {
+            string nombre_usuario = ((Button)sender).Text;
+            string username = buscar_usuario(nombre_usuario);
+            System.Diagnostics.Debug.Write(username);
+            llena_informacion_consulta(username);
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
         }
@@ -200,12 +205,11 @@ namespace SAPS.Fronteras
          */
         private void llena_recursos_humanos()
         {
-            // TO DO --> llenarlo con datos de la base de datos
             DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
-            int cantidad_filas = tabla_de_datos.Rows.Count;
-            m_tabla_resultados = new string[2, cantidad_filas];
+            m_tamano_tabla = tabla_de_datos.Rows.Count;
+            m_tabla_resultados = new string[2, m_tamano_tabla];
 
-            for (int i = 0; i <cantidad_filas; ++i)
+            for (int i = 0; i < m_tamano_tabla; ++i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda = new TableCell();
@@ -229,10 +233,10 @@ namespace SAPS.Fronteras
             bool a_retornar = true;
             if (m_opcion == 'e')
             {
-                if(input_usuario.Text != "")
+                if (input_usuario.Text != "")
                 {
-                  int resultado =  m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
-                  // TO DO --> manejar el codigo que devuelve
+                    int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
+                    // TO DO --> manejar el codigo que devuelve
                 }
                 else
                 {
@@ -364,5 +368,48 @@ namespace SAPS.Fronteras
             return a_retornar;
         }
 
+        /** @brief Metodo que sen encarga de obtener la informacion que corresponde a un usuario y desplegarla en los campos.
+         * @param String "username" que indica el nombre de usuario del recurso humano que se va a obtener la información.
+         */
+        private void llena_informacion_consulta(string username)
+        {
+            DataTable tabla_informacion = m_controladora_rh.consultar_recurso_humano(username);
+            if (tabla_informacion.Rows.Count > 0)
+            {
+                input_name.Text = tabla_informacion.Rows[0]["nombre"].ToString();
+                input_usuario.Text = username;
+                input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
+                input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
+                input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
+            }
+            else
+            {
+                
+            }
+
+        }
+
+
+        /** @brief Metodo que busca en la tabla de [username, nombre] el username correspondiente a un nombre.
+         * @param String "nombre" que contiene el nombre del cual quiere recuperar el "username"
+         * @return String con el nombre de usuario correspondiente al usuario que se consulto.
+         */
+        private string buscar_usuario(string nombre)
+        {
+            string usuario = "";
+            int i = 0;
+            bool encontrado = false;
+            while (i < m_tamano_tabla && encontrado == false)
+            {
+                if (m_tabla_resultados[1, i] == nombre)
+                {
+                    usuario = m_tabla_resultados[0, i];
+                    encontrado = true;
+
+                }
+                ++i;
+            }
+            return usuario;
+        }
     }
 }
