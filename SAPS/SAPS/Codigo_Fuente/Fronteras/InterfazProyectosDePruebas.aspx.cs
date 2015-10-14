@@ -234,7 +234,8 @@ namespace SAPS.Codigo_Fuente.Fronteras
             {
                 if (input_system.Text != "")
                 {
-                    int resultado = m_controladora_pdp.eliminar_proyecto(input_system.Text);
+                    // TO DO
+                    //int resultado = m_controladora_pdp.eliminar_proyecto(input_system.Text);
 
                     // manejar el resultado de la base de datos
                 }
