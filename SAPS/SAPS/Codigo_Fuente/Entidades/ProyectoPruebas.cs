@@ -16,6 +16,7 @@ namespace SAPS.Entidades
     public class ProyectoPruebas
     {
         private int m_id;
+        private int m_id_oficina;
         private string m_nombre_sistema;
         private string m_estado;
         private DateTime m_fecha_inicio;
@@ -37,10 +38,16 @@ namespace SAPS.Entidades
         }
 
 
-        public string id
+        public int id
         {
             get { return m_id; }
             set { m_id = value; }
+        }
+
+        public int id_oficina
+        {
+            get { return m_id_oficina; }
+            set { m_id_oficina = value; }
         }
 
         public string nombre_sistema
