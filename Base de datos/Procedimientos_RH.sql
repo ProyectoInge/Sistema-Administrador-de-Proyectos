@@ -6,6 +6,7 @@ DROP PROCEDURE MODIFICAR_RH
 DROP PROCEDURE ELIMINAR_RH
 DROP PROCEDURE CONSULTAR_RH
 DROP PROCEDURE CONSULTAR_RECURSOS_DISPONIBLES
+DROP PROCEDURE CONSULTAR_CONTRASENA
 
 
 
@@ -22,7 +23,7 @@ GO
 
 GO
 CREATE PROCEDURE MODIFICAR_RH
-	@username varchar(64), @cedula varchar(16), @id_proyecto varchar(32), @telefono varchar(16), @nombre varchar(64), @hashed varchar(256), @correo varchar(64), @rol varchar(64), @admin bit
+	@username varchar(64), @cedula varchar(16), @id_proyecto int, @telefono varchar(16), @nombre varchar(64), @hashed varchar(256), @correo varchar(64), @rol varchar(64), @admin bit
 AS
 	UPDATE RecursosHumanos
 		SET cedula = @cedula, id_proyecto = @id_proyecto, telefono = @telefono, nombre = @nombre, contrasena = @hashed, correo = @correo, rol = @rol, es_administrador = @admin
@@ -74,5 +75,3 @@ AS BEGIN
 	WHERE username = @username
    END
 GO
-
-Select

@@ -86,8 +86,8 @@ namespace SAPS.Base_de_Datos
         private void rellenar_parametros_proyecto_pruebas(ref SqlCommand comando, ProyectoPruebas proyecto)
         {
             comando.CommandType = CommandType.StoredProcedure;
-
-            comando.Parameters.Add("@id_oficina", SqlDbType.VarChar).Value = proyecto.id_oficina;
+            comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = proyecto.id;
+            comando.Parameters.Add("@id_oficina", SqlDbType.Int).Value = proyecto.id_oficina;
             comando.Parameters.Add("@fecha_inicio", SqlDbType.VarChar).Value = proyecto.fecha_inicio;
             comando.Parameters.Add("@fecha_asignacion", SqlDbType.VarChar).Value = proyecto.fecha_asignacion;
             comando.Parameters.Add("@fecha_final", SqlDbType.VarChar).Value = proyecto.fecha_finalizacion;
@@ -95,6 +95,7 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@obj_general", SqlDbType.VarChar).Value = proyecto.objetivo;
             comando.Parameters.Add("@nombre_proyecto", SqlDbType.VarChar).Value = proyecto.nombre;
             comando.Parameters.Add("@estado", SqlDbType.VarChar).Value = proyecto.estado;
+
         }
     }
 
