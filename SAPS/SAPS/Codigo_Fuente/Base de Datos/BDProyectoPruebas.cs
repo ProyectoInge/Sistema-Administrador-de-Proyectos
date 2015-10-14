@@ -70,7 +70,7 @@ namespace SAPS.Base_de_Datos
 
         /** @brief Método que realiza la setencia SQL para conultar un proyecto en específico.
          * @param id_proyecto del proyecto que se desea consultar.
-         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         * @return DataTable con los resultados de la consultas.
          */
         public DataTable consultar_proyecto(int id_proyecto)
         {
@@ -78,6 +78,18 @@ namespace SAPS.Base_de_Datos
             SqlCommand comando = new SqlCommand("CONSULTAR_PYP");
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = id_proyecto;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
+
+        /** @brief Método que realiza la setencia SQL para consultar todas las oficinas que se encuentran en la Base de Datos.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable solicitar_oficinas_disponibles()
+        {
+            //Procedimiento almacenado
+            SqlCommand comando = new SqlCommand("CONSULTAR_OFICINAS_DISPONIBLES");
+            comando.CommandType = CommandType.StoredProcedure;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 

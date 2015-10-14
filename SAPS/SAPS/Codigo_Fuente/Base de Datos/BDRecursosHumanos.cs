@@ -71,7 +71,7 @@ namespace SAPS.Base_de_Datos
 
         /** @brief Método que realiza la setencia SQL para conultar un recurso humano en específico.
          * @param nombre_usuario del recuros humano que se desea consultar.
-         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         * @return DataTable con los resultados de la consultas.
          */
         public DataTable consultar_recurso_humano(string nombre_usuario)
         {
@@ -83,7 +83,7 @@ namespace SAPS.Base_de_Datos
         }
 
         /** @brief Método que realiza la setencia SQL para consultar todos recursos humanos que se encuentran en la Base de Datos.
-         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         * @return DataTable con los resultados de la consultas.
          */
         public DataTable solicitar_recursos_disponibles()
         {
