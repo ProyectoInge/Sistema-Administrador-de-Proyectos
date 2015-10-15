@@ -62,15 +62,6 @@ namespace SAPS.Fronteras
             activa_desactiva_botones_ime(false);
         }
 
-        /** @brief Evento que se activa cuando el usuario selecciona el boton "consultar".
-         * @param Los parametros por default de un evento de C#.
-         */
-        protected void btn_consultar_Click(object sender, EventArgs e)
-        {
-            activa_desactiva_botones_ime(true);
-            activa_desactiva_inputs(false);
-        }
-
         /** @brief Habilita los combo box de "proyecto_asociado" y "rol" en la interfaz.
          * @param Los parametros por default de un evento de C#.
          */
@@ -239,10 +230,16 @@ namespace SAPS.Fronteras
                     ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
                     upModal.Update();
                     // ** Hay que averiguar como hacer para que se espere al click del modal y que no ejecute las cosas de una vez.
-                    cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
-                    alerta_exito.Visible = true;
+                    if (m_result_eliminar)
+                    {
+                        cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
+                        limpia_campos();
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = " Se canceló la eliminación del recurso humano.";
+                    }
                     a_retornar = m_result_eliminar;
-                    limpia_campos();
                 }
                 else
                 {
@@ -425,12 +422,16 @@ namespace SAPS.Fronteras
 
             int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
             // TO DO --> manejar el codigo que devuelve
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
+            upModal.Update();
             m_result_eliminar = true;
         }
 
         protected void btn_modal_cancelar_Click(object sender, EventArgs e)
         {
             m_result_eliminar = false;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
+            upModal.Update();
         }
     }
 }

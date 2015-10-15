@@ -6,7 +6,9 @@
             <h1>SAPS <small>Recursos humanos</small></h1>
         </div>
     </section>
-    <section id="alerta_confirmacion">  <!-- TO DO: revisar que funciona -->
+    <!-- Esta alerta creo que se puede quitar mas adelante -->
+    <section id="alerta_confirmacion">
+        <!-- TO DO: revisar que funciona -->
         <script type="text/javascript">
             function Confirm() {
                 var confirm_value = document.createElement("INPUT");
@@ -57,8 +59,14 @@
                 <div class="col-md-3">
                     <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-1">
                     <!-- Espacio al propio-->
+                </div>
+                <div class="col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="control-label">Usuario</asp:Label>
+                </div>
+                <div class="col-md-3">
+                    <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
                 </div>
             </div>
         </div>
@@ -66,29 +74,19 @@
         <div id="row2" class="row">
             <div class="form-group">
                 <div class="col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="control-label">Usuario</asp:Label>
+                    <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula</asp:Label>
                 </div>
                 <div class="col-md-3">
-                    <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
+                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
                 </div>
                 <div class="col-md-1">
                     <!-- Espacio al propio-->
                 </div>
-                <div class="col-md-1">
-                    <asp:Label runat="server" AssociatedControlID="radio_btn_miembro" CssClass="control-label">Miembro</asp:Label>
-                </div>
-                <div class="col-md-1">
-                    <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
-                    uno de ellos seleccionado.-->
-                    <asp:RadioButton runat="server" CssClass="form-group" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack="true" />
-                </div>
                 <div class="col-md-2">
-                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_btn_administrador">Administrador</asp:Label>
+                    <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
                 </div>
-                <div class="col-md-1">
-                    <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
-                        uno de ellos seleccionado.-->
-                    <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack="true" />
+                <div class="col-md-3">
+                    <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
                 </div>
             </div>
         </div>
@@ -104,14 +102,26 @@
                 <div class="col-md-1">
                     <!-- Espacio al propio-->
                 </div>
-                <div class="col-md-2">
-                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
+                <div class="col-md-1">
+                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil:</asp:Label>
                 </div>
-                <div class="col-md-3">
-                    <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control">
-                        <asp:ListItem Text="Proyecto 1" Value="0"></asp:ListItem>
-                        <asp:ListItem Text="Proyecto 2" Value="1"></asp:ListItem>
-                    </asp:DropDownList>
+                <div id="radio_buttons" runat="server" class="form-group">
+                    <div class="col-md-1">
+                        <asp:Label runat="server" CssClass="control-label">Miembro</asp:Label>
+                    </div>
+                    <div class="col-md-1">
+                        <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
+                    uno de ellos seleccionado.-->
+                        <asp:RadioButton runat="server" CssClass="form-group" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack="true" />
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label runat="server" CssClass="control-label">Administrador <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack="true" />
+                    </asp:Label>
+                    </div>
+                    <div class="col-md-1">
+                        <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
+                        uno de ellos seleccionado.-->
+                       </div>
                 </div>
             </div>
         </div>
@@ -128,6 +138,23 @@
                     <!-- Espacio al propio-->
                 </div>
                 <div class="col-md-2">
+                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
+                </div>
+                <div class="col-md-3">
+                    <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control">
+                        <asp:ListItem Text="Proyecto 1" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="Proyecto 2" Value="1"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div id="row5" class="row">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <!-- Espacio al propio-->
+                </div>
+                <div class="col-md-2">
                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_rol">Rol</asp:Label>
                 </div>
                 <div class="col-md-3">
@@ -140,39 +167,6 @@
             </div>
         </div>
         <br />
-        <div id="row5" class="row">
-            <div class="form-group">
-                <div class="col-md-2">
-                    <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula</asp:Label>
-                </div>
-                <div class="col-md-3">
-                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
-                </div>
-                <div class="col-md-1">
-                    <!-- Espacio al propio-->
-                </div>
-                <div class="col-md-5">
-                    <!-- Espacio al propio-->
-                </div>
-            </div>
-        </div>
-        <br />
-        <div id="row6" class="row">
-            <div class="form-group">
-                <div class="col-md-2">
-                    <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
-                </div>
-                <div class="col-md-3">
-                    <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
-                </div>
-                <div class="col-md-1">
-                    <!-- Espacio al propio-->
-                </div>
-                <div class="col-md-5">
-                    <!-- Espacio al propio-->
-                </div>
-            </div>
-        </div>
         <br />
     </section>
     <section id="botones_aceptar_cancelar">
@@ -194,14 +188,8 @@
         </div>
     </section>
     <br />
-    <section id="area_consultas" class="col-md-offset-3">
+    <section id="area_consultas" class="col-md-offset-4">
         <div class="row">
-            <div class="col-md-1">
-                <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_consultar" Enabled="true" Text="Consultar" OnClick="btn_consultar_Click" />
-            </div>
-            <div class="col-md-1">
-                <!-- Espacio al propio-->
-            </div>
             <div class="col-md-7" style="height: 200px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_recursos_humanos" CssClass="table table-hover form-group">
                 </asp:Table>
