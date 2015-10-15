@@ -102,26 +102,18 @@
                 <div class="col-md-1">
                     <!-- Espacio al propio-->
                 </div>
-                <div class="col-md-1">
-                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil:</asp:Label>
-                </div>
-                <div id="radio_buttons" runat="server" class="form-group">
-                    <div class="col-md-1">
-                        <asp:Label runat="server" CssClass="control-label">Miembro</asp:Label>
-                    </div>
-                    <div class="col-md-1">
-                        <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
-                    uno de ellos seleccionado.-->
-                        <asp:RadioButton runat="server" CssClass="form-group" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack="true" />
-                    </div>
+                <div class="form-group">
                     <div class="col-md-2">
-                        <asp:Label runat="server" CssClass="control-label">Administrador <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack="true" />
-                    </asp:Label>
+                        <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil:</asp:Label>
                     </div>
-                    <div class="col-md-1">
-                        <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
-                        uno de ellos seleccionado.-->
-                       </div>
+                    <section id="radio_buttons" runat="server" class="radio">
+                        <div class="col-md-3">
+                            <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
+                    uno de ellos seleccionado.-->
+                            <asp:RadioButton runat="server" CssClass="form-group radio-inline" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack="true" Text="Miembro" />
+                            <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group radio-inline" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack="true" Text="Administrador" />
+                        </div>
+                    </section>
                 </div>
             </div>
         </div>
