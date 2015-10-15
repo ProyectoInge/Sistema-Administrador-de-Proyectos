@@ -20,6 +20,7 @@ create table Oficina(
 	id_oficina			int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	nombre_oficina		varchar(64) NOT NULL,
 	telefono			varchar(16),
+	telefono2			varchar(16),
 	nom_representante	varchar(64)
 );
 
@@ -110,3 +111,4 @@ create table Ejecucion(
 	incidencias			varchar(512)
 );
 
+INSERT Oficina ()

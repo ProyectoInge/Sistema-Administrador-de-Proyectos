@@ -22,7 +22,7 @@ CREATE PROCEDURE MODIFICAR_PYP
 	@id_proyecto int, @id_oficina int, @fecha_inicio date, @fecha_asignacion date, @fecha_final date, @nombre_sistema varchar(64), @obj_general varchar(256), @nombre_proyecto varchar(64), @estado varchar(32)
 AS
 	UPDATE ProyectoPruebas
-		SET id_oficina = @id_oficina, fecha_inicio = @fecha_inicio, fecha_asignacion=@fecha_asignacion, fecha_final=@fecha_final, nombre_sistema=@nombre_sistema, obj_general=@obj_general, nombre_proyecto=@nombre_proyecto, estado = @estado
+		SET id_oficina = @id_oficina, fecha_inicio = @fecha_inicio, fecha_final=@fecha_final, nombre_sistema=@nombre_sistema, obj_general=@obj_general, nombre_proyecto=@nombre_proyecto, estado = @estado
 		WHERE id_proyecto = @id_proyecto
 GO
 
@@ -52,6 +52,13 @@ AS
 			ProyectoPruebas.eliminado
 	FROM	ProyectoPruebas
 	WHERE	ProyectoPruebas.id_proyecto = @id_proyecto AND ProyectoPruebas.eliminado = 0
-			
 
 
+
+GO 
+CREATE PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
+AS BEGIN
+	SELECT	Oficina.nombre_oficina
+	FROM	Oficina
+	END
+GO
