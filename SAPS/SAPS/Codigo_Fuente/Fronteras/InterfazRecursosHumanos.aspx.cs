@@ -12,6 +12,7 @@ using SAPS.Controladoras;
 using System.Text.RegularExpressions;
 using System.Data;
 using System.Web.UI;
+using System.Threading;
 
 namespace SAPS.Fronteras
 {
@@ -96,17 +97,11 @@ namespace SAPS.Fronteras
             // TO DO --> Modificar y eliminar, ahorita solo inserta
             if (valida_campos() == true)
             {
-                if (m_opcion != 'e')
-                {
-                    alerta_exito.Visible = true;
-                }
+                alerta_exito.Visible = true;
             }
             else
             {
-                if (m_opcion != 'e')
-                {
-                    alerta_error.Visible = true;
-                }
+                alerta_error.Visible = true;
             }
         }
 
@@ -232,15 +227,29 @@ namespace SAPS.Fronteras
          */
         private bool valida_campos()
         {
-            bool a_retornar = true;
+            bool a_retornar = false;
             if (m_opcion == 'e')
             {
-                titulo_modal.Text = "¡Atención!";
-                cuerpo_modal.Text = " ¿Esta seguro que desea eliminar a " + input_usuario.Text + " del sistema?";
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
-                upModal.Update();
+                if (input_usuario.Text != "")
+                {
 
-                a_retornar = true;
+                    //TO DO --> Confirmacion de borrar el RH!!
+                    titulo_modal.Text = "¡Atención!";
+                    cuerpo_modal.Text = " ¿Esta seguro que desea eliminar a " + input_usuario.Text + " del sistema?";
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                    upModal.Update();
+                    // ** Hay que averiguar como hacer para que se espere al click del modal y que no ejecute las cosas de una vez.
+                    cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
+                    alerta_exito.Visible = true;
+                    a_retornar = m_result_eliminar;
+                    limpia_campos();
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
+                    alerta_error.Visible = true;
+                    SetFocus(input_usuario);
+                }
 
             }
             else
@@ -410,31 +419,18 @@ namespace SAPS.Fronteras
             return usuario;
         }
 
+        //DEBUG
         protected void btn_modal_aceptar_Click(object sender, EventArgs e)
         {
-            if (input_usuario.Text != "")
-            {
-                int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
-                // TO DO --> manejar el codigo que devuelve
-                m_result_eliminar = true;
 
-            }
-            else
-            {
-                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
-                alerta_error.Visible = true;
-                SetFocus(input_usuario);
-            }
-            modal_alerta.Visible = false;
-            cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
-            alerta_exito.Visible = true;
+            int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
+            // TO DO --> manejar el codigo que devuelve
+            m_result_eliminar = true;
         }
 
         protected void btn_modal_cancelar_Click(object sender, EventArgs e)
         {
-            m_result_eliminar = true;
-            m_modal_cancelar = true;
-            modal_alerta.Visible = false;
+            m_result_eliminar = false;
         }
     }
 }

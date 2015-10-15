@@ -6,6 +6,21 @@
             <h1>SAPS <small>Recursos humanos</small></h1>
         </div>
     </section>
+    <section id="alerta_confirmacion">
+        <script type="text/javascript">
+            function Confirm() {
+                var confirm_value = document.createElement("INPUT");
+                confirm_value.type = "hidden";
+                confirm_value.name = "confirm_value";
+                if (confirm("¿Esta seguro que desea eliminar el recurso humano?")) {
+                    confirm_value.value = "Si";
+                } else {
+                    confirm_value.value = "No";
+                }
+                document.forms[0].appendChild(confirm_value);
+            }
+        </script>
+    </section>
     <section id="botones_IME">
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
@@ -197,7 +212,7 @@
     </section>
     <section id="modal">
         <!-- Bootstrap Modal Dialog -->
-        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" runat="server">
+        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                     <ContentTemplate>
@@ -212,8 +227,8 @@
                                 <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button runat="server" OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Cancelar" />
-                                <asp:Button runat="server" OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar"/>
+                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Cancelar" runat="server" />
+                                <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
                             </div>
                         </div>
                     </ContentTemplate>
