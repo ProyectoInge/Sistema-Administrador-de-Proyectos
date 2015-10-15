@@ -64,7 +64,15 @@ namespace SAPS.Controladoras
             return m_base_datos.consultar_proyecto(id_proyecto);
         }
 
-        /** @brief Método que asigna las operaciones necesarias para poder consultar los resucursos humanos dispinibles.
+        /** @brief Método que asigna las operaciones necesarias para poder consultar las oficibas disponibles.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable solicitar_oficinas_disponibles()
+        {
+            return m_base_datos.solicitar_oficinas_disponibles();
+        }
+
+        /** @brief Método que asigna las operaciones necesarias para poder consultar los resucursos humanos disponibles.
          * @return DataTable con los resultados de la consultas.
          */
         public DataTable solicitar_recursos_disponibles()
