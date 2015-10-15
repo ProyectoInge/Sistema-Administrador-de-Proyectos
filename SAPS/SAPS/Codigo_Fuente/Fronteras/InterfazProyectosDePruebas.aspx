@@ -40,22 +40,18 @@
         <div id="row1" class="row">
             <div class="form-group">
                 <div class="col-md-2">
-                        <asp:Label runat="server" AssociatedControlID="input_system" CssClass="control-label">Nombre del sistema:</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="input_system" CssClass="control-label">Nombre del Sistema:</asp:Label>
                 </div>
                 <div class="col-md-3">
                         <asp:TextBox runat="server" ID="input_system" CssClass="form-control" />
                 </div>
                 <div class="col-md-1"><!-- Espacio al propio--></div>
                 <div class="col-md-2">
-                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Oficina usuaria:</asp:Label>
-                </div>
-                <div class="col-md-3">
-                    <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control">
-                        <asp:ListItem Text="Oficina 1" Value="0"></asp:ListItem>
-                        <asp:ListItem Text="Oficina 2" Value="1"></asp:ListItem>
-                        <asp:ListItem Text="Oficina 3" Value="2"></asp:ListItem>
-                    </asp:DropDownList>    
-                </div>
+                        <asp:Label runat="server" AssociatedControlID="input_process" CssClass="control-label">Nombre del Proyecto:</asp:Label>
+            </div>
+            <div class="col-md-3">
+                        <asp:TextBox runat="server" ID="input_process" CssClass="form-control" />
+            </div>
             </div>
         </div>
 
@@ -63,10 +59,10 @@
 
         <div id="row2" class="row">
             <div class="col-md-2">
-                        <asp:Label runat="server" AssociatedControlID="input_process" CssClass="control-label">Nombre del proceso:</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="input_start_date" CssClass="control-label">Fecha de inicio:</asp:Label>
             </div>
             <div class="col-md-3">
-                        <asp:TextBox runat="server" ID="input_process" CssClass="form-control" />
+                        <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" />
             </div>
             <div class="col-md-1"><!-- Espacio al propio--></div>
             <div class="col-md-2">
@@ -87,11 +83,33 @@
 
         <div id="row3" class="row">
             <div class="col-md-2">
-                        <asp:Label runat="server" AssociatedControlID="input_leader" CssClass="control-label">Líder del proyecto:</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="input_asignment_date" CssClass="control-label">Fecha de asignación:</asp:Label>
             </div>
             <div class="col-md-3">
-                        <asp:TextBox runat="server" ID="input_leader" CssClass="form-control" />
+                        <asp:TextBox runat="server" ID="input_asignment_date" CssClass="form-control" />
             </div>
+            <div class="col-md-1"><!-- Espacio al propio--></div>
+            <div class="col-md-2">
+                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Oficina usuaria:</asp:Label>
+                </div>
+                <div class="col-md-3">
+                    <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control">
+                        <asp:ListItem Text="Oficina 1" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="Oficina 2" Value="1"></asp:ListItem>
+                        <asp:ListItem Text="Oficina 3" Value="2"></asp:ListItem>
+                    </asp:DropDownList>    
+                </div>
+        </div>
+
+        </br>
+
+        <div id="row4" class="row">
+            <div class="col-md-2">
+                        <asp:Label runat="server" AssociatedControlID="input_finish_date" CssClass="control-label">Fecha de finalización:</asp:Label>
+            </div>
+            <div class="col-md-3">
+                        <asp:TextBox runat="server" ID="input_finish_date" CssClass="form-control" />
+            </div> 
             <div class="col-md-1"><!-- Espacio al propio--></div>
             <div class="col-md-2">
                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Representante de oficina:</asp:Label>
@@ -103,31 +121,31 @@
 
         </br>
 
-        <div id="row4" class="row">            
+        <div id="row5" class="row">            
+                <div class="col-md-2">
+                            <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo:</asp:Label>
+                </div>                        
+                <div class="col-md-3">
+                            <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" rows="5" TextMode="multiline"  />
+                </div>            
+            <div class="col-md-1"><!-- Espacio al propio--></div>
             <div class="col-md-2">
-                        <asp:Label runat="server" AssociatedControlID="input_phone1" CssClass="control-label">Teléfono:</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="input_phone1" CssClass="control-label">Teléfonos de Oficina:</asp:Label>
             </div>
             <div class="col-md-3">
                         <asp:TextBox runat="server" ID="input_phone1" CssClass="form-control" />
                         </br>
                         <asp:TextBox runat="server" ID="input_phone2" CssClass="form-control" />
             </div>
-            <div class="col-md-1"><!-- Espacio al propio--></div>
-            <div class="col-md-2">
-                        <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo:</asp:Label>
-            </div>                        
-            <div class="col-md-3">
-                        <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" rows="5" TextMode="multiline"  />
-            </div>
         </div>
 
         </br>
+    </section>
 
-        <section id="label_lista_ddp" class="row">
+    <section id="label_lista_ddp" class="row">
         <div class="col-md-11 col-md-offset-1">
             <h4>Diseños de Pruebas</h4>
         </div>
-    </section>
 
         </br>
 
@@ -170,9 +188,7 @@
 
     <section id="area_consultas" class="col-md-offset-3">
         <div class="row">
-            <div class="col-md-1">
-                <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_consultar" Enabled="true" Text="Consultar" OnClick="btn_consultar_click" />
-            </div>
+            <div class="col-md-1"><!-- Espacio al propio--></div>
             <div class="col-md-1"><!-- Espacio al propio--></div>
             <div class="col-md-7" style="height:200px; overflow-y:scroll">
                 <asp:Table runat="server" ID="tabla_proyectos_de_pruebas" CssClass="table table-hover form-group">
