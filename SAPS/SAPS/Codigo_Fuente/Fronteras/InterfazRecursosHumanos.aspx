@@ -6,7 +6,7 @@
             <h1>SAPS <small>Recursos humanos</small></h1>
         </div>
     </section>
-    <section id="alerta_confirmacion">
+    <section id="alerta_confirmacion">  <!-- TO DO: revisar que funciona -->
         <script type="text/javascript">
             function Confirm() {
                 var confirm_value = document.createElement("INPUT");
