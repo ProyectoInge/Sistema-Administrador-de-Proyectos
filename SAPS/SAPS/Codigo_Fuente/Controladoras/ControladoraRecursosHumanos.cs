@@ -88,10 +88,7 @@ namespace SAPS.Controladoras
          */
         public int restablecer_contrasena(string nombre_usuario, string nueva_contrasena) 
         {
-            Object[] datos = new Object[9];
-            datos[0] = nombre_usuario;
-            datos[5] = nueva_contrasena;
-            return m_base_datos.cambiar_contrasena(new RecursoHumano(datos));
+            return m_base_datos.cambiar_contrasena(new RecursoHumano(nombre_usuario, nueva_contrasena));
         }
 
         /** @brief Método que verifica si el nombre de usuario y la contraseña coinciden.
