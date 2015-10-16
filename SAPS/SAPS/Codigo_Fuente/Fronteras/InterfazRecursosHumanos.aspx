@@ -141,8 +141,6 @@
                                 </div>
                                 <div class="col-md-8">
                                     <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="Proyecto 1" Value="0"></asp:ListItem>
-                                        <asp:ListItem Text="Proyecto 2" Value="1"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
