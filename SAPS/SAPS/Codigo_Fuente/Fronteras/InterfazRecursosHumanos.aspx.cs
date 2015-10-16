@@ -326,6 +326,7 @@ namespace SAPS.Fronteras
                                                         }
                                                         else
                                                         {
+                                                            // To DO --> arreglar "modificar" para que no pida por la contraseña
                                                             resultado = m_controladora_rh.modificar_recurso_humano(datos);
                                                             cuerpo_alerta_exito.Text = " Se modificó el recurso humano correctamente.";
                                                         }

@@ -55,11 +55,11 @@
             <div id="panel_izquierda" class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Datos personales</h4>
+                        <div class="panel-title">Datos personales</div>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group">
-                            <div id="row1_izq" class="row">
+                        <div class="form-horizontal">
+                            <div id="row1_izq" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" AssociatedControlID="input_name" CssClass="control-label">Nombre</asp:Label>
                                 </div>
@@ -67,8 +67,7 @@
                                     <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
                                 </div>
                             </div>
-                            <br />
-                            <div id="row2_izq" class="row">
+                            <div id="row2_izq" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula</asp:Label>
                                 </div>
@@ -76,8 +75,7 @@
                                     <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
                                 </div>
                             </div>
-                            <br />
-                            <div id="row3_izq" class="row">
+                            <div id="row3_izq" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="control-label">Correo</asp:Label>
                                 </div>
@@ -85,8 +83,7 @@
                                     <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" placeholder="ejemplo@ejemplo.com" />
                                 </div>
                             </div>
-                            <br />
-                            <div id="row4_izq" class="row">
+                            <div id="row4_izq" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="control-label">Telefono</asp:Label>
                                 </div>
@@ -101,11 +98,11 @@
             <div id="panel_derecha" class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title">Otros datos</h4>
+                        <div class="panel-title">Otros datos</div>
                     </div>
                     <div class="panel-body">
-                        <div class="form-group">
-                            <div id="row1_der" class="row">
+                        <div class="form-horizontal">
+                            <div id="row1_der" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="control-label">Usuario</asp:Label>
                                 </div>
@@ -113,8 +110,7 @@
                                     <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
                                 </div>
                             </div>
-                            <br />
-                            <div id="row2_der" class="row">
+                            <div id="row2_der" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
                                 </div>
@@ -124,23 +120,22 @@
                                 </div>
                             </div>
                             <hr />
-                            <div id="row3_der" class="row">
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                        <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil:</asp:Label>
-                                    </div>
-                                    <section id="radio_buttons" runat="server" class="radio">
-                                        <div class="col-md-9">
-                                            <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
-                                 uno de ellos seleccionado.-->
-                                            <asp:RadioButton runat="server" CssClass="form-group radio-inline" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack="true" Text="Miembro" />
-                                            <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group radio-inline" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack="true" Text="Administrador" />
-                                        </div>
-                                    </section>
+                            <div id="row3_der" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil:</asp:Label>
                                 </div>
+                                <section id="radio_buttons" runat="server">
+                                    <div class="col-md-3 col-md-offset-1">
+                                        <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
+                                 uno de ellos seleccionado.-->
+                                        <asp:RadioButton runat="server" CssClass="form-group radio-inline" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack="true" Text="Miembro" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group radio-inline" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack="true" Text="Administrador" />
+                                    </div>
+                                </section>
                             </div>
-                            <br />
-                            <div id="row4_der" class="row">
+                            <div id="row4_der" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
                                 </div>
@@ -151,8 +146,7 @@
                                     </asp:DropDownList>
                                 </div>
                             </div>
-                            <br />
-                            <div id="row5_der" class="row">
+                            <div id="row5_der" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_rol">Rol</asp:Label>
                                 </div>

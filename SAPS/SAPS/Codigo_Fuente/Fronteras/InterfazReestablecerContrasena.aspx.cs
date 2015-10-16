@@ -41,14 +41,14 @@ namespace SAPS.Fronteras
             bool a_retornar = false;
             if (input_usuario.Text != "")
             {
-                if(input_vieja_contrasena.Text != "")
+                if(input_nueva_contrasena1.Text != "")
                 {
-                    if(input_nueva_contrasena.Text != "")
+                    if(input_nueva_contrasena2.Text != "")
                     {
-                        int resultado_autenticar = m_controladora_rh.autenticar(input_usuario.Text, input_vieja_contrasena.Text);   //valida que la info sea correcta
-                        if(resultado_autenticar != -1)
+                        bool resultado_comparacion = input_nueva_contrasena1.Text.Equals(input_nueva_contrasena2.Text);
+                        if(resultado_comparacion)
                         {
-                            int resultado_reestablecer = m_controladora_rh.restablecer_contrasena(input_usuario.Text, input_nueva_contrasena.Text); //hace el cambio de contraseña
+                            int resultado_reestablecer = m_controladora_rh.restablecer_contrasena(input_usuario.Text, input_nueva_contrasena1.Text); //hace el cambio de contraseña
                             if(resultado_reestablecer != -1)
                             {
                                 cuerpo_alerta_exito.Text = " Tuvo éxito al reestablecer la contraseña.";
@@ -67,13 +67,13 @@ namespace SAPS.Fronteras
                     else
                     {
                         cuerpo_alerta_error.Text = " Es necesario que ingrese la contraseña nueva.";
-                        SetFocus(input_nueva_contrasena);
+                        SetFocus(input_nueva_contrasena2);
                     }
                 }
                 else
                 {
                     cuerpo_alerta_error.Text = "Es necesario que ingrese la contraseña actual.";
-                    SetFocus(input_vieja_contrasena);
+                    SetFocus(input_nueva_contrasena1);
                 }
             }
             else

@@ -31,46 +31,32 @@
             <div id="panel_reestablecer" class="col-md-4 col-md-offset-4">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="form-group">
-                            <div id="row1" class="row">
+                        <div class="form-horizontal">
+                            <div id="row1" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="label_usuario" CssClass="control-label" AssociatedControlID="input_usuario" Text="Usuario"></asp:Label>
-                                </div>
-                            </div>
-                            <div id="row2" class="row">
-                                <div class="col-md-12">
                                     <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
                             <hr />
-                            <div id="row3" class="row">
+                            <div id="row2" class="form-group">
                                 <div class="col-md-12">
-                                    <asp:Label runat="server" ID="label_vieja_contrasena" CssClass="control-label" AssociatedControlID="input_vieja_contrasena" Text="Contraseña actual"></asp:Label>
+                                    <asp:Label runat="server" ID="label_nueva_contrasena1" CssClass="control-label" AssociatedControlID="input_nueva_contrasena1" Text="Digite su nueva contraseña"></asp:Label>
+                                    <asp:TextBox runat="server" ID="input_nueva_contrasena1" CssClass="form-control" TextMode="Password"></asp:TextBox>
                                 </div>
                             </div>
-                            <div id="row4" class="row">
+                            <div id="row3" class="form-group">
                                 <div class="col-md-12">
-                                    <asp:TextBox runat="server" ID="input_vieja_contrasena" CssClass="form-control" TextMode="Password"></asp:TextBox>
+                                    <asp:Label runat="server" ID="label_nueva_contrasena2" CssClass="control-label" AssociatedControlID="input_nueva_contrasena2" Text="Vuelva a ingresar la contraseña"></asp:Label>
+                                    <asp:TextBox runat="server" ID="input_nueva_contrasena2" CssClass="form-control" TextMode="Password"></asp:TextBox>
                                 </div>
                             </div>
-                            <br />
-                            <div id="row5" class="row">
-                                <div class="col-md-12">
-                                    <asp:Label runat="server" ID="label_nueva_contrasena" CssClass="control-label" AssociatedControlID="input_nueva_contrasena" Text="Nueva contraseña"></asp:Label>
-                                </div>
-                            </div>
-                            <div id="row6" class="row">
-                                <div class="col-md-12">
-                                    <asp:TextBox runat="server" ID="input_nueva_contrasena" CssClass="form-control" TextMode="Password"></asp:TextBox>
-                                </div>
-                            </div>
-                            <br />
-                            <div id="row7" class="row">
+                            <div id="row4" class="form-group">
                                 <div class="col-md-3 col-md-offset-5">
-                                    <asp:Button runat="server" ID="btn_reestablecer" CssClass="btn btn-success btn-sm" Text="Aceptar" OnClick="btn_reestablecer_Click" />
+                                    <asp:Button runat="server" ID="btn_cancelar" CssClass="btn btn-default btn-sm" Text="Cancelar" OnClick="btn_cancelar_Click" />
                                 </div>
-                                <div class="col-md-3">
-                                    <asp:Button runat="server" ID="btn_cancelar" CssClass="btn btn-danger btn-sm" Text="Cancelar" OnClick="btn_cancelar_Click" />
+                                <div class="col-md-4">
+                                    <asp:Button runat="server" ID="btn_reestablecer" CssClass="btn btn-primary btn-sm" Text="Aceptar" OnClick="btn_reestablecer_Click" />
                                 </div>
                             </div>
                         </div>
