@@ -45,9 +45,8 @@ namespace SAPS.Fronteras
             {
                 if(input_contrasena.Text != "")
                 {
-                    // TO DO --> manejar el codigo que retornar "autenticar".
                     int resultado = m_controladora_rh.autenticar(input_usuario.Text, input_contrasena.Text);
-                    if(resultado == 0) // TO DO --> esto hay que arreglarlo porque ahorita no esta verificando nada y solo devuelve 0.
+                    if(resultado == 0)
                     {
                         FormsAuthentication.Authenticate(input_usuario.Text, input_contrasena.Text);
                         FormsAuthentication.RedirectFromLoginPage(input_usuario.Text, true);

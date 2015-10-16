@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
-                                    <asp:HyperLink runat="server" Text="¿Desea reestablecer la contraseña?" ID="link_reestablece_contrasena" NavigateUrl="~/Codigo_Fuente/Fronteras/InterfazReestablecerContrasena.aspx"></asp:HyperLink>
+                                    <asp:Button runat="server" ID="btn_reestablece_contrasena" CssClass="btn btn-link btn-xs" Text="¿Desea reestablecer la contraseña?" OnClick="btn_reestablece_contrasena_Click" />
                                 </div>
                             </div>
                             <hr />
@@ -127,7 +127,7 @@
                                 <section id="radio_buttons" runat="server">
                                     <div class="col-md-3 col-md-offset-1">
                                         <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
-                                 uno de ellos seleccionado.-->
+                                                uno de ellos seleccionado.-->
                                         <asp:RadioButton runat="server" CssClass="form-group radio-inline" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack="true" Text="Miembro" />
                                     </div>
                                     <div class="col-md-4">
@@ -184,13 +184,17 @@
         </div>
     </section>
     <br />
-    <section id="area_consultas" class="col-md-offset-4">
+    <section id="area_consultas" class="col-md-offset-2">
         <div class="row">
-            <div class="col-md-7" style="height: 200px; overflow-y: scroll">
+            <div class="col-md-10" style="height: 250px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_recursos_humanos" CssClass="table table-hover form-group">
+                    <asp:TableHeaderRow runat="server" ID="tabla_recursos_humanos_header">
+                        <asp:TableHeaderCell runat="server" ID="celda_nombre" Text="Nombre"></asp:TableHeaderCell>
+                        <asp:TableHeaderCell runat="server" ID="celda_proyecto" Text="Proyecto asociado"></asp:TableHeaderCell>
+                        <asp:TableHeaderCell runat="server" ID="celda_rol" Text="Rol"></asp:TableHeaderCell>
+                    </asp:TableHeaderRow>
                 </asp:Table>
-                <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente o
-                    en el archivo InterfazRecursosHumanos.aspx.cs en el constructro hay un ejemplo de como llenarla -->
+                <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente -->
             </div>
         </div>
     </section>

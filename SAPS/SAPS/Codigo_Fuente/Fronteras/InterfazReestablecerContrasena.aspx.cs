@@ -10,11 +10,15 @@ namespace SAPS.Fronteras
 {
     public partial class InterfazReestablecerContrasena : System.Web.UI.Page
     {
-        ControladoraRecursosHumanos m_controladora_rh;
+        private ControladoraRecursosHumanos m_controladora_rh;
+        private static string m_nombre_usuario = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
+            m_nombre_usuario = Request.QueryString["u"];
+            input_usuario.Text = m_nombre_usuario;
+            input_usuario.Enabled = false;
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
         }
