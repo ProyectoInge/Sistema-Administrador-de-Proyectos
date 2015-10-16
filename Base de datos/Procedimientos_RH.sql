@@ -7,7 +7,10 @@ DROP PROCEDURE ELIMINAR_RH
 DROP PROCEDURE CONSULTAR_RH
 DROP PROCEDURE CONSULTAR_RECURSOS_DISPONIBLES
 DROP PROCEDURE CONSULTAR_CONTRASENA
-
+DROP PROCEDURE CAMBIAR_CONTRASENA
+DROP PROCEDURE INICIAR_SESION
+DROP PROCEDURE CERRAR_SESION
+DROP PROCEDURE ESTADO_SESION
 
 
 GO
@@ -15,9 +18,9 @@ CREATE PROCEDURE INSERTAR_RH
 	@username varchar(64), @cedula varchar(16), @id_proyecto int, @telefono varchar(16), @nombre varchar(64), @hashed varchar(256), @correo varchar(64), @rol varchar(64), @admin bit
 AS
 	INSERT INTO RecursosHumanos
-		(username, cedula, id_proyecto, telefono, nombre, contrasena, correo, rol, es_administrador)
+		(username, cedula, id_proyecto, telefono, nombre, contrasena, correo, rol, es_administrador, sesion_iniciada)
 	VALUES
-		(@username, @cedula, @id_proyecto, @telefono, @nombre, @hashed, @correo, @rol, @admin)
+		(@username, @cedula, @id_proyecto, @telefono, @nombre, @hashed, @correo, @rol, @admin,0)
 GO
 
 
@@ -80,9 +83,37 @@ GO
 
 GO
 CREATE PROCEDURE CAMBIAR_CONTRASENA
-	@username varchar(64), @nueva_contrasena varchar(64)
-	AS
-		UPDATE RecursosHumanos
-			SET contrasena = @nueva_contrasena
-			WHERE username = @username
+@username varchar(64), @nueva_contrasena varchar(64)
+AS
+	UPDATE RecursosHumanos
+		SET contrasena = @nueva_contrasena
+		WHERE username = @username
+GO
+
+GO
+CREATE PROCEDURE INICIAR_SESION
+@username varchar(64)
+AS
+	UPDATE RecursosHumanos
+		SET sesion_iniciada = 1
+		WHERE username = @username
+GO
+
+GO
+CREATE PROCEDURE CERRAR_SESION
+@username varchar(64)
+AS
+	UPDATE RecursosHumanos
+		SET sesion_iniciada = 0
+		WHERE username = @username
+GO 
+
+GO 
+CREATE PROCEDURE ESTADO_SESION
+	@username varchar(64)
+	AS BEGIN
+	SELECT	RecursosHumanos.sesion_iniciada
+	FROM	RecursosHumanos
+	WHERE username = @username
+	END
 GO
