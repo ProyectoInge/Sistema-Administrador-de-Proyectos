@@ -24,7 +24,7 @@
             <div id="panel_login" class="col-md-4 col-md-offset-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Log-in
+                        Ingresar
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
