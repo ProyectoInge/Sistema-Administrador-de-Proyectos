@@ -60,7 +60,9 @@ GO
 CREATE PROCEDURE CONSULTAR_RECURSOS_DISPONIBLES
 	AS BEGIN
 	SELECT	RecursosHumanos.nombre,
-			RecursosHumanos.username
+			RecursosHumanos.username,
+			RecursosHumanos.id_proyecto,
+			RecursosHumanos.rol
 	FROM	RecursosHumanos
 	END
 GO
