@@ -39,7 +39,7 @@ namespace SAPS.Fronteras
             drop_proyecto_asociado.Enabled = false;
             drop_rol.Enabled = false;
             activa_desactiva_botones_ime(false);
-            if(m_opcion == 'i')
+            if (m_opcion == 'i')
             {
                 link_reestablece_contrasena.Visible = false;
             }
@@ -116,7 +116,7 @@ namespace SAPS.Fronteras
             m_opcion = 'm';
             link_reestablece_contrasena.Visible = true;
             activa_desactiva_inputs(true);
-            if(radio_btn_administrador.Checked == true)
+            if (radio_btn_administrador.Checked == true)
             {
                 drop_rol.Enabled = false;
                 drop_proyecto_asociado.Enabled = false;
@@ -243,58 +243,174 @@ namespace SAPS.Fronteras
         private bool valida_campos()
         {
             bool a_retornar = false;
-            if (m_opcion == 'e')
+            switch (m_opcion)
             {
-                if (input_usuario.Text != "")
-                {
-
-                    //TO DO --> Confirmacion de borrar el RH!!
-                    titulo_modal.Text = "¡Atención!";
-                    cuerpo_modal.Text = " ¿Esta seguro que desea eliminar a " + input_usuario.Text + " del sistema?";
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
-                    upModal.Update();
-                    // ** Hay que averiguar como hacer para que se espere al click del modal y que no ejecute las cosas de una vez.
-                    if (m_result_eliminar)
+                case 'e':
+                    if (input_usuario.Text != "")
                     {
-                        cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
-                        limpia_campos();
-                        actualiza_tabla_recursos_humanos();
+
+                        //TO DO --> Confirmacion de borrar el RH!!
+                        titulo_modal.Text = "¡Atención!";
+                        cuerpo_modal.Text = " ¿Esta seguro que desea eliminar a " + input_usuario.Text + " del sistema?";
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                        upModal.Update();
+                        // ** Hay que averiguar como hacer para que se espere al click del modal y que no ejecute las cosas de una vez.
+                        if (m_result_eliminar)
+                        {
+                            cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
+                            limpia_campos();
+                            actualiza_tabla_recursos_humanos();
+                        }
+                        else
+                        {
+                            cuerpo_alerta_error.Text = " Se canceló la eliminación del recurso humano.";
+                        }
+                        a_retornar = m_result_eliminar;
                     }
                     else
                     {
-                        cuerpo_alerta_error.Text = " Se canceló la eliminación del recurso humano.";
+                        cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
+                        alerta_error.Visible = true;
+                        SetFocus(input_usuario);
                     }
-                    a_retornar = m_result_eliminar;
-                }
-                else
-                {
-                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
-                    alerta_error.Visible = true;
-                    SetFocus(input_usuario);
-                }
-
-            }
-            else
-            {
-                if (input_name.Text != "")
-                {
-                    if (input_usuario.Text != "")
+                    break;
+                case 'i':
+                    if (input_name.Text != "")
                     {
-                        if (input_correo.Text != "")
+                        if (input_usuario.Text != "")
                         {
-                            if (input_telefono.Text != "")
+                            if (input_correo.Text != "")
                             {
-                                Regex revisa_numero = new Regex(@"(\(?\+?\d{3}\))?(2|4|5|6|7|8)\d{3}-?\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);  //REGEX que valida numeros de telefono
-                                Match acierta = revisa_numero.Match(input_telefono.Text);
-                                if (acierta.Success)    //coincide con la REGEX de numeros de telefono
+                                if (input_telefono.Text != "")
                                 {
-                                    if (input_cedula.Text != "")
+                                    Regex revisa_numero = new Regex(@"(\(?\+?\d{3}\))?(2|4|5|6|7|8)\d{3}-?\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);  //REGEX que valida numeros de telefono
+                                    Match acierta = revisa_numero.Match(input_telefono.Text);
+                                    if (acierta.Success)    //coincide con la REGEX de numeros de telefono
                                     {
-                                        Regex revisa_cedula = new Regex(@"([1-7]|9)-\d{4}-\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                                        acierta = revisa_cedula.Match(input_cedula.Text);
-                                        if (acierta.Success)    //coincide con la REGEX de cedulas
+                                        if (input_cedula.Text != "")
                                         {
-                                            if (input_contrasena.Text != "")
+                                            Regex revisa_cedula = new Regex(@"([1-7]|9)-\d{4}-\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                                            acierta = revisa_cedula.Match(input_cedula.Text);
+                                            if (acierta.Success)    //coincide con la REGEX de cedulas
+                                            {
+                                                if (input_contrasena.Text != "")
+                                                {
+                                                    if (radio_btn_administrador.Checked == true || radio_btn_miembro.Checked == true)
+                                                    {
+                                                        if (radio_btn_miembro.Checked == true)
+                                                        {
+                                                            // TO DO --> agarrar los campos de rol y proyecto
+                                                        }
+                                                        else
+                                                        {
+                                                            Object[] datos = new Object[9];
+                                                            datos[0] = input_usuario.Text;
+                                                            datos[1] = input_name.Text;
+                                                            datos[2] = input_correo.Text;
+                                                            datos[3] = input_telefono.Text;
+                                                            datos[4] = "";  //es admi entonces no tiene proyecto asociado
+                                                            datos[5] = input_contrasena.Text;
+                                                            datos[6] = true;
+                                                            datos[7] = input_cedula.Text;
+                                                            datos[8] = "";  //es admi entonces no tiene un rol asociado
+
+                                                            int resultado = m_controladora_rh.insertar_recurso_humano(datos);
+                                                            if (resultado == 0)
+                                                            {
+                                                                cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
+                                                                actualiza_tabla_recursos_humanos();
+                                                                btn_modificar.Enabled = true;
+                                                                a_retornar = true;
+                                                            }
+                                                            else
+                                                            {
+                                                                cuerpo_alerta_error.Text = " Hubo un error al ingresar el recurso humano, intentelo nuevamente.";
+                                                                a_retornar = false;
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        cuerpo_alerta_error.Text = "Es necesario seleccionar un perfil de usuario.";
+                                                        SetFocus(radio_btn_miembro);
+                                                        a_retornar = false;
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    cuerpo_alerta_error.Text = "Es necesario ingresar una contraseña.";
+                                                    SetFocus(input_contrasena);
+                                                    a_retornar = false;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                cuerpo_alerta_error.Text = "Es necesario ingresar un número de cédula válido.";
+                                                SetFocus(input_cedula);
+                                                a_retornar = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar un número de cédula.";
+                                            SetFocus(input_cedula);
+                                            a_retornar = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar un número de teléfono válido.";
+                                        SetFocus(input_telefono);
+                                        a_retornar = false;
+                                    }
+                                }
+                                else
+                                {
+                                    cuerpo_alerta_error.Text = "Es necesario ingresar un número de teléfono.";
+                                    SetFocus(input_telefono);
+                                    a_retornar = false;
+                                }
+                            }
+                            else
+                            {
+                                cuerpo_alerta_error.Text = "Es necesario ingresar un correo electrónico.";
+                                SetFocus(input_correo);
+                                a_retornar = false;
+                            }
+                        }
+                        else
+                        {
+                            cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
+                            SetFocus(input_usuario);
+                            a_retornar = false;
+                        }
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = "Es necesario ingresar un nombre.";
+                        SetFocus(input_name);
+                        a_retornar = false;
+                    }
+                    break;
+                case 'm':
+                    if (input_name.Text != "")
+                    {
+                        if (input_usuario.Text != "")
+                        {
+                            if (input_correo.Text != "")
+                            {
+                                if (input_telefono.Text != "")
+                                {
+                                    Regex revisa_numero = new Regex(@"(\(?\+?\d{3}\))?(2|4|5|6|7|8)\d{3}-?\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);  //REGEX que valida numeros de telefono
+                                    Match acierta = revisa_numero.Match(input_telefono.Text);
+                                    if (acierta.Success)    //coincide con la REGEX de numeros de telefono
+                                    {
+                                        if (input_cedula.Text != "")
+                                        {
+                                            Regex revisa_cedula = new Regex(@"([1-7]|9)-\d{4}-\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                                            acierta = revisa_cedula.Match(input_cedula.Text);
+                                            if (acierta.Success)    //coincide con la REGEX de cedulas
                                             {
                                                 if (radio_btn_administrador.Checked == true || radio_btn_miembro.Checked == true)
                                                 {
@@ -310,29 +426,25 @@ namespace SAPS.Fronteras
                                                         datos[2] = input_correo.Text;
                                                         datos[3] = input_telefono.Text;
                                                         datos[4] = "";  //es admi entonces no tiene proyecto asociado
-                                                        datos[5] = input_contrasena.Text;
+                                                        datos[5] = "";  //como esta modificando, envia la contraseña vacia
                                                         datos[6] = true;
                                                         datos[7] = input_cedula.Text;
                                                         datos[8] = "";  //es admi entonces no tiene un rol asociado
 
-                                                        int resultado;
-
-                                                        if (m_opcion == 'i')
+                                                        int resultado = m_controladora_rh.modificar_recurso_humano(datos);
+                                                        if (resultado == 0)
                                                         {
-                                                            resultado = m_controladora_rh.insertar_recurso_humano(datos);
-                                                            cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
+                                                            cuerpo_alerta_exito.Text = " Se modificó el recurso humano correctamente.";
                                                             actualiza_tabla_recursos_humanos();
                                                             btn_modificar.Enabled = true;
+                                                            a_retornar = true;
                                                         }
                                                         else
                                                         {
-                                                            // To DO --> arreglar "modificar" para que no pida por la contraseña
-                                                            resultado = m_controladora_rh.modificar_recurso_humano(datos);
-                                                            cuerpo_alerta_exito.Text = " Se modificó el recurso humano correctamente.";
+                                                            cuerpo_alerta_error.Text = " Hubo un error al modificar el recurso humano, intentelo nuevamente.";
+                                                            a_retornar = false;
                                                         }
-                                                        // TO DO --> manejar el codigo que devuelve
                                                     }
-                                                    a_retornar = true;
                                                 }
                                                 else
                                                 {
@@ -340,63 +452,58 @@ namespace SAPS.Fronteras
                                                     SetFocus(radio_btn_miembro);
                                                     a_retornar = false;
                                                 }
-
                                             }
                                             else
                                             {
-                                                cuerpo_alerta_error.Text = "Es necesario ingresar una contraseña.";
-                                                SetFocus(input_contrasena);
+                                                cuerpo_alerta_error.Text = "Es necesario ingresar un número de cédula válido.";
+                                                SetFocus(input_cedula);
                                                 a_retornar = false;
                                             }
                                         }
                                         else
                                         {
-                                            cuerpo_alerta_error.Text = "Es necesario ingresar una cédula válida.";
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar un número de cédula.";
                                             SetFocus(input_cedula);
                                             a_retornar = false;
                                         }
                                     }
                                     else
                                     {
-                                        cuerpo_alerta_error.Text = "Es necesario ingresar una cédula.";
-                                        SetFocus(input_cedula);
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar un número de teléfono válido.";
+                                        SetFocus(input_telefono);
                                         a_retornar = false;
                                     }
                                 }
                                 else
                                 {
-                                    cuerpo_alerta_error.Text = "Es necesario ingresar un número de teléfono válido.";
+                                    cuerpo_alerta_error.Text = "Es necesario ingresar un número de teléfono.";
                                     SetFocus(input_telefono);
                                     a_retornar = false;
                                 }
                             }
                             else
                             {
-                                cuerpo_alerta_error.Text = "Es necesario ingresar un número de teléfono.";
-                                SetFocus(input_telefono);
+                                cuerpo_alerta_error.Text = "Es necesario ingresar un correo electrónico.";
+                                SetFocus(input_correo);
                                 a_retornar = false;
                             }
+
                         }
                         else
                         {
-                            cuerpo_alerta_error.Text = "Es necesario ingresar un correo electrónico.";
-                            SetFocus(input_correo);
+                            cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
+                            SetFocus(input_usuario);
                             a_retornar = false;
                         }
                     }
                     else
                     {
-                        cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
-                        SetFocus(input_usuario);
+                        cuerpo_alerta_error.Text = "Es necesario ingresar un nombre.";
+                        SetFocus(input_name);
                         a_retornar = false;
                     }
-                }
-                else
-                {
-                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre.";
-                    SetFocus(input_name);
-                    a_retornar = false;
-                }
+
+                    break;
             }
             return a_retornar;
         }
@@ -414,7 +521,7 @@ namespace SAPS.Fronteras
                 input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
                 input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
                 input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
-                if(tabla_informacion.Rows[0]["es_administrador"].Equals(0))
+                if (tabla_informacion.Rows[0]["es_administrador"].Equals(0))
                 {
                     radio_btn_miembro.Checked = true;
                 }
