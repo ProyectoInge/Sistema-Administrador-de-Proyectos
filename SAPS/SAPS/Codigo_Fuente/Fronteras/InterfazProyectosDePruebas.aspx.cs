@@ -56,7 +56,8 @@ namespace SAPS.Fronteras
                     permitiendo que se bloqueen elementos de entrada y se habiliten botones de edicion
             * @param Los parametros por default de un evento de C#.
         */
-        private void btn_lista_click(object sender, EventArgs e) {
+        private void btn_lista_click(object sender, EventArgs e)
+        {
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
         }
@@ -74,7 +75,8 @@ namespace SAPS.Fronteras
                     principal.
             * @param Los parametros por default de un evento de C#.
         */
-        protected void btn_consultar_click(object sender, EventArgs e) {
+        protected void btn_consultar_click(object sender, EventArgs e)
+        {
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
 
@@ -91,7 +93,8 @@ namespace SAPS.Fronteras
             {
                 alerta_exito.Visible = true;
             }
-            else {
+            else
+            {
                 alerta_error.Visible = true;
             }
         }
@@ -135,6 +138,14 @@ namespace SAPS.Fronteras
             btn_modificar.BackColor = System.Drawing.Color.White;
         }
 
+        protected void btn_modal_cancelar_Click(object sender, EventArgs e)
+        { //TO DO
+        }
+
+        protected void btn_modal_aceptar_Click(object sender, EventArgs e)
+        { //TO DO
+        }
+
 
         // ------------------------------------------
         // |    Metodos auxiliares de la clase      |
@@ -143,7 +154,8 @@ namespace SAPS.Fronteras
         /** @brief Pone activos los botones de "Eliminar" y "Modificar"
         * @param Bool con el estado de activacion de los botones ime (true/false)
         */
-        private void activa_desactiva_botones_ime(bool estado) {
+        private void activa_desactiva_botones_ime(bool estado)
+        {
             btn_modificar.Enabled = estado;
             btn_eliminar.Enabled = estado;
         }
@@ -152,14 +164,15 @@ namespace SAPS.Fronteras
                    en la interfaz.
 
         */
-        private void activa_desactiva_inputs(bool estado) {
+        private void activa_desactiva_inputs(bool estado)
+        {
             input_system.Enabled = estado;
-            input_process.Enabled = estado;            
+            input_process.Enabled = estado;
             //input_phone1.Enabled = estado;
             //input_phone2.Enabled = estado;
             //input_manager_office.Enabled = estado;
             drop_oficina_asociada.Enabled = estado;
-            drop_estado_proyecto.Enabled = estado;            
+            drop_estado_proyecto.Enabled = estado;
             input_objective.Enabled = estado;
             input_start_date.Enabled = estado;
             input_asignment_date.Enabled = estado;
@@ -171,7 +184,8 @@ namespace SAPS.Fronteras
                   disenos asociados a dicho proyecto de pruebas.
 
         */
-        private void llena_disenos_prueba() {
+        private void llena_disenos_prueba()
+        {
 
             // Es necesario llenar con los resultados de la base de datos
 
@@ -196,7 +210,7 @@ namespace SAPS.Fronteras
                 tabla_recursos_humanos.Rows.Add(fila);
             } **/
 
-            
+
             //DataTable tabla_de_datos = m_controladora_pdp.
             //m_tamano_tabla = tabla_de_datos.Rows.Count;
             //m_tabla_resultados = new string[2, m_tamano_tabla];
@@ -204,7 +218,7 @@ namespace SAPS.Fronteras
 
             for (int i = 0; i < m_tamano_tabla; ++i)
             {
-                
+
             }
 
         }
@@ -235,9 +249,10 @@ namespace SAPS.Fronteras
         /** @brief Metodo encargado de retornar todos los espacios e ingresos del sistema a su estado
                     original. Incluyendo ademas botones y eventos.
         */
-        private void limpia_campos() {
+        private void limpia_campos()
+        {
             input_system.Text = "";
-            input_process.Text = "";            
+            input_process.Text = "";
             input_phone1.Text = "";
             input_phone2.Text = "";
             input_manager_office.Text = "";
@@ -271,77 +286,79 @@ namespace SAPS.Fronteras
                     respuesta = false;
                 }
             }
-            else {
+            else
+            {
                 if (input_system.Text != "")
                 {
                     if (input_process.Text != "")
-                    {                        
-                            if (input_objective.Text != "")
+                    {
+                        if (input_objective.Text != "")
+                        {
+                            if (drop_oficina_asociada.Text != "")
                             {
-                                if (drop_oficina_asociada.Text != "")
-                                {          
-                                    if (drop_estado_proyecto.Text != "")
+                                if (drop_estado_proyecto.Text != "")
+                                {
+                                    if (input_start_date.Text != "")
                                     {
-                                        if (input_start_date.Text != "")
+                                        if (input_asignment_date.Text != "")
                                         {
-                                            if (input_asignment_date.Text != "")
+                                            if (input_finish_date.Text != "")
                                             {
-                                                if (input_finish_date.Text != "")
+
+                                                Object[] datos = new Object[9];
+
+                                                datos[2] = input_system.Text;                       // Nombre del sistema
+                                                datos[5] = input_process.Text;                      // Nombre de proyecto                                                    
+                                                datos[6] = input_start_date.Text;                   // Fecha de inicio del proyecto
+                                                datos[8] = input_finish_date;                       // Fecha de finalizacion del proyecto
+                                                datos[4] = input_objective.Text;                    // Objetivo general
+                                                datos[1] = drop_oficina_asociada.Text;              // Oficina asociada
+                                                datos[3] = drop_estado_proyecto.Text;               // Estado del proyecto
+                                                datos[7] = input_asignment_date.Text;               // Fecha de asignacion
+
+                                                int resultado;
+                                                if (opcion_tomada == 'i')
                                                 {
-
-                                                    Object[] datos = new Object[9];
-                                                                
-                                                    datos[2] = input_system.Text;                       // Nombre del sistema
-                                                    datos[5] = input_process.Text;                      // Nombre de proyecto                                                    
-                                                    datos[6] = input_start_date.Text;                   // Fecha de inicio del proyecto
-                                                    datos[8] = input_finish_date;                       // Fecha de finalizacion del proyecto
-                                                    datos[4] = input_objective.Text;                    // Objetivo general
-                                                    datos[1] = drop_oficina_asociada.Text;              // Oficina asociada
-                                                    datos[3] = drop_estado_proyecto.Text;               // Estado del proyecto
-                                                    datos[7] = input_asignment_date.Text;               // Fecha de asignacion
-
-                                                    int resultado;
-                                                    if (opcion_tomada == 'i')
-                                                    {
-                                                        resultado = m_controladora_pdp.insertar_proyecto(datos);
-                                                    }
-                                                    else
-                                                    {
-                                                        resultado = m_controladora_pdp.modificar_proyecto(datos);
-                                                    }
-
-                                                    cuerpo_alerta_exito.Text = "Su operación ha sido exitosa.";
-                                                    respuesta = true;
-
+                                                    resultado = m_controladora_pdp.insertar_proyecto(datos);
                                                 }
                                                 else
                                                 {
-                                                    cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de finalización del proyecto.";
-                                                    SetFocus(input_finish_date);
-                                                    respuesta = false;
+                                                    resultado = m_controladora_pdp.modificar_proyecto(datos);
                                                 }
+
+                                                cuerpo_alerta_exito.Text = "Su operación ha sido exitosa.";
+                                                respuesta = true;
+
                                             }
                                             else
                                             {
-                                                cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de asignación del proyecto.";
-                                                SetFocus(input_asignment_date);
+                                                cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de finalización del proyecto.";
+                                                SetFocus(input_finish_date);
                                                 respuesta = false;
                                             }
                                         }
-                                        else {
-                                            cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de inicio del proyecto.";
-                                            SetFocus(input_manager_office);
+                                        else
+                                        {
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de asignación del proyecto.";
+                                            SetFocus(input_asignment_date);
                                             respuesta = false;
                                         }
-                                    }                               
+                                    }
+                                    else
+                                    {
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de inicio del proyecto.";
+                                        SetFocus(input_manager_office);
+                                        respuesta = false;
+                                    }
                                 }
                             }
-                            else
-                            {
-                                cuerpo_alerta_error.Text = "Es necesario ingresar un objetivo.";
-                                SetFocus(input_objective);
-                                respuesta = false;
-                            }
+                        }
+                        else
+                        {
+                            cuerpo_alerta_error.Text = "Es necesario ingresar un objetivo.";
+                            SetFocus(input_objective);
+                            respuesta = false;
+                        }
                     }
                     else
                     {
@@ -350,7 +367,8 @@ namespace SAPS.Fronteras
                         respuesta = false;
                     }
                 }
-                else {
+                else
+                {
                     cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de sistema.";
                     SetFocus(input_system);
                     respuesta = false;
