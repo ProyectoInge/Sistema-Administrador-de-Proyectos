@@ -28,7 +28,7 @@ namespace SAPS.Fronteras
         private static bool m_modal_cancelar = false;
 
         private string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
-        private int m_tamano_tabla;
+        private static int m_tamano_tabla;
 
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
@@ -219,17 +219,17 @@ namespace SAPS.Fronteras
         {
             DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
             m_tamano_tabla = tabla_de_datos.Rows.Count;
-            m_tabla_resultados = new string[2, m_tamano_tabla];
+            m_tabla_resultados = new string[m_tamano_tabla, 2];
 
             for (int i = 0; i < m_tamano_tabla; ++i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda = new TableCell();
                 Button btn = new Button();
-                m_tabla_resultados[0, i] = tabla_de_datos.Rows[i]["username"].ToString();
-                m_tabla_resultados[1, i] = tabla_de_datos.Rows[i]["nombre"].ToString();
+                m_tabla_resultados[i, 0] = tabla_de_datos.Rows[i]["username"].ToString();
+                m_tabla_resultados[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
                 btn.ID = "btn_lista_" + i.ToString();
-                btn.Text = m_tabla_resultados[1, i];
+                btn.Text = m_tabla_resultados[i, 1];
                 btn.CssClass = "btn btn-link btn-block";
                 btn.Click += new EventHandler(btn_lista_click);
                 celda.Controls.AddAt(0, btn);
@@ -258,6 +258,7 @@ namespace SAPS.Fronteras
                     {
                         cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
                         limpia_campos();
+                        actualiza_tabla_recursos_humanos();
                     }
                     else
                     {
@@ -283,13 +284,13 @@ namespace SAPS.Fronteras
                         {
                             if (input_telefono.Text != "")
                             {
-                                Regex revisa_numero = new Regex(@"(\(?\+?\d{3}\))?\d{4}-?\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);  //REGEX que valida numeros de telefono
+                                Regex revisa_numero = new Regex(@"(\(?\+?\d{3}\))?(2|4|5|6|7|8)\d{3}-?\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);  //REGEX que valida numeros de telefono
                                 Match acierta = revisa_numero.Match(input_telefono.Text);
                                 if (acierta.Success)    //coincide con la REGEX de numeros de telefono
                                 {
                                     if (input_cedula.Text != "")
                                     {
-                                        Regex revisa_cedula = new Regex(@"([0-7]|9)-\d{4}-\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                                        Regex revisa_cedula = new Regex(@"([1-7]|9)-\d{4}-\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
                                         acierta = revisa_cedula.Match(input_cedula.Text);
                                         if (acierta.Success)    //coincide con la REGEX de cedulas
                                         {
@@ -320,6 +321,8 @@ namespace SAPS.Fronteras
                                                         {
                                                             resultado = m_controladora_rh.insertar_recurso_humano(datos);
                                                             cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
+                                                            actualiza_tabla_recursos_humanos();
+                                                            btn_modificar.Enabled = true;
                                                         }
                                                         else
                                                         {
@@ -437,15 +440,30 @@ namespace SAPS.Fronteras
             bool encontrado = false;
             while (i < m_tamano_tabla && encontrado == false)
             {
-                if (m_tabla_resultados[1, i] == nombre)
+                if (m_tabla_resultados[i, 1] == nombre)
                 {
-                    usuario = m_tabla_resultados[0, i];
+                    usuario = m_tabla_resultados[i, 0];
                     encontrado = true;
 
                 }
                 ++i;
             }
             return usuario;
+        }
+
+        /** @brief Metodo que vacia por completo la tabla que muestra los recursos humanos disponibles en la base de datos.
+         */
+        private void vacia_recursos_humano()
+        {
+            tabla_recursos_humanos.Rows.Clear();
+        }
+
+        /** @brief Metodo que actualiza la tabla que muestra los recursos humanos disponibles en la base de datos con la información más actualizada.
+         */
+        private void actualiza_tabla_recursos_humanos()
+        {
+            vacia_recursos_humano();
+            llena_recursos_humanos();
         }
 
         //DEBUG
