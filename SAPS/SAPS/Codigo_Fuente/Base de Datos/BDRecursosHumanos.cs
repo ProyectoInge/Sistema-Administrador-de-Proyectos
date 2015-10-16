@@ -106,6 +106,20 @@ namespace SAPS.Base_de_Datos
             return tabla_contrasena.Rows[0]["contrasena"].ToString();
         }
 
+        /** @brief Método que realiza la setencia SQL para reestablece la contraseña de un recurso humano especìfico que se encuentran en la Base de Datos.
+         * @param nombre_usuario del recuros humano que se desea consultar.
+         * @param nueva_contrasena que tendrá el recurso humano.
+         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+        */
+        public int cambiar_contrasena(string nombre_usuario, string nueva_contrasena)
+        {
+            SqlCommand comando = new SqlCommand("CAMBIAR_CONTRASENA");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
+            comando.Parameters.Add("@nueva_contrasena", SqlDbType.VarChar).Value = nueva_contrasena;
+            return m_data_base_adapter.ejecutar_consulta(comando);
+        }
+
 
         // Métodos auxiliares
 
