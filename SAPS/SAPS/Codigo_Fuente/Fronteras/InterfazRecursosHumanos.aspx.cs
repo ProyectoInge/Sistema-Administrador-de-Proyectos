@@ -33,21 +33,28 @@ namespace SAPS.Fronteras
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
         {
-            m_controladora_rh = new ControladoraRecursosHumanos();
-            alerta_error.Visible = false;
-            alerta_exito.Visible = false;
-            drop_proyecto_asociado.Enabled = false;
-            drop_rol.Enabled = false;
-            activa_desactiva_botones_ime(false);
-            if (m_opcion == 'i')
+            if (Request.IsAuthenticated)
             {
-                link_reestablece_contrasena.Visible = false;
+                m_controladora_rh = new ControladoraRecursosHumanos();
+                alerta_error.Visible = false;
+                alerta_exito.Visible = false;
+                drop_proyecto_asociado.Enabled = false;
+                drop_rol.Enabled = false;
+                activa_desactiva_botones_ime(false);
+                if (m_opcion == 'i')
+                {
+                    link_reestablece_contrasena.Visible = false;
+                }
+                else
+                {
+                    link_reestablece_contrasena.Visible = true;
+                }
+                llena_recursos_humanos();
             }
             else
             {
-                link_reestablece_contrasena.Visible = true;
+                Response.Redirect("InterfazLogin.aspx");
             }
-            llena_recursos_humanos();
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona un elemento del grid de consulta.
