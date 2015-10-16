@@ -11,6 +11,11 @@ body {
     padding-right: 15px;
 }
 
+/* Para hacer sombra a los elementos */
+.shadow{
+    box-shadow: 3px 3px 3px #80808;
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */

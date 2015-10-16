@@ -94,6 +94,33 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label cuerpo_alerta_exito;
         
         /// <summary>
+        /// alerta_advertencia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_advertencia;
+        
+        /// <summary>
+        /// label_alerta_advertencia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_alerta_advertencia;
+        
+        /// <summary>
+        /// cuerpo_alerta_advertencia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label cuerpo_alerta_advertencia;
+        
+        /// <summary>
         /// input_name control.
         /// </summary>
         /// <remarks>

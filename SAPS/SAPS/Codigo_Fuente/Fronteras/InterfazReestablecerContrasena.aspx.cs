@@ -65,13 +65,14 @@ namespace SAPS.Fronteras
                         }
                         else
                         {
-                            cuerpo_alerta_error.Text = " Los datos de usuario y la contraseña actual no son correctos.";
+                            cuerpo_alerta_error.Text = " No coinciden las contraseñas ingresadas, vuelva a ingresarlas.";
+                            SetFocus(input_nueva_contrasena1);
                         }
                     }
                     else
                     {
-                        cuerpo_alerta_error.Text = " Es necesario que ingrese la contraseña nueva.";
-                        SetFocus(input_nueva_contrasena2);
+                        cuerpo_alerta_error.Text = " Es necesario que ingrese la contraseña dos veces.";
+                        SetFocus(input_nueva_contrasena1);
                     }
                 }
                 else

@@ -53,7 +53,7 @@
                             </div>
                             <div id="row4" class="form-group">
                                 <div class="col-md-3 col-md-offset-5">
-                                    <asp:Button runat="server" ID="btn_cancelar" CssClass="btn btn-default btn-sm" Text="Cancelar" OnClick="btn_cancelar_Click" />
+                                    <asp:Button runat="server" ID="btn_cancelar" CssClass="btn btn-default btn-sm" Text="Volver" OnClick="btn_cancelar_Click" />
                                 </div>
                                 <div class="col-md-4">
                                     <asp:Button runat="server" ID="btn_reestablecer" CssClass="btn btn-primary btn-sm" Text="Aceptar" OnClick="btn_reestablecer_Click" />

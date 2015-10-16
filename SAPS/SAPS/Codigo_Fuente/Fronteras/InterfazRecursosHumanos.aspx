@@ -6,23 +6,6 @@
             <h1>SAPS <small>Recursos humanos</small></h1>
         </div>
     </section>
-    <!-- Esta alerta creo que se puede quitar mas adelante -->
-    <section id="alerta_confirmacion">
-        <!-- TO DO: revisar que funciona -->
-        <script type="text/javascript">
-            function Confirm() {
-                var confirm_value = document.createElement("INPUT");
-                confirm_value.type = "hidden";
-                confirm_value.name = "confirm_value";
-                if (confirm("¿Esta seguro que desea eliminar el recurso humano?")) {
-                    confirm_value.value = "Si";
-                } else {
-                    confirm_value.value = "No";
-                }
-                document.forms[0].appendChild(confirm_value);
-            }
-        </script>
-    </section>
     <section id="botones_IME">
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
@@ -47,12 +30,17 @@
                 <b>
                     <asp:Label runat="server" ID="label_alerta_exito" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
             </div>
+            <div class="alert alert-warning alert-dismissible" id="alerta_advertencia" role="alert" aria-hidden="true" runat="server">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <b>
+                    <asp:Label runat="server" ID="label_alerta_advertencia" Text="¡Advertencia! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_advertencia"></asp:Label>
+            </div>
         </div>
     </section>
     <br />
     <section id="form">
         <div class="row">
-            <div id="panel_izquierda" class="col-md-6">
+            <div id="panel_izquierda" class="col-md-6" >
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Datos personales</div>
@@ -184,7 +172,7 @@
     <br />
     <section id="area_consultas" class="col-md-offset-2">
         <div class="row">
-            <div class="col-md-10" style="height: 250px; overflow-y: scroll">
+            <div class="col-md-10" style="height:300px; overflow-y:scroll">
                 <asp:Table runat="server" ID="tabla_recursos_humanos" CssClass="table table-hover form-group">
                     <asp:TableHeaderRow runat="server" ID="tabla_recursos_humanos_header">
                         <asp:TableHeaderCell runat="server" ID="celda_nombre" Text="Nombre"></asp:TableHeaderCell>
