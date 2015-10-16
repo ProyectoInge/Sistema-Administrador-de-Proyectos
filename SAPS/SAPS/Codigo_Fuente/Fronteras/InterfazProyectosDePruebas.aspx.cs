@@ -19,7 +19,7 @@ using System.Data;
 namespace SAPS.Fronteras
 {
     /** @brief La clase frontera de proyectos de pruebas se encarga de obtener los datos y eventos ingresados por el usuario
-        y enviarlos a la clase controladora proyectos_de_pruebas. 
+            y enviarlos a la clase controladora proyectos_de_pruebas. 
     */
     public partial class InterfazProyectosDePruebas : System.Web.UI.Page
     {
@@ -197,9 +197,9 @@ namespace SAPS.Fronteras
             } **/
 
             
-            DataTable tabla_de_datos = m_controladora_pdp.solicitar_recursos_disponibles();
-            m_tamano_tabla = tabla_de_datos.Rows.Count;
-            m_tabla_resultados = new string[2, m_tamano_tabla];
+            //DataTable tabla_de_datos = m_controladora_pdp.
+            //m_tamano_tabla = tabla_de_datos.Rows.Count;
+            //m_tabla_resultados = new string[2, m_tamano_tabla];
 
 
             for (int i = 0; i < m_tamano_tabla; ++i)

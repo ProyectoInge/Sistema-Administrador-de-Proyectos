@@ -81,6 +81,17 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        /** @brief Método que realiza la setencia SQL para consultar todos los proyectos de pruebas que se encuentran en la Base de Datos.
+            * @return DataTable con los resultados de la consultas.
+        */
+        public DataTable solicitar_proyectos_disponibles()
+        {
+            // Procedimiento almacenado
+            SqlCommand comando = new SqlCommand("CONSULTAR_PROYECTOS_DISPONIBLES");
+            comando.CommandType = CommandType.StoredProcedure;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
 
         /** @brief Método que realiza la setencia SQL para consultar todas las oficinas que se encuentran en la Base de Datos.
          * @return DataTable con los resultados de la consultas.

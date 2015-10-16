@@ -72,14 +72,14 @@ namespace SAPS.Controladoras
             return m_base_datos.solicitar_oficinas_disponibles();
         }
 
-        /** @brief Método que asigna las operaciones necesarias para poder consultar los resucursos humanos disponibles.
-         * @return DataTable con los resultados de la consultas.
+        /** @brief Método que asigna las operaciones necesarias para poder consultar los proyectos de pruebas disponibles.
+             * @return DataTable con los resultados de la consultas.
          */
-        public DataTable solicitar_recursos_disponibles()
+        public DataTable solicitar_proyectos_disponibles()
         {
-            ControladoraRecursosHumanos controladora_rh = new ControladoraRecursosHumanos();
-            return controladora_rh.solicitar_recursos_disponibles();
+            return m_base_datos.solicitar_proyectos_disponibles();
 
         }
+
     }
 }

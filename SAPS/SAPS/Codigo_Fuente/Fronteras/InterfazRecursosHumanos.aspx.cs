@@ -23,12 +23,15 @@ namespace SAPS.Fronteras
     {
         // Variables de instancia
         private ControladoraRecursosHumanos m_controladora_rh;
+        private ControladoraProyectoPruebas m_controladora_pdp;
         private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
         private static bool m_result_eliminar = false;
         private static bool m_modal_cancelar = false;
 
-        private string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
-        private static int m_tamano_tabla;
+        private string[,] m_tabla_recursos_disponibles; //posicion: 0 --> username, 1 --> nombre
+        private Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto, 1 --> nombre proyecto
+        private static int m_tamano_tabla_rh;
+        private static int m_tamano_tabla_pdp;
 
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
@@ -36,6 +39,7 @@ namespace SAPS.Fronteras
             if (Request.IsAuthenticated)
             {
             m_controladora_rh = new ControladoraRecursosHumanos();
+            m_controladora_pdp = new ControladoraProyectoPruebas();
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             drop_proyecto_asociado.Enabled = false;
@@ -50,6 +54,7 @@ namespace SAPS.Fronteras
                 btn_reestablece_contrasena.Visible = true;
             }
             llena_recursos_humanos();
+            llena_proyectos();
         }
             else
             {
@@ -104,7 +109,7 @@ namespace SAPS.Fronteras
          */
         protected void btn_Aceptar_Click(object sender, EventArgs e)
         {
-            if (valida_campos() == true)
+            if (validar_campos() == true)
             {
                 alerta_exito.Visible = true;
             }
@@ -173,9 +178,41 @@ namespace SAPS.Fronteras
         */
         private void llena_proyectos()
         {
-            // TO DO --> llenar combo box de proyectos
+            DataTable tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
+            m_tamano_tabla_pdp = tabla_proyectos.Rows.Count;
+            m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
+            for(int i=0; i<m_tamano_tabla_pdp; ++i)
+            {
+                m_tabla_proyectos_disponibles[i, 0] = (int)tabla_proyectos.Rows[i]["id_proyecto"];
+                m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();
+                ListItem item_proyecto = new ListItem();
+                item_proyecto.Text = m_tabla_proyectos_disponibles[i, 1].ToString();
+                drop_proyecto_asociado.Items.Add(item_proyecto);
+            }
+            
         }
 
+        /** @brief Metodo que busca en la tabla de [id_proyecto, nombre] por el id de un proyecto.
+         * @param string con el nombre del proyecto que va a buscar el id.
+         * @return El id del proyecto, -1 si no lo encuentra.
+         */
+        private int buscar_id_proyecto(string nombre_proyecto)
+        {
+            int a_retornar = -1;
+            bool encontrado = false;
+            int index = 0;
+            while(index < m_tamano_tabla_pdp && encontrado == false)
+            {
+                if (m_tabla_proyectos_disponibles[index, 1].ToString().Equals(nombre_proyecto))
+                {
+                    encontrado = true;
+                    a_retornar = (int)m_tabla_proyectos_disponibles[index, 0];
+                }
+                ++index;
+            }
+            return a_retornar;
+        }
+        
         /** @brief Activa o desactiva los campos de ingresar texto.
          * @param Bool "estado" que indica si activa o desactiva los campos.
          */
@@ -231,19 +268,19 @@ namespace SAPS.Fronteras
         private void llena_recursos_humanos()
         {
             DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
-            m_tamano_tabla = tabla_de_datos.Rows.Count;
-            m_tabla_resultados = new string[m_tamano_tabla, 2];
-            for (int i = 0; i < m_tamano_tabla; ++i)
+            m_tamano_tabla_rh = tabla_de_datos.Rows.Count;
+            m_tabla_recursos_disponibles = new string[m_tamano_tabla_rh, 2];
+            for (int i = 0; i < m_tamano_tabla_rh; ++i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_boton = new TableCell();
                 TableCell celda_proyecto = new TableCell();
                 TableCell celda_rol = new TableCell();
                 Button btn = new Button();
-                m_tabla_resultados[i, 0] = tabla_de_datos.Rows[i]["username"].ToString();
-                m_tabla_resultados[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
+                m_tabla_recursos_disponibles[i, 0] = tabla_de_datos.Rows[i]["username"].ToString();
+                m_tabla_recursos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
                 btn.ID = "btn_lista_" + i.ToString();
-                btn.Text = m_tabla_resultados[i, 1];
+                btn.Text = m_tabla_recursos_disponibles[i, 1];
                 btn.CssClass = "btn btn-link btn-block btn-sm";
                 btn.Click += new EventHandler(btn_lista_rh_click);
                 if (tabla_de_datos.Rows[i]["id_proyecto"].ToString() == "")
@@ -253,7 +290,6 @@ namespace SAPS.Fronteras
                 else
                 {
                     // TO DO --> hacer la consulta con el id y que me de el nombre del proyecto
-                    celda_proyecto.Text = tabla_de_datos.Rows[i]["proyecto"].ToString();
                 }
 
                 if (tabla_de_datos.Rows[i]["rol"].ToString() == "")
@@ -274,7 +310,7 @@ namespace SAPS.Fronteras
 
         /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora y realiza la operación respectiva.
          */
-        private bool valida_campos()
+        private bool validar_campos()
         {
             bool a_retornar = false;
             switch (m_opcion)
@@ -330,11 +366,11 @@ namespace SAPS.Fronteras
             string usuario = "";
             int i = 0;
             bool encontrado = false;
-            while (i < m_tamano_tabla && encontrado == false)
+            while (i < m_tamano_tabla_rh && encontrado == false)
             {
-                if (m_tabla_resultados[i, 1] == nombre)
+                if (m_tabla_recursos_disponibles[i, 1] == nombre)
                 {
-                    usuario = m_tabla_resultados[i, 0];
+                    usuario = m_tabla_recursos_disponibles[i, 0];
                     encontrado = true;
 
                 }
@@ -345,7 +381,7 @@ namespace SAPS.Fronteras
 
         /** @brief Metodo que vacia por completo la tabla que muestra los recursos humanos disponibles en la base de datos.
          */
-        private void vacia_recursos_humano()
+        private void vaciar_recursos_humano()
         {
             tabla_recursos_humanos.Rows.Clear();
         }
@@ -354,7 +390,7 @@ namespace SAPS.Fronteras
          */
         private void actualiza_tabla_recursos_humanos()
         {
-            vacia_recursos_humano();
+            vaciar_recursos_humano();
             llena_recursos_humanos();
         }
 

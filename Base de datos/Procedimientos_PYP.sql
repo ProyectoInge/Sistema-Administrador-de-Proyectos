@@ -4,6 +4,8 @@ DROP PROCEDURE INSERTAR_PYP
 DROP PROCEDURE MODIFICAR_PYP
 DROP PROCEDURE ELIMINAR_PYP
 DROP PROCEDURE CONSULTAR_PYP
+DROP PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
+DROP PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
 
 
 GO
@@ -52,13 +54,25 @@ AS
 			ProyectoPruebas.eliminado
 	FROM	ProyectoPruebas
 	WHERE	ProyectoPruebas.id_proyecto = @id_proyecto AND ProyectoPruebas.eliminado = 0
-
-
-
 GO 
+
+GO
+CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
+	AS BEGIN
+	SELECT	ProyectoPruebas.nombre_proyecto,
+			ProyectoPruebas.id_proyecto,
+			ProyectoPruebas.estado,
+			Oficina.nombre_oficina
+	FROM	ProyectoPruebas JOIN Oficina
+	ON		ProyectoPruebas.id_oficina = Oficina.id_oficina
+	END
+GO
+
 CREATE PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
 AS BEGIN
-	SELECT	Oficina.nombre_oficina
+	SELECT	Oficina.nombre_oficina,
+			Oficina.telefono,
+			Oficina.telefono2
 	FROM	Oficina
 	END
 GO
