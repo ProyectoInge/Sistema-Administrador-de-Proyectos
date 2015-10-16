@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Codigo_Fuente.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
 
 <asp:Content ID="content_pdp" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -186,18 +186,47 @@
     </section>
     <br />
 
-    <section id="area_consultas" class="col-md-offset-3">
-        <div class="row">
-            <div class="col-md-1"><!-- Espacio al propio--></div>
-            <div class="col-md-1"><!-- Espacio al propio--></div>
-            <div class="col-md-7" style="height:200px; overflow-y:scroll">
-                <asp:Table runat="server" ID="tabla_proyectos_de_pruebas" CssClass="table table-hover form-group">
+    <section id="area_consultas" class="col-md-offset-2">
+         <div class="row">
+         <div class="col-md-10" style="height: 250px; overflow-y: scroll">
+         <asp:Table runat="server" ID="tabla_proyectos_de_pruebas" CssClass="table table-hover form-group">
+             <asp:TableHeaderRow runat="server" ID="tabla_proyectos_de_pruebas_header">
+                 <asp:TableHeaderCell runat="server" ID="celda_nombre" Text="Nombre"></asp:TableHeaderCell>
+                 <asp:TableHeaderCell runat="server" ID="celda_proyecto" Text="Oficina Asociada"></asp:TableHeaderCell>
+                 <asp:TableHeaderCell runat="server" ID="celda_rol" Text="Estado Actual"></asp:TableHeaderCell>
+         </asp:TableHeaderRow>
+         </asp:Table> 
+         </div>
+         </div>
+ </section>
 
-                </asp:Table>                
+
+    <section id="modal">
+        <!-- Bootstrap Modal Dialog -->
+        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">
+                                    <asp:Label ID="titulo_modal" runat="server" Text=""></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Cancelar" runat="server" />
+                                <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
     </section>
-
     </asp:Content>
 
 

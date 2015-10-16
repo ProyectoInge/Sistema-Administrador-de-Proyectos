@@ -20,6 +20,7 @@ create table Oficina(
 	id_oficina			int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	nombre_oficina		varchar(64) NOT NULL,
 	telefono			varchar(16),
+	telefono2			varchar(16),
 	nom_representante	varchar(64)
 );
 
@@ -109,4 +110,13 @@ create table Ejecucion(
 	fecha_ultima_ejec	date,
 	incidencias			varchar(512)
 );
+
+
+/* TO DO: Borrar todas las tablas y volverlas a crear para que la tabala oficina tenga 2 teléfonos y no solamente uno 
+INSERT INTO Oficina VALUES ('Oficina1', '25110000','25112355',Vladimir Rodríguez')
+INSERT INTO Oficina VALUES ('Oficina2', '29960800','28010745',Adolfo Gutiérrez')
+INSERT INTO Oficina VALUES ('Oficina3', '25178600','25110045',Teodoro Picado')
+INSERT INTO Oficina VALUES ('Oficina4', '26895000','22610075',Felipe González')
+INSERT INTO Oficina VALUES ('Oficina5', '22491220','22910005',Sanders Jiménez')
+*/
 

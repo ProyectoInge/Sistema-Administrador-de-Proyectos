@@ -27,8 +27,9 @@ namespace SAPS.Entidades
         private string m_cedula;
         private string m_rol;
 
-        // Constructor
-        /** @param datos Un vector tipo objeto que contiene toda la informaciòn necesaria
+        // Constructores
+
+        /** @param datos Un vector tipo objeto que contiene toda la información necesaria
         * para crear un recurso humano.
         */
         public RecursoHumano(Object[] datos) {
@@ -41,6 +42,15 @@ namespace SAPS.Entidades
             m_es_administrador = Convert.ToBoolean(datos[6]);
             m_cedula = datos[7].ToString();
             m_rol = datos[8].ToString();
+        }
+
+        /** @param nombre_usuario nombre de usuario de un recurso humano.
+         * @param contrasena contraseña del recurso humano.
+        */
+        public RecursoHumano(string nombre_usuario, string contrasena)
+        {
+            m_usuario = nombre_usuario;
+            m_contrasena = Seguridad.hash_constrasena(contrasena);
         }
 
 
