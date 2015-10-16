@@ -16,7 +16,7 @@ CREATE PROCEDURE INSERTAR_RH
 AS
 	INSERT INTO RecursosHumanos
 		(username, cedula, id_proyecto, telefono, nombre, contrasena, correo, rol, es_administrador)
-	VALUES	
+	VALUES
 		(@username, @cedula, @id_proyecto, @telefono, @nombre, @hashed, @correo, @rol, @admin)
 GO
 
@@ -34,7 +34,7 @@ GO
 GO
 CREATE PROCEDURE ELIMINAR_RH
 	@username varchar(64)
-AS	
+AS
 	DELETE FROM RecursosHumanos
 	WHERE username = @username
 GO
@@ -74,4 +74,13 @@ AS BEGIN
 	FROM RecursosHumanos
 	WHERE username = @username
    END
+GO
+
+GO
+CREATE PROCEDURE CAMBIAR_CONTRASENA
+	@username varchar(64), @nueva_contrasena varchar(64)
+	AS
+		UPDATE RecursosHumanos
+			SET contrasena = @nueva_contrasena
+			WHERE username = @username
 GO
