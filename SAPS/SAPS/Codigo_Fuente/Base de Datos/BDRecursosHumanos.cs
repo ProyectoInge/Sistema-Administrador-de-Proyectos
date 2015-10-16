@@ -111,12 +111,12 @@ namespace SAPS.Base_de_Datos
          * @param nueva_contrasena que tendrá el recurso humano.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
         */
-        public int cambiar_contrasena(string nombre_usuario, string nueva_contrasena)
+        public int cambiar_contrasena(RecursoHumano recurso_humano)
         {
             SqlCommand comando = new SqlCommand("CAMBIAR_CONTRASENA");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
-            comando.Parameters.Add("@nueva_contrasena", SqlDbType.VarChar).Value = nueva_contrasena;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = recurso_humano.usuario;
+            comando.Parameters.Add("@nueva_contrasena", SqlDbType.VarChar).Value = recurso_humano.contrasena;
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
