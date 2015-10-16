@@ -45,17 +45,27 @@ namespace SAPS.Fronteras
             {
                 if(input_contrasena.Text != "")
                 {
-                    int resultado = m_controladora_rh.autenticar(input_usuario.Text, input_contrasena.Text);
-                    if(resultado == 0)
+                    if (!m_controladora_rh.consultar_sesion(input_usuario.Text))
                     {
-                        FormsAuthentication.Authenticate(input_usuario.Text, input_contrasena.Text);
-                        FormsAuthentication.RedirectFromLoginPage(input_usuario.Text, true);
-                        //Response.Redirect("~/"); // Si el usuario se autentica correctamente, lo dirige a la pantalla de inicio.
+                        int resultado = m_controladora_rh.autenticar(input_usuario.Text, input_contrasena.Text);
+                        if (resultado == 0)
+                        {
+
+                            m_controladora_rh.iniciar_sesion(input_usuario.Text);
+                            FormsAuthentication.Authenticate(input_usuario.Text, input_contrasena.Text);
+                            FormsAuthentication.RedirectFromLoginPage(input_usuario.Text, true);
+                            //Response.Redirect("~/"); // Si el usuario se autentica correctamente, lo dirige a la pantalla de inicio.
+                        }
+                        else
+                        {
+                            alerta_error.Visible = true;
+                            cuerpo_alerta_error.Text = "Los datos ingresados no son válidos.";
+                        }
                     }
                     else
                     {
                         alerta_error.Visible = true;
-                        cuerpo_alerta_error.Text = "Los datos ingresados no son válidos.";
+                        cuerpo_alerta_error.Text = "Ya existe una sesión iniciada con éste nombre de usuario.";
                     }
                 }
                 else
