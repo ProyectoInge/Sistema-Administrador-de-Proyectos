@@ -11,6 +11,9 @@ using System.Web.UI.WebControls;
 using SAPS.Controladoras;
 using System.Text.RegularExpressions;
 using System.Data;
+using System.Web.UI;
+using System.Windows;
+using System.Threading;
 
 namespace SAPS.Fronteras
 {
@@ -20,21 +23,30 @@ namespace SAPS.Fronteras
     {
         // Variables de instancia
         private ControladoraRecursosHumanos m_controladora_rh;
-        char m_opcion; // i = insertar, m = modificar, e = eliminar
+        private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
+        private static bool m_result_eliminar = false;
+        private static bool m_modal_cancelar = false;
 
-        string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
-        int m_tamano_tabla;
+        private string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
+        private static int m_tamano_tabla;
 
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
-            m_opcion = 'i';
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             drop_proyecto_asociado.Enabled = false;
             drop_rol.Enabled = false;
             activa_desactiva_botones_ime(false);
+            if(m_opcion == 'i')
+            {
+                link_reestablece_contrasena.Visible = false;
+            }
+            else
+            {
+                link_reestablece_contrasena.Visible = true;
+            }
             llena_recursos_humanos();
         }
 
@@ -45,7 +57,6 @@ namespace SAPS.Fronteras
         {
             string nombre_usuario = ((Button)sender).Text;
             string username = buscar_usuario(nombre_usuario);
-            System.Diagnostics.Debug.Write(username);
             llena_informacion_consulta(username);
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
@@ -57,16 +68,10 @@ namespace SAPS.Fronteras
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
             limpia_campos();
+            drop_proyecto_asociado.Enabled = false;
+            drop_rol.Enabled = false;
+            link_reestablece_contrasena.Visible = false;
             activa_desactiva_botones_ime(false);
-        }
-
-        /** @brief Evento que se activa cuando el usuario selecciona el boton "consultar".
-         * @param Los parametros por default de un evento de C#.
-         */
-        protected void btn_consultar_Click(object sender, EventArgs e)
-        {
-            activa_desactiva_botones_ime(true);
-            activa_desactiva_inputs(false);
         }
 
         /** @brief Habilita los combo box de "proyecto_asociado" y "rol" en la interfaz.
@@ -100,11 +105,6 @@ namespace SAPS.Fronteras
             else
             {
                 alerta_error.Visible = true;
-                /*
-                titulo_modal.Text = "Error";
-                cuerpo_modal.Text = "Faltan datos que llenar";
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
-                upModal.Update();*/
             }
         }
 
@@ -114,11 +114,18 @@ namespace SAPS.Fronteras
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
             m_opcion = 'm';
+            link_reestablece_contrasena.Visible = true;
             activa_desactiva_inputs(true);
+            if(radio_btn_administrador.Checked == true)
+            {
+                drop_rol.Enabled = false;
+                drop_proyecto_asociado.Enabled = false;
+            }
             activa_desactiva_botones_ime(true);
-            btn_eliminar.BackColor = System.Drawing.Color.White;
-            btn_crear.BackColor = System.Drawing.Color.White;
-            btn_modificar.BackColor = System.Drawing.Color.LightGray;
+            input_contrasena.Enabled = false;
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default active";
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "eliminar".
@@ -127,11 +134,12 @@ namespace SAPS.Fronteras
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
             m_opcion = 'e';
+            link_reestablece_contrasena.Visible = false;
             activa_desactiva_inputs(false);
             activa_desactiva_botones_ime(true);
-            btn_eliminar.BackColor = System.Drawing.Color.LightGray;
-            btn_crear.BackColor = System.Drawing.Color.White;
-            btn_modificar.BackColor = System.Drawing.Color.White;
+            btn_eliminar.CssClass = "btn btn-default active";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default";
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "insertar".
@@ -141,11 +149,14 @@ namespace SAPS.Fronteras
         {
             m_opcion = 'i';
             activa_desactiva_inputs(true);
+            link_reestablece_contrasena.Visible = false;
             limpia_campos();
             activa_desactiva_botones_ime(false);
-            btn_eliminar.BackColor = System.Drawing.Color.White;
-            btn_crear.BackColor = System.Drawing.Color.LightGray;
-            btn_modificar.BackColor = System.Drawing.Color.White;
+            drop_rol.Enabled = false;
+            drop_proyecto_asociado.Enabled = false;
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default ";
         }
 
         // ------------------------------------------
@@ -196,9 +207,10 @@ namespace SAPS.Fronteras
             alerta_exito.Visible = false;
             m_opcion = 'i';
             activa_desactiva_inputs(true);
-            btn_crear.BackColor = System.Drawing.Color.White;
-            btn_eliminar.BackColor = System.Drawing.Color.White;
-            btn_modificar.BackColor = System.Drawing.Color.White;
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default";
+            link_reestablece_contrasena.Visible = false;
         }
 
         /** @brief Llena el área de consulta con los recursos humanos que hay en la base de datos.
@@ -207,17 +219,17 @@ namespace SAPS.Fronteras
         {
             DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
             m_tamano_tabla = tabla_de_datos.Rows.Count;
-            m_tabla_resultados = new string[2, m_tamano_tabla];
+            m_tabla_resultados = new string[m_tamano_tabla, 2];
 
             for (int i = 0; i < m_tamano_tabla; ++i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda = new TableCell();
                 Button btn = new Button();
-                m_tabla_resultados[0, i] = tabla_de_datos.Rows[i]["username"].ToString();
-                m_tabla_resultados[1, i] = tabla_de_datos.Rows[i]["nombre"].ToString();
+                m_tabla_resultados[i, 0] = tabla_de_datos.Rows[i]["username"].ToString();
+                m_tabla_resultados[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
                 btn.ID = "btn_lista_" + i.ToString();
-                btn.Text = m_tabla_resultados[1, i];
+                btn.Text = m_tabla_resultados[i, 1];
                 btn.CssClass = "btn btn-link btn-block";
                 btn.Click += new EventHandler(btn_lista_click);
                 celda.Controls.AddAt(0, btn);
@@ -230,20 +242,37 @@ namespace SAPS.Fronteras
          */
         private bool valida_campos()
         {
-            bool a_retornar = true;
+            bool a_retornar = false;
             if (m_opcion == 'e')
             {
                 if (input_usuario.Text != "")
                 {
-                    int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
-                    // TO DO --> manejar el codigo que devuelve
+
+                    //TO DO --> Confirmacion de borrar el RH!!
+                    titulo_modal.Text = "¡Atención!";
+                    cuerpo_modal.Text = " ¿Esta seguro que desea eliminar a " + input_usuario.Text + " del sistema?";
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                    upModal.Update();
+                    // ** Hay que averiguar como hacer para que se espere al click del modal y que no ejecute las cosas de una vez.
+                    if (m_result_eliminar)
+                    {
+                        cuerpo_alerta_exito.Text = " Se eliminó el recurso humano correctamente.";
+                        limpia_campos();
+                        actualiza_tabla_recursos_humanos();
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = " Se canceló la eliminación del recurso humano.";
+                    }
+                    a_retornar = m_result_eliminar;
                 }
                 else
                 {
                     cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
+                    alerta_error.Visible = true;
                     SetFocus(input_usuario);
-                    a_retornar = false;
                 }
+
             }
             else
             {
@@ -255,13 +284,13 @@ namespace SAPS.Fronteras
                         {
                             if (input_telefono.Text != "")
                             {
-                                Regex revisa_numero = new Regex(@"(\(?\+?\d{3}\))?\d{4}-?\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);  //REGEX que valida numeros de telefono
+                                Regex revisa_numero = new Regex(@"(\(?\+?\d{3}\))?(2|4|5|6|7|8)\d{3}-?\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);  //REGEX que valida numeros de telefono
                                 Match acierta = revisa_numero.Match(input_telefono.Text);
                                 if (acierta.Success)    //coincide con la REGEX de numeros de telefono
                                 {
                                     if (input_cedula.Text != "")
                                     {
-                                        Regex revisa_cedula = new Regex(@"([0-7]|9)-\d{4}-\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                                        Regex revisa_cedula = new Regex(@"([1-7]|9)-\d{4}-\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);
                                         acierta = revisa_cedula.Match(input_cedula.Text);
                                         if (acierta.Success)    //coincide con la REGEX de cedulas
                                         {
@@ -291,14 +320,18 @@ namespace SAPS.Fronteras
                                                         if (m_opcion == 'i')
                                                         {
                                                             resultado = m_controladora_rh.insertar_recurso_humano(datos);
+                                                            cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
+                                                            actualiza_tabla_recursos_humanos();
+                                                            btn_modificar.Enabled = true;
                                                         }
                                                         else
                                                         {
+                                                            // To DO --> arreglar "modificar" para que no pida por la contraseña
                                                             resultado = m_controladora_rh.modificar_recurso_humano(datos);
+                                                            cuerpo_alerta_exito.Text = " Se modificó el recurso humano correctamente.";
                                                         }
                                                         // TO DO --> manejar el codigo que devuelve
                                                     }
-                                                    cuerpo_alerta_exito.Text = " Su operación no presentó ningún problema.";
                                                     a_retornar = true;
                                                 }
                                                 else
@@ -381,14 +414,21 @@ namespace SAPS.Fronteras
                 input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
                 input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
                 input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
+                if(tabla_informacion.Rows[0]["es_administrador"].Equals(0))
+                {
+                    radio_btn_miembro.Checked = true;
+                }
+                else
+                {
+                    radio_btn_administrador.Checked = true;
+                }
             }
             else
             {
-                
+
             }
 
         }
-
 
         /** @brief Metodo que busca en la tabla de [username, nombre] el username correspondiente a un nombre.
          * @param String "nombre" que contiene el nombre del cual quiere recuperar el "username"
@@ -401,15 +441,48 @@ namespace SAPS.Fronteras
             bool encontrado = false;
             while (i < m_tamano_tabla && encontrado == false)
             {
-                if (m_tabla_resultados[1, i] == nombre)
+                if (m_tabla_resultados[i, 1] == nombre)
                 {
-                    usuario = m_tabla_resultados[0, i];
+                    usuario = m_tabla_resultados[i, 0];
                     encontrado = true;
 
                 }
                 ++i;
             }
             return usuario;
+        }
+
+        /** @brief Metodo que vacia por completo la tabla que muestra los recursos humanos disponibles en la base de datos.
+         */
+        private void vacia_recursos_humano()
+        {
+            tabla_recursos_humanos.Rows.Clear();
+        }
+
+        /** @brief Metodo que actualiza la tabla que muestra los recursos humanos disponibles en la base de datos con la información más actualizada.
+         */
+        private void actualiza_tabla_recursos_humanos()
+        {
+            vacia_recursos_humano();
+            llena_recursos_humanos();
+        }
+
+        //DEBUG
+        protected void btn_modal_aceptar_Click(object sender, EventArgs e)
+        {
+
+            int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
+            // TO DO --> manejar el codigo que devuelve
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
+            upModal.Update();
+            m_result_eliminar = true;
+        }
+
+        protected void btn_modal_cancelar_Click(object sender, EventArgs e)
+        {
+            m_result_eliminar = false;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
+            upModal.Update();
         }
     }
 }

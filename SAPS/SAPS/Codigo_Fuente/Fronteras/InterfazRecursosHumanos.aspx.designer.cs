@@ -49,13 +49,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error;
         
         /// <summary>
-        /// titulo_alerta control.
+        /// label_alerta_error control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titulo_alerta;
+        protected global::System.Web.UI.WebControls.Label label_alerta_error;
         
         /// <summary>
         /// cuerpo_alerta_error control.
@@ -76,13 +76,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito;
         
         /// <summary>
-        /// Label1 control.
+        /// label_alerta_exito control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label label_alerta_exito;
         
         /// <summary>
         /// cuerpo_alerta_exito control.
@@ -103,69 +103,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_name;
         
         /// <summary>
-        /// input_usuario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_usuario;
-        
-        /// <summary>
-        /// radio_btn_miembro control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radio_btn_miembro;
-        
-        /// <summary>
-        /// radio_btn_administrador control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radio_btn_administrador;
-        
-        /// <summary>
-        /// input_correo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_correo;
-        
-        /// <summary>
-        /// drop_proyecto_asociado control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_proyecto_asociado;
-        
-        /// <summary>
-        /// input_telefono control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_telefono;
-        
-        /// <summary>
-        /// drop_rol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_rol;
-        
-        /// <summary>
         /// label_cedula control.
         /// </summary>
         /// <remarks>
@@ -182,6 +119,33 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_cedula;
+        
+        /// <summary>
+        /// input_correo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_correo;
+        
+        /// <summary>
+        /// input_telefono control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_telefono;
+        
+        /// <summary>
+        /// input_usuario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_usuario;
         
         /// <summary>
         /// label_contrasena control.
@@ -202,6 +166,60 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_contrasena;
         
         /// <summary>
+        /// link_reestablece_contrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink link_reestablece_contrasena;
+        
+        /// <summary>
+        /// radio_buttons control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl radio_buttons;
+        
+        /// <summary>
+        /// radio_btn_miembro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton radio_btn_miembro;
+        
+        /// <summary>
+        /// radio_btn_administrador control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton radio_btn_administrador;
+        
+        /// <summary>
+        /// drop_proyecto_asociado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drop_proyecto_asociado;
+        
+        /// <summary>
+        /// drop_rol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drop_rol;
+        
+        /// <summary>
         /// btn_Aceptar control.
         /// </summary>
         /// <remarks>
@@ -218,15 +236,6 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_Cancelar;
-        
-        /// <summary>
-        /// btn_consultar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_consultar;
         
         /// <summary>
         /// tabla_recursos_humanos control.
@@ -263,5 +272,23 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label cuerpo_modal;
+        
+        /// <summary>
+        /// btn_modal_cancelar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_modal_cancelar;
+        
+        /// <summary>
+        /// btn_modal_aceptar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_modal_aceptar;
     }
 }

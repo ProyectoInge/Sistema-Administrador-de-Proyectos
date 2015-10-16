@@ -7,21 +7,22 @@ DROP PROCEDURE CONSULTAR_PYP
 
 
 GO
-CREATE PROCEDURE INSERTAR_PYP --TO DO TOMAR EN CUENTA EL BIT ELIMINADO
-	@id_oficina varchar(32), @fecha_inicio date, @fecha_asignacion date, @fecha_final date, @nombre_sistema varchar(64), @obj_general varchar(256), @nombre_proyecto varchar(64), @estado varchar(32)
+CREATE PROCEDURE INSERTAR_PYP
+	@id_proyecto int, @id_oficina int, @fecha_inicio date, @fecha_asignacion date, @fecha_final date, @nombre_sistema varchar(64), @obj_general varchar(256), @nombre_proyecto varchar(64), @estado varchar(32)
 AS
 	INSERT INTO ProyectoPruebas
-		(id_oficina, fecha_inicio, fecha_asignacion, fecha_final, nombre_sistema, obj_general, nombre_proyecto, estado)
+		(id_oficina, fecha_inicio, fecha_asignacion, fecha_final, nombre_sistema, obj_general, nombre_proyecto, estado, eliminado)
 	VALUES
-		(@id_oficina, @fecha_inicio, @fecha_asignacion, @fecha_final, @nombre_sistema, @obj_general, @nombre_proyecto, @estado)
+		(@id_oficina, @fecha_inicio, @fecha_asignacion, @fecha_final, @nombre_sistema, @obj_general, @nombre_proyecto, @estado, 0)
+
 GO
 
 GO
 CREATE PROCEDURE MODIFICAR_PYP
-	@id_proyecto int, @id_oficina varchar(32), @fecha_inicio date, @fecha_asignacion date, @fecha_final date, @nombre_sistema varchar(64), @obj_general varchar(256), @nombre_proyecto varchar(64), @estado varchar(32)
+	@id_proyecto int, @id_oficina int, @fecha_inicio date, @fecha_asignacion date, @fecha_final date, @nombre_sistema varchar(64), @obj_general varchar(256), @nombre_proyecto varchar(64), @estado varchar(32)
 AS
 	UPDATE ProyectoPruebas
-		SET id_oficina = @id_oficina, fecha_inicio = @fecha_inicio, fecha_asignacion=@fecha_asignacion, fecha_final=@fecha_final, nombre_sistema=@nombre_sistema, obj_general=@obj_general, nombre_proyecto=@nombre_proyecto, estado = @estado
+		SET id_oficina = @id_oficina, fecha_inicio = @fecha_inicio, fecha_final=@fecha_final, nombre_sistema=@nombre_sistema, obj_general=@obj_general, nombre_proyecto=@nombre_proyecto, estado = @estado
 		WHERE id_proyecto = @id_proyecto
 GO
 
@@ -51,4 +52,13 @@ AS
 			ProyectoPruebas.eliminado
 	FROM	ProyectoPruebas
 	WHERE	ProyectoPruebas.id_proyecto = @id_proyecto AND ProyectoPruebas.eliminado = 0
-			
+
+
+
+GO 
+CREATE PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
+AS BEGIN
+	SELECT	Oficina.nombre_oficina
+	FROM	Oficina
+	END
+GO

@@ -71,7 +71,7 @@ namespace SAPS.Base_de_Datos
 
         /** @brief Método que realiza la setencia SQL para conultar un recurso humano en específico.
          * @param nombre_usuario del recuros humano que se desea consultar.
-         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         * @return DataTable con los resultados de la consultas.
          */
         public DataTable consultar_recurso_humano(string nombre_usuario)
         {
@@ -83,7 +83,7 @@ namespace SAPS.Base_de_Datos
         }
 
         /** @brief Método que realiza la setencia SQL para consultar todos recursos humanos que se encuentran en la Base de Datos.
-         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         * @return DataTable con los resultados de la consultas.
          */
         public DataTable solicitar_recursos_disponibles()
         {
@@ -104,6 +104,20 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
             DataTable tabla_contrasena = m_data_base_adapter.obtener_resultado_consulta(comando);
             return tabla_contrasena.Rows[0]["contrasena"].ToString();
+        }
+
+        /** @brief Método que realiza la setencia SQL para reestablece la contraseña de un recurso humano especìfico que se encuentran en la Base de Datos.
+         * @param nombre_usuario del recuros humano que se desea consultar.
+         * @param nueva_contrasena que tendrá el recurso humano.
+         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+        */
+        public int cambiar_contrasena(RecursoHumano recurso_humano)
+        {
+            SqlCommand comando = new SqlCommand("CAMBIAR_CONTRASENA");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = recurso_humano.usuario;
+            comando.Parameters.Add("@nueva_contrasena", SqlDbType.VarChar).Value = recurso_humano.contrasena;
+            return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
 

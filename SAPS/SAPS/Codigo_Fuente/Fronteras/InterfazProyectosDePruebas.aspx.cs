@@ -14,20 +14,23 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SAPS.Controladoras;
 using System.Text.RegularExpressions;
+using System.Data;
 
-namespace SAPS.Codigo_Fuente.Fronteras
-
-    /*@brief La clase frontera de proyectos de pruebas se encarga de obtener los datos y eventos ingresados por el usuario
-            y enviarlos a la clase controladora proyectos_de_pruebas. 
-        
-    **/
+namespace SAPS.Fronteras
 {
+    /** @brief La clase frontera de proyectos de pruebas se encarga de obtener los datos y eventos ingresados por el usuario
+        y enviarlos a la clase controladora proyectos_de_pruebas. 
+    */
     public partial class InterfazProyectosDePruebas : System.Web.UI.Page
     {
 
         private ControladoraProyectoPruebas m_controladora_pdp;         // Instacia de la clase controladora
 
         char opcion_tomada;                                             // Opciones de valor: i= insertar, m= modificar, b= borrar
+
+
+        private string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
+        private int m_tamano_tabla;
 
 
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos
@@ -41,6 +44,9 @@ namespace SAPS.Codigo_Fuente.Fronteras
             m_controladora_pdp = new ControladoraProyectoPruebas();
             opcion_tomada = 'i';
             activa_desactiva_botones_ime(false);
+            input_manager_office.Enabled = false;
+            input_phone1.Enabled = false;
+            input_phone2.Enabled = false;
             llena_disenos_prueba();                                                 // Se llenan las tablas de Grid
             llena_proyectos_de_pruebas();
 
@@ -99,6 +105,7 @@ namespace SAPS.Codigo_Fuente.Fronteras
             opcion_tomada = 'm';
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(true);
+            input_asignment_date.Enabled = false;                                               // No se permite la modificacion de fecha de asignacion
             btn_eliminar.BackColor = System.Drawing.Color.White;
             btn_crear.BackColor = System.Drawing.Color.White;
             btn_modificar.BackColor = System.Drawing.Color.LightGray;
@@ -147,14 +154,16 @@ namespace SAPS.Codigo_Fuente.Fronteras
         */
         private void activa_desactiva_inputs(bool estado) {
             input_system.Enabled = estado;
-            input_process.Enabled = estado;
-            input_leader.Enabled = estado;
-            input_phone1.Enabled = estado;
-            input_phone2.Enabled = estado;
+            input_process.Enabled = estado;            
+            //input_phone1.Enabled = estado;
+            //input_phone2.Enabled = estado;
+            //input_manager_office.Enabled = estado;
             drop_oficina_asociada.Enabled = estado;
-            drop_estado_proyecto.Enabled = estado;
-            input_manager_office.Enabled = estado;
+            drop_estado_proyecto.Enabled = estado;            
             input_objective.Enabled = estado;
+            input_start_date.Enabled = estado;
+            input_asignment_date.Enabled = estado;
+            input_finish_date.Enabled = estado;
         }
 
 
@@ -166,18 +175,36 @@ namespace SAPS.Codigo_Fuente.Fronteras
 
             // Es necesario llenar con los resultados de la base de datos
 
-            for (int i = 0; i < 30; ++i)
+
+            /* DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
+            m_tamano_tabla = tabla_de_datos.Rows.Count;
+            m_tabla_resultados = new string[2, m_tamano_tabla];
+
+            for (int i = 0; i < m_tamano_tabla; ++i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda = new TableCell();
                 Button btn = new Button();
+                m_tabla_resultados[0, i] = tabla_de_datos.Rows[i]["username"].ToString();
+                m_tabla_resultados[1, i] = tabla_de_datos.Rows[i]["nombre"].ToString();
                 btn.ID = "btn_lista_" + i.ToString();
-                btn.Text = "dp " + i.ToString();
+                btn.Text = m_tabla_resultados[1, i];
                 btn.CssClass = "btn btn-link btn-block";
                 btn.Click += new EventHandler(btn_lista_click);
                 celda.Controls.AddAt(0, btn);
                 fila.Cells.Add(celda);
-                tabla_disenos_de_prueba.Rows.Add(fila);
+                tabla_recursos_humanos.Rows.Add(fila);
+            } **/
+
+            
+            DataTable tabla_de_datos = m_controladora_pdp.solicitar_recursos_disponibles();
+            m_tamano_tabla = tabla_de_datos.Rows.Count;
+            m_tabla_resultados = new string[2, m_tamano_tabla];
+
+
+            for (int i = 0; i < m_tamano_tabla; ++i)
+            {
+                
             }
 
         }
@@ -203,7 +230,6 @@ namespace SAPS.Codigo_Fuente.Fronteras
                 fila.Cells.Add(celda);
                 tabla_proyectos_de_pruebas.Rows.Add(fila);
             }
-
         }
 
         /** @brief Metodo encargado de retornar todos los espacios e ingresos del sistema a su estado
@@ -211,8 +237,7 @@ namespace SAPS.Codigo_Fuente.Fronteras
         */
         private void limpia_campos() {
             input_system.Text = "";
-            input_process.Text = "";
-            input_leader.Text = "";
+            input_process.Text = "";            
             input_phone1.Text = "";
             input_phone2.Text = "";
             input_manager_office.Text = "";
@@ -250,32 +275,30 @@ namespace SAPS.Codigo_Fuente.Fronteras
                 if (input_system.Text != "")
                 {
                     if (input_process.Text != "")
-                    {
-                        if (input_leader.Text != "")
-                        {
+                    {                        
                             if (input_objective.Text != "")
                             {
                                 if (drop_oficina_asociada.Text != "")
-                                {
-                                    if (input_phone1.Text != "")
+                                {          
+                                    if (drop_estado_proyecto.Text != "")
                                     {
-                                        if (input_phone2.Text != "")
+                                        if (input_start_date.Text != "")
                                         {
-                                            if (input_manager_office.Text != "")
+                                            if (input_asignment_date.Text != "")
                                             {
-                                                if (drop_estado_proyecto.Text != "")
+                                                if (input_finish_date.Text != "")
                                                 {
-                                                    Object[] datos = new Object[9];
-                                                    datos[0] = input_system.Text;
-                                                    datos[1] = input_process.Text;
-                                                    datos[2] = input_leader.Text;
-                                                    datos[3] = input_objective.Text;
-                                                    datos[4] = drop_oficina_asociada.Text;
-                                                    datos[5] = input_phone1.Text;
-                                                    datos[6] = input_phone2.Text;
-                                                    datos[7] = input_manager_office.Text;
-                                                    datos[8] = drop_estado_proyecto.Text;
 
+                                                    Object[] datos = new Object[9];
+                                                                
+                                                    datos[2] = input_system.Text;                       // Nombre del sistema
+                                                    datos[5] = input_process.Text;                      // Nombre de proyecto                                                    
+                                                    datos[6] = input_start_date.Text;                   // Fecha de inicio del proyecto
+                                                    datos[8] = input_finish_date;                       // Fecha de finalizacion del proyecto
+                                                    datos[4] = input_objective.Text;                    // Objetivo general
+                                                    datos[1] = drop_oficina_asociada.Text;              // Oficina asociada
+                                                    datos[3] = drop_estado_proyecto.Text;               // Estado del proyecto
+                                                    datos[7] = input_asignment_date.Text;               // Fecha de asignacion
 
                                                     int resultado;
                                                     if (opcion_tomada == 'i')
@@ -289,28 +312,28 @@ namespace SAPS.Codigo_Fuente.Fronteras
 
                                                     cuerpo_alerta_exito.Text = "Su operación ha sido exitosa.";
                                                     respuesta = true;
+
+                                                }
+                                                else
+                                                {
+                                                    cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de finalización del proyecto.";
+                                                    SetFocus(input_finish_date);
+                                                    respuesta = false;
                                                 }
                                             }
                                             else
                                             {
-                                                cuerpo_alerta_error.Text = "Es necesario ingresar un representante de oficina.";
-                                                SetFocus(input_manager_office);
+                                                cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de asignación del proyecto.";
+                                                SetFocus(input_asignment_date);
                                                 respuesta = false;
                                             }
                                         }
-                                        else
-                                        {
-                                            cuerpo_alerta_error.Text = "Es necesario ingresar un segundo número telefónico.";
-                                            SetFocus(input_phone2);
+                                        else {
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de inicio del proyecto.";
+                                            SetFocus(input_manager_office);
                                             respuesta = false;
                                         }
-                                    }
-                                    else
-                                    {
-                                        cuerpo_alerta_error.Text = "Es necesario ingresar un número telefónico.";
-                                        SetFocus(input_phone1);
-                                        respuesta = false;
-                                    }
+                                    }                               
                                 }
                             }
                             else
@@ -319,13 +342,6 @@ namespace SAPS.Codigo_Fuente.Fronteras
                                 SetFocus(input_objective);
                                 respuesta = false;
                             }
-                        }
-                        else
-                        {
-                            cuerpo_alerta_error.Text = "Es necesario ingresar un líder de proyecto.";
-                            SetFocus(input_leader);
-                            respuesta = false;
-                        }
                     }
                     else
                     {

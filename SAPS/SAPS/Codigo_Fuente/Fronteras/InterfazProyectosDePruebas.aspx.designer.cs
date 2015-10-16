@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SAPS.Codigo_Fuente.Fronteras {
+namespace SAPS.Fronteras {
     
     
     public partial class InterfazProyectosDePruebas {
@@ -103,15 +103,6 @@ namespace SAPS.Codigo_Fuente.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_system;
         
         /// <summary>
-        /// drop_oficina_asociada control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_oficina_asociada;
-        
-        /// <summary>
         /// input_process control.
         /// </summary>
         /// <remarks>
@@ -119,6 +110,15 @@ namespace SAPS.Codigo_Fuente.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_process;
+        
+        /// <summary>
+        /// input_start_date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_start_date;
         
         /// <summary>
         /// drop_estado_proyecto control.
@@ -130,13 +130,31 @@ namespace SAPS.Codigo_Fuente.Fronteras {
         protected global::System.Web.UI.WebControls.DropDownList drop_estado_proyecto;
         
         /// <summary>
-        /// input_leader control.
+        /// input_asignment_date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_leader;
+        protected global::System.Web.UI.WebControls.TextBox input_asignment_date;
+        
+        /// <summary>
+        /// drop_oficina_asociada control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drop_oficina_asociada;
+        
+        /// <summary>
+        /// input_finish_date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_finish_date;
         
         /// <summary>
         /// input_manager_office control.
@@ -146,6 +164,15 @@ namespace SAPS.Codigo_Fuente.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_manager_office;
+        
+        /// <summary>
+        /// input_objective control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_objective;
         
         /// <summary>
         /// input_phone1 control.
@@ -164,15 +191,6 @@ namespace SAPS.Codigo_Fuente.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_phone2;
-        
-        /// <summary>
-        /// input_objective control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_objective;
         
         /// <summary>
         /// tabla_disenos_de_prueba control.
@@ -200,15 +218,6 @@ namespace SAPS.Codigo_Fuente.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button2;
-        
-        /// <summary>
-        /// btn_consultar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_consultar;
         
         /// <summary>
         /// tabla_proyectos_de_pruebas control.
