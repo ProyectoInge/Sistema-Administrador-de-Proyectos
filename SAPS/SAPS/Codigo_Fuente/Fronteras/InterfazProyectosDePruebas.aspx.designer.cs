@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SAPS.Codigo_Fuente.Fronteras {
+namespace SAPS.Fronteras {
     
     
     public partial class InterfazProyectosDePruebas {

@@ -16,13 +16,11 @@ using SAPS.Controladoras;
 using System.Text.RegularExpressions;
 using System.Data;
 
-namespace SAPS.Codigo_Fuente.Fronteras
-
-    /*@brief La clase frontera de proyectos de pruebas se encarga de obtener los datos y eventos ingresados por el usuario
-            y enviarlos a la clase controladora proyectos_de_pruebas. 
-        
-    **/
+namespace SAPS.Fronteras
 {
+    /** @brief La clase frontera de proyectos de pruebas se encarga de obtener los datos y eventos ingresados por el usuario
+        y enviarlos a la clase controladora proyectos_de_pruebas. 
+    */
     public partial class InterfazProyectosDePruebas : System.Web.UI.Page
     {
 

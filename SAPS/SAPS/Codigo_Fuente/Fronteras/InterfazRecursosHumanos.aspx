@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
                 <div class="btn-group" role="group">
-                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_crear" Enabled="true" Text="Insertar" OnClick="btn_crear_Click" />
+                    <asp:Button runat="server" CssClass="btn btn-default active" ID="btn_crear" Enabled="true" Text="Insertar" OnClick="btn_crear_Click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Text="Modificar" OnClick="btn_modificar_Click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_eliminar" Text="Eliminar" OnClick="btn_eliminar_Click" />
                 </div>
@@ -40,12 +40,12 @@
             <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <b>
-                    <asp:Label runat="server" ID="titulo_alerta" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
+                    <asp:Label runat="server" ID="label_alerta_error" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
             </div>
             <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <b>
-                    <asp:Label runat="server" ID="Label1" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
+                    <asp:Label runat="server" ID="label_alerta_exito" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
             </div>
         </div>
     </section>
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div id="panel_derecha" class="col-md-6">
-                <div  class="panel panel-default">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">Otros datos</h4>
                     </div>
@@ -120,9 +120,10 @@
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
+                                    <asp:HyperLink runat="server" Text="¿Desea reestablecer la contraseña?" ID="link_reestablece_contrasena" NavigateUrl="~/Codigo_Fuente/Fronteras/InterfazReestablecerContrasena.aspx"></asp:HyperLink>
                                 </div>
                             </div>
-                            <br />
+                            <hr />
                             <div id="row3_der" class="row">
                                 <div class="form-group">
                                     <div class="col-md-3">

@@ -12,6 +12,7 @@ using SAPS.Controladoras;
 using System.Text.RegularExpressions;
 using System.Data;
 using System.Web.UI;
+using System.Windows;
 using System.Threading;
 
 namespace SAPS.Fronteras
@@ -38,6 +39,14 @@ namespace SAPS.Fronteras
             drop_proyecto_asociado.Enabled = false;
             drop_rol.Enabled = false;
             activa_desactiva_botones_ime(false);
+            if(m_opcion == 'i')
+            {
+                link_reestablece_contrasena.Visible = false;
+            }
+            else
+            {
+                link_reestablece_contrasena.Visible = true;
+            }
             llena_recursos_humanos();
         }
 
@@ -59,6 +68,9 @@ namespace SAPS.Fronteras
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
             limpia_campos();
+            drop_proyecto_asociado.Enabled = false;
+            drop_rol.Enabled = false;
+            link_reestablece_contrasena.Visible = false;
             activa_desactiva_botones_ime(false);
         }
 
@@ -102,11 +114,18 @@ namespace SAPS.Fronteras
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
             m_opcion = 'm';
+            link_reestablece_contrasena.Visible = true;
             activa_desactiva_inputs(true);
+            if(radio_btn_administrador.Checked == true)
+            {
+                drop_rol.Enabled = false;
+                drop_proyecto_asociado.Enabled = false;
+            }
             activa_desactiva_botones_ime(true);
-            btn_eliminar.BackColor = System.Drawing.Color.White;
-            btn_crear.BackColor = System.Drawing.Color.White;
-            btn_modificar.BackColor = System.Drawing.Color.LightGray;
+            input_contrasena.Enabled = false;
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default active";
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "eliminar".
@@ -115,11 +134,12 @@ namespace SAPS.Fronteras
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
             m_opcion = 'e';
+            link_reestablece_contrasena.Visible = false;
             activa_desactiva_inputs(false);
             activa_desactiva_botones_ime(true);
-            btn_eliminar.BackColor = System.Drawing.Color.LightGray;
-            btn_crear.BackColor = System.Drawing.Color.White;
-            btn_modificar.BackColor = System.Drawing.Color.White;
+            btn_eliminar.CssClass = "btn btn-default active";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default";
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "insertar".
@@ -129,11 +149,14 @@ namespace SAPS.Fronteras
         {
             m_opcion = 'i';
             activa_desactiva_inputs(true);
+            link_reestablece_contrasena.Visible = false;
             limpia_campos();
             activa_desactiva_botones_ime(false);
-            btn_eliminar.BackColor = System.Drawing.Color.White;
-            btn_crear.BackColor = System.Drawing.Color.LightGray;
-            btn_modificar.BackColor = System.Drawing.Color.White;
+            drop_rol.Enabled = false;
+            drop_proyecto_asociado.Enabled = false;
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default ";
         }
 
         // ------------------------------------------
@@ -184,9 +207,10 @@ namespace SAPS.Fronteras
             alerta_exito.Visible = false;
             m_opcion = 'i';
             activa_desactiva_inputs(true);
-            btn_crear.BackColor = System.Drawing.Color.White;
-            btn_eliminar.BackColor = System.Drawing.Color.White;
-            btn_modificar.BackColor = System.Drawing.Color.White;
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default";
+            link_reestablece_contrasena.Visible = false;
         }
 
         /** @brief Llena el área de consulta con los recursos humanos que hay en la base de datos.
@@ -386,6 +410,14 @@ namespace SAPS.Fronteras
                 input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
                 input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
                 input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
+                if(tabla_informacion.Rows[0]["es_administrador"].Equals(0))
+                {
+                    radio_btn_miembro.Checked = true;
+                }
+                else
+                {
+                    radio_btn_administrador.Checked = true;
+                }
             }
             else
             {

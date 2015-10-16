@@ -49,13 +49,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error;
         
         /// <summary>
-        /// titulo_alerta control.
+        /// label_alerta_error control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label titulo_alerta;
+        protected global::System.Web.UI.WebControls.Label label_alerta_error;
         
         /// <summary>
         /// cuerpo_alerta_error control.
@@ -76,13 +76,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito;
         
         /// <summary>
-        /// Label1 control.
+        /// label_alerta_exito control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label label_alerta_exito;
         
         /// <summary>
         /// cuerpo_alerta_exito control.
@@ -164,6 +164,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_contrasena;
+        
+        /// <summary>
+        /// link_reestablece_contrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink link_reestablece_contrasena;
         
         /// <summary>
         /// radio_buttons control.
