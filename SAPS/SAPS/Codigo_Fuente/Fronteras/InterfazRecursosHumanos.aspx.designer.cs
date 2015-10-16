@@ -166,13 +166,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_contrasena;
         
         /// <summary>
-        /// link_reestablece_contrasena control.
+        /// btn_reestablece_contrasena control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink link_reestablece_contrasena;
+        protected global::System.Web.UI.WebControls.Button btn_reestablece_contrasena;
         
         /// <summary>
         /// radio_buttons control.
@@ -245,6 +245,42 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tabla_recursos_humanos;
+        
+        /// <summary>
+        /// tabla_recursos_humanos_header control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderRow tabla_recursos_humanos_header;
+        
+        /// <summary>
+        /// celda_nombre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell celda_nombre;
+        
+        /// <summary>
+        /// celda_proyecto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell celda_proyecto;
+        
+        /// <summary>
+        /// celda_rol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell celda_rol;
         
         /// <summary>
         /// upModal control.

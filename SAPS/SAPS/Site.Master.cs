@@ -76,6 +76,11 @@ namespace SAPS
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
 
+        protected void btn_salir_Click(object sender, EventArgs e)
+        {
+            FormsAuthentication.SignOut();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
+        }
     }
 
 }

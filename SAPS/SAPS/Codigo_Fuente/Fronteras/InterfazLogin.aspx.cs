@@ -14,6 +14,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SAPS.Controladoras;
 using System.Web.UI.HtmlControls;
+using System.Web.Security;
 
 namespace SAPS.Fronteras
 {
@@ -30,6 +31,9 @@ namespace SAPS.Fronteras
             nav_bar.Visible = false;
             m_controladora_rh = new ControladoraRecursosHumanos();
             alerta_error.Visible = false;
+
+            if (Request.IsAuthenticated)
+                Response.Redirect("Default.aspx");
         }
 
         /** @brief Evento que se activa cuando el usuario hace click en el boton "login", verifica los datos y autentica al usuario.
@@ -41,11 +45,12 @@ namespace SAPS.Fronteras
             {
                 if(input_contrasena.Text != "")
                 {
-                    // TO DO --> manejar el codigo que retornar "autenticar".
                     int resultado = m_controladora_rh.autenticar(input_usuario.Text, input_contrasena.Text);
-                    if(resultado == 0) // TO DO --> esto hay que arreglarlo porque ahorita no esta verificando nada y solo devuelve 0.
+                    if(resultado == 0)
                     {
-                        Response.Redirect("~/"); // Si el usuario se autentica correctamente, lo dirige a la pantalla de inicio.
+                        FormsAuthentication.Authenticate(input_usuario.Text, input_contrasena.Text);
+                        FormsAuthentication.RedirectFromLoginPage(input_usuario.Text, true);
+                        //Response.Redirect("~/"); // Si el usuario se autentica correctamente, lo dirige a la pantalla de inicio.
                     }
                     else
                     {

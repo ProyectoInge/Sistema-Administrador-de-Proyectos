@@ -33,6 +33,8 @@ namespace SAPS.Fronteras
         //Metodo que se llama al cargar la página
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.IsAuthenticated)
+            {
             m_controladora_rh = new ControladoraRecursosHumanos();
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
@@ -41,19 +43,24 @@ namespace SAPS.Fronteras
             activa_desactiva_botones_ime(false);
             if (m_opcion == 'i')
             {
-                link_reestablece_contrasena.Visible = false;
+                btn_reestablece_contrasena.Visible = false;
             }
             else
             {
-                link_reestablece_contrasena.Visible = true;
+                btn_reestablece_contrasena.Visible = true;
             }
             llena_recursos_humanos();
+        }
+            else
+            {
+                Response.Redirect("InterfazLogin.aspx");
+            }
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona un elemento del grid de consulta.
          * @param Los parametros por default de un evento de C#.
          */
-        private void btn_lista_click(object sender, EventArgs e)
+        private void btn_lista_rh_click(object sender, EventArgs e)
         {
             string nombre_usuario = ((Button)sender).Text;
             string username = buscar_usuario(nombre_usuario);
@@ -70,7 +77,7 @@ namespace SAPS.Fronteras
             limpia_campos();
             drop_proyecto_asociado.Enabled = false;
             drop_rol.Enabled = false;
-            link_reestablece_contrasena.Visible = false;
+            btn_reestablece_contrasena.Visible = false;
             activa_desactiva_botones_ime(false);
         }
 
@@ -97,7 +104,6 @@ namespace SAPS.Fronteras
          */
         protected void btn_Aceptar_Click(object sender, EventArgs e)
         {
-            // TO DO --> Modificar y eliminar, ahorita solo inserta
             if (valida_campos() == true)
             {
                 alerta_exito.Visible = true;
@@ -114,7 +120,7 @@ namespace SAPS.Fronteras
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
             m_opcion = 'm';
-            link_reestablece_contrasena.Visible = true;
+            btn_reestablece_contrasena.Visible = true;
             activa_desactiva_inputs(true);
             if (radio_btn_administrador.Checked == true)
             {
@@ -134,7 +140,7 @@ namespace SAPS.Fronteras
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
             m_opcion = 'e';
-            link_reestablece_contrasena.Visible = false;
+            btn_reestablece_contrasena.Visible = false;
             activa_desactiva_inputs(false);
             activa_desactiva_botones_ime(true);
             btn_eliminar.CssClass = "btn btn-default active";
@@ -149,7 +155,7 @@ namespace SAPS.Fronteras
         {
             m_opcion = 'i';
             activa_desactiva_inputs(true);
-            link_reestablece_contrasena.Visible = false;
+            btn_reestablece_contrasena.Visible = false;
             limpia_campos();
             activa_desactiva_botones_ime(false);
             drop_rol.Enabled = false;
@@ -162,6 +168,13 @@ namespace SAPS.Fronteras
         // ------------------------------------------
         // |    Metodos auxiliares de la clase      |
         // ------------------------------------------
+
+        /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
+        */
+        private void llena_proyectos()
+        {
+            // TO DO --> llenar combo box de proyectos
+        }
 
         /** @brief Activa o desactiva los campos de ingresar texto.
          * @param Bool "estado" que indica si activa o desactiva los campos.
@@ -210,7 +223,7 @@ namespace SAPS.Fronteras
             btn_eliminar.CssClass = "btn btn-default";
             btn_crear.CssClass = "btn btn-default active";
             btn_modificar.CssClass = "btn btn-default";
-            link_reestablece_contrasena.Visible = false;
+            btn_reestablece_contrasena.Visible = false;
         }
 
         /** @brief Llena el área de consulta con los recursos humanos que hay en la base de datos.
@@ -220,25 +233,46 @@ namespace SAPS.Fronteras
             DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
             m_tamano_tabla = tabla_de_datos.Rows.Count;
             m_tabla_resultados = new string[m_tamano_tabla, 2];
-
             for (int i = 0; i < m_tamano_tabla; ++i)
             {
                 TableRow fila = new TableRow();
-                TableCell celda = new TableCell();
+                TableCell celda_boton = new TableCell();
+                TableCell celda_proyecto = new TableCell();
+                TableCell celda_rol = new TableCell();
                 Button btn = new Button();
                 m_tabla_resultados[i, 0] = tabla_de_datos.Rows[i]["username"].ToString();
                 m_tabla_resultados[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
                 btn.ID = "btn_lista_" + i.ToString();
                 btn.Text = m_tabla_resultados[i, 1];
-                btn.CssClass = "btn btn-link btn-block";
-                btn.Click += new EventHandler(btn_lista_click);
-                celda.Controls.AddAt(0, btn);
-                fila.Cells.Add(celda);
+                btn.CssClass = "btn btn-link btn-block btn-sm";
+                btn.Click += new EventHandler(btn_lista_rh_click);
+                if (tabla_de_datos.Rows[i]["id_proyecto"].ToString() == "")
+                {
+                    celda_proyecto.Text = "N/A";
+                }
+                else
+                {
+                    // TO DO --> hacer la consulta con el id y que me de el nombre del proyecto
+                    celda_proyecto.Text = tabla_de_datos.Rows[i]["proyecto"].ToString();
+                }
+
+                if (tabla_de_datos.Rows[i]["rol"].ToString() == "")
+                {
+                    celda_rol.Text = "N/A";
+                }
+                else
+                {
+                    celda_proyecto.Text = tabla_de_datos.Rows[i]["rol"].ToString();
+                }
+                celda_boton.Controls.AddAt(0, btn);
+                fila.Cells.AddAt(0, celda_boton);
+                fila.Cells.AddAt(1, celda_proyecto);
+                fila.Cells.AddAt(2, celda_rol);
                 tabla_recursos_humanos.Rows.Add(fila);
             }
         }
 
-        /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora.
+        /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora y realiza la operación respectiva.
          */
         private bool valida_campos()
         {
@@ -246,6 +280,89 @@ namespace SAPS.Fronteras
             switch (m_opcion)
             {
                 case 'e':
+                    a_retornar = eliminar_recurso_humano();
+                    break;
+                case 'i':
+                    a_retornar = insertar_recurso_humano();
+                    break;
+                case 'm':
+                    a_retornar = modificar_recurso_humano();
+                    break;
+            }
+            return a_retornar;
+        }
+
+        /** @brief Metodo que sen encarga de obtener la informacion que corresponde a un usuario y desplegarla en los campos.
+         * @param String "username" que indica el nombre de usuario del recurso humano que se va a obtener la información.
+         */
+        private void llena_informacion_consulta(string username)
+        {
+            DataTable tabla_informacion = m_controladora_rh.consultar_recurso_humano(username);
+            if (tabla_informacion.Rows.Count > 0)
+            {
+                input_name.Text = tabla_informacion.Rows[0]["nombre"].ToString();
+                input_usuario.Text = username;
+                input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
+                input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
+                input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
+                if (tabla_informacion.Rows[0]["es_administrador"].Equals(0))
+                {
+                    radio_btn_miembro.Checked = true;
+                }
+                else
+                {
+                    radio_btn_administrador.Checked = true;
+                }
+            }
+            else
+            {
+                // TO TO
+            }
+
+        }
+
+        /** @brief Metodo que busca en la tabla de [username, nombre] el username correspondiente a un nombre.
+         * @param String "nombre" que contiene el nombre del cual quiere recuperar el "username"
+         * @return String con el nombre de usuario correspondiente al usuario que se consulto.
+         */
+        private string buscar_usuario(string nombre)
+        {
+            string usuario = "";
+            int i = 0;
+            bool encontrado = false;
+            while (i < m_tamano_tabla && encontrado == false)
+            {
+                if (m_tabla_resultados[i, 1] == nombre)
+                {
+                    usuario = m_tabla_resultados[i, 0];
+                    encontrado = true;
+
+                }
+                ++i;
+            }
+            return usuario;
+        }
+
+        /** @brief Metodo que vacia por completo la tabla que muestra los recursos humanos disponibles en la base de datos.
+         */
+        private void vacia_recursos_humano()
+        {
+            tabla_recursos_humanos.Rows.Clear();
+        }
+
+        /** @brief Metodo que actualiza la tabla que muestra los recursos humanos disponibles en la base de datos con la información más actualizada.
+         */
+        private void actualiza_tabla_recursos_humanos()
+        {
+            vacia_recursos_humano();
+            llena_recursos_humanos();
+        }
+
+        /** @brief Metodo que valida los campos que se ocupan para eliminar un recurso humano, si no hay problema entonces lo elimina de la base.
+         */
+        private bool eliminar_recurso_humano()
+        {
+            bool a_retornar = false;
                     if (input_usuario.Text != "")
                     {
 
@@ -273,8 +390,13 @@ namespace SAPS.Fronteras
                         alerta_error.Visible = true;
                         SetFocus(input_usuario);
                     }
-                    break;
-                case 'i':
+            return a_retornar;
+        }
+        /** @brief Metodo que valida los campos que se ocupan para insertar un recurso humano, si no hay problema entonces lo inserta a la base.
+        */
+        private bool insertar_recurso_humano()
+        {
+            bool a_retornar = false;
                     if (input_name.Text != "")
                     {
                         if (input_usuario.Text != "")
@@ -392,8 +514,13 @@ namespace SAPS.Fronteras
                         SetFocus(input_name);
                         a_retornar = false;
                     }
-                    break;
-                case 'm':
+            return a_retornar;
+        }
+        /** @brief Metodo que valida los campos necesarios para modificar un recurso humano y si todo esta bien, lo modifica.
+         */
+        private bool modificar_recurso_humano()
+        {
+            bool a_retornar = false;
                     if (input_name.Text != "")
                     {
                         if (input_usuario.Text != "")
@@ -502,79 +629,10 @@ namespace SAPS.Fronteras
                         SetFocus(input_name);
                         a_retornar = false;
                     }
-
-                    break;
-            }
             return a_retornar;
         }
 
-        /** @brief Metodo que sen encarga de obtener la informacion que corresponde a un usuario y desplegarla en los campos.
-         * @param String "username" que indica el nombre de usuario del recurso humano que se va a obtener la información.
-         */
-        private void llena_informacion_consulta(string username)
-        {
-            DataTable tabla_informacion = m_controladora_rh.consultar_recurso_humano(username);
-            if (tabla_informacion.Rows.Count > 0)
-            {
-                input_name.Text = tabla_informacion.Rows[0]["nombre"].ToString();
-                input_usuario.Text = username;
-                input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
-                input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
-                input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
-                if (tabla_informacion.Rows[0]["es_administrador"].Equals(0))
-                {
-                    radio_btn_miembro.Checked = true;
-                }
-                else
-                {
-                    radio_btn_administrador.Checked = true;
-                }
-            }
-            else
-            {
-
-            }
-
-        }
-
-        /** @brief Metodo que busca en la tabla de [username, nombre] el username correspondiente a un nombre.
-         * @param String "nombre" que contiene el nombre del cual quiere recuperar el "username"
-         * @return String con el nombre de usuario correspondiente al usuario que se consulto.
-         */
-        private string buscar_usuario(string nombre)
-        {
-            string usuario = "";
-            int i = 0;
-            bool encontrado = false;
-            while (i < m_tamano_tabla && encontrado == false)
-            {
-                if (m_tabla_resultados[i, 1] == nombre)
-                {
-                    usuario = m_tabla_resultados[i, 0];
-                    encontrado = true;
-
-                }
-                ++i;
-            }
-            return usuario;
-        }
-
-        /** @brief Metodo que vacia por completo la tabla que muestra los recursos humanos disponibles en la base de datos.
-         */
-        private void vacia_recursos_humano()
-        {
-            tabla_recursos_humanos.Rows.Clear();
-        }
-
-        /** @brief Metodo que actualiza la tabla que muestra los recursos humanos disponibles en la base de datos con la información más actualizada.
-         */
-        private void actualiza_tabla_recursos_humanos()
-        {
-            vacia_recursos_humano();
-            llena_recursos_humanos();
-        }
-
-        //DEBUG
+        // TO DO --> revisar esta parte para el modal.
         protected void btn_modal_aceptar_Click(object sender, EventArgs e)
         {
 
@@ -590,6 +648,12 @@ namespace SAPS.Fronteras
             m_result_eliminar = false;
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
             upModal.Update();
+        }
+
+        protected void btn_reestablece_contrasena_Click(object sender, EventArgs e)
+        {
+            string url = "~/Codigo_Fuente/Fronteras/InterfazReestablecerContrasena.aspx?u=" + input_usuario.Text;
+            Response.Redirect(url);
         }
     }
 }
