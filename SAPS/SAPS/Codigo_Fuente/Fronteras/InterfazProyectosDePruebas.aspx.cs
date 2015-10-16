@@ -197,8 +197,8 @@ namespace SAPS.Fronteras
             } **/
 
             
-            DataTable tabla_de_datos = m_controladora_pdp.solicitar_recursos_disponibles();
-            m_tamano_tabla = tabla_de_datos.Rows.Count;
+            //DataTable tabla_de_datos = m_controladora_pdp.
+            //m_tamano_tabla = tabla_de_datos.Rows.Count;
             m_tabla_resultados = new string[2, m_tamano_tabla];
 
 
