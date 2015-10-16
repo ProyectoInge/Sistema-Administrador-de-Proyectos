@@ -178,7 +178,7 @@ namespace SAPS.Fronteras
         */
         private void llena_proyectos()
         {
-            DataTable tabla_proyectos = m_controladora_pdp.solicitar_recursos_disponibles();
+            DataTable tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
             m_tamano_tabla_pdp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             for(int i=0; i<m_tamano_tabla_pdp; ++i)
