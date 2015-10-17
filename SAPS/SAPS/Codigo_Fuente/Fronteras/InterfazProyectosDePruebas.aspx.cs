@@ -26,8 +26,8 @@ namespace SAPS.Fronteras
         private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
         private static char opcion_tomada;                          // i= insertar, m= modificar, e= eliminar
 
-        private Object[,] m_tabla_resultados; //posicion: 0-> nombre proyecto, 1-> id_proyecto
-        private int m_tamano_tabla;
+        private Object[,] m_tabla_proyectos_disponibles; //posicion: 0-> nombre proyecto, 1-> id_proyecto
+        private static int m_tamano_tabla_pdp;
 
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
         */
@@ -226,23 +226,42 @@ namespace SAPS.Fronteras
         {
             // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
         }
-
-        /** @brief Se encarga de llenar la tabla de proyectos de pruebas que contiene a todos los proyectos, dentro de la base de datos.
-        **/
+        /** @brief Llena el área de consulta con los recursos humanos que hay en la base de datos.
+                        Para esto crea la tabla dinámicamente.*/
         private void llena_proyectos_de_pruebas()
         {
-            // TO DO --> Es necesario llenar con los resultados de la base de datos
-            for (int i = 0; i < 30; ++i)
+                
+            DataTable tabla_de_datos =  m_controladora_pdp.solicitar_proyectos_disponibles();
+            m_tamano_tabla_pdp = tabla_de_datos.Rows.Count;
+            m_tabla_proyectos_disponibles = new string[m_tamano_tabla_pdp, 2];
+            TableHeaderRow header = new TableHeaderRow();
+            TableHeaderCell celda_header_nombre = new TableHeaderCell();
+            TableHeaderCell celda_header_oficina = new TableHeaderCell();
+            TableHeaderCell celda_header_encargado = new TableHeaderCell();
+            celda_header_nombre.Text = "Nombre del proyecto";
+            header.Cells.AddAt(0, celda_header_nombre);
+            celda_header_oficina.Text = "Oficina asociada";
+            header.Cells.AddAt(1, celda_header_oficina);
+            celda_header_encargado.Text = "Encargado del proyecto";
+            header.Cells.AddAt(2, celda_header_encargado);
+            tabla_proyectos_de_pruebas.Rows.Add(header);
+            for (int i = 0; i < m_tamano_tabla_pdp; ++i)
             {
                 TableRow fila = new TableRow();
-                TableCell celda = new TableCell();
+                TableCell celda_boton = new TableCell();
+                TableCell celda_oficina = new TableCell();
+                TableCell celda_encargado = new TableCell();
                 Button btn = new Button();
-                btn.ID = "btn_lista2_" + i.ToString();
-                btn.Text = "pdp " + i.ToString();
-                btn.CssClass = "btn btn-link btn-block";
-                btn.Click += new EventHandler(btn_lista_click);
-                celda.Controls.AddAt(0, btn);
-                fila.Cells.Add(celda);
+                m_tabla_proyectos_disponibles[i, 0] = tabla_de_datos.Rows[i]["id_proyecto"].ToString();
+                m_tabla_proyectos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre_proyecto"].ToString();
+                btn.ID = "btn_lista_" + i.ToString();
+                btn.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
+                btn.CssClass = "btn btn-link btn-sm";
+                //btn.Click += new EventHandler(btn_lista_rh_click); TO DO
+                celda_boton.Controls.AddAt(0, btn);
+                fila.Cells.AddAt(0, celda_boton);
+                fila.Cells.AddAt(1, celda_oficina);
+                fila.Cells.AddAt(2, celda_encargado);
                 tabla_proyectos_de_pruebas.Rows.Add(fila);
             }
         }

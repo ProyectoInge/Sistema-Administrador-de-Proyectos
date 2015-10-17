@@ -177,9 +177,6 @@
             <div class="col-md-10" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_proyectos_de_pruebas" CssClass="table table-hover form-group">
                     <asp:TableHeaderRow runat="server" ID="tabla_proyectos_de_pruebas_header">
-                        <asp:TableHeaderCell runat="server" ID="celda_nombre" Text="Nombre"></asp:TableHeaderCell>
-                        <asp:TableHeaderCell runat="server" ID="celda_proyecto" Text="Oficina Asociada"></asp:TableHeaderCell>
-                        <asp:TableHeaderCell runat="server" ID="celda_rol" Text="Estado Actual"></asp:TableHeaderCell>
                     </asp:TableHeaderRow>
                 </asp:Table>
             </div>
