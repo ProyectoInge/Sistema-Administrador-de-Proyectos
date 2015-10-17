@@ -104,6 +104,15 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        /** @brief Método que realiza la setencia SQL para insertar una nueva oficina.
+         * @param datos array con los datos de la oficina.
+         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         */
+        public int insertar_oficina(Oficina nueva_oficina)
+        {
+            return 0;   //TO DO
+        }
+
 
         // Métodos auxiliares
         private void rellenar_parametros_proyecto_pruebas(ref SqlCommand comando, ProyectoPruebas proyecto)

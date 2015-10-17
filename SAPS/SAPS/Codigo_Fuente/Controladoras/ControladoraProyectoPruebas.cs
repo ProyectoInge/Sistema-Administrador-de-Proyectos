@@ -81,5 +81,15 @@ namespace SAPS.Controladoras
 
         }
 
+        /** @brief Método que asigna las operaciones necesarias para poder insertar una nueva oficina.
+         * @param datos array que contiene los datos para poder insertar una nueva oficina.
+         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         */
+        public int insertar_oficina(Object[] datos)
+        {
+            Oficina oficinita = new Oficina(datos);
+            return 0;   //TO DO
+        }
+
     }
 }

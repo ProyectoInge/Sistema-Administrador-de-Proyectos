@@ -51,7 +51,7 @@ namespace SAPS.Fronteras
 
         /** @brief Una vez que el usuario selecciona un proyecto del Grid, se activa el evento btn_lista_click
                     permitiendo que se bloqueen elementos de entrada y se habiliten botones de edicion
-            * @param Los parametros por default de un evento de C#.
+         * @param Los parametros por default de un evento de C#.
         */
         private void btn_lista_click(object sender, EventArgs e)
         {
@@ -68,9 +68,8 @@ namespace SAPS.Fronteras
             limpia_campos();
         }
 
-        /** @brief Boton encargado de cargar los datos de un proyecto de pruebas seleccionado del Grid, en la pantalla
-                    principal.
-            * @param Los parametros por default de un evento de C#.
+        /** @brief Boton encargado de cargar los datos de un proyecto de pruebas seleccionado del Grid, en la pantalla principal.
+         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_consultar_click(object sender, EventArgs e)
         {
@@ -85,7 +84,6 @@ namespace SAPS.Fronteras
         protected void btn_aceptar_click(object sender, EventArgs e)
         {
             // Hace falta realizar modificar y eliminar, solo esta validando insertar
-
             if (valida_campos())
             {
                 alerta_exito.Visible = true;
@@ -140,6 +138,7 @@ namespace SAPS.Fronteras
 
         protected void btn_modal_aceptar_Click(object sender, EventArgs e)
         { //TO DO
+
         }
 
         protected void btn_agregar_oficina_Click(object sender, EventArgs e)
