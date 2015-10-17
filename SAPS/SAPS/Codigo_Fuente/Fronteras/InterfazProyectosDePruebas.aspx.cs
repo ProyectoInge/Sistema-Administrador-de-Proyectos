@@ -171,16 +171,19 @@ namespace SAPS.Fronteras
                 {
                     alerta_exito_oficina.Text = " No hubo problema al ingresar la oficina.";
                     alerta_exito_oficina.Visible = true;
+                    upModalOficina.Update();
                 }
                 else
                 {
                     alerta_error_oficina.Text = " No fue posible agregar la oficina, intentelo nuevamente.";
                     alerta_error_oficina.Visible = true;
+                    upModalOficina.Update();
                 }
             }
             else
             {
                 alerta_error_oficina.Visible = true;
+                upModalOficina.Update();
             }
         }
 

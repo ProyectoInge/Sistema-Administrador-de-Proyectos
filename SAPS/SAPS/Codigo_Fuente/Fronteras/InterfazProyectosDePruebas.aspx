@@ -215,7 +215,7 @@
                                         </div>
                                     </div>
                                     <div id="row2_modal" class="form-group">
-                                        <div class="col-md-4 col-md-offset-4">
+                                        <div class="col-md-10 col-md-offset-2">
                                             <asp:Label runat="server" CssClass="control-label text-success" ID="alerta_exito_oficina" Text=""></asp:Label>
                                             <asp:Label runat="server" CssClass="control-label text-danger" ID="alerta_error_oficina" Text=""></asp:Label>
                                         </div>
@@ -223,7 +223,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-danger" ID="btn_modal_cancelar_oficina" Text="Cancelar" runat="server" />
+                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-danger" ID="btn_modal_cancelar_oficina" Text="Cancelar" runat="server" data-dismiss="modal"/>
                                 <asp:Button OnClick="btn_modal_agregar_oficina_Click" CssClass="btn btn-success" ID="btn_modal_agregar_oficina" Text="Agregar" runat="server" />
                             </div>
                         </div>
