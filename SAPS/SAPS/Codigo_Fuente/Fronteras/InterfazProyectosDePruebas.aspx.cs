@@ -26,7 +26,7 @@ namespace SAPS.Fronteras
         private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
         private static char opcion_tomada;                          // i= insertar, m= modificar, e= eliminar
         private static int m_tamano_tabla_oficinas;
-        private Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina, 1 --> nombre_oficinas
+        private Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina, 1 --> nombre_oficinas, 2 --> representante
 
         private Object[,] m_tabla_proyectos_disponibles; //posicion: 0-> nombre proyecto, 1-> id_proyecto
         private static int m_tamano_tabla_pdp;
@@ -250,22 +250,49 @@ namespace SAPS.Fronteras
         {
             DataTable tabla_oficinas = m_controladora_pdp.solicitar_oficinas_disponibles();
             m_tamano_tabla_oficinas = tabla_oficinas.Rows.Count;
-            m_tabla_oficinas_disponibles = new Object[m_tamano_tabla_oficinas, 2];
+            m_tabla_oficinas_disponibles = new Object[m_tamano_tabla_oficinas, 3];
             for (int i = 0; i < m_tamano_tabla_oficinas; ++i)
             {
                 m_tabla_oficinas_disponibles[i, 0] = Convert.ToInt32(tabla_oficinas.Rows[i]["id_oficina"]);
                 m_tabla_oficinas_disponibles[i, 1] = Convert.ToString(tabla_oficinas.Rows[i]["nombre_oficina"]);
+                m_tabla_oficinas_disponibles[i, 2] = Convert.ToString(tabla_oficinas.Rows[i]["nom_representante"]);
                 ListItem item_oficina = new ListItem();
                 item_oficina.Text = Convert.ToString(m_tabla_oficinas_disponibles[i, 1]);
                 drop_oficina_asociada.Items.Add(item_oficina);
             }
         }
+
+        /** @brief Metodo que se encarga de encontrar la información relacionada al id de oficina.
+         * @param El id de la oficina.
+         * @return Un vector de string: [0] = nombre oficina, [1] = nombre representante
+         */
+        private string[,] busca_info_oficina(int id_oficina)
+        {
+            string[,] a_retornar = new string[1, 2];
+            bool encontrado = false;
+            int index = 0;
+            while(index < m_tamano_tabla_oficinas && encontrado == false)
+            {
+                if(Convert.ToInt32(m_tabla_oficinas_disponibles[index, 0]).Equals(id_oficina))
+                {
+                    encontrado = true;
+                }
+                ++index;
+            }
+            if (encontrado)
+            {
+                a_retornar[0, 0] = Convert.ToString(m_tabla_oficinas_disponibles[index, 1]);
+                a_retornar[0, 1] = Convert.ToString(m_tabla_oficinas_disponibles[index, 2]);
+            }
+            return a_retornar;
+        }
+
         /** @brief Se encarga de llenar la tabla de proyectos de pruebas que contiene a todos los proyectos, dentro de la base de datos.
         **/
         private void llena_proyectos_de_pruebas()
         {
-                
-            DataTable tabla_de_datos =  m_controladora_pdp.solicitar_proyectos_disponibles();
+
+            DataTable tabla_de_datos = m_controladora_pdp.solicitar_proyectos_disponibles();
             m_tamano_tabla_pdp = tabla_de_datos.Rows.Count;
             m_tabla_proyectos_disponibles = new string[m_tamano_tabla_pdp, 2];
             TableHeaderRow header = new TableHeaderRow();
