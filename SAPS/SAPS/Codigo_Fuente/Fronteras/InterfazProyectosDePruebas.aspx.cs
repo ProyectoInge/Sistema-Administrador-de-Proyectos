@@ -62,6 +62,9 @@ namespace SAPS.Fronteras
         {
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
+
+            // cargar los datos del proyecto en los campos especificos
+
         }
 
         /** @brief Boton encargado de cancelar todos los cambios realizados por el usuario al proyecto de pruebas.
@@ -80,7 +83,6 @@ namespace SAPS.Fronteras
         {
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
-
         }
 
         /** @brief Boton encargado de validar todas las entradas realizadas por el usuario al proyecto de pruebas.
@@ -88,7 +90,6 @@ namespace SAPS.Fronteras
         */
         protected void btn_aceptar_click(object sender, EventArgs e)
         {
-            // Hace falta realizar modificar y eliminar, solo esta validando insertar
             if (valida_campos())
             {
                 alerta_exito.Visible = true;
@@ -126,6 +127,8 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default";
         }
 
+        /**@brief Se validan los campos para que el usuario ingrese los datos solicitados en el nuevo proyecto.
+        */
         protected void btn_crear_click(object sender, EventArgs e)
         {
             opcion_tomada = 'i';
@@ -138,7 +141,8 @@ namespace SAPS.Fronteras
         }
 
         protected void btn_modal_cancelar_Click(object sender, EventArgs e)
-        { //TO DO
+        { 
+            //TO DO
         }
 
         protected void btn_modal_aceptar_Click(object sender, EventArgs e)
@@ -235,7 +239,6 @@ namespace SAPS.Fronteras
             input_asignment_date.Enabled = estado;
             input_finish_date.Enabled = estado;
         }
-
 
         /**@brief Se encarga de llenar la tabla de disenos de pruebas con todos los disenos asociados a dicho proyecto de pruebas.
         */
@@ -444,112 +447,288 @@ namespace SAPS.Fronteras
         */
         private bool valida_campos()
         {
-            bool respuesta = true;
-            if (opcion_tomada == 'e')
+            bool respuesta = false;
+
+            switch (opcion_tomada) {
+                case 'i':
+                    respuesta = insertar_proyecto();
+                    break;
+                case 'm':
+                    respuesta = modificar_proyecto();
+                    break;
+                case 'e':
+                    respuesta = eliminar_proyecto();
+                    break;
+            }
+            return respuesta;
+        }
+
+        /** @brief Se validan los datos ingresados por el usuario para el nuevo proyecto de pruebas, se envian los mismos a la controladora de base de datos.
+        */
+        private bool insertar_proyecto()
             {
+            bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la insercion
                 if (input_system.Text != "")
                 {
-                    // TO DO
-                    //int resultado = m_controladora_pdp.eliminar_proyecto(input_system.Text);
 
-                    // manejar el resultado de la base de datos
+                if (input_process.Text != "")
+                {
+
+                    if (input_start_date.Text != "")
+                    {
+
+                        if (input_asignment_date.Text != "")
+                        {
+
+                            if (input_finish_date.Text != "")
+                            {
+
+                                if (drop_estado_proyecto.Text != "")
+                                {
+
+                                    if (drop_oficina_asociada.Text != "")
+                                    {
+
+                                        if (input_objective.Text != "")
+                                        {
+                                            Object[] datos = new Object[9];                                 // En la insercion de proyecto, aun no se posee el id del mismo
+                                            datos[1] = drop_oficina_asociada.Text;                          // Este se genera en la base de datos
+                                            datos[2] = input_system.Text;
+                                            datos[3] = drop_estado_proyecto.Text;
+                                            datos[4] = input_objective.Text;
+                                            datos[5] = input_process.Text;
+                                            datos[6] = input_start_date.Text;
+                                            datos[7] = input_asignment_date.Text;
+                                            datos[8] = input_finish_date.Text;
+
+                                            int resultado = m_controladora_pdp.insertar_proyecto(datos);
+                                            if (resultado == 0)
+                                            {
+                                                cuerpo_alerta_exito.Text = "Se ha insertado un nuevo proyecto correctamente.";
+                                                actualiza_proyectos_de_pruebas();
+                                            }
+                                            else {
+                                                cuerpo_alerta_exito.Text = "No se ha insertado un nuevo proyecto correctamente.";
+                                            }
+
+                                        }// Objetivo
+                                        else {
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar un objetivo.";
+                                            SetFocus(input_objective);
+                                            respuesta = false;
+                                        }
+                                    }//Oficina asociada
+                                    else
+                                    {
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar una oficina asociada.";
+                                        SetFocus(drop_oficina_asociada);
+                                        respuesta = false;
+                                    }
+                                }// Estado de proyecto
+                                else
+                                {
+                                    cuerpo_alerta_error.Text = "Es necesario ingresar un estado para el proyecto.";
+                                    SetFocus(drop_estado_proyecto);
+                                    respuesta = false;
+                                }
+                            }// Fecha de finalizacion
+                            else
+                            {
+                                cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de finalización del proyecto.";
+                                SetFocus(input_finish_date);
+                                respuesta = false;
+                            }
+                        }// Fecha de asignacion
+                        else
+                        {
+                            cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de asignación del proyecto.";
+                            SetFocus(input_asignment_date);
+                            respuesta = false;
                 }
+                    }// Fecha de inicio
                 else
                 {
-                    cuerpo_alerta_error.Text = "Es necesario ingresar el nombre del sistema.";
-                    SetFocus(input_system);
+                        cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de inicio del proyecto.";
+                        SetFocus(input_start_date);
+                    respuesta = false;
+                }
+                }// Nombre de proyecto
+                else
+                {
+                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre para el proyecto.";
+                    SetFocus(input_process);
+                    respuesta = false;
+            }
+            }// Nombre de sistema
+            else
+            {
+                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de sistema.";
+                SetFocus(input_system);
+                respuesta = false;
+            }
+            return respuesta;
+        }
+
+        /**@brief Se confirma que el proyecto a eliminar exista y se procede con la indicacion a la controladora de base de datos para que lo elimine.
+        */
+        private bool eliminar_proyecto()
+                {
+            bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la eliminacion
+            int id;
+                    if (input_process.Text != "")
+                    {
+                id = buscar_id_proyecto(input_process.Text);
+                int resultado = m_controladora_pdp.eliminar_proyecto(id);
+                if (resultado == 0)
+                {
+                    cuerpo_alerta_exito.Text = "Se ha eliminado el proyecto correctamente.";
+                }
+                else
+                        {
+                    cuerpo_alerta_error.Text = "No se ha podido eliminar el proyecto correctamente.";
                     respuesta = false;
                 }
             }
-            else
-            {
-                if (input_system.Text != "")
-                {
-                    if (input_process.Text != "")
-                    {
-                        if (input_objective.Text != "")
-                        {
-                            if (drop_oficina_asociada.Text != "")
+            else {
+                cuerpo_alerta_error.Text = "Ingrese un nombre de proyecto de pruebas válido.";
+                SetFocus(input_process.Text);
+                respuesta = false;
+            }
+            return respuesta;
+        }
+
+        /**@brief Se valida que los nuevos datos ingresados por el usuario para el proyecto de pruebas sean validos.
+        */
+        private bool modificar_proyecto()
                             {
-                                if (drop_estado_proyecto.Text != "")
+            bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la modificacion
+            if (input_system.Text != "")
                                 {
+
+                if (input_process.Text != "")
+                {
+
                                     if (input_start_date.Text != "")
                                     {
+
                                         if (input_asignment_date.Text != "")
                                         {
+
                                             if (input_finish_date.Text != "")
                                             {
 
-                                                Object[] datos = new Object[9];
+                                if (drop_estado_proyecto.Text != "")
+                                {
 
-                                                datos[2] = input_system.Text;                       // Nombre del sistema
-                                                datos[5] = input_process.Text;                      // Nombre de proyecto                                                    
-                                                datos[6] = input_start_date.Text;                   // Fecha de inicio del proyecto
-                                                datos[8] = input_finish_date;                       // Fecha de finalizacion del proyecto
-                                                datos[4] = input_objective.Text;                    // Objetivo general
-                                                datos[1] = drop_oficina_asociada.Text;              // Oficina asociada
-                                                datos[3] = drop_estado_proyecto.Text;               // Estado del proyecto
-                                                datos[7] = input_asignment_date.Text;               // Fecha de asignacion
+                                    if (drop_oficina_asociada.Text != "")
+                                    {
 
-                                                int resultado;
-                                                if (opcion_tomada == 'i')
+                                        if (input_objective.Text != "")
                                                 {
-                                                    resultado = m_controladora_pdp.insertar_proyecto(datos);
+                                            Object[] datos = new Object[9];                                 // En la insercion de proyecto, aun no se posee el id del mismo
+
+                                            datos[0] = buscar_id_proyecto(input_process.Text);
+                                            datos[1] = drop_oficina_asociada.Text;                          // Este se genera en la base de datos
+                                            datos[2] = input_system.Text;
+                                            datos[3] = drop_estado_proyecto.Text;
+                                            datos[4] = input_objective.Text;
+                                            datos[5] = input_process.Text;
+                                            datos[6] = input_start_date.Text;
+                                            datos[7] = input_asignment_date.Text;
+                                            datos[8] = input_finish_date.Text;
+
+                                            int resultado = m_controladora_pdp.modificar_proyecto(datos);
+                                            if (resultado == 0)
+                                            {
+                                                cuerpo_alerta_exito.Text = "Se ha modificado el proyecto correctamente.";
+                                                actualiza_proyectos_de_pruebas();
                                                 }
                                                 else
                                                 {
-                                                    resultado = m_controladora_pdp.modificar_proyecto(datos);
+                                                cuerpo_alerta_exito.Text = "No se ha modificado el proyecto correctamente.";
                                                 }
 
-                                                cuerpo_alerta_exito.Text = "Su operación ha sido exitosa.";
-                                                respuesta = true;
-
+                                        }// Objetivo
+                                        else
+                                        {
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar un objetivo.";
+                                            SetFocus(input_objective);
+                                            respuesta = false;
+                                        }
+                                    }//Oficina asociada
+                                    else
+                                    {
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar una oficina asociada.";
+                                        SetFocus(drop_oficina_asociada);
+                                        respuesta = false;
+                                    }
+                                }// Estado de proyecto
+                                else
+                                {
+                                    cuerpo_alerta_error.Text = "Es necesario ingresar un estado para el proyecto.";
+                                    SetFocus(drop_estado_proyecto);
+                                    respuesta = false;
                                             }
+                            }// Fecha de finalizacion
                                             else
                                             {
                                                 cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de finalización del proyecto.";
                                                 SetFocus(input_finish_date);
                                                 respuesta = false;
                                             }
-                                        }
+                        }// Fecha de asignacion
                                         else
                                         {
                                             cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de asignación del proyecto.";
                                             SetFocus(input_asignment_date);
                                             respuesta = false;
                                         }
-                                    }
+                    }// Fecha de inicio
                                     else
                                     {
                                         cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de inicio del proyecto.";
-                                        SetFocus(input_manager_office);
-                                        respuesta = false;
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            cuerpo_alerta_error.Text = "Es necesario ingresar un objetivo.";
-                            SetFocus(input_objective);
+                        SetFocus(input_start_date);
                             respuesta = false;
                         }
-                    }
+                }// Nombre de proyecto
                     else
                     {
-                        cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de proceso.";
+                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre para el proyecto.";
                         SetFocus(input_process);
                         respuesta = false;
                     }
-                }
+            }// Nombre de sistema
                 else
                 {
                     cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de sistema.";
                     SetFocus(input_system);
                     respuesta = false;
                 }
-            }
             return respuesta;
         }
+
+        /**@brief Metodo que recorre la tabla de resultados buscando el id asociado a un proyecto de pruebas.
+        */
+        private int buscar_id_proyecto(string nombre_proyecto)
+        {
+            int id = 0;
+            string temp;
+            for (int i = 0; i < m_tamano_tabla_pdp; ++i ) {
+                if (m_tabla_proyectos_disponibles[i,0].ToString().Equals(nombre_proyecto) ) {
+                    temp = m_tabla_proyectos_disponibles[i, 1].ToString();
+                    id = Int32.Parse(temp);
+                }                
+            }
+            return id;
+            }
+
+        /**@brief Metodo encargado de actualizar el Grid de proyectos de pruebas con la nueva informacion.
+        */
+        private void actualiza_proyectos_de_pruebas()
+        {
+            limpia_campos();
+            llena_proyectos_de_pruebas();
+        }
+
     }
 }
