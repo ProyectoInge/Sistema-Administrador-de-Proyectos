@@ -157,6 +157,7 @@ namespace SAPS.Fronteras
 
         protected void btn_modal_agregar_oficina_Click(object sender, EventArgs e)
         {
+            // TO DO --> todavia no muestra mensaje de confirmacion o de error.
             if (valida_campos_oficina())
             {
                 Object[] datos = new Object[5];
@@ -168,12 +169,12 @@ namespace SAPS.Fronteras
                 int resultado = m_controladora_pdp.insertar_oficina(datos);
                 if (resultado == 0)
                 {
-                    cuerpo_alerta_exito_oficina.Text = " No hubo problema al ingresar la oficina.";
+                    alerta_exito_oficina.Text = " No hubo problema al ingresar la oficina.";
                     alerta_exito_oficina.Visible = true;
                 }
                 else
                 {
-                    cuerpo_alerta_error_oficina.Text = " No fue posible agregar la oficina, intentelo nuevamente.";
+                    alerta_error_oficina.Text = " No fue posible agregar la oficina, intentelo nuevamente.";
                     alerta_error_oficina.Visible = true;
                 }
             }
@@ -265,7 +266,7 @@ namespace SAPS.Fronteras
                             }
                             else
                             {
-                                cuerpo_alerta_error_oficina.Text = " El número de teléfono no es válido.";
+                                alerta_error_oficina.Text = " El número de teléfono no es válido.";
                                 SetFocus(modal_input_telefono2);
                             }
                         }
@@ -278,7 +279,7 @@ namespace SAPS.Fronteras
                             }
                             else
                             {
-                                cuerpo_alerta_error_oficina.Text = " El número de teléfono no es válido.";
+                                alerta_error_oficina.Text = " El número de teléfono no es válido.";
                                 SetFocus(modal_input_telefono1);
                             }
                         }
@@ -292,31 +293,31 @@ namespace SAPS.Fronteras
                             }
                             if (acierta1.Success)
                             {
-                                cuerpo_alerta_error_oficina.Text = " El número de teléfono no es válido.";
+                                alerta_error_oficina.Text = " El número de teléfono no es válido.";
                                 SetFocus(modal_input_telefono2);
                             }
                             else
                             {
-                                cuerpo_alerta_error_oficina.Text = " El número de teléfono no es válido.";
+                                alerta_error_oficina.Text = " El número de teléfono no es válido.";
                                 SetFocus(modal_input_telefono1);
                             }
                         }
                     }
                     else
                     {
-                        cuerpo_alerta_error_oficina.Text = " Es necesario que ingrese al menos un número de teléfono.";
+                        alerta_error_oficina.Text = " Es necesario que ingrese al menos un número de teléfono.";
                         SetFocus(modal_input_telefono1);
                     }
                 }
                 else
                 {
-                    cuerpo_alerta_error_oficina.Text = " Es necesario que ingrese un nombre para el representante.";
+                    alerta_error_oficina.Text = " Es necesario que ingrese un nombre para el representante.";
                     SetFocus(modal_input_representante_oficina);
                 }
             }
             else
             {
-                cuerpo_alerta_error_oficina.Text = " Es necesario que ingrese un nombre de oficina.";
+                alerta_error_oficina.Text = " Es necesario que ingrese un nombre de oficina.";
                 SetFocus(modal_input_nombre_oficina);
             }
             return a_retornar;

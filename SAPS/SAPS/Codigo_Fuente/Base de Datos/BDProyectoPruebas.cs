@@ -127,7 +127,7 @@ namespace SAPS.Base_de_Datos
         private void rellenar_parametros_proyecto_pruebas(ref SqlCommand comando, ProyectoPruebas proyecto)
         {
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = proyecto.id;
+            comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = proyecto.id; // TO DO --> en teoria esto no hay que enviarlo xq se genera solo
             comando.Parameters.Add("@id_oficina", SqlDbType.Int).Value = proyecto.id_oficina;
             comando.Parameters.Add("@fecha_inicio", SqlDbType.VarChar).Value = proyecto.fecha_inicio;
             comando.Parameters.Add("@fecha_asignacion", SqlDbType.VarChar).Value = proyecto.fecha_asignacion;
@@ -140,7 +140,7 @@ namespace SAPS.Base_de_Datos
         }
 
         /** @brief Metodo que se encarga de sacar la informacion del objeto "Oficina" y con esta informacion
-           construye llama al procedimiento almacenado de la base de datos.
+                   construye llama al procedimiento almacenado de la base de datos.
          * @param La referencia al procedimiento almacenado en la base.
          * @param El objeto Oficina del que va a obtener la información.
         */

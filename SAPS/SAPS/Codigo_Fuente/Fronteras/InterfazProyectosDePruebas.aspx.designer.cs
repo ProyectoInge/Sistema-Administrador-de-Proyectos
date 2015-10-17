@@ -361,25 +361,7 @@ namespace SAPS.Fronteras {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito_oficina;
-        
-        /// <summary>
-        /// label_exito_oficina control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_exito_oficina;
-        
-        /// <summary>
-        /// cuerpo_alerta_exito_oficina control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label cuerpo_alerta_exito_oficina;
+        protected global::System.Web.UI.WebControls.Label alerta_exito_oficina;
         
         /// <summary>
         /// alerta_error_oficina control.
@@ -388,25 +370,7 @@ namespace SAPS.Fronteras {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error_oficina;
-        
-        /// <summary>
-        /// label_error_oficina control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_error_oficina;
-        
-        /// <summary>
-        /// cuerpo_alerta_error_oficina control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label cuerpo_alerta_error_oficina;
+        protected global::System.Web.UI.WebControls.Label alerta_error_oficina;
         
         /// <summary>
         /// btn_modal_cancelar_oficina control.

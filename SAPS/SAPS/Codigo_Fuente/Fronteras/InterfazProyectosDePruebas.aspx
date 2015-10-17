@@ -216,16 +216,8 @@
                                     </div>
                                     <div id="row2_modal" class="form-group">
                                         <div class="col-md-4 col-md-offset-4">
-                                            <div class="alert alert-success alert-dismissible" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <b>
-                                                    <asp:Label runat="server" ID="label_exito_oficina" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito_oficina" Text=""></asp:Label>
-                                            </div>
-                                            <div class="alert alert-danger alert-dismissible" id="alerta_error_oficina" role="alert" aria-hidden="true" runat="server">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <b>
-                                                    <asp:Label runat="server" ID="label_error_oficina" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error_oficina" Text=""></asp:Label>
-                                            </div>
+                                            <asp:Label runat="server" CssClass="control-label text-success" ID="alerta_exito_oficina" Text=""></asp:Label>
+                                            <asp:Label runat="server" CssClass="control-label text-danger" ID="alerta_error_oficina" Text=""></asp:Label>
                                         </div>
                                     </div>
                                 </div>
