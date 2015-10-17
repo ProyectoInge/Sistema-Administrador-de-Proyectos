@@ -147,7 +147,7 @@ namespace SAPS.Base_de_Datos
         private void rellenar_parametros_oficina(ref SqlCommand comando, Oficina oficina)
         {
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@nombe_oficina", SqlDbType.VarChar).Value = oficina.nombre;
+            comando.Parameters.Add("@nombre_oficina", SqlDbType.VarChar).Value = oficina.nombre;
             comando.Parameters.Add("@telefono", SqlDbType.VarChar).Value = oficina.telefono_1;
             comando.Parameters.Add("@telefono2", SqlDbType.VarChar).Value = oficina.telefono_2;
             comando.Parameters.Add("@nom_representante", SqlDbType.VarChar).Value = oficina.representante;
