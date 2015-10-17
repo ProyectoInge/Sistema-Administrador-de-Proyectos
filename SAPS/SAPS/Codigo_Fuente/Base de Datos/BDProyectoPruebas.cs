@@ -111,7 +111,7 @@ namespace SAPS.Base_de_Datos
         public int insertar_oficina(Oficina nueva_oficina)
         {
             //Procedimiento almacenado
-            SqlCommand comando = new SqlCommand("INSERTAR_OFICINA"); //TO DO --> falta crear el procedimiento almacenado
+            SqlCommand comando = new SqlCommand("INSERTAR_OFICINA");
             rellenar_parametros_oficina(ref comando, nueva_oficina);
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
@@ -147,7 +147,6 @@ namespace SAPS.Base_de_Datos
         private void rellenar_parametros_oficina(ref SqlCommand comando, Oficina oficina)
         {
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_oficina", SqlDbType.Int).Value = oficina.id;
             comando.Parameters.Add("@nombe_oficina", SqlDbType.VarChar).Value = oficina.nombre;
             comando.Parameters.Add("@telefono", SqlDbType.VarChar).Value = oficina.telefono_1;
             comando.Parameters.Add("@telefono2", SqlDbType.VarChar).Value = oficina.telefono_2;
