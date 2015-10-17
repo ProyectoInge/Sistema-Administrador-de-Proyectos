@@ -26,7 +26,7 @@ namespace SAPS.Fronteras
         private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
         private static char opcion_tomada;                          // i= insertar, m= modificar, e= eliminar
 
-        private Object[,] m_tabla_resultados; //posicion: 0-> nombre proyecto, 1-> id_proyecto
+        private Object[,] m_tabla_resultados;                       // Posicion: 0-> nombre proyecto, 1-> id_proyecto
         private int m_tamano_tabla;
 
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
@@ -359,9 +359,17 @@ namespace SAPS.Fronteras
         {
             bool respuesta = false;
 
-
-
-
+            switch (opcion_tomada) {
+                case 'i':
+                    respuesta = insertar_proyecto();
+                    break;
+                case 'm':
+                    respuesta = modificar_proyecto();
+                    break;
+                case 'e':
+                    respuesta = eliminar_proyecto();
+                    break;
+            }
             return respuesta;
         }
 
@@ -453,22 +461,164 @@ namespace SAPS.Fronteras
                         respuesta = false;
                     }
                 }// Nombre de proyecto
-
+                else
+                {
+                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre para el proyecto.";
+                    SetFocus(input_process);
+                    respuesta = false;
+                }
             }// Nombre de sistema
+            else
+            {
+                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de sistema.";
+                SetFocus(input_system);
+                respuesta = false;
+            }
             return respuesta;
         }
 
         private bool eliminar_proyecto()
         {
             bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la eliminacion
+            int id;
+            if (input_process.Text != "")
+            {
+                id = buscar_id_proyecto(input_process.Text);
+                int resultado = m_controladora_pdp.eliminar_proyecto(id);
+                if (resultado == 0)
+                {
+                    cuerpo_alerta_exito.Text = "Se ha eliminado el proyecto correctamente.";
+                }
+                else
+                {
+                    respuesta = false;
+                }
+            }
+            else {
+                respuesta = false;
+            }
             return respuesta;
         }
 
         private bool modificar_proyecto()
         {
             bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la modificacion
+            if (input_system.Text != "")
+            {
 
+                if (input_process.Text != "")
+                {
+
+                    if (input_start_date.Text != "")
+                    {
+
+                        if (input_asignment_date.Text != "")
+                        {
+
+                            if (input_finish_date.Text != "")
+                            {
+
+                                if (drop_estado_proyecto.Text != "")
+                                {
+
+                                    if (drop_oficina_asociada.Text != "")
+                                    {
+
+                                        if (input_objective.Text != "")
+                                        {
+                                            Object[] datos = new Object[9];                                 // En la insercion de proyecto, aun no se posee el id del mismo
+
+                                            datos[0] = buscar_id_proyecto(input_process.Text);
+                                            datos[1] = drop_oficina_asociada.Text;                          // Este se genera en la base de datos
+                                            datos[2] = input_system.Text;
+                                            datos[3] = drop_estado_proyecto.Text;
+                                            datos[4] = input_objective.Text;
+                                            datos[5] = input_process.Text;
+                                            datos[6] = input_start_date.Text;
+                                            datos[7] = input_asignment_date.Text;
+                                            datos[8] = input_finish_date.Text;
+
+                                            int resultado = m_controladora_pdp.modificar_proyecto(datos);
+                                            if (resultado == 0)
+                                            {
+                                                cuerpo_alerta_exito.Text = "Se ha modificado el proyecto correctamente.";
+                                                actualiza_proyectos_de_pruebas();
+                                            }
+                                            else
+                                            {
+                                                cuerpo_alerta_exito.Text = "No se ha modificado el proyecto correctamente.";
+                                            }
+
+                                        }// Objetivo
+                                        else
+                                        {
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar un objetivo.";
+                                            SetFocus(input_objective);
+                                            respuesta = false;
+                                        }
+                                    }//Oficina asociada
+                                    else
+                                    {
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar una oficina asociada.";
+                                        SetFocus(drop_oficina_asociada);
+                                        respuesta = false;
+                                    }
+                                }// Estado de proyecto
+                                else
+                                {
+                                    cuerpo_alerta_error.Text = "Es necesario ingresar un estado para el proyecto.";
+                                    SetFocus(drop_estado_proyecto);
+                                    respuesta = false;
+                                }
+                            }// Fecha de finalizacion
+                            else
+                            {
+                                cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de finalización del proyecto.";
+                                SetFocus(input_finish_date);
+                                respuesta = false;
+                            }
+                        }// Fecha de asignacion
+                        else
+                        {
+                            cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de asignación del proyecto.";
+                            SetFocus(input_asignment_date);
+                            respuesta = false;
+                        }
+                    }// Fecha de inicio
+                    else
+                    {
+                        cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de inicio del proyecto.";
+                        SetFocus(input_start_date);
+                        respuesta = false;
+                    }
+                }// Nombre de proyecto
+                else
+                {
+                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre para el proyecto.";
+                    SetFocus(input_process);
+                    respuesta = false;
+                }
+            }// Nombre de sistema
+            else
+            {
+                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de sistema.";
+                SetFocus(input_system);
+                respuesta = false;
+            }
             return respuesta;
+        }
+
+        private int buscar_id_proyecto(string nombre_proyecto)
+        {
+            int id = 0;
+            string temp;
+            for (int i = 0; i < m_tamano_tabla; ++i ) {
+                if (m_tabla_resultados[i,0].Equals(nombre_proyecto) ) {
+                    temp = m_tabla_resultados[i, 1].ToString();
+                    id = Int32.Parse(temp);
+                }                
+            }
+            return id;
         }
 
     }
