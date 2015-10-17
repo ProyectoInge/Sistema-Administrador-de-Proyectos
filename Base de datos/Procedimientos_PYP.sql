@@ -90,7 +90,3 @@ AS
 	VALUES
 		(@nombre_oficina, @telefono, @telefono2, @nom_representante) 
 GO
-
-execute INSERTAR_OFICINA 'Oficina11', '25110000','256987541', 'alguien'
-
-
