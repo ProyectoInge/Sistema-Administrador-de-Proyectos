@@ -675,9 +675,9 @@ namespace SAPS.Fronteras
         {
             int id = 0;
             string temp;
-            for (int i = 0; i < m_tamano_tabla; ++i ) {
-                if (m_tabla_resultados[i,0].Equals(nombre_proyecto) ) {
-                    temp = m_tabla_resultados[i, 1].ToString();
+            for (int i = 0; i < m_tamano_tabla_pdp; ++i ) {
+                if (m_tabla_proyectos_disponibles[i,0].ToString().Equals(nombre_proyecto) ) {
+                    temp = m_tabla_proyectos_disponibles[i, 1].ToString();
                     id = Int32.Parse(temp);
                 }                
             }
