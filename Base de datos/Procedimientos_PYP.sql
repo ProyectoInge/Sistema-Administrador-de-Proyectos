@@ -6,6 +6,7 @@ DROP PROCEDURE ELIMINAR_PYP
 DROP PROCEDURE CONSULTAR_PYP
 DROP PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 DROP PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
+DROP PROCEDURE INSERTAR_OFICINA
 
 
 GO
@@ -78,4 +79,15 @@ AS BEGIN
 			Oficina.nom_representante
 	FROM	Oficina
 	END
+GO
+
+
+GO
+CREATE PROCEDURE INSERTAR_OFICINA
+	@nombre_oficina varchar(64), @telefono varchar(16), @telefono2 varchar(16), @nom_representante varchar(64)
+AS
+	INSERT INTO Oficina
+		(nombre_oficina, telefono, telefono2, nom_representante)
+	VALUES
+		(@nombre_oficina, @telefono, @telefono2, @nom_representante) 
 GO
