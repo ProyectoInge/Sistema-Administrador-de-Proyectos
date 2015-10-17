@@ -337,15 +337,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox modal_input_representante_oficina;
         
         /// <summary>
-        /// modal_input_telefonos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl modal_input_telefonos;
-        
-        /// <summary>
         /// modal_input_telefono1 control.
         /// </summary>
         /// <remarks>
@@ -362,6 +353,60 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox modal_input_telefono2;
+        
+        /// <summary>
+        /// alerta_exito_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito_oficina;
+        
+        /// <summary>
+        /// label_exito_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_exito_oficina;
+        
+        /// <summary>
+        /// cuerpo_alerta_exito_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label cuerpo_alerta_exito_oficina;
+        
+        /// <summary>
+        /// alerta_error_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error_oficina;
+        
+        /// <summary>
+        /// label_error_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_error_oficina;
+        
+        /// <summary>
+        /// cuerpo_alerta_error_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label cuerpo_alerta_error_oficina;
         
         /// <summary>
         /// btn_modal_cancelar_oficina control.

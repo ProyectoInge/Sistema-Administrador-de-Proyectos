@@ -68,9 +68,11 @@ CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 	END
 GO
 
+GO
 CREATE PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
 AS BEGIN
-	SELECT	Oficina.nombre_oficina,
+	SELECT	Oficina.id_oficina,
+			Oficina.nombre_oficina,
 			Oficina.telefono,
 			Oficina.telefono2
 	FROM	Oficina

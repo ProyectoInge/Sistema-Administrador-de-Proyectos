@@ -26,8 +26,8 @@ namespace SAPS.Entidades
 
         public Oficina(Object[] datos)
         {
-            m_nombre = datos[0].ToString();
-            m_id = Convert.ToInt32(datos[1]);
+            m_id = Convert.ToInt32(datos[0]);
+            m_nombre = datos[1].ToString();
             m_representante = datos[2].ToString();
             m_telefono1 = datos[3].ToString();
             m_telefono2 = datos[4].ToString();

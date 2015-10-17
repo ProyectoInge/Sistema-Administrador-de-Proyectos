@@ -28,7 +28,7 @@ namespace SAPS.Fronteras
 
         private Object[,] m_tabla_resultados; //posicion: 0-> nombre proyecto, 1-> id_proyecto
         private int m_tamano_tabla;
-        
+
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
         */
         protected void Page_Load(object sender, EventArgs e)
@@ -36,6 +36,8 @@ namespace SAPS.Fronteras
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             alerta_advertencia.Visible = false;
+            alerta_exito_oficina.Visible = false;
+            alerta_error_oficina.Visible = false;
 
             m_controladora_pdp = new ControladoraProyectoPruebas();
             opcion_tomada = 'i';
@@ -137,9 +139,10 @@ namespace SAPS.Fronteras
         }
 
         protected void btn_modal_aceptar_Click(object sender, EventArgs e)
-        { //TO DO
-
+        {
+            // TO DO
         }
+
 
         protected void btn_agregar_oficina_Click(object sender, EventArgs e)
         {
@@ -154,7 +157,30 @@ namespace SAPS.Fronteras
 
         protected void btn_modal_agregar_oficina_Click(object sender, EventArgs e)
         {
-
+            if (valida_campos_oficina())
+            {
+                Object[] datos = new Object[5];
+                datos[0] = 0;   //El ID se asigna solo por medio de la BD entonces no hay que enviarlo.
+                datos[1] = modal_input_nombre_oficina.Text;
+                datos[2] = modal_input_representante_oficina.Text;
+                datos[3] = modal_input_telefono1.Text;
+                datos[4] = modal_input_telefono2.Text;
+                int resultado = m_controladora_pdp.insertar_oficina(datos);
+                if (resultado == 0)
+                {
+                    cuerpo_alerta_exito_oficina.Text = " No hubo problema al ingresar la oficina.";
+                    alerta_exito_oficina.Visible = true;
+                }
+                else
+                {
+                    cuerpo_alerta_error_oficina.Text = " No fue posible agregar la oficina, intentelo nuevamente.";
+                    alerta_error_oficina.Visible = true;
+                }
+            }
+            else
+            {
+                alerta_error_oficina.Visible = true;
+            }
         }
 
         // ------------------------------------------
@@ -217,6 +243,85 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Metodo que verifica que los campos ingresados para la oficina sean válidos.
+         * @return true si son válidos, false si no.
+         */
+        private bool valida_campos_oficina()
+        {
+            bool a_retornar = false;
+            if (modal_input_nombre_oficina.Text != "")
+            {
+                if (modal_input_representante_oficina.Text != "")
+                {
+                    if (modal_input_telefono1.Text != "" || modal_input_telefono2.Text != "")
+                    {
+                        Regex revisa_numero = new Regex(@"(\(?\+?\d{3}\))?(2|4|5|6|7|8)\d{3}-?\d{4}", RegexOptions.Compiled | RegexOptions.IgnoreCase);  //REGEX que valida numeros de telefono
+                        if (modal_input_telefono1.Text == "")
+                        {
+                            Match acierta = revisa_numero.Match(modal_input_telefono2.Text);
+                            if (acierta.Success)
+                            {
+                                a_retornar = true;
+                            }
+                            else
+                            {
+                                cuerpo_alerta_error_oficina.Text = " El número de teléfono no es válido.";
+                                SetFocus(modal_input_telefono2);
+                            }
+                        }
+                        if (modal_input_telefono2.Text == "")
+                        {
+                            Match acierta = revisa_numero.Match(modal_input_telefono1.Text);
+                            if (acierta.Success)
+                            {
+                                a_retornar = true;
+                            }
+                            else
+                            {
+                                cuerpo_alerta_error_oficina.Text = " El número de teléfono no es válido.";
+                                SetFocus(modal_input_telefono1);
+                            }
+                        }
+                        else //los dos campos estan llenos
+                        {
+                            Match acierta1 = revisa_numero.Match(modal_input_telefono1.Text);
+                            Match acierta2 = revisa_numero.Match(modal_input_telefono2.Text);
+                            if (acierta1.Success && acierta2.Success)
+                            {
+                                a_retornar = true;
+                            }
+                            if (acierta1.Success)
+                            {
+                                cuerpo_alerta_error_oficina.Text = " El número de teléfono no es válido.";
+                                SetFocus(modal_input_telefono2);
+                            }
+                            else
+                            {
+                                cuerpo_alerta_error_oficina.Text = " El número de teléfono no es válido.";
+                                SetFocus(modal_input_telefono1);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error_oficina.Text = " Es necesario que ingrese al menos un número de teléfono.";
+                        SetFocus(modal_input_telefono1);
+                    }
+                }
+                else
+                {
+                    cuerpo_alerta_error_oficina.Text = " Es necesario que ingrese un nombre para el representante.";
+                    SetFocus(modal_input_representante_oficina);
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error_oficina.Text = " Es necesario que ingrese un nombre de oficina.";
+                SetFocus(modal_input_nombre_oficina);
+            }
+            return a_retornar;
+        }
+
         /** @brief Metodo encargado de retornar todos los espacios e ingresos del sistema a su estado
                     original. Incluyendo ademas botones y eventos.
         */
@@ -236,6 +341,8 @@ namespace SAPS.Fronteras
             alerta_advertencia.Visible = false;
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
+            alerta_exito_oficina.Visible = false;
+            alerta_error_oficina.Visible = false;
         }
 
         /** @brief Se validan todos los campos en los cuales el usuario puede ingresar datos, si existen errores, se notifica al usuario.

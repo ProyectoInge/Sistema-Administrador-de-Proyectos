@@ -7,7 +7,6 @@
             <h1>SAPS <small>Proyectos De Pruebas</small></h1>
         </div>
     </section>
-
     <section id="botones_IME">
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
@@ -143,12 +142,9 @@
             <h4>Diseños de Pruebas</h4>
         </div>
         <br />
-        <section id="area_consultas_disenos" class="col-md-offset-3">
+        <section id="area_consultas_disenos" class="col-md-offset-2">
             <div class="row">
-                <div class="col-md-1">
-                    <!-- Espacio al propio-->
-                </div>
-                <div class="col-md-7" style="height: 150px; overflow-y: scroll">
+                <div class="col-md-10" style="height: 200px; overflow-y: scroll">
                     <asp:Table runat="server" ID="tabla_disenos_de_prueba" CssClass="table table-hover form-group">
                     </asp:Table>
                 </div>
@@ -205,18 +201,30 @@
                             <div class="modal-body">
                                 <div class="form-horizontal">
                                     <div id="row1_modal" class="form-group">
-                                        <div class="col-md-6" style="border-right: 1px #808080">
+                                        <div class="col-md-6">
                                             <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_nombre_oficina">Nombre de la oficina</asp:Label>
                                             <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_nombre_oficina"></asp:TextBox>
                                             <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_representante_oficina">Representante</asp:Label>
                                             <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_representante_oficina"></asp:TextBox>
                                         </div>
                                         <div class="col-md-6">
-                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefonos">Telefonos</asp:Label>
-                                            <div id="modal_input_telefonos" runat="server">
-                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono1"></asp:TextBox>
-                                                <br />
-                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono2"></asp:TextBox>
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono1">Teléfono principal</asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono1"></asp:TextBox>
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono2">Teléfono secundario</asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono2"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <div id="row2_modal" class="form-group">
+                                        <div class="col-md-4 col-md-offset-4">
+                                            <div class="alert alert-success alert-dismissible" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <b>
+                                                    <asp:Label runat="server" ID="label_exito_oficina" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito_oficina" Text=""></asp:Label>
+                                            </div>
+                                            <div class="alert alert-danger alert-dismissible" id="alerta_error_oficina" role="alert" aria-hidden="true" runat="server">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <b>
+                                                    <asp:Label runat="server" ID="label_error_oficina" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error_oficina" Text=""></asp:Label>
                                             </div>
                                         </div>
                                     </div>

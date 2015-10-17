@@ -17,11 +17,11 @@ namespace SAPS.Controladoras
     public class ControladoraProyectoPruebas
     {
         //Variables de instancia
-        BDProyectoPruebas m_base_datos;
+        BDProyectoPruebas m_base_datos_pdp;
         //Constructor
         public ControladoraProyectoPruebas()
         {
-            m_base_datos = new BDProyectoPruebas();
+            m_base_datos_pdp = new BDProyectoPruebas();
         }
 
         // Métodos
@@ -33,7 +33,7 @@ namespace SAPS.Controladoras
         public int insertar_proyecto(Object[] datos)
         {
             ProyectoPruebas proyecto = new ProyectoPruebas(datos);
-            return m_base_datos.insertar_proyecto(proyecto);
+            return m_base_datos_pdp.insertar_proyecto(proyecto);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder modificar un proyecto de pruebas.
@@ -43,7 +43,7 @@ namespace SAPS.Controladoras
         public int modificar_proyecto(Object[] datos)
         {
             ProyectoPruebas proyecto = new ProyectoPruebas(datos);
-            return m_base_datos.modificar_proyecto(proyecto);
+            return m_base_datos_pdp.modificar_proyecto(proyecto);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder eliminar un proyecto de pruebas.
@@ -52,7 +52,7 @@ namespace SAPS.Controladoras
          */
         public int eliminar_proyecto(int id_proyecto)
         {
-            return m_base_datos.eliminar_proyecto(id_proyecto);
+            return m_base_datos_pdp.eliminar_proyecto(id_proyecto);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar un proyecto de pruebas en específico.
@@ -61,7 +61,7 @@ namespace SAPS.Controladoras
          */
         public DataTable consultar_proyecto(int id_proyecto)
         {
-            return m_base_datos.consultar_proyecto(id_proyecto);
+            return m_base_datos_pdp.consultar_proyecto(id_proyecto);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar las oficibas disponibles.
@@ -69,7 +69,7 @@ namespace SAPS.Controladoras
          */
         public DataTable solicitar_oficinas_disponibles()
         {
-            return m_base_datos.solicitar_oficinas_disponibles();
+            return m_base_datos_pdp.solicitar_oficinas_disponibles();
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar los proyectos de pruebas disponibles.
@@ -77,7 +77,7 @@ namespace SAPS.Controladoras
          */
         public DataTable solicitar_proyectos_disponibles()
         {
-            return m_base_datos.solicitar_proyectos_disponibles();
+            return m_base_datos_pdp.solicitar_proyectos_disponibles();
 
         }
 
@@ -87,8 +87,8 @@ namespace SAPS.Controladoras
          */
         public int insertar_oficina(Object[] datos)
         {
-            Oficina oficinita = new Oficina(datos);
-            return 0;   //TO DO
+            Oficina nueva_oficina = new Oficina(datos);
+            return m_base_datos_pdp.insertar_oficina(nueva_oficina);
         }
 
     }

@@ -82,7 +82,7 @@ namespace SAPS.Base_de_Datos
         }
 
         /** @brief Método que realiza la setencia SQL para consultar todos los proyectos de pruebas que se encuentran en la Base de Datos.
-            * @return DataTable con los resultados de la consultas.
+         * @return DataTable con los resultados de la consultas.
         */
         public DataTable solicitar_proyectos_disponibles()
         {
@@ -110,11 +110,20 @@ namespace SAPS.Base_de_Datos
          */
         public int insertar_oficina(Oficina nueva_oficina)
         {
-            return 0;   //TO DO
+            //Procedimiento almacenado
+            SqlCommand comando = new SqlCommand("INSERTAR_OFICINA"); //TO DO --> falta crear el procedimiento almacenado
+            rellenar_parametros_oficina(ref comando, nueva_oficina);
+            return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
 
         // Métodos auxiliares
+
+        /** @brief Metodo que se encarga de sacar la informacion del objeto "ProyectoPruebas" y con esta informacion
+                   construye llama al procedimiento almacenado de la base de datos.
+         * @param La referencia al procedimiento almacenado en la base.
+         * @param El objeto ProyectoPruebas del que va a obtener la información.
+        */
         private void rellenar_parametros_proyecto_pruebas(ref SqlCommand comando, ProyectoPruebas proyecto)
         {
             comando.CommandType = CommandType.StoredProcedure;
@@ -128,6 +137,21 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@nombre_proyecto", SqlDbType.VarChar).Value = proyecto.nombre;
             comando.Parameters.Add("@estado", SqlDbType.VarChar).Value = proyecto.estado;
 
+        }
+
+        /** @brief Metodo que se encarga de sacar la informacion del objeto "Oficina" y con esta informacion
+           construye llama al procedimiento almacenado de la base de datos.
+         * @param La referencia al procedimiento almacenado en la base.
+         * @param El objeto Oficina del que va a obtener la información.
+        */
+        private void rellenar_parametros_oficina(ref SqlCommand comando, Oficina oficina)
+        {
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_oficina", SqlDbType.Int).Value = oficina.id;
+            comando.Parameters.Add("@nombe_oficina", SqlDbType.VarChar).Value = oficina.nombre;
+            comando.Parameters.Add("@telefono", SqlDbType.VarChar).Value = oficina.telefono_1;
+            comando.Parameters.Add("@telefono2", SqlDbType.VarChar).Value = oficina.telefono_2;
+            comando.Parameters.Add("@nom_representante", SqlDbType.VarChar).Value = oficina.representante;
         }
     }
 
