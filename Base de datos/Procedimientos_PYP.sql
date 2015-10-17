@@ -75,7 +75,8 @@ AS BEGIN
 	SELECT	Oficina.id_oficina,
 			Oficina.nombre_oficina,
 			Oficina.telefono,
-			Oficina.telefono2
+			Oficina.telefono2,
+			Oficina.nom_representante
 	FROM	Oficina
 	END
 GO
@@ -90,7 +91,3 @@ AS
 	VALUES
 		(@nombre_oficina, @telefono, @telefono2, @nom_representante) 
 GO
-
-execute INSERTAR_OFICINA 'Oficina11', '25110000','256987541', 'alguien'
-
-

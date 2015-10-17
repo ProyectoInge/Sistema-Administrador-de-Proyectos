@@ -25,9 +25,11 @@ namespace SAPS.Fronteras
 
         private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
         private static char opcion_tomada;                          // i= insertar, m= modificar, e= eliminar
+        private static int m_tamano_tabla_oficinas;
+        private Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina, 1 --> nombre_oficinas
 
-        private Object[,] m_tabla_resultados;                       // Posicion: 0-> nombre proyecto, 1-> id_proyecto
-        private int m_tamano_tabla;
+        private Object[,] m_tabla_proyectos_disponibles; //posicion: 0-> nombre proyecto, 1-> id_proyecto
+        private static int m_tamano_tabla_pdp;
 
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
         */
@@ -37,7 +39,7 @@ namespace SAPS.Fronteras
             alerta_exito.Visible = false;
             alerta_advertencia.Visible = false;
             alerta_exito_oficina.Visible = false;
-            alerta_error_oficina.Visible = false;
+            alerta_error_oficina_cuerpo.Visible = false;
 
             m_controladora_pdp = new ControladoraProyectoPruebas();
             opcion_tomada = 'i';
@@ -48,6 +50,7 @@ namespace SAPS.Fronteras
             // Se llenan las tablas de Grid
             //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.                                        
             llena_proyectos_de_pruebas();
+            actualiza_drop_oficinas();
 
         }
 
@@ -86,7 +89,7 @@ namespace SAPS.Fronteras
         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_aceptar_click(object sender, EventArgs e)
-        {            
+        {
             if (valida_campos())
             {
                 alerta_exito.Visible = true;
@@ -147,21 +150,22 @@ namespace SAPS.Fronteras
             // TO DO
         }
 
-
         protected void btn_agregar_oficina_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_agregar_oficina", "$('#modal_agregar_oficina').modal();", true);
             upModalOficina.Update();
+            actualiza_drop_oficinas();
         }
 
         protected void btn_modal_cancelar_oficina_Click(object sender, EventArgs e)
         {
-
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_agregar_oficina", "$('#modal_agregar_oficina').modal('hide');", true);
+            upModalOficina.Update();
+            actualiza_drop_oficinas();
         }
 
         protected void btn_modal_agregar_oficina_Click(object sender, EventArgs e)
         {
-            // TO DO --> todavia no muestra mensaje de confirmacion o de error.
             if (valida_campos_oficina())
             {
                 Object[] datos = new Object[5];
@@ -173,20 +177,19 @@ namespace SAPS.Fronteras
                 int resultado = m_controladora_pdp.insertar_oficina(datos);
                 if (resultado == 0)
                 {
-                    alerta_exito_oficina.Text = " No hubo problema al ingresar la oficina.";
                     alerta_exito_oficina.Visible = true;
                     upModalOficina.Update();
                 }
                 else
                 {
                     alerta_error_oficina.Text = " No fue posible agregar la oficina, intentelo nuevamente.";
-                    alerta_error_oficina.Visible = true;
+                    alerta_error_oficina_cuerpo.Visible = true;
                     upModalOficina.Update();
                 }
             }
             else
             {
-                alerta_error_oficina.Visible = true;
+                alerta_error_oficina_cuerpo.Visible = true;
                 upModalOficina.Update();
             }
         }
@@ -194,6 +197,21 @@ namespace SAPS.Fronteras
         // ------------------------------------------
         // |    Metodos auxiliares de la clase      |
         // ------------------------------------------
+
+        /** @brief Metodo que vacia las oficinas disponibles.
+         */
+        private void vaciar_oficinas()
+        {
+            drop_oficina_asociada.Items.Clear();
+        }
+
+        /** @brief Actualiza el drop de las oficinas disponibles (la vacia y la vuelve a llenar).
+         */
+        private void actualiza_drop_oficinas()
+        {
+            vaciar_oficinas();
+            llena_oficinas_disponibles();
+        }
 
         /** @brief Pone activos los botones de "Eliminar" y "Modificar"
         * @param Bool con el estado de activacion de los botones ime (true/false)
@@ -221,7 +239,7 @@ namespace SAPS.Fronteras
             input_asignment_date.Enabled = estado;
             input_finish_date.Enabled = estado;
         }
-        
+
         /**@brief Se encarga de llenar la tabla de disenos de pruebas con todos los disenos asociados a dicho proyecto de pruebas.
         */
         private void llena_disenos_prueba()
@@ -229,22 +247,58 @@ namespace SAPS.Fronteras
             // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
         }
 
+        /** @brief Metodo que se encarga de llenar el dropbox con las oficinas disponibles.
+         */
+        private void llena_oficinas_disponibles()
+        {
+            DataTable tabla_oficinas = m_controladora_pdp.solicitar_oficinas_disponibles();
+            m_tamano_tabla_oficinas = tabla_oficinas.Rows.Count;
+            m_tabla_oficinas_disponibles = new Object[m_tamano_tabla_oficinas, 2];
+            for (int i = 0; i < m_tamano_tabla_oficinas; ++i)
+            {
+                m_tabla_oficinas_disponibles[i, 0] = Convert.ToInt32(tabla_oficinas.Rows[i]["id_oficina"]);
+                m_tabla_oficinas_disponibles[i, 1] = Convert.ToString(tabla_oficinas.Rows[i]["nombre_oficina"]);
+                ListItem item_oficina = new ListItem();
+                item_oficina.Text = Convert.ToString(m_tabla_oficinas_disponibles[i, 1]);
+                drop_oficina_asociada.Items.Add(item_oficina);
+            }
+        }
         /** @brief Se encarga de llenar la tabla de proyectos de pruebas que contiene a todos los proyectos, dentro de la base de datos.
         **/
         private void llena_proyectos_de_pruebas()
         {
-            // TO DO --> Es necesario llenar con los resultados de la base de datos
-            for (int i = 0; i < 30; ++i)
+                
+            DataTable tabla_de_datos =  m_controladora_pdp.solicitar_proyectos_disponibles();
+            m_tamano_tabla_pdp = tabla_de_datos.Rows.Count;
+            m_tabla_proyectos_disponibles = new string[m_tamano_tabla_pdp, 2];
+            TableHeaderRow header = new TableHeaderRow();
+            TableHeaderCell celda_header_nombre = new TableHeaderCell();
+            TableHeaderCell celda_header_oficina = new TableHeaderCell();
+            TableHeaderCell celda_header_encargado = new TableHeaderCell();
+            celda_header_nombre.Text = "Nombre del proyecto";
+            header.Cells.AddAt(0, celda_header_nombre);
+            celda_header_oficina.Text = "Oficina asociada";
+            header.Cells.AddAt(1, celda_header_oficina);
+            celda_header_encargado.Text = "Encargado del proyecto";
+            header.Cells.AddAt(2, celda_header_encargado);
+            tabla_proyectos_de_pruebas.Rows.Add(header);
+            for (int i = 0; i < m_tamano_tabla_pdp; ++i)
             {
                 TableRow fila = new TableRow();
-                TableCell celda = new TableCell();
+                TableCell celda_boton = new TableCell();
+                TableCell celda_oficina = new TableCell();
+                TableCell celda_encargado = new TableCell();
                 Button btn = new Button();
-                btn.ID = "btn_lista2_" + i.ToString();
-                btn.Text = "pdp " + i.ToString();
-                btn.CssClass = "btn btn-link btn-block";
-                btn.Click += new EventHandler(btn_lista_click);
-                celda.Controls.AddAt(0, btn);
-                fila.Cells.Add(celda);
+                m_tabla_proyectos_disponibles[i, 0] = tabla_de_datos.Rows[i]["id_proyecto"].ToString();
+                m_tabla_proyectos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre_proyecto"].ToString();
+                btn.ID = "btn_lista_" + i.ToString();
+                btn.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
+                btn.CssClass = "btn btn-link btn-sm";
+                //btn.Click += new EventHandler(btn_lista_rh_click); TO DO
+                celda_boton.Controls.AddAt(0, btn);
+                fila.Cells.AddAt(0, celda_boton);
+                fila.Cells.AddAt(1, celda_oficina);
+                fila.Cells.AddAt(2, celda_encargado);
                 tabla_proyectos_de_pruebas.Rows.Add(fila);
             }
         }
@@ -348,7 +402,7 @@ namespace SAPS.Fronteras
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             alerta_exito_oficina.Visible = false;
-            alerta_error_oficina.Visible = false;
+            alerta_error_oficina_cuerpo.Visible = false;
         }
 
         /** @brief Se validan todos los campos en los cuales el usuario puede ingresar datos, si existen errores, se notifica al usuario.
@@ -374,10 +428,10 @@ namespace SAPS.Fronteras
         /** @brief Se validan los datos ingresados por el usuario para el nuevo proyecto de pruebas, se envian los mismos a la controladora de base de datos.
         */
         private bool insertar_proyecto()
-        {
-            bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la insercion
-            if (input_system.Text != "")
             {
+            bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la insercion
+                if (input_system.Text != "")
+                {
 
                 if (input_process.Text != "")
                 {
@@ -452,21 +506,21 @@ namespace SAPS.Fronteras
                             cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de asignación del proyecto.";
                             SetFocus(input_asignment_date);
                             respuesta = false;
-                        }
+                }
                     }// Fecha de inicio
-                    else
-                    {
+                else
+                {
                         cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de inicio del proyecto.";
                         SetFocus(input_start_date);
-                        respuesta = false;
-                    }
+                    respuesta = false;
+                }
                 }// Nombre de proyecto
                 else
                 {
                     cuerpo_alerta_error.Text = "Es necesario ingresar un nombre para el proyecto.";
                     SetFocus(input_process);
                     respuesta = false;
-                }
+            }
             }// Nombre de sistema
             else
             {
@@ -480,11 +534,11 @@ namespace SAPS.Fronteras
         /**@brief Se confirma que el proyecto a eliminar exista y se procede con la indicacion a la controladora de base de datos para que lo elimine.
         */
         private bool eliminar_proyecto()
-        {
+                {
             bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la eliminacion
             int id;
-            if (input_process.Text != "")
-            {
+                    if (input_process.Text != "")
+                    {
                 id = buscar_id_proyecto(input_process.Text);
                 int resultado = m_controladora_pdp.eliminar_proyecto(id);
                 if (resultado == 0)
@@ -492,7 +546,7 @@ namespace SAPS.Fronteras
                     cuerpo_alerta_exito.Text = "Se ha eliminado el proyecto correctamente.";
                 }
                 else
-                {
+                        {
                     cuerpo_alerta_error.Text = "No se ha podido eliminar el proyecto correctamente.";
                     respuesta = false;
                 }
@@ -508,22 +562,22 @@ namespace SAPS.Fronteras
         /**@brief Se valida que los nuevos datos ingresados por el usuario para el proyecto de pruebas sean validos.
         */
         private bool modificar_proyecto()
-        {
+                            {
             bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la modificacion
             if (input_system.Text != "")
-            {
+                                {
 
                 if (input_process.Text != "")
                 {
 
-                    if (input_start_date.Text != "")
-                    {
+                                    if (input_start_date.Text != "")
+                                    {
 
-                        if (input_asignment_date.Text != "")
-                        {
+                                        if (input_asignment_date.Text != "")
+                                        {
 
-                            if (input_finish_date.Text != "")
-                            {
+                                            if (input_finish_date.Text != "")
+                                            {
 
                                 if (drop_estado_proyecto.Text != "")
                                 {
@@ -532,7 +586,7 @@ namespace SAPS.Fronteras
                                     {
 
                                         if (input_objective.Text != "")
-                                        {
+                                                {
                                             Object[] datos = new Object[9];                                 // En la insercion de proyecto, aun no se posee el id del mismo
 
                                             datos[0] = buscar_id_proyecto(input_process.Text);
@@ -550,11 +604,11 @@ namespace SAPS.Fronteras
                                             {
                                                 cuerpo_alerta_exito.Text = "Se ha modificado el proyecto correctamente.";
                                                 actualiza_proyectos_de_pruebas();
-                                            }
-                                            else
-                                            {
+                                                }
+                                                else
+                                                {
                                                 cuerpo_alerta_exito.Text = "No se ha modificado el proyecto correctamente.";
-                                            }
+                                                }
 
                                         }// Objetivo
                                         else
@@ -576,42 +630,42 @@ namespace SAPS.Fronteras
                                     cuerpo_alerta_error.Text = "Es necesario ingresar un estado para el proyecto.";
                                     SetFocus(drop_estado_proyecto);
                                     respuesta = false;
-                                }
+                                            }
                             }// Fecha de finalizacion
-                            else
-                            {
-                                cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de finalización del proyecto.";
-                                SetFocus(input_finish_date);
-                                respuesta = false;
-                            }
+                                            else
+                                            {
+                                                cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de finalización del proyecto.";
+                                                SetFocus(input_finish_date);
+                                                respuesta = false;
+                                            }
                         }// Fecha de asignacion
-                        else
-                        {
-                            cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de asignación del proyecto.";
-                            SetFocus(input_asignment_date);
+                                        else
+                                        {
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de asignación del proyecto.";
+                                            SetFocus(input_asignment_date);
+                                            respuesta = false;
+                                        }
+                    }// Fecha de inicio
+                                    else
+                                    {
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de inicio del proyecto.";
+                        SetFocus(input_start_date);
                             respuesta = false;
                         }
-                    }// Fecha de inicio
+                }// Nombre de proyecto
                     else
                     {
-                        cuerpo_alerta_error.Text = "Es necesario ingresar una fecha de inicio del proyecto.";
-                        SetFocus(input_start_date);
+                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre para el proyecto.";
+                        SetFocus(input_process);
                         respuesta = false;
                     }
-                }// Nombre de proyecto
+            }// Nombre de sistema
                 else
                 {
-                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre para el proyecto.";
-                    SetFocus(input_process);
+                    cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de sistema.";
+                    SetFocus(input_system);
                     respuesta = false;
                 }
-            }// Nombre de sistema
-            else
-            {
-                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de sistema.";
-                SetFocus(input_system);
-                respuesta = false;
-            }
             return respuesta;
         }
 
@@ -628,7 +682,7 @@ namespace SAPS.Fronteras
                 }                
             }
             return id;
-        }
+            }
 
         /**@brief Metodo encargado de actualizar el Grid de proyectos de pruebas con la nueva informacion.
         */
