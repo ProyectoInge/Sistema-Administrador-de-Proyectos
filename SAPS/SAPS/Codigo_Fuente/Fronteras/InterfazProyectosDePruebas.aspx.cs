@@ -80,15 +80,13 @@ namespace SAPS.Fronteras
         {
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
-
         }
 
         /** @brief Boton encargado de validar todas las entradas realizadas por el usuario al proyecto de pruebas.
         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_aceptar_click(object sender, EventArgs e)
-        {
-            // Hace falta realizar modificar y eliminar, solo esta validando insertar
+        {            
             if (valida_campos())
             {
                 alerta_exito.Visible = true;
@@ -126,6 +124,8 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default";
         }
 
+        /**@brief Se validan los campos para que el usuario ingrese los datos solicitados en el nuevo proyecto.
+        */
         protected void btn_crear_click(object sender, EventArgs e)
         {
             opcion_tomada = 'i';
@@ -138,8 +138,8 @@ namespace SAPS.Fronteras
         }
 
         protected void btn_modal_cancelar_Click(object sender, EventArgs e)
-        { //TO DO
-
+        { 
+            //TO DO
         }
 
         protected void btn_modal_aceptar_Click(object sender, EventArgs e)
@@ -206,7 +206,6 @@ namespace SAPS.Fronteras
 
         /** @brief Habilita o deshabilita todas las areas de texto o input dadas al usuario
                    en la interfaz.
-
         */
         private void activa_desactiva_inputs(bool estado)
         {
@@ -222,8 +221,7 @@ namespace SAPS.Fronteras
             input_asignment_date.Enabled = estado;
             input_finish_date.Enabled = estado;
         }
-
-
+        
         /**@brief Se encarga de llenar la tabla de disenos de pruebas con todos los disenos asociados a dicho proyecto de pruebas.
         */
         private void llena_disenos_prueba()
@@ -373,6 +371,8 @@ namespace SAPS.Fronteras
             return respuesta;
         }
 
+        /** @brief Se validan los datos ingresados por el usuario para el nuevo proyecto de pruebas, se envian los mismos a la controladora de base de datos.
+        */
         private bool insertar_proyecto()
         {
             bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la insercion
@@ -477,6 +477,8 @@ namespace SAPS.Fronteras
             return respuesta;
         }
 
+        /**@brief Se confirma que el proyecto a eliminar exista y se procede con la indicacion a la controladora de base de datos para que lo elimine.
+        */
         private bool eliminar_proyecto()
         {
             bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la eliminacion
@@ -491,15 +493,20 @@ namespace SAPS.Fronteras
                 }
                 else
                 {
+                    cuerpo_alerta_error.Text = "No se ha podido eliminar el proyecto correctamente.";
                     respuesta = false;
                 }
             }
             else {
+                cuerpo_alerta_error.Text = "Ingrese un nombre de proyecto de pruebas válido.";
+                SetFocus(input_process.Text);
                 respuesta = false;
             }
             return respuesta;
         }
 
+        /**@brief Se valida que los nuevos datos ingresados por el usuario para el proyecto de pruebas sean validos.
+        */
         private bool modificar_proyecto()
         {
             bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la modificacion
@@ -608,6 +615,8 @@ namespace SAPS.Fronteras
             return respuesta;
         }
 
+        /**@brief Metodo que recorre la tabla de resultados buscando el id asociado a un proyecto de pruebas.
+        */
         private int buscar_id_proyecto(string nombre_proyecto)
         {
             int id = 0;
@@ -619,6 +628,14 @@ namespace SAPS.Fronteras
                 }                
             }
             return id;
+        }
+
+        /**@brief Metodo encargado de actualizar el Grid de proyectos de pruebas con la nueva informacion.
+        */
+        private void actualiza_proyectos_de_pruebas()
+        {
+            limpia_campos();
+            llena_proyectos_de_pruebas();
         }
 
     }
