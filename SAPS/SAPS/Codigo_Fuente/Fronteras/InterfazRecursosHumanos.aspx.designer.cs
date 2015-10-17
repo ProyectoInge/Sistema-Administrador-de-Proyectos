@@ -283,33 +283,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TableHeaderRow tabla_recursos_humanos_header;
         
         /// <summary>
-        /// celda_nombre control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderCell celda_nombre;
-        
-        /// <summary>
-        /// celda_proyecto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderCell celda_proyecto;
-        
-        /// <summary>
-        /// celda_rol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderCell celda_rol;
-        
-        /// <summary>
         /// upModal control.
         /// </summary>
         /// <remarks>

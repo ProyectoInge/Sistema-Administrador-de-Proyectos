@@ -177,9 +177,6 @@
             <div class="col-md-10" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_recursos_humanos" CssClass="table table-hover form-group">
                     <asp:TableHeaderRow runat="server" ID="tabla_recursos_humanos_header">
-                        <asp:TableHeaderCell runat="server" ID="celda_nombre" Text="Nombre"></asp:TableHeaderCell>
-                        <asp:TableHeaderCell runat="server" ID="celda_proyecto" Text="Proyecto asociado"></asp:TableHeaderCell>
-                        <asp:TableHeaderCell runat="server" ID="celda_rol" Text="Rol"></asp:TableHeaderCell>
                     </asp:TableHeaderRow>
                 </asp:Table>
             </div>
@@ -217,7 +214,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Cancelar" runat="server" />
+                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server" />
                                 <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
                             </div>
                         </div>
