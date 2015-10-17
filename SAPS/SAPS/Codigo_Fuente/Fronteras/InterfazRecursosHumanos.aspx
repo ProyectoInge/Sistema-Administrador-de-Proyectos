@@ -182,7 +182,6 @@
                         <asp:TableHeaderCell runat="server" ID="celda_rol" Text="Rol"></asp:TableHeaderCell>
                     </asp:TableHeaderRow>
                 </asp:Table>
-                <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente -->
             </div>
         </div>
     </section>
@@ -200,10 +199,21 @@
                                 </h4>
                             </div>
                             <div class="modal-body">
-                                <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
-                                <div class="col-md-10 col-md-offset-2">
-                                    <asp:Label ID="mensaje_exito_modal" runat="server" CssClass="control-label text-success" Text="Se eliminó correctamente el recurso humano."></asp:Label>
-                                    <asp:Label ID="mensaje_error_modal" runat="server" CssClass="control-label text-danger" Text="Hubo un error, intente nuevamente eliminar el recurso humano."></asp:Label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
+                                            <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="Se eliminó correctamente el recurso humano."></asp:Label>
+                                        </div>
+                                        <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
+                                            <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente el recurso humano."></asp:Label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
