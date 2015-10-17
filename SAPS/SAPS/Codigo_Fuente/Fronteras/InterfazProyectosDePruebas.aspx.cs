@@ -18,28 +18,24 @@ using System.Data;
 
 namespace SAPS.Fronteras
 {
-    /** @brief La clase frontera de proyectos de pruebas se encarga de obtener los datos y eventos ingresados por el usuario
-            y enviarlos a la clase controladora proyectos_de_pruebas. 
+    /** @brief La clase frontera de proyectos de pruebas se encarga de obtener los datos y eventos ingresados por el usuario y enviarlos a la clase controladora proyectos_de_pruebas. 
     */
     public partial class InterfazProyectosDePruebas : System.Web.UI.Page
     {
 
-        private ControladoraProyectoPruebas m_controladora_pdp;         // Instacia de la clase controladora
+        private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
+        private static char opcion_tomada;                          // i= insertar, m= modificar, e= eliminar
 
-        char opcion_tomada;                                             // Opciones de valor: i= insertar, m= modificar, b= borrar
-
-
-        private string[,] m_tabla_resultados; //posicio: 0-> username, 1-> nombre
+        private Object[,] m_tabla_resultados; //posicion: 0-> nombre proyecto, 1-> id_proyecto
         private int m_tamano_tabla;
-
-
-        /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos
-                    iniciales de cada seccion.
+        
+        /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
         */
         protected void Page_Load(object sender, EventArgs e)
         {
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
+            alerta_advertencia.Visible = false;
 
             m_controladora_pdp = new ControladoraProyectoPruebas();
             opcion_tomada = 'i';
@@ -47,7 +43,8 @@ namespace SAPS.Fronteras
             input_manager_office.Enabled = false;
             input_phone1.Enabled = false;
             input_phone2.Enabled = false;
-            llena_disenos_prueba();                                                 // Se llenan las tablas de Grid
+            // Se llenan las tablas de Grid
+            //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.                                        
             llena_proyectos_de_pruebas();
 
         }
@@ -99,19 +96,18 @@ namespace SAPS.Fronteras
             }
         }
 
-        /**@brief Se habilitan las areas especificas del proyecto de pruebas para que el usuario pueda modificar
-                    los valores de forma adecuada.
-            * @param Los parametros por default de un evento de C#.
+        /** @brief Se habilitan las areas especificas del proyecto de pruebas para que el usuario pueda modificar los valores de forma adecuada.
+         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_modificar_click(object sender, EventArgs e)
         {
             opcion_tomada = 'm';
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(true);
-            input_asignment_date.Enabled = false;                                               // No se permite la modificacion de fecha de asignacion
-            btn_eliminar.BackColor = System.Drawing.Color.White;
-            btn_crear.BackColor = System.Drawing.Color.White;
-            btn_modificar.BackColor = System.Drawing.Color.LightGray;
+            input_asignment_date.Enabled = false;  // No se permite la modificacion de fecha de asignacion
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default active";
         }
 
         /**@brief Evento que se activa cuando el usuario selecciona el boton eliminar
@@ -122,9 +118,9 @@ namespace SAPS.Fronteras
             opcion_tomada = 'e';
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
-            btn_eliminar.BackColor = System.Drawing.Color.LightGray;
-            btn_crear.BackColor = System.Drawing.Color.White;
-            btn_modificar.BackColor = System.Drawing.Color.White;
+            btn_eliminar.CssClass = "btn btn-default activa";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default";
         }
 
         protected void btn_crear_click(object sender, EventArgs e)
@@ -133,9 +129,9 @@ namespace SAPS.Fronteras
             activa_desactiva_inputs(true);
             limpia_campos();
             activa_desactiva_botones_ime(false);
-            btn_eliminar.BackColor = System.Drawing.Color.White;
-            btn_crear.BackColor = System.Drawing.Color.LightGray;
-            btn_modificar.BackColor = System.Drawing.Color.White;
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default";
         }
 
         protected void btn_modal_cancelar_Click(object sender, EventArgs e)
@@ -146,6 +142,21 @@ namespace SAPS.Fronteras
         { //TO DO
         }
 
+        protected void btn_agregar_oficina_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_agregar_oficina", "$('#modal_agregar_oficina').modal();", true);
+            upModalOficina.Update();
+        }
+
+        protected void btn_modal_cancelar_oficina_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btn_modal_agregar_oficina_Click(object sender, EventArgs e)
+        {
+
+        }
 
         // ------------------------------------------
         // |    Metodos auxiliares de la clase      |
@@ -180,57 +191,18 @@ namespace SAPS.Fronteras
         }
 
 
-        /**@brief Se encarga de llenar la tabla de disenos de pruebas con todos los
-                  disenos asociados a dicho proyecto de pruebas.
-
+        /**@brief Se encarga de llenar la tabla de disenos de pruebas con todos los disenos asociados a dicho proyecto de pruebas.
         */
         private void llena_disenos_prueba()
         {
-
-            // Es necesario llenar con los resultados de la base de datos
-
-
-            /* DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
-            m_tamano_tabla = tabla_de_datos.Rows.Count;
-            m_tabla_resultados = new string[2, m_tamano_tabla];
-
-            for (int i = 0; i < m_tamano_tabla; ++i)
-            {
-                TableRow fila = new TableRow();
-                TableCell celda = new TableCell();
-                Button btn = new Button();
-                m_tabla_resultados[0, i] = tabla_de_datos.Rows[i]["username"].ToString();
-                m_tabla_resultados[1, i] = tabla_de_datos.Rows[i]["nombre"].ToString();
-                btn.ID = "btn_lista_" + i.ToString();
-                btn.Text = m_tabla_resultados[1, i];
-                btn.CssClass = "btn btn-link btn-block";
-                btn.Click += new EventHandler(btn_lista_click);
-                celda.Controls.AddAt(0, btn);
-                fila.Cells.Add(celda);
-                tabla_recursos_humanos.Rows.Add(fila);
-            } **/
-
-
-            //DataTable tabla_de_datos = m_controladora_pdp.
-            //m_tamano_tabla = tabla_de_datos.Rows.Count;
-            //m_tabla_resultados = new string[2, m_tamano_tabla];
-
-
-            for (int i = 0; i < m_tamano_tabla; ++i)
-            {
-
-            }
-
+            // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
         }
 
-        /** @brief Se encarga de llenar la tabla de proyectos de pruebas que contiene a todos
-                   los proyectos, dentro de la base de datos.
+        /** @brief Se encarga de llenar la tabla de proyectos de pruebas que contiene a todos los proyectos, dentro de la base de datos.
         **/
         private void llena_proyectos_de_pruebas()
         {
-
-            // Es necesario llenar con los resultados de la base de datos
-
+            // TO DO --> Es necesario llenar con los resultados de la base de datos
             for (int i = 0; i < 30; ++i)
             {
                 TableRow fila = new TableRow();
@@ -259,13 +231,15 @@ namespace SAPS.Fronteras
             input_objective.Text = "";
             opcion_tomada = 'i';
             activa_desactiva_inputs(true);
-            btn_crear.BackColor = System.Drawing.Color.White;
-            btn_eliminar.BackColor = System.Drawing.Color.White;
-            btn_modificar.BackColor = System.Drawing.Color.White;
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default";
+            alerta_advertencia.Visible = false;
+            alerta_error.Visible = false;
+            alerta_exito.Visible = false;
         }
 
         /** @brief Se validan todos los campos en los cuales el usuario puede ingresar datos, si existen errores, se notifica al usuario.
-        *
         */
         private bool valida_campos()
         {
