@@ -337,6 +337,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label cuerpo_modal;
         
         /// <summary>
+        /// mensaje_exito_modal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label mensaje_exito_modal;
+        
+        /// <summary>
+        /// mensaje_error_modal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label mensaje_error_modal;
+        
+        /// <summary>
         /// btn_modal_cancelar control.
         /// </summary>
         /// <remarks>

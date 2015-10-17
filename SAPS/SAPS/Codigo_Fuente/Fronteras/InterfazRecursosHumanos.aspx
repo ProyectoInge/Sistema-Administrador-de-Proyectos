@@ -201,6 +201,10 @@
                             </div>
                             <div class="modal-body">
                                 <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                                <div class="col-md-10 col-md-offset-2">
+                                    <asp:Label ID="mensaje_exito_modal" runat="server" CssClass="control-label text-success" Text="Se eliminó correctamente el recurso humano."></asp:Label>
+                                    <asp:Label ID="mensaje_error_modal" runat="server" CssClass="control-label text-danger" Text="Hubo un error, intente nuevamente eliminar el recurso humano."></asp:Label>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Cancelar" runat="server" />

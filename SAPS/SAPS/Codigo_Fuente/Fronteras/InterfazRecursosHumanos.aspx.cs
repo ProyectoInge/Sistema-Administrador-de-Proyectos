@@ -44,6 +44,8 @@ namespace SAPS.Fronteras
                 drop_proyecto_asociado.Enabled = false;
                 drop_rol.Enabled = false;
                 activa_desactiva_botones_ime(false);
+                mensaje_error_modal.Visible = false;
+                mensaje_exito_modal.Visible = false;
                 if (m_opcion == 'i')
                 {
                     btn_reestablece_contrasena.Visible = false;
@@ -407,14 +409,10 @@ namespace SAPS.Fronteras
             bool a_retornar = false;
             if (input_usuario.Text != "")
             {
-
-                //TO DO --> Confirmacion de borrar el RH!!
                 titulo_modal.Text = "¡Atención!";
                 cuerpo_modal.Text = " ¿Esta seguro que desea eliminar a " + input_usuario.Text + " del sistema?";
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
                 upModal.Update();
-                // ** Hay que averiguar como hacer para que se espere al click del modal y que no ejecute las cosas de una vez.
-
                 a_retornar = true;
             }
             else
@@ -664,25 +662,21 @@ namespace SAPS.Fronteras
             }
             return a_retornar;
         }
-
-        // TO DO --> revisar esta parte para el modal.
+        
         protected void btn_modal_aceptar_Click(object sender, EventArgs e)
         {
 
             int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
-            upModal.Update();
             if (resultado == 0)
             {
-                cuerpo_alerta_exito.Text = " Se eliminó correctamente el recurso humano.";
-                alerta_exito.Visible = true;
                 actualiza_tabla_recursos_humanos();
-                
+                mensaje_exito_modal.Visible = true;
+                upModal.Update();
             }
             else
             {
-                cuerpo_alerta_error.Text = " Se presentó un error al eliminar el recurso, por favor intente nuevamente.";
-                alerta_error.Visible = true;
+                mensaje_error_modal.Visible = true;
+                upModal.Update();
             }
         }
 
@@ -691,8 +685,6 @@ namespace SAPS.Fronteras
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
             upModal.Visible = false;
             upModal.Update();
-            this.cuerpo_alerta_advertencia.Text = " Se canceló la eliminación del recurso humano.";
-            this.alerta_advertencia.Visible = true;
         }
 
         /** @brief Se activa cuando el usuario escoge la opcion de reestablecer la contrasena, lo envia a la pagina para cambiar de contraseña.
