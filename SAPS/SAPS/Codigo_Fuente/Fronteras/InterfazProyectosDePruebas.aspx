@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
                 <div class="btn-group" role="group">
-                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_crear" Enabled="true" Text="Crear" OnClick="btn_crear_click" />
+                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_crear" Enabled="true" Text="Ingresar" OnClick="btn_crear_click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Enabled="false" Text="Modificar" OnClick="btn_modificar_click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_eliminar" Enabled="false" Text="Eliminar" OnClick="btn_eliminar_click" />
                 </div>
@@ -167,14 +167,14 @@
         </div>
     </section>
     <section id="label_lista_pdp" class="row">
-        <div class="col-md-11 col-md-offset-1">
+        <div class="col-md-10 col-md-offset-1">
             <h4>Proyectos de Pruebas</h4>
         </div>
     </section>
     <br />
-    <section id="area_consultas" class="col-md-offset-2">
+    <section id="area_consultas">
         <div class="row">
-            <div class="col-md-10" style="height: 300px; overflow-y: scroll">
+            <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_proyectos_de_pruebas" CssClass="table table-hover form-group">
                     <asp:TableHeaderRow runat="server" ID="tabla_proyectos_de_pruebas_header">
                     </asp:TableHeaderRow>

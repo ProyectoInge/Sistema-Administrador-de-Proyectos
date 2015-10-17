@@ -313,7 +313,7 @@ namespace SAPS.Fronteras
                 m_tabla_recursos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
                 btn.ID = "btn_lista_" + i.ToString();
                 btn.Text = m_tabla_recursos_disponibles[i, 1];
-                btn.CssClass = "btn btn-link btn-sm";
+                btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_rh_click);
                 if (tabla_de_datos.Rows[i]["id_proyecto"].ToString() == "")
                 {

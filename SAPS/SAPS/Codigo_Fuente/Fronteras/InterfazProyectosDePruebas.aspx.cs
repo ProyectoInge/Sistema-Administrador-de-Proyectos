@@ -26,9 +26,9 @@ namespace SAPS.Fronteras
         private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
         private static char opcion_tomada;                          // i= insertar, m= modificar, e= eliminar
         private static int m_tamano_tabla_oficinas;
-        private Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina, 1 --> nombre_oficinas, 2 --> representante
+        private Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina (int), 1 --> nombre_oficinas (string), 2 --> representante (string)
 
-        private Object[,] m_tabla_proyectos_disponibles; //posicion: 0-> nombre proyecto, 1-> id_proyecto
+        private Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto (int), 1 --> nombre_proyecto (string)
         private static int m_tamano_tabla_pdp;
 
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
@@ -48,9 +48,9 @@ namespace SAPS.Fronteras
             input_phone1.Enabled = false;
             input_phone2.Enabled = false;
             // Se llenan las tablas de Grid
-            //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.                                        
+            //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas. 
+            actualiza_drop_oficinas();  // ** OJO, actualiza_drop_oficinas se tiene que llamar ANTES que llena_proyectos_de_pruebas SIEMPRE!!
             llena_proyectos_de_pruebas();
-            actualiza_drop_oficinas();
 
         }
 
@@ -271,9 +271,9 @@ namespace SAPS.Fronteras
             string[,] a_retornar = new string[1, 2];
             bool encontrado = false;
             int index = 0;
-            while(index < m_tamano_tabla_oficinas && encontrado == false)
+            while (index < m_tamano_tabla_oficinas && encontrado == false)
             {
-                if(Convert.ToInt32(m_tabla_oficinas_disponibles[index, 0]).Equals(id_oficina))
+                if (Convert.ToInt32(m_tabla_oficinas_disponibles[index, 0]).Equals(id_oficina))
                 {
                     encontrado = true;
                 }
@@ -294,35 +294,46 @@ namespace SAPS.Fronteras
 
             DataTable tabla_de_datos = m_controladora_pdp.solicitar_proyectos_disponibles();
             m_tamano_tabla_pdp = tabla_de_datos.Rows.Count;
-            m_tabla_proyectos_disponibles = new string[m_tamano_tabla_pdp, 2];
+            m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             TableHeaderRow header = new TableHeaderRow();
             TableHeaderCell celda_header_nombre = new TableHeaderCell();
+            TableHeaderCell celda_header_estado = new TableHeaderCell();
             TableHeaderCell celda_header_oficina = new TableHeaderCell();
             TableHeaderCell celda_header_encargado = new TableHeaderCell();
             celda_header_nombre.Text = "Nombre del proyecto";
             header.Cells.AddAt(0, celda_header_nombre);
+            celda_header_estado.Text = "Estado del proyecto";
+            header.Cells.AddAt(1, celda_header_estado);
             celda_header_oficina.Text = "Oficina asociada";
-            header.Cells.AddAt(1, celda_header_oficina);
+            header.Cells.AddAt(2, celda_header_oficina);
             celda_header_encargado.Text = "Encargado del proyecto";
-            header.Cells.AddAt(2, celda_header_encargado);
+            header.Cells.AddAt(3, celda_header_encargado);
             tabla_proyectos_de_pruebas.Rows.Add(header);
             for (int i = 0; i < m_tamano_tabla_pdp; ++i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_boton = new TableCell();
+                TableCell celda_estado = new TableCell();
                 TableCell celda_oficina = new TableCell();
                 TableCell celda_encargado = new TableCell();
                 Button btn = new Button();
-                m_tabla_proyectos_disponibles[i, 0] = tabla_de_datos.Rows[i]["id_proyecto"].ToString();
-                m_tabla_proyectos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre_proyecto"].ToString();
+                string[,] info_oficina = new string[1, 2];  //la oficina y el representante de la oficina asociada al proyecto
+                m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_de_datos.Rows[i]["id_proyecto"]);
+                m_tabla_proyectos_disponibles[i, 1] = Convert.ToString(tabla_de_datos.Rows[i]["nombre_proyecto"]);
+                //Crea el boton
                 btn.ID = "btn_lista_" + i.ToString();
                 btn.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
-                btn.CssClass = "btn btn-link btn-sm";
-                //btn.Click += new EventHandler(btn_lista_rh_click); TO DO
+                btn.CssClass = "btn btn-link";
+                //btn.Click += new EventHandler(btn_lista_pdp_click); TO DO
                 celda_boton.Controls.AddAt(0, btn);
                 fila.Cells.AddAt(0, celda_boton);
-                fila.Cells.AddAt(1, celda_oficina);
-                fila.Cells.AddAt(2, celda_encargado);
+                celda_estado.Text = Convert.ToString(tabla_de_datos.Rows[i]["estado"]);
+                fila.Cells.AddAt(1, celda_estado);
+                info_oficina = busca_info_oficina(Convert.ToInt32(m_tabla_proyectos_disponibles[i, 0]));
+                celda_oficina.Text = info_oficina[0, 0];
+                fila.Cells.AddAt(2, celda_oficina);
+                celda_encargado.Text = info_oficina[0, 1];
+                fila.Cells.AddAt(3, celda_encargado);
                 tabla_proyectos_de_pruebas.Rows.Add(fila);
             }
         }

@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
                 <div class="btn-group" role="group">
-                    <asp:Button runat="server" CssClass="btn btn-default active" ID="btn_crear" Enabled="true" Text="Insertar" OnClick="btn_crear_Click" />
+                    <asp:Button runat="server" CssClass="btn btn-default active" ID="btn_crear" Enabled="true" Text="Ingresar" OnClick="btn_crear_Click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Text="Modificar" OnClick="btn_modificar_Click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_eliminar" Text="Eliminar" OnClick="btn_eliminar_Click" />
                 </div>
@@ -172,9 +172,9 @@
         </div>
     </section>
     <br />
-    <section id="area_consultas" class="col-md-offset-2">
+    <section id="area_consultas">
         <div class="row">
-            <div class="col-md-10" style="height: 300px; overflow-y: scroll">
+            <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_recursos_humanos" CssClass="table table-hover form-group">
                     <asp:TableHeaderRow runat="server" ID="tabla_recursos_humanos_header">
                     </asp:TableHeaderRow>
