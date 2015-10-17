@@ -128,6 +128,7 @@ namespace SAPS.Fronteras
         }
 
         /**@brief Se validan los campos para que el usuario ingrese los datos solicitados en el nuevo proyecto.
+         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_crear_click(object sender, EventArgs e)
         {
@@ -140,16 +141,25 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default";
         }
 
-        protected void btn_modal_cancelar_Click(object sender, EventArgs e)
+        /** @brief Evento que ocurre cuando el usuario se quiere devolver del modal de confirmar eliminacion del proyecto de pruebas, cierra el modal.
+         * @param Los parametros por default de un evento de C#.
+         */
+        protected void btn_modal_confirmar_cancelar_Click(object sender, EventArgs e)
         {
             //TO DO
         }
 
-        protected void btn_modal_aceptar_Click(object sender, EventArgs e)
+        /** @brief Evento que ocurre cuando el usuario confirma que quiere eliminar el proyecto de pruebas, va y realiza el cambio en la base de datos.
+         * @param Los parametros por default de un evento de C#.
+         */
+        protected void btn_modal_confirmar_aceptar_Click(object sender, EventArgs e)
         {
             // TO DO
         }
 
+        /** @brief Despliega un modal donde se le brinda un formulario para crear una nueva oficina.
+         * @param Los parametros por default de un evento de C#.
+         */
         protected void btn_agregar_oficina_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_agregar_oficina", "$('#modal_agregar_oficina').modal();", true);
@@ -157,6 +167,9 @@ namespace SAPS.Fronteras
             actualiza_drop_oficinas();
         }
 
+        /** @brief Esconde el modal de agregar oficina.
+         * @param Los parametros por default de un evento de C#.
+         */
         protected void btn_modal_cancelar_oficina_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_agregar_oficina", "$('#modal_agregar_oficina').modal('hide');", true);
@@ -164,6 +177,9 @@ namespace SAPS.Fronteras
             actualiza_drop_oficinas();
         }
 
+        /** @brief Método que se activa cuando el usuario decide agregar una oficina nueva, realiza la inserción de la oficina a la base de datos.
+         * @param Los parametros por default de un evento de C#.
+         */
         protected void btn_modal_agregar_oficina_Click(object sender, EventArgs e)
         {
             if (valida_campos_oficina())
@@ -192,6 +208,15 @@ namespace SAPS.Fronteras
                 alerta_error_oficina_cuerpo.Visible = true;
                 upModalOficina.Update();
             }
+        }
+
+        /** @brief Método que se activa cuando el usuario selecciona un elemento de la lista de proyectos disponibles, se encarga de llenar los campos con la
+                   información respectiva al proyecto que se seleccionó.
+         * @param Los parametros por default de un evento de C#.
+         */
+        protected void btn_lista_pdp_click(object sender, EventArgs e)
+        {
+
         }
 
         // ------------------------------------------
@@ -327,7 +352,7 @@ namespace SAPS.Fronteras
                 btn.ID = "btn_lista_" + i.ToString();
                 btn.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
                 btn.CssClass = "btn btn-link";
-                //btn.Click += new EventHandler(btn_lista_pdp_click); TO DO
+                btn.Click += new EventHandler(btn_lista_pdp_click);
                 celda_boton.Controls.AddAt(0, btn);
                 fila.Cells.AddAt(0, celda_boton);
                 celda_estado.Text = Convert.ToString(tabla_de_datos.Rows[i]["estado"]);
