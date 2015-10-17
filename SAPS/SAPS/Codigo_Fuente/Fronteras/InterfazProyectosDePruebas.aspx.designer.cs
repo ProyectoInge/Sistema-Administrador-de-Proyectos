@@ -361,7 +361,25 @@ namespace SAPS.Fronteras {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label alerta_exito_oficina;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito_oficina;
+        
+        /// <summary>
+        /// cuerpo_mensaje_exito control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label cuerpo_mensaje_exito;
+        
+        /// <summary>
+        /// alerta_error_oficina_cuerpo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error_oficina_cuerpo;
         
         /// <summary>
         /// alerta_error_oficina control.

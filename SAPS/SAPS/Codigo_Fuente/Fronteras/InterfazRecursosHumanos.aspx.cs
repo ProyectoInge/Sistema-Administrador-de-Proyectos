@@ -54,8 +54,8 @@ namespace SAPS.Fronteras
                 {
                     btn_reestablece_contrasena.Visible = true;
                 }
-                llena_recursos_humanos();
-                llena_proyectos_disponibles();
+                actualiza_tabla_recursos_humanos();
+                actualiza_proyectos();
             }
             else
             {
@@ -180,6 +180,18 @@ namespace SAPS.Fronteras
         // ------------------------------------------
         // |    Metodos auxiliares de la clase      |
         // ------------------------------------------
+
+        private void actualiza_proyectos()
+        {
+            vacia_proyectos();
+            llena_proyectos_disponibles();
+
+        }
+
+        private void vacia_proyectos()
+        {
+            drop_proyecto_asociado.Items.Clear();
+        }
 
         /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
         */
@@ -674,7 +686,7 @@ namespace SAPS.Fronteras
             }
             return a_retornar;
         }
-        
+
         protected void btn_modal_aceptar_Click(object sender, EventArgs e)
         {
 

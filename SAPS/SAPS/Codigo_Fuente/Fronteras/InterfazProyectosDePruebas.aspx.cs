@@ -39,7 +39,7 @@ namespace SAPS.Fronteras
             alerta_exito.Visible = false;
             alerta_advertencia.Visible = false;
             alerta_exito_oficina.Visible = false;
-            alerta_error_oficina.Visible = false;
+            alerta_error_oficina_cuerpo.Visible = false;
 
             m_controladora_pdp = new ControladoraProyectoPruebas();
             opcion_tomada = 'i';
@@ -50,7 +50,7 @@ namespace SAPS.Fronteras
             // Se llenan las tablas de Grid
             //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.                                        
             llena_proyectos_de_pruebas();
-            llena_oficinas_disponibles();
+            actualiza_drop_oficinas();
 
         }
 
@@ -146,17 +146,18 @@ namespace SAPS.Fronteras
             // TO DO
         }
 
-
         protected void btn_agregar_oficina_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_agregar_oficina", "$('#modal_agregar_oficina').modal();", true);
             upModalOficina.Update();
+            actualiza_drop_oficinas();
         }
 
         protected void btn_modal_cancelar_oficina_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_agregar_oficina", "$('#modal_agregar_oficina').modal('hide');", true);
             upModalOficina.Update();
+            actualiza_drop_oficinas();
         }
 
         protected void btn_modal_agregar_oficina_Click(object sender, EventArgs e)
@@ -172,20 +173,19 @@ namespace SAPS.Fronteras
                 int resultado = m_controladora_pdp.insertar_oficina(datos);
                 if (resultado == 0)
                 {
-                    alerta_exito_oficina.Text = " No hubo problema al ingresar la oficina.";
                     alerta_exito_oficina.Visible = true;
                     upModalOficina.Update();
                 }
                 else
                 {
                     alerta_error_oficina.Text = " No fue posible agregar la oficina, intentelo nuevamente.";
-                    alerta_error_oficina.Visible = true;
+                    alerta_error_oficina_cuerpo.Visible = true;
                     upModalOficina.Update();
                 }
             }
             else
             {
-                alerta_error_oficina.Visible = true;
+                alerta_error_oficina_cuerpo.Visible = true;
                 upModalOficina.Update();
             }
         }
@@ -193,6 +193,21 @@ namespace SAPS.Fronteras
         // ------------------------------------------
         // |    Metodos auxiliares de la clase      |
         // ------------------------------------------
+
+        /** @brief Metodo que vacia las oficinas disponibles.
+         */
+        private void vaciar_oficinas()
+        {
+            drop_oficina_asociada.Items.Clear();
+        }
+
+        /** @brief Actualiza el drop de las oficinas disponibles (la vacia y la vuelve a llenar).
+         */
+        private void actualiza_drop_oficinas()
+        {
+            vaciar_oficinas();
+            llena_oficinas_disponibles();
+        }
 
         /** @brief Pone activos los botones de "Eliminar" y "Modificar"
         * @param Bool con el estado de activacion de los botones ime (true/false)
@@ -364,7 +379,7 @@ namespace SAPS.Fronteras
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             alerta_exito_oficina.Visible = false;
-            alerta_error_oficina.Visible = false;
+            alerta_error_oficina_cuerpo.Visible = false;
         }
 
         /** @brief Se validan todos los campos en los cuales el usuario puede ingresar datos, si existen errores, se notifica al usuario.

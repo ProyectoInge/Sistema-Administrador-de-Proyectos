@@ -215,15 +215,19 @@
                                         </div>
                                     </div>
                                     <div id="row2_modal" class="form-group">
-                                        <div class="col-md-10 col-md-offset-2">
-                                            <asp:Label runat="server" CssClass="control-label text-success" ID="alerta_exito_oficina" Text=""></asp:Label>
-                                            <asp:Label runat="server" CssClass="control-label text-danger" ID="alerta_error_oficina" Text=""></asp:Label>
+                                        <div class="col-md-12">
+                                            <div class="alert alert-success" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
+                                                <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
+                                            </div>
+                                            <div class="alert alert-danger" id="alerta_error_oficina_cuerpo" role="alert" aria-hidden="true" runat="server">
+                                                <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-default" ID="btn_modal_cancelar_oficina" Text="Volver" runat="server" data-dismiss="modal"/>
+                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-default" ID="btn_modal_cancelar_oficina" Text="Volver" runat="server" data-dismiss="modal" />
                                 <asp:Button OnClick="btn_modal_agregar_oficina_Click" CssClass="btn btn-success" ID="btn_modal_agregar_oficina" Text="Agregar" runat="server" />
                             </div>
                         </div>
