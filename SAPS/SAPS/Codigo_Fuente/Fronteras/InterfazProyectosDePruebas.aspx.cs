@@ -216,12 +216,40 @@ namespace SAPS.Fronteras
          */
         protected void btn_lista_pdp_click(object sender, EventArgs e)
         {
-
+            string nombre_proyecto = ((Button)sender).Text;
+            int id_proyecto = buscar_id_proyecto(nombre_proyecto);
+            llena_campos_proyecto(id_proyecto);
+            activa_desactiva_botones_ime(true);
+            activa_desactiva_inputs(false);
         }
 
         // ------------------------------------------
         // |    Metodos auxiliares de la clase      |
         // ------------------------------------------
+
+        /** @brief Metodo realiza una consulta y llena los campos en la interfaz con la informacion del proyecto consultado.
+         * @param El id del proyecto a consultar.
+         */
+        private void llena_campos_proyecto(int id_proyecto)
+        {
+            DataTable datos_proyecto = m_controladora_pdp.consultar_proyecto(id_proyecto);
+            int id_oficina = Convert.ToInt32(datos_proyecto.Rows[0]["id_oficina"]);
+            llena_campos_oficina(id_oficina);
+            input_system.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_sistema"]);
+            input_start_date.Text = Convert.ToString(datos_proyecto.Rows[0]["fecha_inicio"]);
+            input_asignment_date.Text = Convert.ToString(datos_proyecto.Rows[0]["fecha_asignacion"]);
+            input_finish_date.Text = Convert.ToString(datos_proyecto.Rows[0]["fecha_final"]);
+            input_objective.Text = Convert.ToString(datos_proyecto.Rows[0]["obj_general"]);
+            input_process.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_proyecto"]);
+        }
+
+        /** @brief Metodo que realiza una consulta y llena los campos en la interfaz con la informacion de la oficina consultada.
+         * @param El id de la oficina a consultar.
+         */
+        private void llena_campos_oficina(int id_oficina)
+        {
+            // TO DO --> faltan los metodos de la controladora, de la bd y el procedimiento almacenado para consultar una oficina!!
+        }
 
         /** @brief Metodo que vacia las oficinas disponibles.
          */
@@ -736,18 +764,16 @@ namespace SAPS.Fronteras
             return respuesta;
         }
 
-        /**@brief Metodo que recorre la tabla de resultados buscando el id asociado a un proyecto de pruebas.
+        /**@brief Metodo que recorre la tabla de resultados buscando el id asociado a un nombre de proyecto de pruebas.
         */
         private int buscar_id_proyecto(string nombre_proyecto)
         {
             int id = 0;
-            string temp;
             for (int i = 0; i < m_tamano_tabla_pdp; ++i)
             {
-                if (m_tabla_proyectos_disponibles[i, 0].ToString().Equals(nombre_proyecto))
+                if (Convert.ToString(m_tabla_proyectos_disponibles[i, 1]).Equals(nombre_proyecto))
                 {
-                    temp = m_tabla_proyectos_disponibles[i, 1].ToString();
-                    id = Int32.Parse(temp);
+                    id = Convert.ToInt32(m_tabla_proyectos_disponibles[i, 0]);
                 }
             }
             return id;

@@ -366,27 +366,19 @@ namespace SAPS.Fronteras
         private void llena_informacion_consulta(string username)
         {
             DataTable tabla_informacion = m_controladora_rh.consultar_recurso_humano(username);
-            if (tabla_informacion.Rows.Count > 0)
+            input_name.Text = tabla_informacion.Rows[0]["nombre"].ToString();
+            input_usuario.Text = username;
+            input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
+            input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
+            input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
+            if (tabla_informacion.Rows[0]["es_administrador"].Equals(0))
             {
-                input_name.Text = tabla_informacion.Rows[0]["nombre"].ToString();
-                input_usuario.Text = username;
-                input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
-                input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
-                input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
-                if (tabla_informacion.Rows[0]["es_administrador"].Equals(0))
-                {
-                    radio_btn_miembro.Checked = true;
-                }
-                else
-                {
-                    radio_btn_administrador.Checked = true;
-                }
+                radio_btn_miembro.Checked = true;
             }
             else
             {
-                // TO TO
+                radio_btn_administrador.Checked = true;
             }
-
         }
 
         /** @brief Metodo que busca en la tabla de [username, nombre] el username correspondiente a un nombre.
