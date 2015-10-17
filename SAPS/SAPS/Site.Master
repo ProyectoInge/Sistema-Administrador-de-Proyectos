@@ -64,7 +64,7 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" title="Saludo">Hola, <%: Context.User.Identity.GetUserName()  %></a></li>
                                 <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Salir" LogoutPageUrl="~/Codigo_Fuente/Fronteras/InterfazLogin" OnLoggingOut="Unnamed_LoggingOut" />
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Salir" LogoutPageUrl="~/Codigo_Fuente/Fronteras/InterfazLogin" OnLoggingOut="btn_salir_Click"/>
                                 </li>
                             </ul>
                         </LoggedInTemplate>

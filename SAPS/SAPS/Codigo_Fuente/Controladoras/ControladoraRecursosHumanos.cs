@@ -114,13 +114,31 @@ namespace SAPS.Controladoras
             return resultado_autenticacion;              
         }
 
-        /** @brief Método que cierra la sesión iniciada en una computadora.
+        /** @brief Método que inicia la sesión para un usuario.
+         * @param nombre_usuario usuario cuya sesion se desea iniciar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int cerrar_sesion() 
+        public int iniciar_sesion(string nombre_usuario)
         {
-            /// @todo cerrar sesion
-            return 0;
+            return m_base_datos.iniciar_sesion(nombre_usuario);
+        }
+
+        /** @brief Método que cierra la sesión iniciada en una computadora.
+         * @param nombre_usuario usuario cuya sesion se desea cerrar.
+         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         */
+        public int cerrar_sesion(string nombre_usuario) 
+        {
+            return m_base_datos.cerrar_sesion(nombre_usuario);           
+        }
+
+        /** @brief Método que consulta el estado de la sesion de un nombre de usuario
+         * @param nombre_usuario usuario cuya sesion se desea consultar.
+         * @return 0 si la sesion no esta iniciada, 1 si está iniciada
+         */
+        public bool consultar_sesion(string nombre_usuario)
+        {
+            return m_base_datos.consultar_sesion(nombre_usuario);
         }
     }
 }

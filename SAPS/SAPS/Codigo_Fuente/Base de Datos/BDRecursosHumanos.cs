@@ -121,6 +121,42 @@ namespace SAPS.Base_de_Datos
         }
 
 
+        /** @brief Método que realiza la setencia SQL para cambiar el estado del bit de "sesion" de un usuario a encendido, marcando la sesion como iniciada
+        * @param nombre_usuario del recuros humano que se desea consultar.
+        * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+       */
+        public int iniciar_sesion(string nombre_usuario)
+        {
+            SqlCommand comando = new SqlCommand("INICIAR_SESION");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
+            return m_data_base_adapter.ejecutar_consulta(comando);
+        }
+
+        /** @brief Método que realiza la setencia SQL para cambiar el estado del bit de "sesion" de un usuario a apagado, marcando la sesion como cerrada
+        * @param nombre_usuario del recuros humano que se desea consultar.
+        * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+       */
+        public int cerrar_sesion(string nombre_usuario)
+        {
+            SqlCommand comando = new SqlCommand("CERRAR_SESION");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
+            return m_data_base_adapter.ejecutar_consulta(comando);
+        }
+
+        /** @brief Método que realiza la setencia SQL para consultar si un usuario tiene sesion iniciada o no
+        * @param nombre_usuario del recuros humano que se desea consultar.
+        * @return 0 si el usuario no tiene sesion iniciada, 1 si sí la tiene iniciada
+       */
+        public bool consultar_sesion(string nombre_usuario)
+        {
+            SqlCommand comando = new SqlCommand("ESTADO_SESION");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
+            return (bool)m_data_base_adapter.obtener_resultado_consulta(comando).Rows[0]["sesion_iniciada"];
+        }
+
         // Métodos auxiliares
 
         /** @brief Método auxiliar que rellena los parámetros de un recurso humano para poder realizar un procedimiento almacenado.
