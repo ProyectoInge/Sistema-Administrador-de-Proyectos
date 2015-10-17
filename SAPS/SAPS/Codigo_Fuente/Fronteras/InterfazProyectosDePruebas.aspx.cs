@@ -28,6 +28,8 @@ namespace SAPS.Fronteras
 
         private Object[,] m_tabla_resultados; //posicion: 0-> nombre proyecto, 1-> id_proyecto
         private int m_tamano_tabla;
+        private static int m_tamano_tabla_oficinas;
+        private Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina, 1 --> nombre_oficinas
 
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
         */
@@ -48,6 +50,7 @@ namespace SAPS.Fronteras
             // Se llenan las tablas de Grid
             //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.                                        
             llena_proyectos_de_pruebas();
+            llena_oficinas_disponibles();
 
         }
 
@@ -152,12 +155,12 @@ namespace SAPS.Fronteras
 
         protected void btn_modal_cancelar_oficina_Click(object sender, EventArgs e)
         {
-
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_agregar_oficina", "$('#modal_agregar_oficina').modal('hide');", true);
+            upModalOficina.Update();
         }
 
         protected void btn_modal_agregar_oficina_Click(object sender, EventArgs e)
         {
-            // TO DO --> todavia no muestra mensaje de confirmacion o de error.
             if (valida_campos_oficina())
             {
                 Object[] datos = new Object[5];
@@ -202,7 +205,6 @@ namespace SAPS.Fronteras
 
         /** @brief Habilita o deshabilita todas las areas de texto o input dadas al usuario
                    en la interfaz.
-
         */
         private void activa_desactiva_inputs(bool estado)
         {
@@ -227,6 +229,22 @@ namespace SAPS.Fronteras
             // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
         }
 
+        /** @brief Metodo que se encarga de llenar el dropbox con las oficinas disponibles.
+         */
+        private void llena_oficinas_disponibles()
+        {
+            DataTable tabla_oficinas = m_controladora_pdp.solicitar_oficinas_disponibles();
+            m_tamano_tabla_oficinas = tabla_oficinas.Rows.Count;
+            m_tabla_oficinas_disponibles = new Object[m_tamano_tabla_oficinas, 2];
+            for (int i = 0; i < m_tamano_tabla_oficinas; ++i)
+            {
+                m_tabla_oficinas_disponibles[i, 0] = Convert.ToInt32(tabla_oficinas.Rows[i]["id_oficina"]);
+                m_tabla_oficinas_disponibles[i, 1] = Convert.ToString(tabla_oficinas.Rows[i]["nombre_oficina"]);
+                ListItem item_oficina = new ListItem();
+                item_oficina.Text = Convert.ToString(m_tabla_oficinas_disponibles[i, 1]);
+                drop_oficina_asociada.Items.Add(item_oficina);
+            }
+        }
         /** @brief Se encarga de llenar la tabla de proyectos de pruebas que contiene a todos los proyectos, dentro de la base de datos.
         **/
         private void llena_proyectos_de_pruebas()

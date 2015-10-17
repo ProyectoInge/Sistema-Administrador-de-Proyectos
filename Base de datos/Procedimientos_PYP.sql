@@ -74,7 +74,8 @@ AS BEGIN
 	SELECT	Oficina.id_oficina,
 			Oficina.nombre_oficina,
 			Oficina.telefono,
-			Oficina.telefono2
+			Oficina.telefono2,
+			Oficina.nom_representante
 	FROM	Oficina
 	END
 GO

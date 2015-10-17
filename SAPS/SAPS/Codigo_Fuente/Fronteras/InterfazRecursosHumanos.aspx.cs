@@ -55,7 +55,7 @@ namespace SAPS.Fronteras
                     btn_reestablece_contrasena.Visible = true;
                 }
                 llena_recursos_humanos();
-                llena_proyectos();
+                llena_proyectos_disponibles();
             }
             else
             {
@@ -183,14 +183,14 @@ namespace SAPS.Fronteras
 
         /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
         */
-        private void llena_proyectos()
+        private void llena_proyectos_disponibles()
         {
             DataTable tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
             m_tamano_tabla_pdp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             for (int i = 0; i < m_tamano_tabla_pdp; ++i)
             {
-                m_tabla_proyectos_disponibles[i, 0] = (int)tabla_proyectos.Rows[i]["id_proyecto"];
+                m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_proyectos.Rows[i]["id_proyecto"]);
                 m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();
                 ListItem item_proyecto = new ListItem();
                 item_proyecto.Text = m_tabla_proyectos_disponibles[i, 1].ToString();
@@ -301,7 +301,7 @@ namespace SAPS.Fronteras
                 m_tabla_recursos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
                 btn.ID = "btn_lista_" + i.ToString();
                 btn.Text = m_tabla_recursos_disponibles[i, 1];
-                btn.CssClass = "btn btn-link btn-block btn-sm";
+                btn.CssClass = "btn btn-link btn-sm";
                 btn.Click += new EventHandler(btn_lista_rh_click);
                 if (tabla_de_datos.Rows[i]["id_proyecto"].ToString() == "")
                 {

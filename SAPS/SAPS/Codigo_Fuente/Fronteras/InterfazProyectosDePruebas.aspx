@@ -223,7 +223,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-danger" ID="btn_modal_cancelar_oficina" Text="Cancelar" runat="server" data-dismiss="modal"/>
+                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-default" ID="btn_modal_cancelar_oficina" Text="Volver" runat="server" data-dismiss="modal"/>
                                 <asp:Button OnClick="btn_modal_agregar_oficina_Click" CssClass="btn btn-success" ID="btn_modal_agregar_oficina" Text="Agregar" runat="server" />
                             </div>
                         </div>
