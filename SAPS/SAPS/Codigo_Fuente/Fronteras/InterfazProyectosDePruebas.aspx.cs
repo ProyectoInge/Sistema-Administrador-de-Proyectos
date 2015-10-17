@@ -25,16 +25,11 @@ namespace SAPS.Fronteras
 
         private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
         private static char opcion_tomada;                          // i= insertar, m= modificar, e= eliminar
-
-<<<<<<< HEAD
-        private Object[,] m_tabla_resultados; //posicion: 0-> nombre proyecto, 1-> id_proyecto
-        private int m_tamano_tabla;
         private static int m_tamano_tabla_oficinas;
         private Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina, 1 --> nombre_oficinas
-=======
+
         private Object[,] m_tabla_proyectos_disponibles; //posicion: 0-> nombre proyecto, 1-> id_proyecto
         private static int m_tamano_tabla_pdp;
->>>>>>> origin/Sprint-1
 
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
         */
@@ -248,7 +243,6 @@ namespace SAPS.Fronteras
         {
             // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
         }
-<<<<<<< HEAD
 
         /** @brief Metodo que se encarga de llenar el dropbox con las oficinas disponibles.
          */
@@ -268,10 +262,6 @@ namespace SAPS.Fronteras
         }
         /** @brief Se encarga de llenar la tabla de proyectos de pruebas que contiene a todos los proyectos, dentro de la base de datos.
         **/
-=======
-        /** @brief Llena el área de consulta con los recursos humanos que hay en la base de datos.
-                        Para esto crea la tabla dinámicamente.*/
->>>>>>> origin/Sprint-1
         private void llena_proyectos_de_pruebas()
         {
                 
