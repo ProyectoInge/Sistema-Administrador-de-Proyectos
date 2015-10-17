@@ -10,11 +10,10 @@
     </section>
     <section id="alertas">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-3">
                 <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <b>
-                        <asp:Label runat="server" ID="titulo_alerta" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
                 </div>
             </div>
         </div>

@@ -46,7 +46,7 @@ namespace SAPS.Fronteras
                 activa_desactiva_botones_ime(false);
                 mensaje_error_modal.Visible = false;
                 mensaje_exito_modal.Visible = false;
-                if (m_opcion == 'i')
+                if (m_opcion != 'e')
                 {
                     btn_reestablece_contrasena.Visible = false;
                 }

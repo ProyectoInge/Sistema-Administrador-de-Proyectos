@@ -54,19 +54,6 @@ namespace SAPS.Fronteras
 
         }
 
-        /** @brief Una vez que el usuario selecciona un proyecto del Grid, se activa el evento btn_lista_click
-                    permitiendo que se bloqueen elementos de entrada y se habiliten botones de edicion
-         * @param Los parametros por default de un evento de C#.
-        */
-        private void btn_lista_click(object sender, EventArgs e)
-        {
-            activa_desactiva_botones_ime(true);
-            activa_desactiva_inputs(false);
-
-            // cargar los datos del proyecto en los campos especificos
-
-        }
-
         /** @brief Boton encargado de cancelar todos los cambios realizados por el usuario al proyecto de pruebas.
         * @param Los parametros por default de un evento de C#.
         */
@@ -210,10 +197,10 @@ namespace SAPS.Fronteras
             }
         }
 
-        /** @brief Método que se activa cuando el usuario selecciona un elemento de la lista de proyectos disponibles, se encarga de llenar los campos con la
-                   información respectiva al proyecto que se seleccionó.
+        /** @brief Una vez que el usuario selecciona un proyecto del Grid, se activa el evento btn_lista_click
+                    permitiendo que se bloqueen elementos de entrada y se habiliten botones de edicion
          * @param Los parametros por default de un evento de C#.
-         */
+        */
         protected void btn_lista_pdp_click(object sender, EventArgs e)
         {
             string nombre_proyecto = ((Button)sender).Text;

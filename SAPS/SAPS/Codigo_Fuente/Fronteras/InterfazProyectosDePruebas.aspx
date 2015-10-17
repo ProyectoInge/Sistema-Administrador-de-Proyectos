@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
                 <div class="btn-group" role="group">
-                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_crear" Enabled="true" Text="Ingresar" OnClick="btn_crear_click" />
+                    <asp:Button runat="server" CssClass="btn btn-default active" ID="btn_crear" Enabled="true" Text="Ingresar" OnClick="btn_crear_click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Enabled="false" Text="Modificar" OnClick="btn_modificar_click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_eliminar" Enabled="false" Text="Eliminar" OnClick="btn_eliminar_click" />
                 </div>
@@ -24,8 +24,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <b>
-                        <asp:Label runat="server" ID="titulo_alerta" Text="¡Error! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
                 </div>
                 <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -34,8 +33,7 @@
                 </div>
                 <div class="alert alert-warning alert-dismissible" id="alerta_advertencia" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <b>
-                        <asp:Label runat="server" ID="label_alerta_advertencia" Text="¡Advertencia! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_advertencia"></asp:Label>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_alerta_advertencia"></asp:Label>
                 </div>
             </div>
         </div>
@@ -46,35 +44,41 @@
             <div id="panel_izquierda" class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">** CAMBIAR **</div>
+                        <div class="panel-title">Datos del proyecto</div>
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_izq" class="form-group">
                                 <div class="col-md-12">
+                                    <asp:Label runat="server" AssociatedControlID="input_process" CssClass="control-label">Nombre del Proyecto</asp:Label>
+                                    <asp:TextBox runat="server" ID="input_process" CssClass="form-control" />
+                                </div>
+                            </div>
+                            <div id="row2_izq" class="form-group">
+                                <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_system" CssClass="control-label">Nombre del Sistema</asp:Label>
                                     <asp:TextBox runat="server" ID="input_system" CssClass="form-control" />
                                 </div>
                             </div>
-                            <div id="row2_izq" class="form-group">
+                            <div id="row3_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_start_date" CssClass="control-label">Fecha de inicio</asp:Label>
                                     <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" />
                                 </div>
                             </div>
-                            <div id="row3_izq" class="form-group">
+                            <div id="row4_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_asignment_date" CssClass="control-label">Fecha de asignación</asp:Label>
                                     <asp:TextBox runat="server" ID="input_asignment_date" CssClass="form-control" />
                                 </div>
                             </div>
-                            <div id="row4_izq" class="form-group">
+                            <div id="row5_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_finish_date" CssClass="control-label">Fecha de finalización</asp:Label>
                                     <asp:TextBox runat="server" ID="input_finish_date" CssClass="form-control" />
                                 </div>
                             </div>
-                            <div id="row5_izq" class="form-group">
+                            <div id="ro6_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo</asp:Label>
                                     <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="5" TextMode="multiline" />
@@ -87,17 +91,11 @@
             <div id="panel_derecho" class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">** CAMBIAR **</div>
+                        <div class="panel-title">Datos oficina asociada</div>
                     </div>
                     <div class="panel-body">
                         <div class="form-hotizontal">
                             <div id="row1_der" class="form-group">
-                                <div class="col-md-12">
-                                    <asp:Label runat="server" AssociatedControlID="input_process" CssClass="control-label">Nombre del Proyecto</asp:Label>
-                                    <asp:TextBox runat="server" ID="input_process" CssClass="form-control" />
-                                </div>
-                            </div>
-                            <div id="row2_der" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Estado del proyecto</asp:Label>
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
@@ -109,7 +107,7 @@
                                     </asp:DropDownList>
                                 </div>
                             </div>
-                            <div id="row3_der" class="form-group">
+                            <div id="row2_der" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Oficina usuaria</asp:Label>
                                     <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control">
@@ -117,13 +115,13 @@
                                     <asp:Button runat="server" CssClass="btn btn-link btn-sm" ID="btn_agregar_oficina" Text="¿Desea agregar una nueva oficina?" OnClick="btn_agregar_oficina_Click" />
                                 </div>
                             </div>
-                            <div id="row4_der" class="form-group">
+                            <div id="row3_der" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Representante de la oficina</asp:Label>
                                     <asp:TextBox runat="server" ID="input_manager_office" CssClass="form-control" />
                                 </div>
                             </div>
-                            <div id="row5_der" class="form-group">
+                            <div id="row4_der" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_phone1" CssClass="control-label">Teléfonos de la oficina</asp:Label>
                                     <asp:TextBox runat="server" ID="input_phone1" CssClass="form-control" />
@@ -137,27 +135,28 @@
             </div>
         </div>
     </section>
+    <!-- ESTA TABLA ES PARA EL SEGUNDO SPRINT
     <section id="label_lista_ddp" class="row">
         <div class="col-md-11 col-md-offset-1">
             <h4>Diseños de Pruebas</h4>
         </div>
         <br />
-        <section id="area_consultas_disenos" class="col-md-offset-2">
+        <section id="area_consultas_disenos"">
             <div class="row">
-                <div class="col-md-10" style="height: 200px; overflow-y: scroll">
+                <div class="col-md-8 col-md-offset-2" style="height: 200px; overflow-y: scroll">
                     <asp:Table runat="server" ID="tabla_disenos_de_prueba" CssClass="table table-hover form-group">
                     </asp:Table>
                 </div>
             </div>
         </section>
         <br />
-        <br />
-        <section id="botones_aceptar_cancelar">
-            <div class="col-md-3 col-md-offset-9">
-                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_aceptar_click" />
-                <asp:Button runat="server" CssClass="btn btn-danger" ID="Button2" Text="Cancelar" OnClick="btn_cancelar_click" />
-            </div>
-        </section>
+        -->
+    <br />
+    <section id="botones_aceptar_cancelar">
+        <div class="col-md-3 col-md-offset-9">
+            <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_aceptar_click" />
+            <asp:Button runat="server" CssClass="btn btn-danger" ID="Button2" Text="Cancelar" OnClick="btn_cancelar_click" />
+        </div>
     </section>
     <section id="linea_separadora">
         <div class="row">
@@ -214,10 +213,10 @@
                                     <div id="row2_modal" class="form-group">
                                         <div class="col-md-12">
                                             <div class="alert alert-success" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
-                                                <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
                                             </div>
                                             <div class="alert alert-danger" id="alerta_error_oficina_cuerpo" role="alert" aria-hidden="true" runat="server">
-                                                <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
+                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
                                             </div>
                                         </div>
                                     </div>
