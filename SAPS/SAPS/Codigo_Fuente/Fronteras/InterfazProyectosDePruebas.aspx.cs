@@ -235,7 +235,7 @@ namespace SAPS.Fronteras
          */
         private void llena_campos_oficina(int id_oficina)
         {
-            // TO DO --> faltan los metodos de la controladora, de la bd y el procedimiento almacenado para consultar una oficina!!
+            // TO DO --> faltan los metodos de la controladora y de la bd  para consultar una oficina!!
         }
 
         /** @brief Metodo que vacia las oficinas disponibles.

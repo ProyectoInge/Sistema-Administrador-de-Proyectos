@@ -116,6 +116,19 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
+        /** @brief Método que realiza la setencia SQL para conultar una oficina en específico.
+         * @param id de la oficina que se desea consultar.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable consultar_oficina(int id_oficina)
+        {
+            //Procedimiento almacenado
+            SqlCommand comando = new SqlCommand("CONSULTAR_OFICINA");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_oficina", SqlDbType.Int).Value = id_oficina;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
 
         // Métodos auxiliares
 
