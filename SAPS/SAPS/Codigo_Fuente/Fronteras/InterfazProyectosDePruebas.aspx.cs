@@ -235,7 +235,13 @@ namespace SAPS.Fronteras
          */
         private void llena_campos_oficina(int id_oficina)
         {
-            // TO DO --> faltan los metodos de la controladora y de la bd  para consultar una oficina!!
+            DataTable datos_oficina = m_controladora_pdp.consultar_oficina(id_oficina);
+            input_manager_office.Text = Convert.ToString(datos_oficina.Rows[0]["nom_representante"]);
+            input_phone1.Text = Convert.ToString(datos_oficina.Rows[0]["telefono"]);
+            input_phone2.Text = Convert.ToString(datos_oficina.Rows[0]["telefono2"]);
+            // Seleccionar el nombre de la oficina en el dropbox
+            string nombre_oficina = Convert.ToString(datos_oficina.Rows[0]["nombre_oficina"]);
+            drop_oficina_asociada.Items.FindByText(nombre_oficina).Selected = true; // Selecciona la oficina correspondiente
         }
 
         /** @brief Metodo que vacia las oficinas disponibles.
@@ -324,8 +330,9 @@ namespace SAPS.Fronteras
             }
             if (encontrado)
             {
-                a_retornar[0, 0] = Convert.ToString(m_tabla_oficinas_disponibles[index, 1]);
-                a_retornar[0, 1] = Convert.ToString(m_tabla_oficinas_disponibles[index, 2]);
+                // se le resta 1 al index debido al ultimo incremento que se hace en el while
+                a_retornar[0, 0] = Convert.ToString(m_tabla_oficinas_disponibles[index-1, 1]);
+                a_retornar[0, 1] = Convert.ToString(m_tabla_oficinas_disponibles[index-1, 2]);
             }
             return a_retornar;
         }
