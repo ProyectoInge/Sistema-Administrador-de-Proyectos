@@ -5,7 +5,7 @@
  * Sistema Administrador de Proyectos de Software (SAPS)
  * II Semestre 2015
 */
-﻿using System;
+using System;
 using System.Data;
 using SAPS.Entidades;
 using SAPS.Base_de_Datos;
@@ -56,12 +56,21 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar un proyecto de pruebas en específico.
-         * @param id_proyecto con el nombre del proyecto que se desea cosultar.
+         * @param id_proyecto con el identificador del proyecto que se desea cosultar.
          * @return DataTable con los resultados de la consultas.
          */
         public DataTable consultar_proyecto(int id_proyecto)
         {
             return m_base_datos_pdp.consultar_proyecto(id_proyecto);
+        }
+
+        /** @brief Método que asigna las operaciones necesarias para poder consultar una oficina en específico.
+         * @param id_oficina con el identificador del proyecto que se desea cosultar.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable consultar_oficina(int id_oficina)
+        {
+            return m_base_datos_pdp.consultar_oficina(id_oficina);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar las oficibas disponibles.
