@@ -29,8 +29,8 @@
                 </div>
                 <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <b>
-                        <asp:Label runat="server" ID="Label1" Text="¡Éxito! "></asp:Label></b><asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
                 </div>
                 <div class="alert alert-warning alert-dismissible" id="alerta_advertencia" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -101,11 +101,11 @@
                                 <div class="col-md-12">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Estado del proyecto</asp:Label>
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="Pendiente de asignación" Value="0"></asp:ListItem>
-                                        <asp:ListItem Text="Asignado" Value="1"></asp:ListItem>
-                                        <asp:ListItem Text="En ejecución" Value="2"></asp:ListItem>
-                                        <asp:ListItem Text="Finalizado" Value="3"></asp:ListItem>
-                                        <asp:ListItem Text="Cerrado" Value="4"></asp:ListItem>
+                                        <asp:ListItem Text="Pendiente de asignación"></asp:ListItem>
+                                        <asp:ListItem Text="Asignado"></asp:ListItem>
+                                        <asp:ListItem Text="En ejecución"></asp:ListItem>
+                                        <asp:ListItem Text="Finalizado"></asp:ListItem>
+                                        <asp:ListItem Text="Cerrado"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -251,15 +251,18 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                    <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label></div>
+                                        <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
-                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <asp:Label runat="server" ID="Label2" Text="Se eliminó correctamente el proyecto."></asp:Label>
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="Label2" Text="Se eliminó correctamente el proyecto."></asp:Label>
                                         </div>
                                         <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
-                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente el proyecto."></asp:Label>
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente el proyecto."></asp:Label>
                                         </div>
                                     </div>
                                 </div>

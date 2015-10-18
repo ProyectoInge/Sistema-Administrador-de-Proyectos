@@ -602,6 +602,7 @@ namespace SAPS.Fronteras
                                             datos[7] = input_asignment_date.Text;
                                             datos[8] = input_finish_date.Text;
 
+                                            // TO DO --> Todavia no se logra insertar correctamente los proyectos, da un "execution error" desde la base.
                                             int resultado = m_controladora_pdp.insertar_proyecto(datos);
                                             if (resultado == 0)
                                             {
@@ -610,7 +611,7 @@ namespace SAPS.Fronteras
                                             }
                                             else
                                             {
-                                                cuerpo_alerta_exito.Text = " No se ha insertado un nuevo proyecto correctamente.";
+                                                cuerpo_alerta_error.Text = " No se logró insertar el proyecto, intente nuevamente.";
                                             }
 
                                         }// Objetivo
