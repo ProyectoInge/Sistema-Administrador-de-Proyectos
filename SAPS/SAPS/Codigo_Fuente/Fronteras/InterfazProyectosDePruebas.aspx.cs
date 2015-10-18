@@ -35,22 +35,29 @@ namespace SAPS.Fronteras
         */
         protected void Page_Load(object sender, EventArgs e)
         {
-            alerta_error.Visible = false;
-            alerta_exito.Visible = false;
-            alerta_advertencia.Visible = false;
-            alerta_exito_oficina.Visible = false;
-            alerta_error_oficina_cuerpo.Visible = false;
+            if (Request.IsAuthenticated)
+            {
+                alerta_error.Visible = false;
+                alerta_exito.Visible = false;
+                alerta_advertencia.Visible = false;
+                alerta_exito_oficina.Visible = false;
+                alerta_error_oficina_cuerpo.Visible = false;
 
-            m_controladora_pdp = new ControladoraProyectoPruebas();
-            opcion_tomada = 'i';
-            activa_desactiva_botones_ime(false);
-            input_manager_office.Enabled = false;
-            input_phone1.Enabled = false;
-            input_phone2.Enabled = false;
-            // Se llenan las tablas de Grid
-            //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas. 
-            actualiza_drop_oficinas();  // ** OJO, actualiza_drop_oficinas se tiene que llamar ANTES que llena_proyectos_de_pruebas SIEMPRE!!
-            llena_proyectos_de_pruebas();
+                m_controladora_pdp = new ControladoraProyectoPruebas();
+                opcion_tomada = 'i';
+                activa_desactiva_botones_ime(false);
+                input_manager_office.Enabled = false;
+                input_phone1.Enabled = false;
+                input_phone2.Enabled = false;
+                // Se llenan las tablas de Grid
+                //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas. 
+                actualiza_drop_oficinas();  // ** OJO, actualiza_drop_oficinas se tiene que llamar ANTES que llena_proyectos_de_pruebas SIEMPRE!!
+                llena_proyectos_de_pruebas();
+            }
+            else
+            {
+                Response.Redirect("InterfazLogin.aspx");
+            }
 
         }
 
@@ -331,8 +338,8 @@ namespace SAPS.Fronteras
             if (encontrado)
             {
                 // se le resta 1 al index debido al ultimo incremento que se hace en el while
-                a_retornar[0, 0] = Convert.ToString(m_tabla_oficinas_disponibles[index-1, 1]);
-                a_retornar[0, 1] = Convert.ToString(m_tabla_oficinas_disponibles[index-1, 2]);
+                a_retornar[0, 0] = Convert.ToString(m_tabla_oficinas_disponibles[index - 1, 1]);
+                a_retornar[0, 1] = Convert.ToString(m_tabla_oficinas_disponibles[index - 1, 2]);
             }
             return a_retornar;
         }

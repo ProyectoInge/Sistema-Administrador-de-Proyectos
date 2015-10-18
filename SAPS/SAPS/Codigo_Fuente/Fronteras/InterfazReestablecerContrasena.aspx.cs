@@ -15,12 +15,19 @@ namespace SAPS.Fronteras
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            m_controladora_rh = new ControladoraRecursosHumanos();
-            m_nombre_usuario = Request.QueryString["u"];
-            input_usuario.Text = m_nombre_usuario;
-            input_usuario.Enabled = false;
-            alerta_error.Visible = false;
-            alerta_exito.Visible = false;
+            if (Request.IsAuthenticated)
+            {
+                m_controladora_rh = new ControladoraRecursosHumanos();
+                m_nombre_usuario = Request.QueryString["u"];
+                input_usuario.Text = m_nombre_usuario;
+                input_usuario.Enabled = false;
+                alerta_error.Visible = false;
+                alerta_exito.Visible = false;
+            }
+            else
+            {
+                Response.Redirect("InterfazLogin.aspx");
+            }
         }
 
         protected void btn_cancelar_Click(object sender, EventArgs e)
@@ -45,15 +52,15 @@ namespace SAPS.Fronteras
             bool a_retornar = false;
             if (input_usuario.Text != "")
             {
-                if(input_nueva_contrasena1.Text != "")
+                if (input_nueva_contrasena1.Text != "")
                 {
-                    if(input_nueva_contrasena2.Text != "")
+                    if (input_nueva_contrasena2.Text != "")
                     {
                         bool resultado_comparacion = input_nueva_contrasena1.Text.Equals(input_nueva_contrasena2.Text);
-                        if(resultado_comparacion)
+                        if (resultado_comparacion)
                         {
                             int resultado_reestablecer = m_controladora_rh.restablecer_contrasena(input_usuario.Text, input_nueva_contrasena1.Text); //hace el cambio de contraseña
-                            if(resultado_reestablecer != -1)
+                            if (resultado_reestablecer != -1)
                             {
                                 cuerpo_alerta_exito.Text = " Tuvo éxito al reestablecer la contraseña.";
                                 a_retornar = true;
