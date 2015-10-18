@@ -26,8 +26,8 @@ namespace SAPS.Fronteras
         private ControladoraProyectoPruebas m_controladora_pdp;
         private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
 
-        private string[,] m_tabla_recursos_disponibles; //posicion: 0 --> username, 1 --> nombre
-        private Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto, 1 --> nombre proyecto
+        private static string[,] m_tabla_recursos_disponibles; //posicion: 0 --> username, 1 --> nombre
+        private static Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto, 1 --> nombre proyecto
         private static int m_tamano_tabla_rh;
         private static int m_tamano_tabla_pdp;
 
@@ -54,8 +54,12 @@ namespace SAPS.Fronteras
                 {
                     btn_reestablece_contrasena.Visible = true;
                 }
+
+                if (!IsPostBack)
+                {
+                    actualiza_proyectos();
+                }
                 actualiza_tabla_recursos_humanos();
-                actualiza_proyectos();
             }
             else
             {
@@ -206,6 +210,7 @@ namespace SAPS.Fronteras
                 m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();
                 ListItem item_proyecto = new ListItem();
                 item_proyecto.Text = m_tabla_proyectos_disponibles[i, 1].ToString();
+                item_proyecto.Value = Convert.ToString(m_tabla_proyectos_disponibles[i, 0]);
                 drop_proyecto_asociado.Items.Add(item_proyecto);
             }
 
@@ -321,7 +326,8 @@ namespace SAPS.Fronteras
                 }
                 else
                 {
-                    // TO DO --> hacer la consulta con el id y que me de el nombre del proyecto
+                    int id_proyecto_asociado = Convert.ToInt32(tabla_de_datos.Rows[i]["id_proyecto"]);
+                    drop_proyecto_asociado.Items.FindByValue(Convert.ToString(id_proyecto_asociado));
                 }
 
                 if (tabla_de_datos.Rows[i]["rol"].ToString() == "")

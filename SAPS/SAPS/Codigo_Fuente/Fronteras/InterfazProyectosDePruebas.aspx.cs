@@ -26,9 +26,9 @@ namespace SAPS.Fronteras
         private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
         private static char m_opcion_tomada;                          // i= insertar, m= modificar, e= eliminar
         private static int m_tamano_tabla_oficinas;
-        private Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina (int), 1 --> nombre_oficinas (string), 2 --> representante (string)
+        private static Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina (int), 1 --> nombre_oficinas (string), 2 --> representante (string)
 
-        private Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto (int), 1 --> nombre_proyecto (string)
+        private static Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto (int), 1 --> nombre_proyecto (string)
         private static int m_tamano_tabla_pdp;
 
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
@@ -50,8 +50,11 @@ namespace SAPS.Fronteras
                 input_phone1.Enabled = false;
                 input_phone2.Enabled = false;
                 // Se llenan las tablas de Grid
-                //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas. 
-                actualiza_drop_oficinas();  // ** OJO, actualiza_drop_oficinas se tiene que llamar ANTES que llena_proyectos_de_pruebas SIEMPRE!!
+                //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
+                if (!IsPostBack)
+                {
+                    actualiza_drop_oficinas();  // ** OJO, actualiza_drop_oficinas se tiene que llamar ANTES que llena_proyectos_de_pruebas SIEMPRE!!
+                }
                 llena_proyectos_de_pruebas();
             }
             else
@@ -335,6 +338,7 @@ namespace SAPS.Fronteras
                 m_tabla_oficinas_disponibles[i, 2] = Convert.ToString(tabla_oficinas.Rows[i]["nom_representante"]);
                 ListItem item_oficina = new ListItem();
                 item_oficina.Text = Convert.ToString(m_tabla_oficinas_disponibles[i, 1]);
+                item_oficina.Value = Convert.ToString(m_tabla_oficinas_disponibles[i, 0]);
                 drop_oficina_asociada.Items.Add(item_oficina);
             }
         }
@@ -508,6 +512,9 @@ namespace SAPS.Fronteras
             input_phone2.Text = "";
             input_manager_office.Text = "";
             input_objective.Text = "";
+            input_asignment_date.Text = "";
+            input_finish_date.Text = "";
+            input_start_date.Text = "";
             m_opcion_tomada = 'i';
             activa_desactiva_inputs(true);
             btn_eliminar.CssClass = "btn btn-default";
@@ -592,10 +599,9 @@ namespace SAPS.Fronteras
                                         {
                                             Object[] datos = new Object[9];                                 // En la insercion de proyecto, aun no se posee el id del mismo,
                                             datos[0] = -1;                                                  // este se genera en la base de datos por lo que se envia un -1.
-                                            int id_oficina_asociada = busca_id_oficina(drop_oficina_asociada.Text);
-                                            datos[1] = id_oficina_asociada;
+                                            datos[1] = Convert.ToInt32(drop_oficina_asociada.SelectedValue);
                                             datos[2] = input_system.Text;
-                                            datos[3] = drop_estado_proyecto.Text;
+                                            datos[3] = drop_estado_proyecto.SelectedItem.Text;
                                             datos[4] = input_objective.Text;
                                             datos[5] = input_process.Text;
                                             datos[6] = input_start_date.Text;
@@ -612,6 +618,7 @@ namespace SAPS.Fronteras
                                             else
                                             {
                                                 cuerpo_alerta_error.Text = " No se logró insertar el proyecto, intente nuevamente.";
+                                                respuesta = false;
                                             }
 
                                         }// Objetivo
@@ -724,10 +731,9 @@ namespace SAPS.Fronteras
                                         {
                                             Object[] datos = new Object[9];
                                             datos[0] = buscar_id_proyecto(input_process.Text);
-                                            int id_oficina_asociada = busca_id_oficina(drop_oficina_asociada.Text);
-                                            datos[1] = id_oficina_asociada;
+                                            datos[1] = busca_id_oficina(drop_oficina_asociada.SelectedItem.Text);
                                             datos[2] = input_system.Text;
-                                            datos[3] = drop_estado_proyecto.Text;
+                                            datos[3] = drop_estado_proyecto.SelectedItem.Text;
                                             datos[4] = input_objective.Text;
                                             datos[5] = input_process.Text;
                                             datos[6] = input_start_date.Text;

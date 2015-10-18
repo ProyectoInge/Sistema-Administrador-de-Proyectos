@@ -103,7 +103,7 @@
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
                                         <asp:ListItem Text="Pendiente de asignación"></asp:ListItem>
                                         <asp:ListItem Text="Asignado"></asp:ListItem>
-                                        <asp:ListItem Text="En ejecución"></asp:ListItem>
+                                        <asp:ListItem Text="En ejecución" ></asp:ListItem>
                                         <asp:ListItem Text="Finalizado"></asp:ListItem>
                                         <asp:ListItem Text="Cerrado"></asp:ListItem>
                                     </asp:DropDownList>
