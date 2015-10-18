@@ -7,6 +7,7 @@ DROP PROCEDURE CONSULTAR_PYP
 DROP PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 DROP PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
 DROP PROCEDURE INSERTAR_OFICINA
+DROP PROCEDURE CONSULTAR_OFICINA
 
 
 GO
@@ -90,4 +91,16 @@ AS
 		(nombre_oficina, telefono, telefono2, nom_representante)
 	VALUES
 		(@nombre_oficina, @telefono, @telefono2, @nom_representante) 
+GO
+
+GO
+CREATE PROCEDURE CONSULTAR_OFICINA
+	@id_oficina int
+AS
+	SELECT Oficina.nombre_oficina,
+			Oficina.telefono,
+			Oficina.telefono2,
+			Oficina.nom_representante
+	FROM Oficina
+	WHERE Oficina.id_oficina = @id_oficina
 GO
