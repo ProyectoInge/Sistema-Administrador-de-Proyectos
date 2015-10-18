@@ -200,7 +200,7 @@
                                 </div>
                                 <br />
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-10 col-md-offset-1">
                                         <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
                                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="Se eliminó correctamente el recurso humano."></asp:Label>
                                         </div>

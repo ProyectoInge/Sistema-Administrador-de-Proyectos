@@ -24,7 +24,8 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
                 </div>
                 <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -33,7 +34,8 @@
                 </div>
                 <div class="alert alert-warning alert-dismissible" id="alerta_advertencia" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_alerta_advertencia"></asp:Label>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <asp:Label runat="server" ID="cuerpo_alerta_advertencia"></asp:Label>
                 </div>
             </div>
         </div>
@@ -213,10 +215,12 @@
                                     <div id="row2_modal" class="form-group">
                                         <div class="col-md-12">
                                             <div class="alert alert-success" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
-                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
                                             </div>
                                             <div class="alert alert-danger" id="alerta_error_oficina_cuerpo" role="alert" aria-hidden="true" runat="server">
-                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
+                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
                                             </div>
                                         </div>
                                     </div>
@@ -245,7 +249,20 @@
                                 </h4>
                             </div>
                             <div class="modal-body">
-                                <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <asp:Label runat="server" ID="Label2" Text="Se eliminó correctamente el proyecto."></asp:Label>
+                                        </div>
+                                        <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente el proyecto."></asp:Label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <asp:Button OnClick="btn_modal_confirmar_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Cancelar" runat="server" />

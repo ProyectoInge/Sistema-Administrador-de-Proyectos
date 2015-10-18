@@ -434,7 +434,7 @@ namespace SAPS.Fronteras
             else
             {
                 cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
-                alerta_error.Visible = true;
+                alerta_error.Visible = false;
                 SetFocus(input_usuario);
             }
             return a_retornar;
@@ -679,6 +679,9 @@ namespace SAPS.Fronteras
             return a_retornar;
         }
 
+        /** @brief Evento que ocurre cuando el usuario confirma que quiere eliminar el recurso humano, va y realiza el cambio en la base de datos.
+         * @param Los parametros por default de un evento de C#.
+         */
         protected void btn_modal_aceptar_Click(object sender, EventArgs e)
         {
 
@@ -696,6 +699,9 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Evento que ocurre cuando el usuario se quiere devolver del modal de confirmar eliminacion del recurso humano, cierra el modal.
+         * @param Los parametros por default de un evento de C#.
+         */
         protected void btn_modal_cancelar_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);

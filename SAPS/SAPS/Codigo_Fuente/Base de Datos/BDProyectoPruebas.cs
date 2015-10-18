@@ -140,7 +140,7 @@ namespace SAPS.Base_de_Datos
         private void rellenar_parametros_proyecto_pruebas(ref SqlCommand comando, ProyectoPruebas proyecto)
         {
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = proyecto.id; // TO DO --> en teoria esto no hay que enviarlo xq se genera solo
+            comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = proyecto.id;
             comando.Parameters.Add("@id_oficina", SqlDbType.Int).Value = proyecto.id_oficina;
             comando.Parameters.Add("@fecha_inicio", SqlDbType.VarChar).Value = proyecto.fecha_inicio;
             comando.Parameters.Add("@fecha_asignacion", SqlDbType.VarChar).Value = proyecto.fecha_asignacion;
