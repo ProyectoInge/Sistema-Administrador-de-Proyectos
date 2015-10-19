@@ -47,6 +47,7 @@ namespace SAPS.Fronteras
                 activa_desactiva_botones_ime(false);
                 mensaje_error_modal.Visible = false;
                 mensaje_exito_modal.Visible = false;
+                m_opcion = 'i';
                 if (m_opcion != 'e')
                 {
                     btn_reestablece_contrasena.Visible = false;
@@ -59,7 +60,6 @@ namespace SAPS.Fronteras
                 if (!IsPostBack)
                 {
                     actualiza_proyectos();
-                    m_opcion = 'i';
                 }
                 actualiza_tabla_recursos_humanos();
             }
@@ -183,6 +183,21 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default ";
         }
 
+        /** @brief Metodo que se activa cuando el usuario cancela el cambio de contraseña, cierra el modal.
+         * @param Los parametros por default de un evento de C#.
+        */
+        protected void btn_modal_confirmar_cancelar_Click(object sender, EventArgs e)
+        {
+            // TO DO
+        }
+
+        /** @brief Metodo que se activa cuando el usuario acepta que quiere cambiar la contraseña, va y realiza el cambio en la base de datos.
+         * @param Los parametros por default de un evento de C#.
+        */
+        protected void btn_modal_confirmar_aceptar_Click(object sender, EventArgs e)
+        {
+            // TO DO
+        }
         // ------------------------------------------------------------------------------------------------------------------------------
         // |                                                Metodos auxiliares de la clase                                              |
         // ------------------------------------------------------------------------------------------------------------------------------
