@@ -71,18 +71,18 @@
                             </div>
                             <div id="row3_izq" class="form-group">
                                 <div class="col-md-5">
-                                    <asp:Label runat="server" AssociatedControlID="input_start_date" CssClass="control-label">Fecha de inicio</asp:Label>
-                                </div>
-                                <div class="col-md-7">
-                                    <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" TextMode="Date" />
-                                </div>
-                            </div>
-                            <div id="row4_izq" class="form-group">
-                                <div class="col-md-5">
                                     <asp:Label runat="server" AssociatedControlID="input_asignment_date" CssClass="control-label">Fecha de asignación</asp:Label>
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_asignment_date" CssClass="form-control" TextMode="Date" />
+                                </div>
+                            </div>
+                            <div id="row4_izq" class="form-group">
+                                <div class="col-md-5">
+                                    <asp:Label runat="server" AssociatedControlID="input_start_date" CssClass="control-label">Fecha de inicio</asp:Label>
+                                </div>
+                                <div class="col-md-7">
+                                    <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" TextMode="Date" />
                                 </div>
                             </div>
                             <div id="row5_izq" class="form-group">
@@ -132,7 +132,7 @@
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:Button runat="server" CssClass="btn btn-link btn-sm" ID="btn_agregar_oficina" Text="¿Desea agregar una nueva oficina?" OnClick="btn_agregar_oficina_Click" />      
+                                    <asp:Button runat="server" CssClass="btn btn-link btn-sm" ID="btn_agregar_oficina" Text="¿Desea agregar una nueva oficina?" OnClick="btn_agregar_oficina_Click" />
                                 </div>
                             </div>
                             <div id="row3_der" class="form-group">
@@ -149,11 +149,16 @@
                                     <asp:TextBox runat="server" ID="input_phone2" CssClass="form-control" />
                                 </div>
                             </div>
-                        </div> <!-- Form horizontal -->
-                    </div> <!-- Panel body -->
-                </div><!-- Panel -->
-            </div><!-- Panel derecho -->
-        </div> <!-- Row -->
+                        </div>
+                        <!-- Form horizontal -->
+                    </div>
+                    <!-- Panel body -->
+                </div>
+                <!-- Panel -->
+            </div>
+            <!-- Panel derecho -->
+        </div>
+        <!-- Row -->
     </section>
     <!-- ESTA TABLA ES PARA EL SEGUNDO SPRINT
     <section id="label_lista_ddp" class="row">

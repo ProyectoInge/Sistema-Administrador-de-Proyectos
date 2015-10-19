@@ -260,6 +260,10 @@ namespace SAPS.Fronteras
             input_finish_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_final"]).ToString("dd/MM/yyyy");
             input_objective.Text = Convert.ToString(datos_proyecto.Rows[0]["obj_general"]);
             input_process.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_proyecto"]);
+
+            input_asignment_date.DataBind();
+            input_finish_date.DataBind();
+            input_start_date.DataBind();
         }
 
         /** @brief Metodo que realiza una consulta y llena los campos en la interfaz con la informacion de la oficina consultada.

@@ -209,7 +209,7 @@ namespace SAPS.Fronteras
                 m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_proyectos.Rows[i]["id_proyecto"]);
                 m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();
                 ListItem item_proyecto = new ListItem();
-                item_proyecto.Text = m_tabla_proyectos_disponibles[i, 1].ToString();
+                item_proyecto.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
                 item_proyecto.Value = Convert.ToString(m_tabla_proyectos_disponibles[i, 0]);
                 drop_proyecto_asociado.Items.Add(item_proyecto);
             }
@@ -327,7 +327,7 @@ namespace SAPS.Fronteras
                 else
                 {
                     int id_proyecto_asociado = Convert.ToInt32(tabla_de_datos.Rows[i]["id_proyecto"]);
-                    drop_proyecto_asociado.Items.FindByValue(Convert.ToString(id_proyecto_asociado));
+                    celda_proyecto.Text = drop_proyecto_asociado.Items.FindByValue(Convert.ToString(id_proyecto_asociado)).Text;
                 }
 
                 if (tabla_de_datos.Rows[i]["rol"].ToString() == "")
@@ -336,7 +336,7 @@ namespace SAPS.Fronteras
                 }
                 else
                 {
-                    celda_proyecto.Text = tabla_de_datos.Rows[i]["rol"].ToString();
+                    celda_rol.Text = Convert.ToString(tabla_de_datos.Rows[i]["rol"]);
                 }
                 celda_boton.Controls.AddAt(0, btn);
                 fila.Cells.AddAt(0, celda_boton);
@@ -380,10 +380,12 @@ namespace SAPS.Fronteras
             if (tabla_informacion.Rows[0]["es_administrador"].Equals(0))
             {
                 radio_btn_miembro.Checked = true;
+                radio_btn_administrador.Checked = false;
             }
             else
             {
                 radio_btn_administrador.Checked = true;
+                radio_btn_miembro.Checked = false;
             }
         }
 
@@ -472,36 +474,38 @@ namespace SAPS.Fronteras
                                         {
                                             if (radio_btn_administrador.Checked == true || radio_btn_miembro.Checked == true)
                                             {
+                                                Object[] datos = new Object[9];
+                                                datos[0] = input_usuario.Text;
+                                                datos[1] = input_name.Text;
+                                                datos[2] = input_correo.Text;
+                                                datos[3] = input_telefono.Text;
+                                                datos[5] = input_contrasena.Text;
+                                                datos[7] = input_cedula.Text;
                                                 if (radio_btn_miembro.Checked == true)
                                                 {
-                                                    // TO DO --> agarrar los campos de rol y proyecto
+                                                    datos[6] = false; //no es admi
+                                                    datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
+                                                    datos[8] = drop_rol.SelectedItem.Text;
                                                 }
                                                 else
                                                 {
-                                                    Object[] datos = new Object[9];
-                                                    datos[0] = input_usuario.Text;
-                                                    datos[1] = input_name.Text;
-                                                    datos[2] = input_correo.Text;
-                                                    datos[3] = input_telefono.Text;
+                                                    datos[6] = true; //es admi
                                                     datos[4] = "";  //es admi entonces no tiene proyecto asociado
-                                                    datos[5] = input_contrasena.Text;
-                                                    datos[6] = true;
-                                                    datos[7] = input_cedula.Text;
                                                     datos[8] = "";  //es admi entonces no tiene un rol asociado
+                                                }
 
-                                                    int resultado = m_controladora_rh.insertar_recurso_humano(datos);
-                                                    if (resultado == 0)
-                                                    {
-                                                        cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
-                                                        actualiza_tabla_recursos_humanos();
-                                                        btn_modificar.Enabled = true;
-                                                        a_retornar = true;
-                                                    }
-                                                    else
-                                                    {
-                                                        cuerpo_alerta_error.Text = " Hubo un error al ingresar el recurso humano, intentelo nuevamente.";
-                                                        a_retornar = false;
-                                                    }
+                                                int resultado = m_controladora_rh.insertar_recurso_humano(datos);
+                                                if (resultado == 0)
+                                                {
+                                                    cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
+                                                    actualiza_tabla_recursos_humanos();
+                                                    btn_modificar.Enabled = true;
+                                                    a_retornar = true;
+                                                }
+                                                else
+                                                {
+                                                    cuerpo_alerta_error.Text = " Hubo un error al ingresar el recurso humano, intentelo nuevamente.";
+                                                    a_retornar = false;
                                                 }
                                             }
                                             else
@@ -594,36 +598,37 @@ namespace SAPS.Fronteras
                                     {
                                         if (radio_btn_administrador.Checked == true || radio_btn_miembro.Checked == true)
                                         {
+                                            Object[] datos = new Object[9];
+                                            datos[0] = input_usuario.Text;
+                                            datos[1] = input_name.Text;
+                                            datos[2] = input_correo.Text;
+                                            datos[3] = input_telefono.Text;
+                                            datos[7] = input_cedula.Text;
                                             if (radio_btn_miembro.Checked == true)
                                             {
-                                                // TO DO --> agarrar los campos de rol y proyecto
+                                                datos[6] = false;   //no es admi
+                                                datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
+                                                datos[8] = drop_rol.SelectedItem.Text;
                                             }
                                             else
                                             {
-                                                Object[] datos = new Object[9];
-                                                datos[0] = input_usuario.Text;
-                                                datos[1] = input_name.Text;
-                                                datos[2] = input_correo.Text;
-                                                datos[3] = input_telefono.Text;
+                                                datos[6] = true; //es admi
                                                 datos[4] = "";  //es admi entonces no tiene proyecto asociado
-                                                datos[5] = "";  //como esta modificando, envia la contraseña vacia
-                                                datos[6] = true;
-                                                datos[7] = input_cedula.Text;
                                                 datos[8] = "";  //es admi entonces no tiene un rol asociado
+                                            }
 
-                                                int resultado = m_controladora_rh.modificar_recurso_humano(datos);
-                                                if (resultado == 0)
-                                                {
-                                                    cuerpo_alerta_exito.Text = " Se modificó el recurso humano correctamente.";
-                                                    actualiza_tabla_recursos_humanos();
-                                                    btn_modificar.Enabled = true;
-                                                    a_retornar = true;
-                                                }
-                                                else
-                                                {
-                                                    cuerpo_alerta_error.Text = " Hubo un error al modificar el recurso humano, intentelo nuevamente.";
-                                                    a_retornar = false;
-                                                }
+                                            int resultado = m_controladora_rh.modificar_recurso_humano(datos);
+                                            if (resultado == 0)
+                                            {
+                                                cuerpo_alerta_exito.Text = " Se modificó el recurso humano correctamente.";
+                                                actualiza_tabla_recursos_humanos();
+                                                btn_modificar.Enabled = true;
+                                                a_retornar = true;
+                                            }
+                                            else
+                                            {
+                                                cuerpo_alerta_error.Text = " Hubo un error al modificar el recurso humano, intentelo nuevamente.";
+                                                a_retornar = false;
                                             }
                                         }
                                         else

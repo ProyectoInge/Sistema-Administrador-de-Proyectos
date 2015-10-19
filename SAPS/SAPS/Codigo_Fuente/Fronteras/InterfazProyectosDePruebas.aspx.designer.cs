@@ -112,15 +112,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_system;
         
         /// <summary>
-        /// input_start_date control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_start_date;
-        
-        /// <summary>
         /// input_asignment_date control.
         /// </summary>
         /// <remarks>
@@ -128,6 +119,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_asignment_date;
+        
+        /// <summary>
+        /// input_start_date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_start_date;
         
         /// <summary>
         /// input_finish_date control.
