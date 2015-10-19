@@ -157,6 +157,18 @@ namespace SAPS.Base_de_Datos
             return (bool)m_data_base_adapter.obtener_resultado_consulta(comando).Rows[0]["sesion_iniciada"];
         }
 
+        /** @brief Método que realiza la setencia SQL para consultar si un usuario tiene sesion iniciada o no
+                * @param nombre_usuario del recuros humano que se desea consultar.
+                * @return 0 si el usuario no tiene sesion iniciada, 1 si sí la tiene iniciada
+               */
+        public bool es_administrador(string nombre_usuario)
+        {
+            SqlCommand comando = new SqlCommand("ES_ADMINISTRADOR");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
+            return (bool)m_data_base_adapter.obtener_resultado_consulta(comando).Rows[0]["es_administrador"];
+        }
+
         // Métodos auxiliares
 
         /** @brief Método auxiliar que rellena los parámetros de un recurso humano para poder realizar un procedimiento almacenado.

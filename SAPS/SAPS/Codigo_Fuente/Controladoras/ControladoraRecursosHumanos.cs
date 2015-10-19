@@ -140,5 +140,11 @@ namespace SAPS.Controladoras
         {
             return m_base_datos.consultar_sesion(nombre_usuario);
         }
+
+        public bool es_administrador(string nombre_usuario)
+        {
+            return m_base_datos.es_administrador(nombre_usuario);
+        }
+        
     }
 }
