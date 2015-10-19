@@ -30,7 +30,7 @@ CREATE PROCEDURE MODIFICAR_RH
 	@username varchar(64), @cedula varchar(16), @id_proyecto int, @telefono varchar(16), @nombre varchar(64), @hashed varchar(256), @correo varchar(64), @rol varchar(64), @admin bit
 AS
 	UPDATE RecursosHumanos
-		SET cedula = @cedula, id_proyecto = @id_proyecto, telefono = @telefono, nombre = @nombre, contrasena = @hashed, correo = @correo, rol = @rol, es_administrador = @admin
+		SET cedula = @cedula, id_proyecto = @id_proyecto, telefono = @telefono, nombre = @nombre,  correo = @correo, rol = @rol, es_administrador = @admin
 		WHERE username = @username
 GO
 
