@@ -25,7 +25,7 @@ namespace SAPS.Fronteras
     {
 
         private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
-        private static char m_opcion_tomada;                          // i= insertar, m= modificar, e= eliminar
+        private static char m_opcion_tomada = 'i';                          // i= insertar, m= modificar, e= eliminar
         private static int m_tamano_tabla_oficinas;
         private static Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina (int), 1 --> nombre_oficinas (string), 2 --> representante (string)
 
@@ -45,7 +45,6 @@ namespace SAPS.Fronteras
                 alerta_error_oficina_cuerpo.Visible = false;
 
                 m_controladora_pdp = new ControladoraProyectoPruebas();
-                m_opcion_tomada = 'i';
                 activa_desactiva_botones_ime(false);
                 input_manager_office.Enabled = false;
                 input_phone1.Enabled = false;

@@ -364,6 +364,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label label_modal_error_reestablecer;
         
         /// <summary>
+        /// alerta_exito_reestablecer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito_reestablecer;
+        
+        /// <summary>
+        /// label_modal_exito control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_modal_exito;
+        
+        /// <summary>
         /// label_modal_reestablecer_usuario control.
         /// </summary>
         /// <remarks>

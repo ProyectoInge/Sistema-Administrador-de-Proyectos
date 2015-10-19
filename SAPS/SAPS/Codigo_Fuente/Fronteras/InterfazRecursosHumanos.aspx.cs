@@ -47,7 +47,9 @@ namespace SAPS.Fronteras
                 activa_desactiva_botones_ime(false);
                 mensaje_error_modal.Visible = false;
                 mensaje_exito_modal.Visible = false;
-                m_opcion = 'i';
+                modal_reestablecer_input_usuario.Enabled = false;
+                alerta_error_reestablecer.Visible = false;
+                alerta_exito_reestablecer.Visible = false;
                 if (m_opcion != 'e')
                 {
                     btn_reestablece_contrasena.Visible = false;
@@ -188,7 +190,6 @@ namespace SAPS.Fronteras
         */
         protected void btn_modal_reestablecer_cancelar_Click(object sender, EventArgs e)
         {
-            // TO DO
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_reestablece_contrasena", "$('#modal_reestablece_contrasena').modal('hide');", true);
             update_modal_contrasena.Visible = false;
             update_modal_contrasena.Update();
@@ -199,9 +200,16 @@ namespace SAPS.Fronteras
         */
         protected void btn_modal_reestablecer_aceptar_Click(object sender, EventArgs e)
         {
-            // TO DO
+            if (reestalecer_contrasena())
+            {
+                alerta_exito_reestablecer.Visible = true;
+            }
+            else
+            {
+                alerta_error_reestablecer.Visible = true;
+            }
+            update_modal_contrasena.Update();
         }
-
 
         /** @brief Evento que ocurre cuando el usuario confirma que quiere eliminar el recurso humano, va y realiza el cambio en la base de datos.
          * @param Los parametros por default de un evento de C#.
@@ -239,7 +247,6 @@ namespace SAPS.Fronteras
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_reestablece_contrasena", "$('#modal_reestablece_contrasena').modal();", true);
             update_modal_contrasena.Visible = true;
-            modal_reestablecer_input_usuario.Enabled = false;
             modal_reestablecer_input_usuario.Text = input_usuario.Text;
             update_modal_contrasena.Update();
         }
@@ -768,6 +775,40 @@ namespace SAPS.Fronteras
                 cuerpo_alerta_error.Text = "Es necesario ingresar un nombre.";
                 SetFocus(input_name);
                 a_retornar = false;
+            }
+            return a_retornar;
+        }
+
+        /** @brief Metodo que valida campos para reestablecer la contraseña y si no hay ningún error, hace el cambio de la contraseña
+         */
+        private bool reestalecer_contrasena()
+        {
+            bool a_retornar = false;
+            if (modal_reestablecer_input_contrasena_1.Text != "" && modal_reestablecer_input_contrasena_2.Text != "")
+            {
+                if (modal_reestablecer_input_contrasena_1.Text.Equals(modal_reestablecer_input_contrasena_2.Text))
+                {
+                    int resultado_reestablecer = m_controladora_rh.restablecer_contrasena(modal_reestablecer_input_usuario.Text, modal_reestablecer_input_contrasena_1.Text); //hace el cambio de contraseña
+                    if (resultado_reestablecer != -1)
+                    {
+                        a_retornar = true;
+                    }
+                    else
+                    {
+                        label_modal_error_reestablecer.Text = " Se presentó un error al reestablecer la contraseña, intentelo nuevamente.";
+                    }
+                }
+                else
+                {
+                    label_modal_error_reestablecer.Text = " Las contraseñas no coinciden.";
+                    SetFocus(modal_reestablecer_input_contrasena_1);
+
+                }
+            }
+            else
+            {
+                label_modal_error_reestablecer.Text = " Es necesario que ingrese los campos de contraseñas.";
+                SetFocus(modal_reestablecer_input_contrasena_1);
             }
             return a_retornar;
         }

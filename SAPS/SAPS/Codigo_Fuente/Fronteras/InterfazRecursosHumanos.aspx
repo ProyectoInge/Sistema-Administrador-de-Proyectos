@@ -254,7 +254,12 @@
                                                                 <div class="alert alert-danger alert-dismissible" id="alerta_error_reestablecer" role="alert" aria-hidden="true" runat="server">
                                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                                                    <asp:Label runat="server" ID="label_modal_error_reestablecer">No se pudo reestablecer la contraseña, intente nuevamente.</asp:Label>
+                                                                    <asp:Label runat="server" ID="label_modal_error_reestablecer"></asp:Label>
+                                                                </div>
+                                                                <div class="alert alert-success alert-dismissible" id="alerta_exito_reestablecer" role="alert" aria-hidden="true" runat="server">
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                                    <asp:Label runat="server" ID="label_modal_exito">Se reestableció correctamente la contraseña.</asp:Label>
                                                                 </div>
                                                             </div>
                                                         </div>
