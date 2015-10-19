@@ -30,6 +30,7 @@ namespace SAPS.Fronteras
         private static Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto, 1 --> nombre proyecto
         private static int m_tamano_tabla_rh;
         private static int m_tamano_tabla_pdp;
+        private static string m_username_rh_mostrado = "";
 
         /** @brief Metodo que se llama al cargar la página.
         */
@@ -78,6 +79,7 @@ namespace SAPS.Fronteras
         {
             string nombre_usuario = ((Button)sender).Text;
             string username = buscar_usuario(nombre_usuario);
+            m_username_rh_mostrado = username;
             llena_informacion_consulta(username);
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
@@ -687,10 +689,11 @@ namespace SAPS.Fronteras
                                         if (radio_btn_administrador.Checked == true || radio_btn_miembro.Checked == true)
                                         {
                                             Object[] datos = new Object[9];
-                                            datos[0] = input_usuario.Text;
+                                            datos[0] = m_username_rh_mostrado;
                                             datos[1] = input_name.Text;
                                             datos[2] = input_correo.Text;
                                             datos[3] = input_telefono.Text;
+                                            datos[5] = "";
                                             datos[7] = input_cedula.Text;
                                             if (radio_btn_miembro.Checked == true)
                                             {
