@@ -382,20 +382,7 @@ namespace SAPS.Fronteras
             DataTable tabla_de_datos = m_controladora_pdp.solicitar_proyectos_disponibles();
             m_tamano_tabla_pdp = tabla_de_datos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
-            TableHeaderRow header = new TableHeaderRow();
-            TableHeaderCell celda_header_nombre = new TableHeaderCell();
-            TableHeaderCell celda_header_estado = new TableHeaderCell();
-            TableHeaderCell celda_header_oficina = new TableHeaderCell();
-            TableHeaderCell celda_header_encargado = new TableHeaderCell();
-            celda_header_nombre.Text = "Nombre del proyecto";
-            header.Cells.AddAt(0, celda_header_nombre);
-            celda_header_estado.Text = "Estado del proyecto";
-            header.Cells.AddAt(1, celda_header_estado);
-            celda_header_oficina.Text = "Oficina asociada";
-            header.Cells.AddAt(2, celda_header_oficina);
-            celda_header_encargado.Text = "Encargado del proyecto";
-            header.Cells.AddAt(3, celda_header_encargado);
-            tabla_proyectos_de_pruebas.Rows.Add(header);
+            crea_encabezado_tabla_proyectos();
             for (int i = 0; i < m_tamano_tabla_pdp; ++i)
             {
                 TableRow fila = new TableRow();
@@ -416,13 +403,33 @@ namespace SAPS.Fronteras
                 fila.Cells.AddAt(0, celda_boton);
                 celda_estado.Text = Convert.ToString(tabla_de_datos.Rows[i]["estado"]);
                 fila.Cells.AddAt(1, celda_estado);
-                info_oficina = busca_info_oficina(Convert.ToInt32(m_tabla_proyectos_disponibles[i, 0]));
+                info_oficina = busca_info_oficina(Convert.ToInt32(tabla_de_datos.Rows[i]["id_oficina"]));
                 celda_oficina.Text = info_oficina[0, 0];
                 fila.Cells.AddAt(2, celda_oficina);
                 celda_encargado.Text = info_oficina[0, 1];
                 fila.Cells.AddAt(3, celda_encargado);
                 tabla_proyectos_de_pruebas.Rows.Add(fila);
             }
+        }
+
+        /** @brief Metodo que crea el encabezado para la tabla de los proyectos.
+         */
+        private void crea_encabezado_tabla_proyectos()
+        {
+            TableHeaderRow header = new TableHeaderRow();
+            TableHeaderCell celda_header_nombre = new TableHeaderCell();
+            TableHeaderCell celda_header_estado = new TableHeaderCell();
+            TableHeaderCell celda_header_oficina = new TableHeaderCell();
+            TableHeaderCell celda_header_encargado = new TableHeaderCell();
+            celda_header_nombre.Text = "Nombre del proyecto";
+            header.Cells.AddAt(0, celda_header_nombre);
+            celda_header_estado.Text = "Estado del proyecto";
+            header.Cells.AddAt(1, celda_header_estado);
+            celda_header_oficina.Text = "Oficina asociada";
+            header.Cells.AddAt(2, celda_header_oficina);
+            celda_header_encargado.Text = "Encargado de la oficina";
+            header.Cells.AddAt(3, celda_header_encargado);
+            tabla_proyectos_de_pruebas.Rows.Add(header);
         }
 
         /** @brief Metodo que verifica que los campos ingresados para la oficina sean válidos.

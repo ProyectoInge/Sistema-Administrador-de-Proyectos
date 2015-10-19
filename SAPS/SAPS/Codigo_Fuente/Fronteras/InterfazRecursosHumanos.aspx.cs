@@ -296,17 +296,7 @@ namespace SAPS.Fronteras
             DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
             m_tamano_tabla_rh = tabla_de_datos.Rows.Count;
             m_tabla_recursos_disponibles = new string[m_tamano_tabla_rh, 2];
-            TableHeaderRow header = new TableHeaderRow();
-            TableHeaderCell celda_header_nombre = new TableHeaderCell();
-            TableHeaderCell celda_header_proyecto = new TableHeaderCell();
-            TableHeaderCell celda_header_rol = new TableHeaderCell();
-            celda_header_nombre.Text = "Nombre del usuario";
-            header.Cells.AddAt(0, celda_header_nombre);
-            celda_header_proyecto.Text = "Proyecto asociado";
-            header.Cells.AddAt(1, celda_header_proyecto);
-            celda_header_rol.Text = "Rol";
-            header.Cells.AddAt(2, celda_header_rol);
-            tabla_recursos_humanos.Rows.Add(header);
+            crea_encabezado_tabla_rh();
             for (int i = 0; i < m_tamano_tabla_rh; ++i)
             {
                 TableRow fila = new TableRow();
@@ -346,6 +336,22 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Metodo que crea el encabezado para la tabla de los recursos humanos.
+        */
+        private void crea_encabezado_tabla_rh()
+        {
+            TableHeaderRow header = new TableHeaderRow();
+            TableHeaderCell celda_header_nombre = new TableHeaderCell();
+            TableHeaderCell celda_header_proyecto = new TableHeaderCell();
+            TableHeaderCell celda_header_rol = new TableHeaderCell();
+            celda_header_nombre.Text = "Nombre del usuario";
+            header.Cells.AddAt(0, celda_header_nombre);
+            celda_header_proyecto.Text = "Proyecto asociado";
+            header.Cells.AddAt(1, celda_header_proyecto);
+            celda_header_rol.Text = "Rol";
+            header.Cells.AddAt(2, celda_header_rol);
+            tabla_recursos_humanos.Rows.Add(header);
+        }
         /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora y realiza la operación respectiva.
          */
         private bool validar_campos()

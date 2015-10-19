@@ -64,9 +64,8 @@ CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 	SELECT	ProyectoPruebas.nombre_proyecto,
 			ProyectoPruebas.id_proyecto,
 			ProyectoPruebas.estado,
-			Oficina.nombre_oficina
-	FROM	ProyectoPruebas JOIN Oficina
-	ON		ProyectoPruebas.id_oficina = Oficina.id_oficina
+			ProyectoPruebas.id_oficina
+	FROM ProyectoPruebas
 	END
 GO
 
