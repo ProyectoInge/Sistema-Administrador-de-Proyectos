@@ -12,7 +12,7 @@ body {
 }
 
 /* Para hacer sombra a los elementos */
-.shadow{
+.shadow {
     box-shadow: 3px 3px 3px #80808;
 }
 

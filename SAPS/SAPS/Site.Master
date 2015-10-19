@@ -11,9 +11,8 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
 </head>
 <body>
     <form runat="server">
@@ -56,7 +55,8 @@
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><asp:Button runat="server" CssClass="btn btn-link" Text="Salir" OnClick="btn_salir_Click"/></li>
+                                <li>
+                                    <asp:Button runat="server" CssClass="btn btn-link" Text="Salir" OnClick="btn_salir_Click" /></li>
                                 <li><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazLogin">Salir</a></li>
                             </ul>
                         </AnonymousTemplate>
@@ -64,7 +64,7 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a runat="server" title="Saludo">Hola <%: Context.User.Identity.GetUserName()  %></a></li>
                                 <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Salir" LogoutPageUrl="~/Codigo_Fuente/Fronteras/InterfazLogin" OnLoggingOut="btn_salir_Click"/>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Salir" LogoutPageUrl="~/Codigo_Fuente/Fronteras/InterfazLogin" OnLoggingOut="btn_salir_Click" />
                                 </li>
                             </ul>
                         </LoggedInTemplate>
@@ -72,12 +72,16 @@
                 </div>
             </div>
         </div>
-        <div class="container body-content">
+        <div class="container-fluid body-content" id="cuerpo" runat="server">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - SAPS</p>
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <p>&copy; <%: DateTime.Now.Year %> - SAPS</p>
+                    </div>
+                </div>
             </footer>
         </div>
     </form>

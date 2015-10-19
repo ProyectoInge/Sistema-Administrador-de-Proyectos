@@ -2,8 +2,12 @@
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
     <section id="page_header">
-        <div class="page-header">
-            <h1>SAPS <small>Recursos humanos</small></h1>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="page-header">
+                    <h1>SAPS <small>Recursos humanos</small></h1>
+                </div>
+            </div>
         </div>
     </section>
     <section id="botones_IME">
@@ -23,15 +27,18 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
                 </div>
                 <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
                 </div>
                 <div class="alert alert-warning alert-dismissible" id="alerta_advertencia" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_alerta_advertencia"></asp:Label>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <asp:Label runat="server" ID="cuerpo_alerta_advertencia"></asp:Label>
                 </div>
             </div>
         </div>
@@ -39,7 +46,7 @@
     <br />
     <section id="form">
         <div class="row">
-            <div id="panel_izquierda" class="col-md-6">
+            <div id="panel_izquierda" class="col-md-5 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Datos personales</div>
@@ -82,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div id="panel_derecha" class="col-md-6">
+            <div id="panel_derecha" class="col-md-5">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Otros datos</div>
@@ -202,10 +209,12 @@
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
-                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="Se eliminó correctamente el recurso humano."></asp:Label>
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="Se eliminó correctamente el recurso humano."></asp:Label>
                                         </div>
                                         <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
-                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente el recurso humano."></asp:Label>
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente el recurso humano."></asp:Label>
                                         </div>
                                     </div>
                                 </div>

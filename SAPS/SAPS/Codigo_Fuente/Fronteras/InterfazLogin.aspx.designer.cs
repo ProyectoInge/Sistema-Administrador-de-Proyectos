@@ -31,15 +31,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label cuerpo_alerta_error;
         
         /// <summary>
-        /// label_usuario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_usuario;
-        
-        /// <summary>
         /// input_usuario control.
         /// </summary>
         /// <remarks>
@@ -47,15 +38,6 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_usuario;
-        
-        /// <summary>
-        /// label_contrasena control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_contrasena;
         
         /// <summary>
         /// input_contrasena control.

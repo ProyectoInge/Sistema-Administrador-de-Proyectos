@@ -1,10 +1,13 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
 
 <asp:Content ID="content_pdp" ContentPlaceHolderID="MainContent" runat="server">
-
     <section id="page_header">
-        <div class="page-header">
-            <h1>SAPS <small>Proyectos De Pruebas</small></h1>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="page-header">
+                    <h1>SAPS <small>Proyectos De Pruebas</small></h1>
+                </div>
+            </div>
         </div>
     </section>
     <section id="botones_IME">
@@ -43,7 +46,7 @@
     <br />
     <section id="form">
         <div class="row">
-            <div id="panel_izquierda" class="col-md-6">
+            <div id="panel_izquierda" class="col-md-5 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Datos del proyecto</div>
@@ -51,33 +54,43 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_izq" class="form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-5">
                                     <asp:Label runat="server" AssociatedControlID="input_process" CssClass="control-label">Nombre del Proyecto</asp:Label>
+                                </div>
+                                <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_process" CssClass="form-control" />
                                 </div>
                             </div>
                             <div id="row2_izq" class="form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-5">
                                     <asp:Label runat="server" AssociatedControlID="input_system" CssClass="control-label">Nombre del Sistema</asp:Label>
+                                </div>
+                                <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_system" CssClass="form-control" />
                                 </div>
                             </div>
                             <div id="row3_izq" class="form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-5">
                                     <asp:Label runat="server" AssociatedControlID="input_start_date" CssClass="control-label">Fecha de inicio</asp:Label>
-                                    <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" />
+                                </div>
+                                <div class="col-md-7">
+                                    <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" TextMode="Date" />
                                 </div>
                             </div>
                             <div id="row4_izq" class="form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-5">
                                     <asp:Label runat="server" AssociatedControlID="input_asignment_date" CssClass="control-label">Fecha de asignación</asp:Label>
-                                    <asp:TextBox runat="server" ID="input_asignment_date" CssClass="form-control" />
+                                </div>
+                                <div class="col-md-7">
+                                    <asp:TextBox runat="server" ID="input_asignment_date" CssClass="form-control" TextMode="Date" />
                                 </div>
                             </div>
                             <div id="row5_izq" class="form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-5">
                                     <asp:Label runat="server" AssociatedControlID="input_finish_date" CssClass="control-label">Fecha de finalización</asp:Label>
-                                    <asp:TextBox runat="server" ID="input_finish_date" CssClass="form-control" />
+                                </div>
+                                <div class="col-md-7">
+                                    <asp:TextBox runat="server" ID="input_finish_date" CssClass="form-control" TextMode="Date" />
                                 </div>
                             </div>
                             <div id="ro6_izq" class="form-group">
@@ -90,28 +103,32 @@
                     </div>
                 </div>
             </div>
-            <div id="panel_derecho" class="col-md-6">
+            <div id="panel_derecho" class="col-md-5">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">Datos oficina asociada</div>
+                        <div class="panel-title">Otra información</div>
                     </div>
                     <div class="panel-body">
                         <div class="form-hotizontal">
                             <div id="row1_der" class="form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-5">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Estado del proyecto</asp:Label>
+                                </div>
+                                <div class="col-md-7">
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
                                         <asp:ListItem Text="Pendiente de asignación"></asp:ListItem>
                                         <asp:ListItem Text="Asignado"></asp:ListItem>
-                                        <asp:ListItem Text="En ejecución" ></asp:ListItem>
+                                        <asp:ListItem Text="En ejecución"></asp:ListItem>
                                         <asp:ListItem Text="Finalizado"></asp:ListItem>
                                         <asp:ListItem Text="Cerrado"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
                             <div id="row2_der" class="form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-5">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Oficina usuaria</asp:Label>
+                                </div>
+                                <div class="col-md-7">
                                     <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
                                     <asp:Button runat="server" CssClass="btn btn-link btn-sm" ID="btn_agregar_oficina" Text="¿Desea agregar una nueva oficina?" OnClick="btn_agregar_oficina_Click" />
