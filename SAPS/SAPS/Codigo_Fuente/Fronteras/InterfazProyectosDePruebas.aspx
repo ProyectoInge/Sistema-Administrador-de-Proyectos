@@ -190,13 +190,13 @@
             </div>
         </div>
     </section>
-    <section id="label_lista_pdp" class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <h4>Proyectos de Pruebas</h4>
-        </div>
-    </section>
-    <br />
     <section id="area_consultas">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <h4>Proyectos de Pruebas</h4>
+            </div>
+        </div>
+        <br />
         <div class="row">
             <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_proyectos_de_pruebas" CssClass="table table-hover form-group">
@@ -206,7 +206,7 @@
             </div>
         </div>
     </section>
-    <!-- Modals -->
+    <!-- Area consultas -->
     <section id="modal_agrega_oficina">
         <div class="modal fade bs-example-sm" id="modal_agregar_oficina" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -259,6 +259,7 @@
             </div>
         </div>
     </section>
+    <!-- Modal agregar oficina -->
     <section id="modal_confirmacion">
         <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -285,7 +286,7 @@
                                         </div>
                                         <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
                                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                            <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente el proyecto."></asp:Label>
+                                            <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar el proyecto nuevamente."></asp:Label>
                                         </div>
                                     </div>
                                 </div>
@@ -300,6 +301,7 @@
             </div>
         </div>
     </section>
+    <!-- Modal confirmacion -->
 </asp:Content>
 
 

@@ -242,9 +242,9 @@ namespace SAPS.Fronteras
             activa_desactiva_inputs(false);
         }
 
-        // ------------------------------------------
-        // |    Metodos auxiliares de la clase      |
-        // ------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------
+        // |                                                Metodos auxiliares de la clase                                              |
+        // ------------------------------------------------------------------------------------------------------------------------------
 
         /** @brief Metodo realiza una consulta y llena los campos en la interfaz con la informacion del proyecto consultado.
          * @param El id del proyecto a consultar.

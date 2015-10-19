@@ -170,13 +170,13 @@
             </div>
         </div>
     </section>
-    <section id="label_lista_rh" class="row">
-        <div class="col-md-11 col-md-offset-1">
-            <h4>Recursos humanos disponibles</h4>
-        </div>
-    </section>
-    <br />
     <section id="area_consultas">
+        <div class="row">
+            <div class="col-md-11 col-md-offset-1">
+                <h4>Recursos humanos disponibles</h4>
+            </div>
+        </div>
+        <br />
         <div class="row">
             <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_recursos_humanos" CssClass="table table-hover form-group">
@@ -186,8 +186,8 @@
             </div>
         </div>
     </section>
-    <section id="modal">
-        <!-- Bootstrap Modal Dialog -->
+    <!-- Modals -->
+    <section id="modal_eliminar">
         <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
@@ -229,4 +229,46 @@
             </div>
         </div>
     </section>
+    <!-- Modal eliminar -->
+    <div id="modal_cambio_contrasena">
+        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">
+                                    <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="alert alert-success" id="alerta_exito_contrasena" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="Label4" Text="Se cambió la contraseña correctamente."></asp:Label>
+                                        </div>
+                                        <div class="alert alert-danger alert-dismissible" id="alerta_error_contrasena" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="Label5" Text="Se presentó un error, intente cambiar la contraseña nuevamente."></asp:Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button OnClick="btn_modal_confirmar_cancelar_Click" CssClass="btn btn-defalt" ID="Button1" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_confirmar_aceptar_Click" CssClass="btn btn-primary" ID="Button2" Text="Confirmar" runat="server" />
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </div>
 </asp:Content>

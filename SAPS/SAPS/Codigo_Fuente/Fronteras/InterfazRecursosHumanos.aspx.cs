@@ -31,7 +31,8 @@ namespace SAPS.Fronteras
         private static int m_tamano_tabla_rh;
         private static int m_tamano_tabla_pdp;
 
-        //Metodo que se llama al cargar la página
+        /** @brief Metodo que se llama al cargar la página.
+        */
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.IsAuthenticated)
@@ -58,6 +59,7 @@ namespace SAPS.Fronteras
                 if (!IsPostBack)
                 {
                     actualiza_proyectos();
+                    m_opcion = 'i';
                 }
                 actualiza_tabla_recursos_humanos();
             }
@@ -181,10 +183,12 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default ";
         }
 
-        // ------------------------------------------
-        // |    Metodos auxiliares de la clase      |
-        // ------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------
+        // |                                                Metodos auxiliares de la clase                                              |
+        // ------------------------------------------------------------------------------------------------------------------------------
 
+        /** @brief Metodo que actualiza la tabla de proyectos disponibles con la información más reciente.
+        */
         private void actualiza_proyectos()
         {
             vacia_proyectos();
@@ -192,6 +196,8 @@ namespace SAPS.Fronteras
 
         }
 
+        /** @brief Metodo que vacia por completo la tabla de los proyectos disponibles.
+        */
         private void vacia_proyectos()
         {
             drop_proyecto_asociado.Items.Clear();
@@ -352,6 +358,7 @@ namespace SAPS.Fronteras
             header.Cells.AddAt(2, celda_header_rol);
             tabla_recursos_humanos.Rows.Add(header);
         }
+
         /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora y realiza la operación respectiva.
          */
         private bool validar_campos()
@@ -383,15 +390,21 @@ namespace SAPS.Fronteras
             input_cedula.Text = tabla_informacion.Rows[0]["cedula"].ToString();
             input_correo.Text = tabla_informacion.Rows[0]["correo"].ToString();
             input_telefono.Text = tabla_informacion.Rows[0]["telefono"].ToString();
-            if (tabla_informacion.Rows[0]["es_administrador"].Equals(0))
+            if (Convert.ToBoolean(tabla_informacion.Rows[0]["es_administrador"]))
             {
-                radio_btn_miembro.Checked = true;
-                radio_btn_administrador.Checked = false;
+                radio_btn_miembro.Checked = false;
+                radio_btn_administrador.Checked = true;
+                drop_proyecto_asociado.ClearSelection();
+                drop_rol.ClearSelection();
             }
             else
             {
-                radio_btn_administrador.Checked = true;
-                radio_btn_miembro.Checked = false;
+                radio_btn_miembro.Checked = true;
+                radio_btn_administrador.Checked = false;
+                drop_rol.ClearSelection();
+                drop_rol.Items.FindByText(Convert.ToString(tabla_informacion.Rows[0]["rol"])).Selected = true;
+                drop_proyecto_asociado.ClearSelection();
+                drop_proyecto_asociado.Items.FindByValue(Convert.ToString(tabla_informacion.Rows[0]["id_proyecto"])).Selected = true;
             }
         }
 
@@ -453,6 +466,7 @@ namespace SAPS.Fronteras
             }
             return a_retornar;
         }
+
         /** @brief Metodo que valida los campos que se ocupan para insertar un recurso humano, si no hay problema entonces lo inserta a la base.
         */
         private bool insertar_recurso_humano()
@@ -579,6 +593,7 @@ namespace SAPS.Fronteras
             }
             return a_retornar;
         }
+
         /** @brief Metodo que valida los campos necesarios para modificar un recurso humano y si todo esta bien, lo modifica.
          */
         private bool modificar_recurso_humano()
