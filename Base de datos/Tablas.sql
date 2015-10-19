@@ -28,9 +28,9 @@ create table Oficina(
 create table ProyectoPruebas(
 	id_proyecto			int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	id_oficina			int NOT NULL FOREIGN KEY REFERENCES Oficina(id_oficina),
-	fecha_inicio		date,
-	fecha_asignacion	date,
-	fecha_final			date,
+	fecha_inicio		datetime,
+	fecha_asignacion	datetime,
+	fecha_final			datetime,
 	nombre_sistema		varchar(64) NOT NULL,
 	obj_general			varchar(256),
 	nombre_proyecto		varchar(64),
