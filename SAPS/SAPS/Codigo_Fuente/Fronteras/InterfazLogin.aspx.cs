@@ -28,6 +28,8 @@ namespace SAPS.Fronteras
         protected void Page_Load(object sender, EventArgs e)
         {
             HtmlGenericControl nav_bar = (HtmlGenericControl)Page.Master.FindControl("navigation_bar"); //para ocultar el navbar
+            HtmlGenericControl cuerpo = (HtmlGenericControl)Page.Master.FindControl("cuerpo");
+            cuerpo.Attributes.Add("class", "container-fluid body-content");
             nav_bar.Style.Add("display", "none");
             m_controladora_rh = new ControladoraRecursosHumanos();
             alerta_error.Visible = false;

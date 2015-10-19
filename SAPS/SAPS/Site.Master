@@ -37,7 +37,7 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div runat="server" class="navbar navbar-inverse navbar-fixed-top" id="navigation_bar">
+        <div runat="server" class="navbar navbar-default navbar-fixed-top" id="navigation_bar">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -72,7 +72,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid body-content" id="cuerpo" runat="server">
+        <div class="container body-content" id="cuerpo" runat="server">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
