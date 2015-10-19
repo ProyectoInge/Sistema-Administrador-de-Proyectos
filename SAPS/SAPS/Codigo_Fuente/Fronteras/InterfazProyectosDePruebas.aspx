@@ -109,10 +109,10 @@
                         <div class="panel-title">Otra información</div>
                     </div>
                     <div class="panel-body">
-                        <div class="form-hotizontal">
+                        <div class="form-horizontal">
                             <div id="row1_der" class="form-group">
                                 <div class="col-md-5">
-                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Estado del proyecto</asp:Label>
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_estado_proyecto">Estado del proyecto</asp:Label>
                                 </div>
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
@@ -124,6 +124,7 @@
                                     </asp:DropDownList>
                                 </div>
                             </div>
+                            <hr />
                             <div id="row2_der" class="form-group">
                                 <div class="col-md-5">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Oficina usuaria</asp:Label>
@@ -131,7 +132,7 @@
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:Button runat="server" CssClass="btn btn-link btn-sm" ID="btn_agregar_oficina" Text="¿Desea agregar una nueva oficina?" OnClick="btn_agregar_oficina_Click" />
+                                    <asp:Button runat="server" CssClass="btn btn-link btn-sm" ID="btn_agregar_oficina" Text="¿Desea agregar una nueva oficina?" OnClick="btn_agregar_oficina_Click" />      
                                 </div>
                             </div>
                             <div id="row3_der" class="form-group">
@@ -148,11 +149,11 @@
                                     <asp:TextBox runat="server" ID="input_phone2" CssClass="form-control" />
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </div> <!-- Form horizontal -->
+                    </div> <!-- Panel body -->
+                </div><!-- Panel -->
+            </div><!-- Panel derecho -->
+        </div> <!-- Row -->
     </section>
     <!-- ESTA TABLA ES PARA EL SEGUNDO SPRINT
     <section id="label_lista_ddp" class="row">

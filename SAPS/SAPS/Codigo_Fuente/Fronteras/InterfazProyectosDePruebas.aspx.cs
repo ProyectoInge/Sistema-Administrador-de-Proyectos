@@ -15,6 +15,7 @@ using System.Web.UI.WebControls;
 using SAPS.Controladoras;
 using System.Text.RegularExpressions;
 using System.Data;
+using System.Globalization;
 
 namespace SAPS.Fronteras
 {
@@ -49,7 +50,7 @@ namespace SAPS.Fronteras
                 input_manager_office.Enabled = false;
                 input_phone1.Enabled = false;
                 input_phone2.Enabled = false;
-                // Se llenan las tablas de Grid
+                // Se llenan las tablas y comboBox
                 //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
                 if (!IsPostBack)
                 {
@@ -604,11 +605,10 @@ namespace SAPS.Fronteras
                                             datos[3] = drop_estado_proyecto.SelectedItem.Text;
                                             datos[4] = input_objective.Text;
                                             datos[5] = input_process.Text;
-                                            datos[6] = input_start_date.Text;
-                                            datos[7] = input_asignment_date.Text;
-                                            datos[8] = input_finish_date.Text;
+                                            datos[6] = DateTime.Parse(input_start_date.Text);
+                                            datos[7] = DateTime.Parse(input_asignment_date.Text);
+                                            datos[8] = DateTime.Parse(input_finish_date.Text);
 
-                                            // TO DO --> Todavia no se logra insertar correctamente los proyectos, da un "execution error" desde la base.
                                             int resultado = m_controladora_pdp.insertar_proyecto(datos);
                                             if (resultado == 0)
                                             {

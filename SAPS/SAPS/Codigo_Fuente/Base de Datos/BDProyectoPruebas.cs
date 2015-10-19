@@ -142,9 +142,9 @@ namespace SAPS.Base_de_Datos
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = proyecto.id;
             comando.Parameters.Add("@id_oficina", SqlDbType.Int).Value = proyecto.id_oficina;
-            comando.Parameters.Add("@fecha_inicio", SqlDbType.VarChar).Value = proyecto.fecha_inicio;
-            comando.Parameters.Add("@fecha_asignacion", SqlDbType.VarChar).Value = proyecto.fecha_asignacion;
-            comando.Parameters.Add("@fecha_final", SqlDbType.VarChar).Value = proyecto.fecha_finalizacion;
+            comando.Parameters.Add("@fecha_inicio", SqlDbType.DateTime).Value = proyecto.fecha_inicio;
+            comando.Parameters.Add("@fecha_asignacion", SqlDbType.DateTime).Value = proyecto.fecha_asignacion;
+            comando.Parameters.Add("@fecha_final", SqlDbType.DateTime).Value = proyecto.fecha_finalizacion;
             comando.Parameters.Add("@nombre_sistema", SqlDbType.VarChar).Value = proyecto.nombre_sistema;
             comando.Parameters.Add("@obj_general", SqlDbType.VarChar).Value = proyecto.objetivo;
             comando.Parameters.Add("@nombre_proyecto", SqlDbType.VarChar).Value = proyecto.nombre;

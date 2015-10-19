@@ -33,7 +33,7 @@ namespace SAPS.Fronteras
             nav_bar.Style.Add("display", "none");
             m_controladora_rh = new ControladoraRecursosHumanos();
             alerta_error.Visible = false;
-
+            SetFocus(input_usuario);
             if (Request.IsAuthenticated)
                 Response.Redirect("Default.aspx");
         }
