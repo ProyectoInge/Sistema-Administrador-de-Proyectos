@@ -20,10 +20,10 @@
     </div>
     <br />
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="form-horizontal">
                 <div class="form-group">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <h3>Recursos humanos</h3>
                         <hr />
                         <p>
@@ -31,23 +31,47 @@
                         </p>
                         <a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx" class="btn btn-primary">Recursos humanos &raquo;</a>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <h3>Proyectos de prueba</h3>
                         <hr />
                         <p>
                             En esta sección podrá encontrar información a cerca de todos los proyectos que se encuentran en el sistema. Podrá consultar, modificar y eliminar los proyectos dependiendo de sus permisos. 
                         </p>
-                        <a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx" class="btn btn-primary">Proyectos de prueba &raquo;</a>
+                        <a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx" class="btn btn-primary" >Proyectos de prueba &raquo;</a>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <h3>Diseños de prueba</h3>
                         <hr />
                         <p>
                             Esta sección se incluirá próximamente en el sistema.
                         </p>
                         <a runat="server" href="~/" class="btn btn-primary">Diseños de prueba &raquo;</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <h3>Casos de prueba</h3>
+                        <hr />
+                        <p>
+                            Esta sección se incluirá próximamente en el sistema.
+                        </p>
+                        <a runat="server" href="~/" class="btn btn-primary">Casos de prueba &raquo;</a>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Ejecución de pruebas</h3>
+                        <hr />
+                        <p>
+                            Esta sección se incluirá próximamente en el sistema.
+                        </p>
+                        <a runat="server" href="~/" class="btn btn-primary">Ejecución de pruebas &raquo;</a>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Generación de reportes</h3>
+                        <hr />
+                        <p>
+                            Esta sección se incluirá próximamente en el sistema.
+                        </p>
+                        <a runat="server" href="~/" class="btn btn-primary">Generación de reportes &raquo;</a>
                     </div>
                 </div>
             </div>

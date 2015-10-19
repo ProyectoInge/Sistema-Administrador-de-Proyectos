@@ -31,6 +31,7 @@ namespace SAPS.Fronteras
 
         private static Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto (int), 1 --> nombre_proyecto (string)
         private static int m_tamano_tabla_pdp;
+        private static int m_id_proyecto_mostrado = 0;
 
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
         */
@@ -127,7 +128,7 @@ namespace SAPS.Fronteras
             m_opcion_tomada = 'e';
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
-            btn_eliminar.CssClass = "btn btn-default activa";
+            btn_eliminar.CssClass = "btn btn-default active";
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default";
         }
@@ -162,7 +163,7 @@ namespace SAPS.Fronteras
         protected void btn_modal_confirmar_aceptar_Click(object sender, EventArgs e)
         {
 
-            int id = buscar_id_proyecto(input_process.Text);
+            int id = m_id_proyecto_mostrado;
             int resultado = m_controladora_pdp.eliminar_proyecto(id);
             if (resultado == 0)
             {
@@ -235,6 +236,7 @@ namespace SAPS.Fronteras
         {
             string nombre_proyecto = ((Button)sender).Text;
             int id_proyecto = buscar_id_proyecto(nombre_proyecto);
+            m_id_proyecto_mostrado = id_proyecto;
             llena_campos_proyecto(id_proyecto);
             activa_desactiva_botones_ime(true);
             activa_desactiva_inputs(false);
@@ -254,9 +256,9 @@ namespace SAPS.Fronteras
             llena_campos_oficina(id_oficina);
             input_system.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_sistema"]);
             // TO DO --> No esta desplegando correctamente la fecha en el TextBox
-            input_start_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("dd/MM/yyyy");
-            input_asignment_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("dd/MM/yyyy");
-            input_finish_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_final"]).ToString("dd/MM/yyyy");
+            input_start_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("yyyy-MM-dd");
+            input_asignment_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("yyyy-MM-dd");
+            input_finish_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_final"]).ToString("yyyy-MM-dd");
             input_objective.Text = Convert.ToString(datos_proyecto.Rows[0]["obj_general"]);
             input_process.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_proyecto"]);
 
@@ -394,7 +396,7 @@ namespace SAPS.Fronteras
                 m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_de_datos.Rows[i]["id_proyecto"]);
                 m_tabla_proyectos_disponibles[i, 1] = Convert.ToString(tabla_de_datos.Rows[i]["nombre_proyecto"]);
                 //Crea el boton
-                btn.ID = "btn_lista_" + i.ToString();
+                btn.ID = Convert.ToString(m_tabla_proyectos_disponibles[i, 0]);
                 btn.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
                 btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_pdp_click);
@@ -738,7 +740,7 @@ namespace SAPS.Fronteras
                                         if (input_objective.Text != "")
                                         {
                                             Object[] datos = new Object[9];
-                                            datos[0] = buscar_id_proyecto(input_process.Text);
+                                            datos[0] = m_id_proyecto_mostrado;
                                             datos[1] = busca_id_oficina(drop_oficina_asociada.SelectedItem.Text);
                                             datos[2] = input_system.Text;
                                             datos[3] = drop_estado_proyecto.SelectedItem.Text;
