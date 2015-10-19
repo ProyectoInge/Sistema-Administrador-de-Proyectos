@@ -255,9 +255,9 @@ namespace SAPS.Fronteras
             int id_oficina = Convert.ToInt32(datos_proyecto.Rows[0]["id_oficina"]);
             llena_campos_oficina(id_oficina);
             input_system.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_sistema"]);
-            input_start_date.Text = Convert.ToString(datos_proyecto.Rows[0]["fecha_inicio"]);
-            input_asignment_date.Text = Convert.ToString(datos_proyecto.Rows[0]["fecha_asignacion"]);
-            input_finish_date.Text = Convert.ToString(datos_proyecto.Rows[0]["fecha_final"]);
+            input_start_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("dd/MM/yyyy");
+            input_asignment_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("dd/MM/yyyy");
+            input_finish_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_final"]).ToString("dd/MM/yyyy");
             input_objective.Text = Convert.ToString(datos_proyecto.Rows[0]["obj_general"]);
             input_process.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_proyecto"]);
         }
@@ -273,6 +273,7 @@ namespace SAPS.Fronteras
             input_phone2.Text = Convert.ToString(datos_oficina.Rows[0]["telefono2"]);
             // Seleccionar el nombre de la oficina en el dropbox
             string nombre_oficina = Convert.ToString(datos_oficina.Rows[0]["nombre_oficina"]);
+            drop_oficina_asociada.ClearSelection();
             drop_oficina_asociada.Items.FindByText(nombre_oficina).Selected = true; // Selecciona la oficina correspondiente
         }
 
@@ -307,9 +308,6 @@ namespace SAPS.Fronteras
         {
             input_system.Enabled = estado;
             input_process.Enabled = estado;
-            //input_phone1.Enabled = estado;
-            //input_phone2.Enabled = estado;
-            //input_manager_office.Enabled = estado;
             drop_oficina_asociada.Enabled = estado;
             drop_estado_proyecto.Enabled = estado;
             input_objective.Enabled = estado;
@@ -831,8 +829,15 @@ namespace SAPS.Fronteras
         */
         private void actualiza_proyectos_de_pruebas()
         {
-            limpia_campos();
+            vaciar_proyectos();
             llena_proyectos_de_pruebas();
+        }
+
+        /** @brief Metodo que vacia por completo la tabla que muestra los proyectos disponibles en la base de datos.
+        */
+        private void vaciar_proyectos()
+        {
+            tabla_proyectos_de_pruebas.Rows.Clear();
         }
 
     }
