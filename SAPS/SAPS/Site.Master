@@ -78,8 +78,9 @@
             <hr />
             <footer>
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-4">
-                        <p>&copy; <%: DateTime.Now.Year %> - SAPS</p>
+                    <div class="col-md-6 col-md-offset-5">
+                        <p>&copy; <%: DateTime.Now.Year %> - SAPS 
+                        <a runat="server" href="~/" class="btn btn-link btn-sm">Contáctenos</a></p>
                     </div>
                 </div>
             </footer>

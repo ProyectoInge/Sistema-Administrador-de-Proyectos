@@ -11,9 +11,26 @@ body {
     padding-right: 15px;
 }
 
+.titulo{
+    color: #ffffff;
+    font-size: 62px;
+    margin-top: 60px;
+    line-height: 1.2;
+}
+
+.barra-default {
+    background: #5682a3;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    height: 500px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+
 /* Para hacer sombra a los elementos */
 .shadow {
-    box-shadow: 3px 3px 3px #80808;
+    box-shadow: 5px 5px 5px #80808;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -37,6 +54,7 @@ input[type="select"] {
     .jumbotron {
         margin-top: 20px;
     }
+
     .body-content {
         padding: 0;
     }

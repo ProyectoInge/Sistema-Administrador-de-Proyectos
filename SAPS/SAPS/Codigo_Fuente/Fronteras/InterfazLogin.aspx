@@ -27,17 +27,17 @@
                                     </div>
                                 </section>
                                 <div id="row2" class="form-group">
-                                    <div class="col-md-12">
+                                    <div class="col-md-10 col-md-offset-1">
                                         <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" placeholder="Nombre de usuario"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div id="row3" class="form-group">
-                                    <div class="col-md-12">
+                                    <div class="col-md-10 col-md-offset-1">
                                         <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" placeholder="Contraseña"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div id="row4" class="form-group">
-                                    <div class="col-md-12">
+                                    <div class="col-md-10 col-md-offset-1">
                                         <asp:CheckBox runat="server" CssClass="checkbox" Text="Recordar mis datos" />
                                     </div>
                                 </div>

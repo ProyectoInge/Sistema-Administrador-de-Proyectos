@@ -222,13 +222,12 @@ namespace SAPS.Fronteras
             {
                 actualiza_tabla_recursos_humanos();
                 mensaje_exito_modal.Visible = true;
-                upModal.Update();
             }
             else
             {
                 mensaje_error_modal.Visible = true;
-                upModal.Update();
             }
+            upModal.Update();
         }
 
         /** @brief Evento que ocurre cuando el usuario se quiere devolver del modal de confirmar eliminacion del recurso humano, cierra el modal.

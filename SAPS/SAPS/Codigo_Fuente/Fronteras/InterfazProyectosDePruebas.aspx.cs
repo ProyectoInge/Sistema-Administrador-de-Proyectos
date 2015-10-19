@@ -24,7 +24,7 @@ namespace SAPS.Fronteras
     public partial class InterfazProyectosDePruebas : System.Web.UI.Page
     {
 
-        private ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
+        private static ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
         private static char m_opcion_tomada = 'i';                          // i= insertar, m= modificar, e= eliminar
         private static int m_tamano_tabla_oficinas;
         private static Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina (int), 1 --> nombre_oficinas (string), 2 --> representante (string)
@@ -49,6 +49,8 @@ namespace SAPS.Fronteras
                 input_manager_office.Enabled = false;
                 input_phone1.Enabled = false;
                 input_phone2.Enabled = false;
+                mensaje_error_modal.Visible = false;
+                mensaje_exito_modal.Visible = false;
                 // Se llenan las tablas y comboBox
                 //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
                 if (!IsPostBack)
@@ -166,13 +168,12 @@ namespace SAPS.Fronteras
             {
                 actualiza_proyectos_de_pruebas();
                 mensaje_exito_modal.Visible = true;
-                upModal.Update();
             }
             else
             {
                 mensaje_error_modal.Visible = true;
-                upModal.Update();
             }
+            upModal.Update();
         }
 
         /** @brief Despliega un modal donde se le brinda un formulario para crear una nueva oficina.
@@ -212,20 +213,18 @@ namespace SAPS.Fronteras
                 if (resultado == 0)
                 {
                     alerta_exito_oficina.Visible = true;
-                    upModalOficina.Update();
                 }
                 else
                 {
                     alerta_error_oficina.Text = " No fue posible agregar la oficina, intentelo nuevamente.";
                     alerta_error_oficina_cuerpo.Visible = true;
-                    upModalOficina.Update();
                 }
             }
             else
             {
                 alerta_error_oficina_cuerpo.Visible = true;
-                upModalOficina.Update();
             }
+            upModalOficina.Update();
         }
 
         /** @brief Una vez que el usuario selecciona un proyecto del Grid, se activa el evento btn_lista_click
@@ -254,6 +253,7 @@ namespace SAPS.Fronteras
             int id_oficina = Convert.ToInt32(datos_proyecto.Rows[0]["id_oficina"]);
             llena_campos_oficina(id_oficina);
             input_system.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_sistema"]);
+            // TO DO --> No esta desplegando correctamente la fecha en el TextBox
             input_start_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("dd/MM/yyyy");
             input_asignment_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("dd/MM/yyyy");
             input_finish_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_final"]).ToString("dd/MM/yyyy");
@@ -527,7 +527,7 @@ namespace SAPS.Fronteras
             m_opcion_tomada = 'i';
             activa_desactiva_inputs(true);
             btn_eliminar.CssClass = "btn btn-default";
-            btn_crear.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default active";
             btn_modificar.CssClass = "btn btn-default";
             alerta_advertencia.Visible = false;
             alerta_error.Visible = false;
