@@ -186,18 +186,64 @@ namespace SAPS.Fronteras
         /** @brief Metodo que se activa cuando el usuario cancela el cambio de contraseña, cierra el modal.
          * @param Los parametros por default de un evento de C#.
         */
-        protected void btn_modal_confirmar_cancelar_Click(object sender, EventArgs e)
+        protected void btn_modal_reestablecer_cancelar_Click(object sender, EventArgs e)
         {
             // TO DO
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_reestablece_contrasena", "$('#modal_reestablece_contrasena').modal('hide');", true);
+            update_modal_contrasena.Visible = false;
+            update_modal_contrasena.Update();
         }
 
         /** @brief Metodo que se activa cuando el usuario acepta que quiere cambiar la contraseña, va y realiza el cambio en la base de datos.
          * @param Los parametros por default de un evento de C#.
         */
-        protected void btn_modal_confirmar_aceptar_Click(object sender, EventArgs e)
+        protected void btn_modal_reestablecer_aceptar_Click(object sender, EventArgs e)
         {
             // TO DO
         }
+
+
+        /** @brief Evento que ocurre cuando el usuario confirma que quiere eliminar el recurso humano, va y realiza el cambio en la base de datos.
+         * @param Los parametros por default de un evento de C#.
+         */
+        protected void btn_modal_aceptar_Click(object sender, EventArgs e)
+        {
+
+            int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
+            if (resultado == 0)
+            {
+                actualiza_tabla_recursos_humanos();
+                mensaje_exito_modal.Visible = true;
+                upModal.Update();
+            }
+            else
+            {
+                mensaje_error_modal.Visible = true;
+                upModal.Update();
+            }
+        }
+
+        /** @brief Evento que ocurre cuando el usuario se quiere devolver del modal de confirmar eliminacion del recurso humano, cierra el modal.
+         * @param Los parametros por default de un evento de C#.
+         */
+        protected void btn_modal_cancelar_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
+            upModal.Visible = false;
+            upModal.Update();
+        }
+
+        /** @brief Se activa cuando el usuario escoge la opcion de reestablecer la contrasena, lo envia a la pagina para cambiar de contraseña.
+         */
+        protected void btn_reestablece_contrasena_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_reestablece_contrasena", "$('#modal_reestablece_contrasena').modal();", true);
+            update_modal_contrasena.Visible = true;
+            modal_reestablecer_input_usuario.Enabled = false;
+            modal_reestablecer_input_usuario.Text = input_usuario.Text;
+            update_modal_contrasena.Update();
+        }
+
         // ------------------------------------------------------------------------------------------------------------------------------
         // |                                                Metodos auxiliares de la clase                                              |
         // ------------------------------------------------------------------------------------------------------------------------------
@@ -724,44 +770,6 @@ namespace SAPS.Fronteras
                 a_retornar = false;
             }
             return a_retornar;
-        }
-
-        /** @brief Evento que ocurre cuando el usuario confirma que quiere eliminar el recurso humano, va y realiza el cambio en la base de datos.
-         * @param Los parametros por default de un evento de C#.
-         */
-        protected void btn_modal_aceptar_Click(object sender, EventArgs e)
-        {
-
-            int resultado = m_controladora_rh.eliminar_recurso_humano(input_usuario.Text);
-            if (resultado == 0)
-            {
-                actualiza_tabla_recursos_humanos();
-                mensaje_exito_modal.Visible = true;
-                upModal.Update();
-            }
-            else
-            {
-                mensaje_error_modal.Visible = true;
-                upModal.Update();
-            }
-        }
-
-        /** @brief Evento que ocurre cuando el usuario se quiere devolver del modal de confirmar eliminacion del recurso humano, cierra el modal.
-         * @param Los parametros por default de un evento de C#.
-         */
-        protected void btn_modal_cancelar_Click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
-            upModal.Visible = false;
-            upModal.Update();
-        }
-
-        /** @brief Se activa cuando el usuario escoge la opcion de reestablecer la contrasena, lo envia a la pagina para cambiar de contraseña.
-         */
-        protected void btn_reestablece_contrasena_Click(object sender, EventArgs e)
-        {
-            string url = "~/Codigo_Fuente/Fronteras/InterfazReestablecerContrasena.aspx?u=" + input_usuario.Text; //se envia el "username" a la otra vista.
-            Response.Redirect(url);
         }
     }
 }

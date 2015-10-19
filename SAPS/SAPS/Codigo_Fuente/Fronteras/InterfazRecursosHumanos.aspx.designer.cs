@@ -337,84 +337,84 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Button btn_modal_aceptar;
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// update_modal_contrasena control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.UpdatePanel update_modal_contrasena;
         
         /// <summary>
-        /// Label1 control.
+        /// alerta_error_reestablecer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error_reestablecer;
         
         /// <summary>
-        /// Label2 control.
+        /// label_modal_error_reestablecer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label label_modal_error_reestablecer;
         
         /// <summary>
-        /// alerta_exito_contrasena control.
+        /// label_modal_reestablecer_usuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito_contrasena;
+        protected global::System.Web.UI.WebControls.Label label_modal_reestablecer_usuario;
         
         /// <summary>
-        /// Label4 control.
+        /// modal_reestablecer_input_usuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.TextBox modal_reestablecer_input_usuario;
         
         /// <summary>
-        /// alerta_error_contrasena control.
+        /// modal_reestablecer_input_contrasena_1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error_contrasena;
+        protected global::System.Web.UI.WebControls.TextBox modal_reestablecer_input_contrasena_1;
         
         /// <summary>
-        /// Label5 control.
+        /// modal_reestablecer_input_contrasena_2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
+        protected global::System.Web.UI.WebControls.TextBox modal_reestablecer_input_contrasena_2;
         
         /// <summary>
-        /// Button1 control.
+        /// btn_modal_reestablecer_cancelar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btn_modal_reestablecer_cancelar;
         
         /// <summary>
-        /// Button2 control.
+        /// btn_modal_reestablecer_aceptar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button btn_modal_reestablecer_aceptar;
     }
 }

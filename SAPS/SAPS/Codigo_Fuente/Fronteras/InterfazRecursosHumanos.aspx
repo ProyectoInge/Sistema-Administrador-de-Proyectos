@@ -186,7 +186,7 @@
             </div>
         </div>
     </section>
-    <!-- Modals -->
+    <!-- Modals eliminar -->
     <section id="modal_eliminar">
         <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -229,46 +229,68 @@
             </div>
         </div>
     </section>
-    <!-- Modal eliminar -->
-    <div id="modal_cambio_contrasena">
-        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!-- Modal reestablecer contraseña -->
+    <section id="modal_cambio_contrasena">
+        <div class="modal fade bs-example-sm" id="modal_reestablece_contrasena" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                <asp:UpdatePanel ID="update_modal_contrasena" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                     <ContentTemplate>
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">
-                                    <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
-                                </h4>
-                            </div>
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-10 col-md-offset-1">
-                                        <div class="alert alert-success" id="alerta_exito_contrasena" role="alert" aria-hidden="true" runat="server">
-                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                            <asp:Label runat="server" ID="Label4" Text="Se cambió la contraseña correctamente."></asp:Label>
-                                        </div>
-                                        <div class="alert alert-danger alert-dismissible" id="alerta_error_contrasena" role="alert" aria-hidden="true" runat="server">
-                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                            <asp:Label runat="server" ID="Label5" Text="Se presentó un error, intente cambiar la contraseña nuevamente."></asp:Label>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="form-horizontal">
+                                                    <div id="row1_modal" class="form-group">
+                                                        <div class="col-md-12">
+                                                            <h2>SAPS<small> Reestablecer contraseña</small></h2>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <section id="alertas_modal_reestablecer">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="alert alert-danger alert-dismissible" id="alerta_error_reestablecer" role="alert" aria-hidden="true" runat="server">
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                                    <asp:Label runat="server" ID="label_modal_error_reestablecer">No se pudo reestablecer la contraseña, intente nuevamente.</asp:Label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                    <div id="row2_modal" class="form-group">
+                                                        <div class="col-md-4">
+                                                            <asp:Label runat="server" ID="label_modal_reestablecer_usuario" AssociatedControlID="modal_reestablecer_input_usuario">Nombre de usuario</asp:Label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <asp:TextBox runat="server" ID="modal_reestablecer_input_usuario" CssClass="form-control"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div id="row3_modal" class="form-group">
+                                                        <div class="col-md-8 col-md-offset-4">
+                                                            <asp:TextBox runat="server" ID="modal_reestablecer_input_contrasena_1" CssClass="form-control" TextMode="Password" placeholder="Ingrese la nueva contraseña"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div id="row4_modal" class="form-group">
+                                                        <div class="col-md-8 col-md-offset-4">
+                                                            <asp:TextBox runat="server" ID="modal_reestablecer_input_contrasena_2" CssClass="form-control" TextMode="Password" placeholder="Digite nuevamente la contraseña"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_confirmar_cancelar_Click" CssClass="btn btn-defalt" ID="Button1" Text="Volver" runat="server" />
-                                <asp:Button OnClick="btn_modal_confirmar_aceptar_Click" CssClass="btn btn-primary" ID="Button2" Text="Confirmar" runat="server" />
+                                <asp:Button OnClick="btn_modal_reestablecer_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_reestablecer_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_reestablecer_aceptar_Click" CssClass="btn btn-primary" ID="btn_modal_reestablecer_aceptar" Text="Confirmar" runat="server" />
                             </div>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
         </div>
-    </div>
+    </section>
 </asp:Content>
