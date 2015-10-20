@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <asp:Label runat="server" AssociatedControlID=""><span style="color: lightgray; font-size: 20px">¿Tiene alguna duda?  </span>
-                        <a runat="server" href="~/" class="btn btn-link btn-lg" style="background-color:transparent; color: #ffffff; border-color:transparent">Contáctenos &raquo;</a></asp:Label>
+                        <a runat="server" href="~/Informacion.aspx" class="btn btn-link" style="background-color:transparent; color: #ffffff; border-color:transparent; font-size:30px"><b>Información &raquo;</b></a></asp:Label>
                     </div>
                 </div>
             </div>

@@ -171,7 +171,7 @@
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
-    <Content Include="Contacto.aspx" />
+    <Content Include="Informacion.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -361,12 +361,12 @@
     <Compile Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx.designer.cs">
       <DependentUpon>InterfazProyectosDePruebas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Contacto.aspx.cs">
-      <DependentUpon>Contacto.aspx</DependentUpon>
+    <Compile Include="Informacion.aspx.cs">
+      <DependentUpon>Informacion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Contacto.aspx.designer.cs">
-      <DependentUpon>Contacto.aspx</DependentUpon>
+    <Compile Include="Informacion.aspx.designer.cs">
+      <DependentUpon>Informacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

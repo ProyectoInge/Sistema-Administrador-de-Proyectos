@@ -12,10 +12,19 @@ namespace SAPS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            HtmlGenericControl nav_bar = (HtmlGenericControl)Page.Master.FindControl("navigation_bar"); //para ocultar el navbar
+            if (!Request.IsAuthenticated)
+            {
+                HtmlGenericControl nav_bar = (HtmlGenericControl)Page.Master.FindControl("navigation_bar"); //para ocultar el navbar
+                nav_bar.Style.Add("display", "none");
+            }
+
             HtmlGenericControl cuerpo = (HtmlGenericControl)Page.Master.FindControl("cuerpo");
             cuerpo.Attributes.Add("class", "container-fluid body-content");
-            nav_bar.Style.Add("display", "none");
+        }
+
+        protected void btn_regresar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
         }
     }
 }

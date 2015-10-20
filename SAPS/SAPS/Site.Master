@@ -79,8 +79,7 @@
             <footer>
                 <div class="row">
                     <div class="col-md-6 col-md-offset-5">
-                        <p>&copy; <%: DateTime.Now.Year %> - SAPS 
-                        <a runat="server" href="~/Contacto.aspx" class="btn btn-link btn-sm">Contáctenos</a></p>
+                        <p>&copy; <%: DateTime.Now.Year %> - SAPS <asp:Button runat="server" CssClass="btn btn-link btn-sm" Text="Información" OnClick="btn_link_informacion" /></p>
                     </div>
                 </div>
             </footer>

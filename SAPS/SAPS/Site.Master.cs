@@ -84,6 +84,11 @@ namespace SAPS
             FormsAuthentication.SignOut();
             Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
         }
+
+        protected void btn_link_informacion(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Informacion.aspx");
+        }
     }
 
 }

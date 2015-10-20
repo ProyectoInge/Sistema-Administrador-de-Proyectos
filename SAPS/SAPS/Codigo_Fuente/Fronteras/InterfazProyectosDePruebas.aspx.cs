@@ -67,7 +67,7 @@ namespace SAPS.Fronteras
             }
             else
             {
-                Response.Redirect("InterfazLogin.aspx");
+                Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
             }
 
         }
