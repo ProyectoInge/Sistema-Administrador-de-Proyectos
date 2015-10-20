@@ -65,7 +65,8 @@ CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 			ProyectoPruebas.id_proyecto,
 			ProyectoPruebas.estado,
 			ProyectoPruebas.id_oficina
-	FROM ProyectoPruebas
+	FROM  ProyectoPruebas
+	WHERE ProyectoPruebas.eliminado = 0
 	END
 GO
 
