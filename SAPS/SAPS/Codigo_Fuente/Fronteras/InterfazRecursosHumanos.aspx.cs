@@ -24,7 +24,7 @@ namespace SAPS.Fronteras
         // Variables de instancia
         private ControladoraRecursosHumanos m_controladora_rh;
         private ControladoraProyectoPruebas m_controladora_pdp;
-        private static char m_opcion; // i = insertar, m = modificar, e = eliminar
+        private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
 
         private static string[,] m_tabla_recursos_disponibles; //posicion: 0 --> username, 1 --> nombre
         private static Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto, 1 --> nombre proyecto
@@ -65,20 +65,13 @@ namespace SAPS.Fronteras
                 if (!IsPostBack)
                 {
                     actualiza_proyectos();
-                    if (m_opcion != 'i')
-                    {
-                        input_usuario.Enabled = false;
-                    }
-                    else
-                    {
-                        input_usuario.Enabled = true;
-                    }
                 }
                 actualiza_tabla_recursos_humanos();
                 if (!m_es_administrador)
                 {
                     btn_crear.Enabled = false;
                 }
+
             }
             else
             {
@@ -179,6 +172,7 @@ namespace SAPS.Fronteras
             }
             activa_desactiva_botones_ime(true);
             input_contrasena.Enabled = false;
+            input_usuario.Enabled = false;
             btn_eliminar.CssClass = "btn btn-default";
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default active";
@@ -363,7 +357,7 @@ namespace SAPS.Fronteras
         {
             input_cedula.Enabled = estado;
             input_contrasena.Enabled = estado;
-            input_contrasena.Enabled = estado;
+            input_usuario.Enabled = estado;
             input_correo.Enabled = estado;
             input_name.Enabled = estado;
             input_telefono.Enabled = estado;
