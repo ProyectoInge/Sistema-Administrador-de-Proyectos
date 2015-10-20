@@ -25,6 +25,7 @@ namespace SAPS.Fronteras
     {
 
         private static ControladoraProyectoPruebas m_controladora_pdp;     // Instacia de la clase controladora
+        private static bool m_es_administrador;
         private static char m_opcion_tomada = 'i';                          // i= insertar, m= modificar, e= eliminar
         private static int m_tamano_tabla_oficinas;
         private static Object[,] m_tabla_oficinas_disponibles; //posicion: 0 --> id_oficina (int), 1 --> nombre_oficinas (string), 2 --> representante (string)
@@ -39,6 +40,7 @@ namespace SAPS.Fronteras
         {
             if (Request.IsAuthenticated)
             {
+                ControladoraRecursosHumanos controladora_rh = new ControladoraRecursosHumanos(); 
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
@@ -57,8 +59,11 @@ namespace SAPS.Fronteras
                 if (!IsPostBack)
                 {
                     actualiza_drop_oficinas();  // ** OJO, actualiza_drop_oficinas se tiene que llamar ANTES que llena_proyectos_de_pruebas SIEMPRE!!
+                    m_es_administrador = controladora_rh.es_administrador(Context.User.Identity.Name);
                 }
                 llena_proyectos_de_pruebas();
+                
+                   
             }
             else
             {
@@ -258,7 +263,13 @@ namespace SAPS.Fronteras
             // TO DO --> No esta desplegando correctamente la fecha en el TextBox
             input_start_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("yyyy-MM-dd");
             input_asignment_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("yyyy-MM-dd");
-            input_finish_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_final"]).ToString("yyyy-MM-dd");
+            try
+            {
+                input_finish_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_final"]).ToString("yyyy-MM-dd");
+            }catch(Exception e)
+            {
+                input_finish_date.Text = "yyyy-MM-dd";
+            }
             input_objective.Text = Convert.ToString(datos_proyecto.Rows[0]["obj_general"]);
             input_process.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_proyecto"]);
 
@@ -379,8 +390,12 @@ namespace SAPS.Fronteras
         **/
         private void llena_proyectos_de_pruebas()
         {
+            DataTable tabla_de_datos;
+            if(m_es_administrador)
+                tabla_de_datos = m_controladora_pdp.solicitar_proyectos_disponibles();
+            else
+                tabla_de_datos = m_controladora_pdp.consultar_mi_proyecto(Context.User.Identity.Name);
 
-            DataTable tabla_de_datos = m_controladora_pdp.solicitar_proyectos_disponibles();
             m_tamano_tabla_pdp = tabla_de_datos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             crea_encabezado_tabla_proyectos();
@@ -596,69 +611,62 @@ namespace SAPS.Fronteras
 
                         if (input_asignment_date.Text != "")
                         {
-
-                            if (input_finish_date.Text != "")
+                            if (drop_estado_proyecto.Text != "")
                             {
 
-                                if (drop_estado_proyecto.Text != "")
+                                if (drop_oficina_asociada.Text != "")
                                 {
 
-                                    if (drop_oficina_asociada.Text != "")
+                                    if (input_objective.Text != "")
                                     {
-
-                                        if (input_objective.Text != "")
-                                        {
-                                            Object[] datos = new Object[9];                                 // En la insercion de proyecto, aun no se posee el id del mismo,
-                                            datos[0] = -1;                                                  // este se genera en la base de datos por lo que se envia un -1.
-                                            datos[1] = Convert.ToInt32(drop_oficina_asociada.SelectedValue);
-                                            datos[2] = input_system.Text;
-                                            datos[3] = drop_estado_proyecto.SelectedItem.Text;
-                                            datos[4] = input_objective.Text;
-                                            datos[5] = input_process.Text;
-                                            datos[6] = DateTime.Parse(input_start_date.Text);
-                                            datos[7] = DateTime.Parse(input_asignment_date.Text);
+                                        Object[] datos = new Object[9];                                 // En la insercion de proyecto, aun no se posee el id del mismo,
+                                        datos[0] = -1;                                                  // este se genera en la base de datos por lo que se envia un -1.
+                                        datos[1] = Convert.ToInt32(drop_oficina_asociada.SelectedValue);
+                                        datos[2] = input_system.Text;
+                                        datos[3] = drop_estado_proyecto.SelectedItem.Text;
+                                        datos[4] = input_objective.Text;
+                                        datos[5] = input_process.Text;
+                                        datos[6] = DateTime.Parse(input_start_date.Text);
+                                        datos[7] = DateTime.Parse(input_asignment_date.Text);
+                                        if (input_finish_date.Text == "") {
+                                            datos[8] = DBNull.Value;
+                                        }else{
                                             datos[8] = DateTime.Parse(input_finish_date.Text);
+                                        }
 
-                                            int resultado = m_controladora_pdp.insertar_proyecto(datos);
-                                            if (resultado == 0)
-                                            {
-                                                cuerpo_alerta_exito.Text = " Se ha insertado un nuevo proyecto correctamente.";
-                                                actualiza_proyectos_de_pruebas();
-                                            }
-                                            else
-                                            {
-                                                cuerpo_alerta_error.Text = " No se logró insertar el proyecto, intente nuevamente.";
-                                                respuesta = false;
-                                            }
-
-                                        }// Objetivo
+                                        int resultado = m_controladora_pdp.insertar_proyecto(datos);
+                                        if (resultado == 0)
+                                        {
+                                            cuerpo_alerta_exito.Text = " Se ha insertado un nuevo proyecto correctamente.";
+                                            actualiza_proyectos_de_pruebas();
+                                        }
                                         else
                                         {
-                                            cuerpo_alerta_error.Text = " Es necesario ingresar un objetivo.";
-                                            SetFocus(input_objective);
+                                            cuerpo_alerta_error.Text = " No se logró insertar el proyecto, intente nuevamente.";
                                             respuesta = false;
                                         }
-                                    }//Oficina asociada
+
+                                    }// Objetivo
                                     else
                                     {
-                                        cuerpo_alerta_error.Text = " Es necesario ingresar una oficina asociada.";
-                                        SetFocus(drop_oficina_asociada);
+                                        cuerpo_alerta_error.Text = " Es necesario ingresar un objetivo.";
+                                        SetFocus(input_objective);
                                         respuesta = false;
                                     }
-                                }// Estado de proyecto
+                                }//Oficina asociada
                                 else
                                 {
-                                    cuerpo_alerta_error.Text = " Es necesario ingresar un estado para el proyecto.";
-                                    SetFocus(drop_estado_proyecto);
+                                    cuerpo_alerta_error.Text = " Es necesario ingresar una oficina asociada.";
+                                    SetFocus(drop_oficina_asociada);
                                     respuesta = false;
                                 }
-                            }// Fecha de finalizacion
+                            }// Estado de proyecto
                             else
                             {
-                                cuerpo_alerta_error.Text = " Es necesario ingresar una fecha de finalización del proyecto.";
-                                SetFocus(input_finish_date);
+                                cuerpo_alerta_error.Text = " Es necesario ingresar un estado para el proyecto.";
+                                SetFocus(drop_estado_proyecto);
                                 respuesta = false;
-                            }
+                            }                      
                         }// Fecha de asignacion
                         else
                         {

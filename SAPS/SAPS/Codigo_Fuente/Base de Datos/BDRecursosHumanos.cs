@@ -157,9 +157,9 @@ namespace SAPS.Base_de_Datos
             return (bool)m_data_base_adapter.obtener_resultado_consulta(comando).Rows[0]["sesion_iniciada"];
         }
 
-        /** @brief Método que realiza la setencia SQL para consultar si un usuario tiene sesion iniciada o no
+        /** @brief Método que realiza la setencia SQL para consultar si un usuario es o no administrador
                 * @param nombre_usuario del recuros humano que se desea consultar.
-                * @return 0 si el usuario no tiene sesion iniciada, 1 si sí la tiene iniciada
+                * @return 0 si el usuario no es administrador, 1 si sí lo es
                */
         public bool es_administrador(string nombre_usuario)
         {
@@ -196,6 +196,6 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@correo", SqlDbType.VarChar).Value = recurso_humano.correo;
             comando.Parameters.Add("@admin", SqlDbType.Bit).Value = recurso_humano.es_administrador ? 1 : 0;
         }
-
+        
     }
 }

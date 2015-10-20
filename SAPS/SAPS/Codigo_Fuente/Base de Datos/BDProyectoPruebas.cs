@@ -9,6 +9,7 @@
 using System.Data;
 using SAPS.Entidades;
 using System.Data.SqlClient;
+using System;
 
 namespace SAPS.Base_de_Datos
 {
@@ -92,6 +93,19 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        /** @brief Método que realiza la setencia SQL para consultar la informacion de mi proyecto de pruebas
+         * @param username de quien realiza la consulta
+         * @return DataTable con el resultado de la consultas.
+         */
+        public DataTable solicitar_mi_proyecto(string nombre_usuario)
+        {
+            // Procedimiento almacenado
+            SqlCommand comando = new SqlCommand("CONSULTAR_MI_PROYECTO");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.VarChar).Value = nombre_usuario;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
 
         /** @brief Método que realiza la setencia SQL para consultar todas las oficinas que se encuentran en la Base de Datos.
          * @return DataTable con los resultados de la consultas.
@@ -144,7 +158,10 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@id_oficina", SqlDbType.Int).Value = proyecto.id_oficina;
             comando.Parameters.Add("@fecha_inicio", SqlDbType.DateTime).Value = proyecto.fecha_inicio;
             comando.Parameters.Add("@fecha_asignacion", SqlDbType.DateTime).Value = proyecto.fecha_asignacion;
-            comando.Parameters.Add("@fecha_final", SqlDbType.DateTime).Value = proyecto.fecha_finalizacion;
+            if (proyecto.fecha_finalizacion == default(DateTime))
+                comando.Parameters.Add("@fecha_final", SqlDbType.DateTime).Value = DBNull.Value;
+            else
+                comando.Parameters.Add("@fecha_final", SqlDbType.DateTime).Value = proyecto.fecha_finalizacion;
             comando.Parameters.Add("@nombre_sistema", SqlDbType.VarChar).Value = proyecto.nombre_sistema;
             comando.Parameters.Add("@obj_general", SqlDbType.VarChar).Value = proyecto.objetivo;
             comando.Parameters.Add("@nombre_proyecto", SqlDbType.VarChar).Value = proyecto.nombre;
