@@ -49,7 +49,6 @@ namespace SAPS.Ayudantes
         */
         public static string hash_constrasena(string contrasena)
         {
-            /// @todo Hashear la contraseña
             byte[] salt;
             new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
             var pbkdf2 = new Rfc2898DeriveBytes(contrasena, salt, 10000);
