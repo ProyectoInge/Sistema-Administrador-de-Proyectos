@@ -24,13 +24,14 @@ namespace SAPS.Fronteras
         // Variables de instancia
         private ControladoraRecursosHumanos m_controladora_rh;
         private ControladoraProyectoPruebas m_controladora_pdp;
-        private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
+        private static char m_opcion; // i = insertar, m = modificar, e = eliminar
 
         private static string[,] m_tabla_recursos_disponibles; //posicion: 0 --> username, 1 --> nombre
         private static Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto, 1 --> nombre proyecto
         private static int m_tamano_tabla_rh;
         private static int m_tamano_tabla_pdp;
         private static string m_username_rh_mostrado = "";
+        private static bool m_es_administrador;   // true si el usuario de la sesion es administrador, false si no.
 
         /** @brief Metodo que se llama al cargar la página.
         */
@@ -40,6 +41,7 @@ namespace SAPS.Fronteras
             {
                 m_controladora_rh = new ControladoraRecursosHumanos();
                 m_controladora_pdp = new ControladoraProyectoPruebas();
+                m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
@@ -63,8 +65,20 @@ namespace SAPS.Fronteras
                 if (!IsPostBack)
                 {
                     actualiza_proyectos();
+                    if (m_opcion != 'i')
+                    {
+                        input_usuario.Enabled = false;
+                    }
+                    else
+                    {
+                        input_usuario.Enabled = true;
+                    }
                 }
                 actualiza_tabla_recursos_humanos();
+                if (!m_es_administrador)
+                {
+                    btn_crear.Enabled = false;
+                }
             }
             else
             {
@@ -81,7 +95,21 @@ namespace SAPS.Fronteras
             string username = buscar_usuario(nombre_usuario);
             m_username_rh_mostrado = username;
             llena_informacion_consulta(username);
-            activa_desactiva_botones_ime(true);
+            if (!m_es_administrador && m_username_rh_mostrado.Equals(Context.User.Identity.Name))
+            {
+                activa_desactiva_botones_ime(true);
+            }
+            else
+            {
+                if (m_es_administrador)
+                {
+                    activa_desactiva_botones_ime(true);
+                }
+                else
+                {
+                    activa_desactiva_botones_ime(false);
+                }
+            }
             activa_desactiva_inputs(false);
         }
 
@@ -161,13 +189,21 @@ namespace SAPS.Fronteras
         */
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-            m_opcion = 'e';
-            btn_reestablece_contrasena.Visible = false;
-            activa_desactiva_inputs(false);
-            activa_desactiva_botones_ime(true);
-            btn_eliminar.CssClass = "btn btn-default active";
-            btn_crear.CssClass = "btn btn-default";
-            btn_modificar.CssClass = "btn btn-default";
+            if (m_es_administrador)
+            {
+                m_opcion = 'e';
+                btn_reestablece_contrasena.Visible = false;
+                activa_desactiva_inputs(false);
+                activa_desactiva_botones_ime(true);
+                btn_eliminar.CssClass = "btn btn-default active";
+                btn_crear.CssClass = "btn btn-default";
+                btn_modificar.CssClass = "btn btn-default";
+            }
+            else
+            {
+                cuerpo_alerta_advertencia.Text = " No está autorizado para eliminar recursos humanos.";
+                alerta_advertencia.Visible = true;
+            }
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "insertar".
@@ -175,16 +211,24 @@ namespace SAPS.Fronteras
         */
         protected void btn_crear_Click(object sender, EventArgs e)
         {
-            m_opcion = 'i';
-            activa_desactiva_inputs(true);
-            btn_reestablece_contrasena.Visible = false;
-            limpia_campos();
-            activa_desactiva_botones_ime(false);
-            drop_rol.Enabled = false;
-            drop_proyecto_asociado.Enabled = false;
-            btn_eliminar.CssClass = "btn btn-default";
-            btn_crear.CssClass = "btn btn-default active";
-            btn_modificar.CssClass = "btn btn-default ";
+            if (m_es_administrador)
+            {
+                m_opcion = 'i';
+                activa_desactiva_inputs(true);
+                btn_reestablece_contrasena.Visible = false;
+                limpia_campos();
+                activa_desactiva_botones_ime(false);
+                drop_rol.Enabled = false;
+                drop_proyecto_asociado.Enabled = false;
+                btn_eliminar.CssClass = "btn btn-default";
+                btn_crear.CssClass = "btn btn-default active";
+                btn_modificar.CssClass = "btn btn-default ";
+            }
+            else
+            {
+                cuerpo_alerta_advertencia.Text = " No está autorizado para agregar recursos humanos.";
+                alerta_advertencia.Visible = true;
+            }
         }
 
         /** @brief Metodo que se activa cuando el usuario cancela el cambio de contraseña, cierra el modal.
@@ -319,10 +363,10 @@ namespace SAPS.Fronteras
         {
             input_cedula.Enabled = estado;
             input_contrasena.Enabled = estado;
+            input_contrasena.Enabled = estado;
             input_correo.Enabled = estado;
             input_name.Enabled = estado;
             input_telefono.Enabled = estado;
-            input_usuario.Enabled = estado;
             drop_proyecto_asociado.Enabled = estado;
             drop_rol.Enabled = estado;
             radio_btn_administrador.Enabled = estado;
@@ -334,8 +378,18 @@ namespace SAPS.Fronteras
          */
         private void activa_desactiva_botones_ime(bool estado)
         {
-            btn_eliminar.Enabled = estado;
-            btn_modificar.Enabled = estado;
+            if (m_es_administrador)
+            {
+                btn_eliminar.Enabled = estado;
+                btn_modificar.Enabled = estado;
+                btn_crear.Enabled = true;
+            }
+            else
+            {
+                btn_eliminar.Enabled = false;
+                btn_modificar.Enabled = estado;
+                btn_crear.Enabled = false;
+            }
         }
 
         /** @brief Se encarga de limpiar los strings que hay en los textbox y de deshabilitar los campos 
@@ -368,10 +422,18 @@ namespace SAPS.Fronteras
          */
         private void llena_recursos_humanos()
         {
-            DataTable tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles();
+            crea_encabezado_tabla_rh();
+            DataTable tabla_de_datos;
+            if (m_es_administrador)
+            {
+                tabla_de_datos = m_controladora_rh.solicitar_recursos_disponibles(); // cargo todos los recursos humanos
+            }
+            else
+            {
+                tabla_de_datos = m_controladora_rh.consultar_recurso_humano(Context.User.Identity.Name);   // cargo solo mi informacion
+            }
             m_tamano_tabla_rh = tabla_de_datos.Rows.Count;
             m_tabla_recursos_disponibles = new string[m_tamano_tabla_rh, 2];
-            crea_encabezado_tabla_rh();
             for (int i = 0; i < m_tamano_tabla_rh; ++i)
             {
                 TableRow fila = new TableRow();
@@ -379,7 +441,10 @@ namespace SAPS.Fronteras
                 TableCell celda_proyecto = new TableCell();
                 TableCell celda_rol = new TableCell();
                 Button btn = new Button();
-                m_tabla_recursos_disponibles[i, 0] = tabla_de_datos.Rows[i]["username"].ToString();
+                if (m_es_administrador)
+                    m_tabla_recursos_disponibles[i, 0] = tabla_de_datos.Rows[i]["username"].ToString();
+                else
+                    m_tabla_recursos_disponibles[i, 0] = Context.User.Identity.Name;
                 m_tabla_recursos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
                 btn.ID = "btn_lista_" + i.ToString();
                 btn.Text = m_tabla_recursos_disponibles[i, 1];
