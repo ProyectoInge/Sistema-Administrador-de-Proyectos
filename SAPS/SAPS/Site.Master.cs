@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using SAPS.Controladoras;
 
 namespace SAPS
 {
@@ -69,12 +70,24 @@ namespace SAPS
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+        }
+
+        protected void btn_salir_Click(object sender, EventArgs e)
+        {
+            ControladoraRecursosHumanos controladora_rh = new ControladoraRecursosHumanos();
+            controladora_rh.cerrar_sesion(Context.User.Identity.GetUserName());
+            FormsAuthentication.SignOut();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
+        }
+
+        protected void btn_link_informacion(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Informacion.aspx");
         }
     }
 
