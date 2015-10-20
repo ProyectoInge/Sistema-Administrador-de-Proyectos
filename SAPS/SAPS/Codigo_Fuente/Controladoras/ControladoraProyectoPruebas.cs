@@ -55,13 +55,13 @@ namespace SAPS.Controladoras
             return m_base_datos_pdp.eliminar_proyecto(id_proyecto);
         }
 
-        /** @brief Método que asigna las operaciones necesarias para poder consultar un proyecto de pruebas en específico.
-         * @param id_proyecto con el identificador del proyecto que se desea cosultar.
+        /** @brief Método que asigna las operaciones necesarias para poder consultar mi proyecto de pruebas.
+         * @param username de quien hace la consulta.
          * @return DataTable con los resultados de la consultas.
          */
-        public DataTable consultar_proyecto(int id_proyecto)
+        public DataTable consultar_mi_proyecto(string nombre_usuario)
         {
-            return m_base_datos_pdp.consultar_proyecto(id_proyecto);
+            return m_base_datos_pdp.solicitar_mi_proyecto(nombre_usuario);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar una oficina en específico.
@@ -79,6 +79,15 @@ namespace SAPS.Controladoras
         public DataTable solicitar_oficinas_disponibles()
         {
             return m_base_datos_pdp.solicitar_oficinas_disponibles();
+        }
+
+        /** @brief Método que asigna las operaciones necesarias para poder consultar un proyecto de pruebas en específico.
+         * @param id_proyecto con el identificador del proyecto que se desea cosultar.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable consultar_proyecto(int id_proyecto)
+        {
+            return m_base_datos_pdp.consultar_proyecto(id_proyecto);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar los proyectos de pruebas disponibles.
