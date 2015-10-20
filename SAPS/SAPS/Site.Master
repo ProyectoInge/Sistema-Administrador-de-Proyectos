@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-5">
                         <p>&copy; <%: DateTime.Now.Year %> - SAPS 
-                        <a runat="server" href="~/" class="btn btn-link btn-sm">Contáctenos</a></p>
+                        <a runat="server" href="~/Contacto.aspx" class="btn btn-link btn-sm">Contáctenos</a></p>
                     </div>
                 </div>
             </footer>

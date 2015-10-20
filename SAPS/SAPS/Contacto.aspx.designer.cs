@@ -11,7 +11,7 @@ namespace SAPS
 {
 
 
-    public partial class Contact
+    public partial class Contacto
     {
     }
 }
