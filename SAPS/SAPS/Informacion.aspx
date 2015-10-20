@@ -26,7 +26,8 @@
                                         </p>
                                         <p>
                                             El sistema fue desarrollado utilizando la metodología SCRUM que se aprendió en el curso. El código fuente del sistema se puede encontrar en el repositorio
-                                            en <a target="_tab" href="https://github.com/ProyectoInge/Sistema-Administrador-de-Proyectos/tree/Sprint-1">GitHub</a>.
+                                            en <a target="_tab" href="https://github.com/ProyectoInge/Sistema-Administrador-de-Proyectos/tree/Sprint-1">GitHub</a>. La documentación técnica completa del proyecto 
+                                            se puede encontrar <a target="_tab" href="http://ufkk5befb5e9.fabo49.koding.io/Documentacion/">aquí</a>.
                                         </p>
                                     </div>
                                     <div class="col-md-5">
