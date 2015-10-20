@@ -176,6 +176,10 @@ namespace SAPS.Fronteras
             btn_eliminar.CssClass = "btn btn-default";
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default active";
+            if (!m_es_administrador)
+            {
+                radio_btn_administrador.Enabled = false;
+            }
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "eliminar".
