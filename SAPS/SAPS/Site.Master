@@ -13,6 +13,9 @@
     </asp:PlaceHolder>
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="Content/rotating-card.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">
@@ -49,8 +52,8 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx">Recursos Humanos</a></li>
-                        <li><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx">Proyectos De Pruebas</a></li>
+                        <li id="btn_rh"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx">Recursos Humanos</a></li>
+                        <li id="btn_pdp" ><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx">Proyectos De Pruebas</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
@@ -75,18 +78,19 @@
         <div class="container body-content" id="cuerpo" runat="server">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-5">
-                        <p>
-                            &copy; <%: DateTime.Now.Year %> - SAPS
-                            <asp:Button runat="server" CssClass="btn btn-link btn-sm" Text="Información" OnClick="btn_link_informacion" />
-                        </p>
-                    </div>
-                </div>
-            </footer>
         </div>
+        <hr />
+        <footer>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-4">
+                    <p>
+                        &copy; <%: DateTime.Now.Year %> - SAPS
+                            <asp:Button runat="server" CssClass="btn btn-link btn-sm" Text="Home" OnClick="btn_link_home" />
+                        <asp:Button runat="server" CssClass="btn btn-link btn-sm" Text="Información" OnClick="btn_link_informacion" />
+                    </p>
+                </div>
+            </div>
+        </footer>
     </form>
 </body>
 </html>

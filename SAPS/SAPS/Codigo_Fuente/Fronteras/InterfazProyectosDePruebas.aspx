@@ -1,6 +1,11 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
 
 <asp:Content ID="content_pdp" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
+    $(document).ready(function () {
+        $("#btn_pdp").addClass("active");
+    });
+    </script>
     <section id="page_header">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -213,37 +218,47 @@
                 <asp:UpdatePanel ID="upModalOficina" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                     <ContentTemplate>
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">
-                                    <asp:Label ID="label_agrega_oficina" runat="server" Text="Agregar nueva oficina"></asp:Label>
-                                </h4>
-                            </div>
                             <div class="modal-body">
-                                <div class="form-horizontal">
-                                    <div id="row1_modal" class="form-group">
-                                        <div class="col-md-6">
-                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_nombre_oficina">Nombre de la oficina</asp:Label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_nombre_oficina"></asp:TextBox>
-                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_representante_oficina">Representante</asp:Label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_representante_oficina"></asp:TextBox>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono1">Teléfono principal</asp:Label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono1"></asp:TextBox>
-                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono2">Teléfono secundario</asp:Label>
-                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono2"></asp:TextBox>
-                                        </div>
-                                    </div>
-                                    <div id="row2_modal" class="form-group">
-                                        <div class="col-md-12">
-                                            <div class="alert alert-success" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
-                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
-                                            </div>
-                                            <div class="alert alert-danger" id="alerta_error_oficina_cuerpo" role="alert" aria-hidden="true" runat="server">
-                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                                <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="form-horizontal">
+                                                    <div id="row1_modal" class="form-group">
+                                                        <div class="col-md-12">
+                                                            <h2>SAPS<small> Agregar oficina</small></h2>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <div class="form-group">
+                                                        <div class="col-md-12">
+                                                            <div class="alert alert-success" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
+                                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                                <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
+                                                            </div>
+                                                            <div class="alert alert-danger" id="alerta_error_oficina_cuerpo" role="alert" aria-hidden="true" runat="server">
+                                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                                <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-horizontal">
+                                                        <div class="form-group">
+                                                            <div class="col-md-6">
+                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_nombre_oficina">Nombre de la oficina</asp:Label>
+                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_nombre_oficina"></asp:TextBox>
+                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_representante_oficina">Representante</asp:Label>
+                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_representante_oficina"></asp:TextBox>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono1">Teléfono principal</asp:Label>
+                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono1"></asp:TextBox>
+                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono2">Teléfono secundario</asp:Label>
+                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono2"></asp:TextBox>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -251,7 +266,7 @@
                             </div>
                             <div class="modal-footer">
                                 <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-default" ID="btn_modal_cancelar_oficina" Text="Volver" runat="server" data-dismiss="modal" />
-                                <asp:Button OnClick="btn_modal_agregar_oficina_Click" CssClass="btn btn-success" ID="btn_modal_agregar_oficina" Text="Agregar" runat="server" />
+                                <asp:Button OnClick="btn_modal_agregar_oficina_Click" CssClass="btn btn-primary" ID="btn_modal_agregar_oficina" Text="Agregar" runat="server" />
                             </div>
                         </div>
                     </ContentTemplate>

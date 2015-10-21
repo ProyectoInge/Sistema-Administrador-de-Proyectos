@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" %>
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
+        $(document).ready(function () {
+            $("#btn_rh").addClass("active");
+        });
+    </script>
     <section id="page_header">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -55,18 +60,18 @@
                         <div class="form-horizontal">
                             <div id="row1_izq" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" AssociatedControlID="input_name" CssClass="control-label">Nombre</asp:Label>
-                                </div>
-                                <div class="col-md-9">
-                                    <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
-                                </div>
-                            </div>
-                            <div id="row2_izq" class="form-group">
-                                <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula</asp:Label>
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
+                                </div>
+                            </div>
+                            <div id="row2_izq" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" AssociatedControlID="input_name" CssClass="control-label">Nombre</asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
                                 </div>
                             </div>
                             <div id="row3_izq" class="form-group">
@@ -98,24 +103,6 @@
                         <div class="form-horizontal">
                             <div id="row1_der" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="control-label">Usuario</asp:Label>
-                                </div>
-                                <div class="col-md-9">
-                                    <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
-                                </div>
-                            </div>
-                            <div id="row2_der" class="form-group">
-                                <div class="col-md-3">
-                                    <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
-                                </div>
-                                <div class="col-md-9">
-                                    <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
-                                    <asp:Button runat="server" ID="btn_reestablece_contrasena" CssClass="btn btn-link btn-xs" Text="¿Desea reestablecer la contraseña?" OnClick="btn_reestablece_contrasena_Click" />
-                                </div>
-                            </div>
-                            <hr />
-                            <div id="row3_der" class="form-group">
-                                <div class="col-md-3">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil:</asp:Label>
                                 </div>
                                 <section id="radio_buttons" runat="server">
@@ -129,7 +116,7 @@
                                     </div>
                                 </section>
                             </div>
-                            <div id="row4_der" class="form-group">
+                            <div id="row2_der" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
                                 </div>
@@ -138,7 +125,7 @@
                                     </asp:DropDownList>
                                 </div>
                             </div>
-                            <div id="row5_der" class="form-group">
+                            <div id="row3_der" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_rol">Rol</asp:Label>
                                 </div>
@@ -148,6 +135,24 @@
                                         <asp:ListItem Text="Usuario" Value="1"></asp:ListItem>
                                         <asp:ListItem Text="Tester" Value="2"></asp:ListItem>
                                     </asp:DropDownList>
+                                </div>
+                            </div>
+                            <hr />
+                            <div id="row4_der" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="control-label">Usuario</asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
+                                </div>
+                            </div>
+                            <div id="row5_der" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
+                                    <asp:Button runat="server" ID="btn_reestablece_contrasena" CssClass="btn btn-link btn-xs" Text="¿Desea reestablecer la contraseña?" OnClick="btn_reestablece_contrasena_Click" />
                                 </div>
                             </div>
                         </div>
@@ -249,7 +254,7 @@
                                                     </div>
                                                     <hr />
                                                     <section id="alertas_modal_reestablecer">
-                                                        <div class="row">
+                                                        <div class="form-group">
                                                             <div class="col-md-12">
                                                                 <div class="alert alert-danger alert-dismissible" id="alerta_error_reestablecer" role="alert" aria-hidden="true" runat="server">
                                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

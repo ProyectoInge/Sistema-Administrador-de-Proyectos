@@ -89,6 +89,11 @@ namespace SAPS
         {
             Response.Redirect("~/Informacion.aspx");
         }
+
+        protected void btn_link_home(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
+        }
     }
 
 }
