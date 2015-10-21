@@ -7,3 +7,12 @@ Este repositorio contiene el proyecto elaborado para la clase de Ingenieria de S
   * Stefano Del Vecchio [GitHub](https://github.com/SDelVecchioC)
   * Fabián Rodríguez Obando [GitHub](https://github.com/fabo49)
   * Jose Pablo Ureña [GitHub](https://github.com/SlyJose)
+
+
+## Problemas por arreglar
+- [ ] Cambiar el orden de RH.
+- [ ] Apenas se ingresan se activen los tres botones
+- [ ] Arreglar los modales
+- [ ] navbar (cambiar de color sección actual)
+- [ ] Cambiar el orden del grid (id decedente)
+- [ ] Cuando se selecciona oficina, que se le muestre los datos correspondiente.
