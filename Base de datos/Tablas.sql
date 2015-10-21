@@ -39,6 +39,7 @@ create table ProyectoPruebas(
 );
 
 create table RecursosHumanos(
+	id_rh				int IDENTITY(1,1) NOT NULL,
 	username			varchar(64) NOT NULL PRIMARY KEY,
 	cedula				varchar(16)  NOT NULL,
 	id_proyecto			int FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
