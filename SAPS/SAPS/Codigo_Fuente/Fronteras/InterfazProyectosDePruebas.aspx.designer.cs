@@ -10,7 +10,7 @@
 namespace SAPS.Fronteras {
     
     
-    public partial class Recursos_Humanos {
+    public partial class InterfazProyectosDePruebas {
         
         /// <summary>
         /// btn_crear control.
@@ -94,130 +94,121 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label cuerpo_alerta_advertencia;
         
         /// <summary>
-        /// input_name control.
+        /// input_process control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_name;
+        protected global::System.Web.UI.WebControls.TextBox input_process;
         
         /// <summary>
-        /// label_cedula control.
+        /// input_system control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_cedula;
+        protected global::System.Web.UI.WebControls.TextBox input_system;
         
         /// <summary>
-        /// input_cedula control.
+        /// input_asignment_date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_cedula;
+        protected global::System.Web.UI.WebControls.TextBox input_asignment_date;
         
         /// <summary>
-        /// input_correo control.
+        /// input_start_date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_correo;
+        protected global::System.Web.UI.WebControls.TextBox input_start_date;
         
         /// <summary>
-        /// input_telefono control.
+        /// input_finish_date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_telefono;
+        protected global::System.Web.UI.WebControls.TextBox input_finish_date;
         
         /// <summary>
-        /// input_usuario control.
+        /// input_objective control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_usuario;
+        protected global::System.Web.UI.WebControls.TextBox input_objective;
         
         /// <summary>
-        /// label_contrasena control.
+        /// drop_estado_proyecto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_contrasena;
+        protected global::System.Web.UI.WebControls.DropDownList drop_estado_proyecto;
         
         /// <summary>
-        /// input_contrasena control.
+        /// drop_oficina_asociada control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_contrasena;
+        protected global::System.Web.UI.WebControls.DropDownList drop_oficina_asociada;
         
         /// <summary>
-        /// btn_reestablece_contrasena control.
+        /// btn_agregar_oficina control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_reestablece_contrasena;
+        protected global::System.Web.UI.WebControls.Button btn_agregar_oficina;
         
         /// <summary>
-        /// radio_buttons control.
+        /// input_manager_office control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl radio_buttons;
+        protected global::System.Web.UI.WebControls.TextBox input_manager_office;
         
         /// <summary>
-        /// radio_btn_miembro control.
+        /// input_phone1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radio_btn_miembro;
+        protected global::System.Web.UI.WebControls.TextBox input_phone1;
         
         /// <summary>
-        /// radio_btn_administrador control.
+        /// input_phone2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radio_btn_administrador;
+        protected global::System.Web.UI.WebControls.TextBox input_phone2;
         
         /// <summary>
-        /// drop_proyecto_asociado control.
+        /// tabla_disenos_de_prueba control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_proyecto_asociado;
-        
-        /// <summary>
-        /// drop_rol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_rol;
+        protected global::System.Web.UI.WebControls.Table tabla_disenos_de_prueba;
         
         /// <summary>
         /// btn_Aceptar control.
@@ -229,31 +220,139 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Button btn_Aceptar;
         
         /// <summary>
-        /// btn_Cancelar control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_Cancelar;
+        protected global::System.Web.UI.WebControls.Button Button2;
         
         /// <summary>
-        /// tabla_recursos_humanos control.
+        /// tabla_proyectos_de_pruebas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tabla_recursos_humanos;
+        protected global::System.Web.UI.WebControls.Table tabla_proyectos_de_pruebas;
         
         /// <summary>
-        /// tabla_recursos_humanos_header control.
+        /// tabla_proyectos_de_pruebas_header control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderRow tabla_recursos_humanos_header;
+        protected global::System.Web.UI.WebControls.TableHeaderRow tabla_proyectos_de_pruebas_header;
+        
+        /// <summary>
+        /// upModalOficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upModalOficina;
+        
+        /// <summary>
+        /// label_agrega_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_agrega_oficina;
+        
+        /// <summary>
+        /// modal_input_nombre_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox modal_input_nombre_oficina;
+        
+        /// <summary>
+        /// modal_input_representante_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox modal_input_representante_oficina;
+        
+        /// <summary>
+        /// modal_input_telefono1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox modal_input_telefono1;
+        
+        /// <summary>
+        /// modal_input_telefono2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox modal_input_telefono2;
+        
+        /// <summary>
+        /// alerta_exito_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito_oficina;
+        
+        /// <summary>
+        /// cuerpo_mensaje_exito control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label cuerpo_mensaje_exito;
+        
+        /// <summary>
+        /// alerta_error_oficina_cuerpo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error_oficina_cuerpo;
+        
+        /// <summary>
+        /// alerta_error_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label alerta_error_oficina;
+        
+        /// <summary>
+        /// btn_modal_cancelar_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_modal_cancelar_oficina;
+        
+        /// <summary>
+        /// btn_modal_agregar_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_modal_agregar_oficina;
         
         /// <summary>
         /// upModal control.
@@ -292,13 +391,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mensaje_exito_modal;
         
         /// <summary>
-        /// cuerpo_mensaje_exito control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label cuerpo_mensaje_exito;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
         /// mensaje_error_modal control.
@@ -335,104 +434,5 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_modal_aceptar;
-        
-        /// <summary>
-        /// update_modal_contrasena control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel update_modal_contrasena;
-        
-        /// <summary>
-        /// alerta_error_reestablecer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error_reestablecer;
-        
-        /// <summary>
-        /// label_modal_error_reestablecer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_modal_error_reestablecer;
-        
-        /// <summary>
-        /// alerta_exito_reestablecer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito_reestablecer;
-        
-        /// <summary>
-        /// label_modal_exito control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_modal_exito;
-        
-        /// <summary>
-        /// label_modal_reestablecer_usuario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_modal_reestablecer_usuario;
-        
-        /// <summary>
-        /// modal_reestablecer_input_usuario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox modal_reestablecer_input_usuario;
-        
-        /// <summary>
-        /// modal_reestablecer_input_contrasena_1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox modal_reestablecer_input_contrasena_1;
-        
-        /// <summary>
-        /// modal_reestablecer_input_contrasena_2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox modal_reestablecer_input_contrasena_2;
-        
-        /// <summary>
-        /// btn_modal_reestablecer_cancelar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_modal_reestablecer_cancelar;
-        
-        /// <summary>
-        /// btn_modal_reestablecer_aceptar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_modal_reestablecer_aceptar;
     }
 }

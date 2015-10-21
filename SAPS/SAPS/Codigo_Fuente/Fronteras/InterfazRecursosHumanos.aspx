@@ -1,148 +1,300 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" %>
+
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
     <section id="page_header">
-        <div class="page-header">
-            <h1>SAPS <small>Recursos humanos</small></h1>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="page-header">
+                    <h1>SAPS <small>Recursos humanos</small></h1>
+                </div>
+            </div>
         </div>
     </section>
     <section id="botones_IME">
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
                 <div class="btn-group" role="group">
-                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_crear" Enabled="true" Text="Crear" />
-                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Enabled="false" Text="Modificar" />
-                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_eliminar" Enabled="false" Text="Eliminar" />
+                    <asp:Button runat="server" CssClass="btn btn-default active" ID="btn_crear" Enabled="true" Text="Ingresar" OnClick="btn_crear_Click" />
+                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Text="Modificar" OnClick="btn_modificar_Click" />
+                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_eliminar" Text="Eliminar" OnClick="btn_eliminar_Click" />
                 </div>
             </div>
         </div>
     </section>
-    <br/>
-    <br/>
-    <section id="form" class="col-md-offset-2">
-        <div id="row1" class="row"">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_name" CssClass="col-md-3 control-label">Nombre</asp:Label>
-                    <div class="col-md-4">
-                        <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
-                    </div>
+    <br />
+    <section id="alertas">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
                 </div>
-            </div>
-             <div class="col-md-6">
-                <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="radio_btn_miembro" CssClass="col-md-4 control-label">Miembro</asp:Label>
-                    <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
-                        uno de ellos seleccionado.-->
-                    <asp:RadioButton runat="server" CssClass ="col-md-2" ID="radio_btn_miembro" GroupName="lista_radio_buttons" />
+                <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
                 </div>
-            </div>
-        </div>
-        <br/>
-        <div id="row2" class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="col-md-3 control-label">Usuario</asp:Label>
-                    <div class="col-md-4">
-                        <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <asp:Label runat="server" CssClass="col-md-4 control-label" AssociatedControlID="radio_btn_administrador">Administrador</asp:Label>
-                    <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
-                        uno de ellos seleccionado.-->
-                    <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="col-md-2" GroupName="lista_radio_buttons" />
+                <div class="alert alert-warning alert-dismissible" id="alerta_advertencia" role="alert" aria-hidden="true" runat="server">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <asp:Label runat="server" ID="cuerpo_alerta_advertencia"></asp:Label>
                 </div>
             </div>
         </div>
-        <br/>
-        <div id="row3" class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="col-md-3 control-label">Correo</asp:Label>
-                    <div class="col-md-4">
-                        <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <asp:Label runat="server" CssClass="col-md-2 control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control" Width="127.5px" >
-                            <asp:ListItem Text="Proyecto 1" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Proyecto 2" Value="1"></asp:ListItem>
-                        </asp:DropDownList>    
-                    </div>
-                </div>  
-            </div>
-        </div>
-        <br />
-        <div id="row4" class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="col-md-3 control-label">Telefono</asp:Label>
-                    <div class="col-md-4">
-                        <asp:TextBox runat="server" ID="input_telefono" CssClass="form-control" TextMode="Phone"/>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <asp:Label runat="server" CssClass="col-md-2 control-label" AssociatedControlID="drop_rol">Rol</asp:Label>
-                    <div class="col-md-4">
-                        <asp:DropDownList ID="drop_rol" runat="server" CssClass="form-control" Width="127.5px" >
-                            <asp:ListItem Text="Lider" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Usuario" Value="1"></asp:ListItem>
-                            <asp:ListItem Text="Tester" Value="2"></asp:ListItem>
-                        </asp:DropDownList> 
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br />
-        <div id="row5" class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <asp:Label runat="server" ID="label_contrasena" CssClass="col-md-3" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
-                    <div class="col-md-4">
-                        <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br />
     </section>
+    <br />
+    <section id="form">
+        <div class="row">
+            <div id="panel_izquierda" class="col-md-5 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">Datos personales</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div id="row1_izq" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" AssociatedControlID="input_name" CssClass="control-label">Nombre</asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
+                                </div>
+                            </div>
+                            <div id="row2_izq" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula</asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
+                                </div>
+                            </div>
+                            <div id="row3_izq" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="control-label">Correo</asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" placeholder="ejemplo@ejemplo.com" />
+                                </div>
+                            </div>
+                            <div id="row4_izq" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="control-label">Telefono</asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="input_telefono" CssClass="form-control" TextMode="Phone" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="panel_derecha" class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">Otros datos</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div id="row1_der" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="control-label">Usuario</asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
+                                </div>
+                            </div>
+                            <div id="row2_der" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
+                                    <asp:Button runat="server" ID="btn_reestablece_contrasena" CssClass="btn btn-link btn-xs" Text="¿Desea reestablecer la contraseña?" OnClick="btn_reestablece_contrasena_Click" />
+                                </div>
+                            </div>
+                            <hr />
+                            <div id="row3_der" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil:</asp:Label>
+                                </div>
+                                <section id="radio_buttons" runat="server">
+                                    <div class="col-md-3 col-md-offset-1">
+                                        <!-- El atributo "GroupName" es para que los radio buttons sepan que pertenecen a un grupo y que solo puede haber
+                                                uno de ellos seleccionado.-->
+                                        <asp:RadioButton runat="server" CssClass="form-group radio-inline" ID="radio_btn_miembro" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_miembro_CheckedChanged" AutoPostBack="true" Text="Miembro" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <asp:RadioButton runat="server" ID="radio_btn_administrador" CssClass="form-group radio-inline" GroupName="lista_radio_buttons" OnCheckedChanged="radio_btn_administrador_CheckedChanged" AutoPostBack="true" Text="Administrador" />
+                                    </div>
+                                </section>
+                            </div>
+                            <div id="row4_der" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
+                                </div>
+                                <div class="col-md-8">
+                                    <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control">
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <div id="row5_der" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_rol">Rol</asp:Label>
+                                </div>
+                                <div class="col-md-8">
+                                    <asp:DropDownList ID="drop_rol" runat="server" CssClass="form-control">
+                                        <asp:ListItem Text="Lider" Value="0"></asp:ListItem>
+                                        <asp:ListItem Text="Usuario" Value="1"></asp:ListItem>
+                                        <asp:ListItem Text="Tester" Value="2"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br />
     <section id="botones_aceptar_cancelar">
-        <div class="col-md-4 col-md-offset-8">
-            <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
-            <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click"/>
+        <div class="col-md-3 col-md-offset-9">
+            <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
+            <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
         </div>
     </section>
     <section id="linea_separadora">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">    
+            <div class="col-md-10 col-md-offset-1">
                 <hr />
             </div>
         </div>
     </section>
-    <section id="label_lista_rh" class="row">
-        <div class="col-md-4 col-md-offset-1">
-            <h4>Recursos humanos disponibles</h4>
+    <section id="area_consultas">
+        <div class="row">
+            <div class="col-md-11 col-md-offset-1">
+                <h4>Recursos humanos disponibles</h4>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
+                <asp:Table runat="server" ID="tabla_recursos_humanos" CssClass="table table-hover form-group">
+                    <asp:TableHeaderRow runat="server" ID="tabla_recursos_humanos_header">
+                    </asp:TableHeaderRow>
+                </asp:Table>
+            </div>
         </div>
     </section>
-    <br />
-    <section id="area_consultas" class="col-md-offset-3">
-        <div class="row">
-            <div class="col-md-2">
-                <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_consultar" Enabled="true" Text="Consultar" OnClick="btn_consultar_Click" />
+    <!-- Modals eliminar -->
+    <section id="modal_eliminar">
+        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">
+                                    <asp:Label ID="titulo_modal" runat="server" Text=""></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="Se eliminó correctamente el recurso humano."></asp:Label>
+                                        </div>
+                                        <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente el recurso humano."></asp:Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
-            <div class="col-md-8">
-                <!-- https://msdn.microsoft.com/en-us/library/7bewx260.aspx aqui sale como llenar la tabla dinamicamente o
-                    en el archivo Recursos_Humanos.aspx.cs en el constructro hay un ejemplo de como llenarla -->
-                <div runat="server" class="list-group" id="lista_rh">
-                </div>
+        </div>
+    </section>
+    <!-- Modal reestablecer contraseña -->
+    <section id="modal_cambio_contrasena">
+        <div class="modal fade bs-example-sm" id="modal_reestablece_contrasena" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="update_modal_contrasena" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="form-horizontal">
+                                                    <div id="row1_modal" class="form-group">
+                                                        <div class="col-md-12">
+                                                            <h2>SAPS<small> Reestablecer contraseña</small></h2>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <section id="alertas_modal_reestablecer">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="alert alert-danger alert-dismissible" id="alerta_error_reestablecer" role="alert" aria-hidden="true" runat="server">
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                                    <asp:Label runat="server" ID="label_modal_error_reestablecer"></asp:Label>
+                                                                </div>
+                                                                <div class="alert alert-success alert-dismissible" id="alerta_exito_reestablecer" role="alert" aria-hidden="true" runat="server">
+                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                                    <asp:Label runat="server" ID="label_modal_exito">Se reestableció correctamente la contraseña.</asp:Label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                                    <div id="row2_modal" class="form-group">
+                                                        <div class="col-md-4">
+                                                            <asp:Label runat="server" ID="label_modal_reestablecer_usuario" AssociatedControlID="modal_reestablecer_input_usuario">Nombre de usuario</asp:Label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <asp:TextBox runat="server" ID="modal_reestablecer_input_usuario" CssClass="form-control"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div id="row3_modal" class="form-group">
+                                                        <div class="col-md-8 col-md-offset-4">
+                                                            <asp:TextBox runat="server" ID="modal_reestablecer_input_contrasena_1" CssClass="form-control" TextMode="Password" placeholder="Ingrese la nueva contraseña"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                    <div id="row4_modal" class="form-group">
+                                                        <div class="col-md-8 col-md-offset-4">
+                                                            <asp:TextBox runat="server" ID="modal_reestablecer_input_contrasena_2" CssClass="form-control" TextMode="Password" placeholder="Digite nuevamente la contraseña"></asp:TextBox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button OnClick="btn_modal_reestablecer_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_reestablecer_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_reestablecer_aceptar_Click" CssClass="btn btn-primary" ID="btn_modal_reestablecer_aceptar" Text="Confirmar" runat="server" />
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
     </section>
