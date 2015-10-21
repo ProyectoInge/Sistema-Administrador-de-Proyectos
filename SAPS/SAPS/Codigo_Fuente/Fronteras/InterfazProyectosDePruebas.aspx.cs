@@ -399,7 +399,7 @@ namespace SAPS.Fronteras
             m_tamano_tabla_pdp = tabla_de_datos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             crea_encabezado_tabla_proyectos();
-            for (int i = 0; i < m_tamano_tabla_pdp; ++i)
+            for (int i = (m_tamano_tabla_pdp-1); i >= 0; --i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_boton = new TableCell();
