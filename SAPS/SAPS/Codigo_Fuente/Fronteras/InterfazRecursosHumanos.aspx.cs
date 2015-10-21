@@ -146,6 +146,10 @@ namespace SAPS.Fronteras
                 if (m_opcion != 'e')
                 {
                     alerta_exito.Visible = true;
+                    if(m_opcion == 'i')
+                    {
+                        activa_desactiva_botones_ime(true);
+                    }
                 }
             }
             else

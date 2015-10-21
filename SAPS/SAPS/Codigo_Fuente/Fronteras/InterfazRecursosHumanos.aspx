@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" %>
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
-    <script type="text/javascript">
+    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
         $(document).ready(function () {
             $("#btn_rh").addClass("active");
         });
