@@ -111,6 +111,7 @@ namespace SAPS.Fronteras
          */
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
+            m_opcion = 'i';
             limpia_campos();
             drop_proyecto_asociado.Enabled = false;
             drop_rol.Enabled = false;

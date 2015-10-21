@@ -60,7 +60,7 @@
                         <div class="form-horizontal">
                             <div id="row1_izq" class="form-group">
                                 <div class="col-md-5">
-                                    <asp:Label runat="server" AssociatedControlID="input_process" CssClass="control-label">Nombre del Proyecto</asp:Label>
+                                    <asp:Label runat="server" AssociatedControlID="input_process" CssClass="control-label">Nombre del Proyecto <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_process" CssClass="form-control" />
@@ -68,7 +68,7 @@
                             </div>
                             <div id="row2_izq" class="form-group">
                                 <div class="col-md-5">
-                                    <asp:Label runat="server" AssociatedControlID="input_system" CssClass="control-label">Nombre del Sistema</asp:Label>
+                                    <asp:Label runat="server" AssociatedControlID="input_system" CssClass="control-label">Nombre del Sistema  <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_system" CssClass="form-control" />
@@ -76,7 +76,7 @@
                             </div>
                             <div id="row3_izq" class="form-group">
                                 <div class="col-md-5">
-                                    <asp:Label runat="server" AssociatedControlID="input_asignment_date" CssClass="control-label">Fecha de asignación</asp:Label>
+                                    <asp:Label runat="server" AssociatedControlID="input_asignment_date" CssClass="control-label">Fecha de asignación  <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_asignment_date" CssClass="form-control" TextMode="Date" />
@@ -84,7 +84,7 @@
                             </div>
                             <div id="row4_izq" class="form-group">
                                 <div class="col-md-5">
-                                    <asp:Label runat="server" AssociatedControlID="input_start_date" CssClass="control-label">Fecha de inicio</asp:Label>
+                                    <asp:Label runat="server" AssociatedControlID="input_start_date" CssClass="control-label">Fecha de inicio  <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" TextMode="Date" />
@@ -100,8 +100,8 @@
                             </div>
                             <div id="ro6_izq" class="form-group">
                                 <div class="col-md-12">
-                                    <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo</asp:Label>
-                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="5" TextMode="multiline" />
+                                    <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo  <span class="text-danger">*</span></asp:Label>
+                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" TextMode="multiline" />
                                 </div>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                         <div class="form-horizontal">
                             <div id="row1_der" class="form-group">
                                 <div class="col-md-5">
-                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_estado_proyecto">Estado del proyecto</asp:Label>
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_estado_proyecto">Estado del proyecto  <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
@@ -132,7 +132,7 @@
                             <hr />
                             <div id="row2_der" class="form-group">
                                 <div class="col-md-5">
-                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Oficina usuaria</asp:Label>
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Oficina usuaria  <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control">
@@ -142,13 +142,13 @@
                             </div>
                             <div id="row3_der" class="form-group">
                                 <div class="col-md-12">
-                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Representante de la oficina</asp:Label>
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Representante de la oficina  <span class="text-danger">*</span></asp:Label>
                                     <asp:TextBox runat="server" ID="input_manager_office" CssClass="form-control" />
                                 </div>
                             </div>
                             <div id="row4_der" class="form-group">
                                 <div class="col-md-12">
-                                    <asp:Label runat="server" AssociatedControlID="input_phone1" CssClass="control-label">Teléfonos de la oficina</asp:Label>
+                                    <asp:Label runat="server" AssociatedControlID="input_phone1" CssClass="control-label">Teléfonos de la oficina  <span class="text-danger">*</span></asp:Label>
                                     <asp:TextBox runat="server" ID="input_phone1" CssClass="form-control" />
                                     <br />
                                     <asp:TextBox runat="server" ID="input_phone2" CssClass="form-control" />
@@ -181,6 +181,11 @@
         </section>
         <br />
         -->
+    <div class="row">
+        <div class="col-md-2 col-md-offset-9">
+            <asp:Label runat="server" CssClass="text-danger"><small>* Campos obligatorios</small></asp:Label>
+        </div>
+    </div>
     <br />
     <section id="botones_aceptar_cancelar">
         <div class="col-md-3 col-md-offset-9">
@@ -293,6 +298,7 @@
                                         <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
                                     </div>
                                 </div>
+                                <br />
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">

@@ -77,6 +77,7 @@ namespace SAPS.Fronteras
         */
         protected void btn_cancelar_click(object sender, EventArgs e)
         {
+            m_opcion_tomada = 'i';
             activa_desactiva_botones_ime(false);
             limpia_campos();
         }

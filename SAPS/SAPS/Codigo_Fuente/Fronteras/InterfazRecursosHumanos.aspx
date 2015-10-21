@@ -2,9 +2,9 @@
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
-        $(document).ready(function () {
-            $("#btn_rh").addClass("active");
-        });
+    $(document).ready(function () {
+        $("#btn_rh").addClass("active");
+    });
     </script>
     <section id="page_header">
         <div class="row">
@@ -60,7 +60,7 @@
                         <div class="form-horizontal">
                             <div id="row1_izq" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula</asp:Label>
+                                    <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
@@ -68,7 +68,7 @@
                             </div>
                             <div id="row2_izq" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" AssociatedControlID="input_name" CssClass="control-label">Nombre</asp:Label>
+                                    <asp:Label runat="server" AssociatedControlID="input_name" CssClass="control-label">Nombre <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
@@ -76,7 +76,7 @@
                             </div>
                             <div id="row3_izq" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="control-label">Correo</asp:Label>
+                                    <asp:Label runat="server" AssociatedControlID="input_correo" CssClass="control-label">Correo <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" placeholder="ejemplo@ejemplo.com" />
@@ -84,7 +84,7 @@
                             </div>
                             <div id="row4_izq" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="control-label">Telefono</asp:Label>
+                                    <asp:Label runat="server" AssociatedControlID="input_telefono" CssClass="control-label">Telefono <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_telefono" CssClass="form-control" TextMode="Phone" />
@@ -103,7 +103,7 @@
                         <div class="form-horizontal">
                             <div id="row1_der" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil:</asp:Label>
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <section id="radio_buttons" runat="server">
                                     <div class="col-md-3 col-md-offset-1">
@@ -139,18 +139,18 @@
                             </div>
                             <hr />
                             <div id="row4_der" class="form-group">
-                                <div class="col-md-3">
-                                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="control-label">Usuario</asp:Label>
+                                <div class="col-md-4">
+                                    <asp:Label runat="server" AssociatedControlID="input_usuario" CssClass="control-label">Usuario  <span class="text-danger">*</span></asp:Label>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-8">
                                     <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
                                 </div>
                             </div>
                             <div id="row5_der" class="form-group">
-                                <div class="col-md-3">
-                                    <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña</asp:Label>
+                                <div class="col-md-4">
+                                    <asp:Label runat="server" ID="label_contrasena" CssClass="control-label" AssociatedControlID="input_contrasena">Contraseña  <span class="text-danger">*</span></asp:Label>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-8">
                                     <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" />
                                     <asp:Button runat="server" ID="btn_reestablece_contrasena" CssClass="btn btn-link btn-xs" Text="¿Desea reestablecer la contraseña?" OnClick="btn_reestablece_contrasena_Click" />
                                 </div>
@@ -161,11 +161,18 @@
             </div>
         </div>
     </section>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9">
+            <asp:Label runat="server" CssClass="text-danger"><small style="text-align:right">* Campos obligatorios</small></asp:Label>
+        </div>
+    </div>
     <br />
     <section id="botones_aceptar_cancelar">
-        <div class="col-md-3 col-md-offset-9">
-            <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
-            <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
+        <div class="row">
+            <div class="col-md-3 col-md-offset-9">
+                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
+                <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
+            </div>
         </div>
     </section>
     <section id="linea_separadora">

@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-7 col-md-offset-1">
+                                    <div class="col-md-10 col-md-offset-1">
                                         <h4>Desarrolladores</h4>
                                         <hr />
                                     </div>
