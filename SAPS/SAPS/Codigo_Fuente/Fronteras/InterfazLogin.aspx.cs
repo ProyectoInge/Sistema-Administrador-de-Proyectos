@@ -33,6 +33,7 @@ namespace SAPS.Fronteras
             nav_bar.Style.Add("display", "none");
             m_controladora_rh = new ControladoraRecursosHumanos();
             alerta_error.Visible = false;
+            link_cerrar_sesion.Visible = false;
             SetFocus(input_usuario);
             if (Request.IsAuthenticated)
                 Response.Redirect("Default.aspx");
@@ -56,7 +57,6 @@ namespace SAPS.Fronteras
                             m_controladora_rh.iniciar_sesion(input_usuario.Text);
                             FormsAuthentication.Authenticate(input_usuario.Text, input_contrasena.Text);
                             FormsAuthentication.RedirectFromLoginPage(input_usuario.Text, true);
-                            //Response.Redirect("~/"); // Si el usuario se autentica correctamente, lo dirige a la pantalla de inicio.
                         }
                         else
                         {
@@ -68,6 +68,7 @@ namespace SAPS.Fronteras
                     {
                         alerta_error.Visible = true;
                         cuerpo_alerta_error.Text = "Ya existe una sesión iniciada con éste nombre de usuario.";
+                        link_cerrar_sesion.Visible = true;
                     }
                 }
                 else

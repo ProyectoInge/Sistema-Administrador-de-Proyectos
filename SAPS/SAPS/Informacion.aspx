@@ -46,7 +46,7 @@
                                                         <img src="https://scontent-mia1-1.xx.fbcdn.net/hphotos-xaf1/v/t1.0-9/483296_10200477316389513_1363899498_n.jpg?oh=02d9dd9a7d6ffddc754ec7e9354da6bb&oe=5685E15E" />
                                                     </div>
                                                     <div class="user">
-                                                        <img class="img-circle" src="https://photos-2.dropbox.com/t/2/AADJhCdc7kOk61mcA_z2Ubehm5vRNODm2A9Ul2-r0S9K5Q/12/48147145/jpeg/32x32/1/_/1/2/profile.jpg/EJnI-SQYqtMCIAIoAg/21auQSnJ0FjTnnKEtYXK6p5qsBwqCZzAtR-MXLSeC20?size=1024x768&size_mode=2" />
+                                                        <img class="img-circle" src="https://avatars1.githubusercontent.com/u/9465441?v=3&s=460" />
                                                     </div>
                                                     <div class="content">
                                                         <div class="main">
@@ -194,7 +194,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-2 col-md-offset-10">
-                                    <asp:Button runat="server" CssClass="btn btn-link" Text="Regresar" OnClick="btn_regresar_Click" Style="color: darkgray" />
+                                    <asp:Button runat="server" CssClass="btn btn-link" Text="Regresar" OnClick="btn_regresar_Click" Style="color: darkgrey" />
                                 </div>
                             </div>
                         </div>

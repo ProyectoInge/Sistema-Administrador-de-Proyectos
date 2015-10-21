@@ -169,6 +169,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
     <Content Include="Content\font-awesome.css" />
@@ -354,6 +355,13 @@
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Oficina.cs" />
     <Compile Include="Codigo_Fuente\Entidades\ProyectoPruebas.cs" />
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx.cs">
+      <DependentUpon>InterfazCerrarSesionRemota.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx.designer.cs">
+      <DependentUpon>InterfazCerrarSesionRemota.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx.cs">
       <DependentUpon>InterfazLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

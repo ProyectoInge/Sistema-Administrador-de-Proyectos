@@ -10,7 +10,7 @@
 namespace SAPS.Fronteras {
     
     
-    public partial class InterfazLogin {
+    public partial class InterfazCerrarSesionRemota {
         
         /// <summary>
         /// alerta_error control.
@@ -31,13 +31,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label cuerpo_alerta_error;
         
         /// <summary>
-        /// link_cerrar_sesion control.
+        /// alerta_exito control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor link_cerrar_sesion;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_exito;
         
         /// <summary>
         /// input_usuario control.
@@ -56,6 +56,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_contrasena;
+        
+        /// <summary>
+        /// btn_regresar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_regresar;
         
         /// <summary>
         /// btn_login control.
