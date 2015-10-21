@@ -254,7 +254,7 @@
                                                     </div>
                                                     <hr />
                                                     <section id="alertas_modal_reestablecer">
-                                                        <div class="row">
+                                                        <div class="form-group">
                                                             <div class="col-md-12">
                                                                 <div class="alert alert-danger alert-dismissible" id="alerta_error_reestablecer" role="alert" aria-hidden="true" runat="server">
                                                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
