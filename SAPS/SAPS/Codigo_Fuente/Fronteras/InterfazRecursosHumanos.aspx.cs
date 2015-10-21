@@ -436,7 +436,8 @@ namespace SAPS.Fronteras
             }
             m_tamano_tabla_rh = tabla_de_datos.Rows.Count;
             m_tabla_recursos_disponibles = new string[m_tamano_tabla_rh, 2];
-            for (int i = 0; i < m_tamano_tabla_rh; ++i)
+
+            for (int i = (m_tamano_tabla_rh-1); i >=0 ; --i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_boton = new TableCell();
