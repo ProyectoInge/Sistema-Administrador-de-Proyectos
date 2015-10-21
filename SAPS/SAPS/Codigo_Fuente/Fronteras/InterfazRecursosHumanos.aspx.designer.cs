@@ -94,15 +94,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label cuerpo_alerta_advertencia;
         
         /// <summary>
-        /// input_name control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_name;
-        
-        /// <summary>
         /// label_cedula control.
         /// </summary>
         /// <remarks>
@@ -121,6 +112,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_cedula;
         
         /// <summary>
+        /// input_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_name;
+        
+        /// <summary>
         /// input_correo control.
         /// </summary>
         /// <remarks>
@@ -137,42 +137,6 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_telefono;
-        
-        /// <summary>
-        /// input_usuario control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_usuario;
-        
-        /// <summary>
-        /// label_contrasena control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_contrasena;
-        
-        /// <summary>
-        /// input_contrasena control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_contrasena;
-        
-        /// <summary>
-        /// btn_reestablece_contrasena control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_reestablece_contrasena;
         
         /// <summary>
         /// radio_buttons control.
@@ -218,6 +182,42 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drop_rol;
+        
+        /// <summary>
+        /// input_usuario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_usuario;
+        
+        /// <summary>
+        /// label_contrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_contrasena;
+        
+        /// <summary>
+        /// input_contrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_contrasena;
+        
+        /// <summary>
+        /// btn_reestablece_contrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_reestablece_contrasena;
         
         /// <summary>
         /// btn_Aceptar control.
