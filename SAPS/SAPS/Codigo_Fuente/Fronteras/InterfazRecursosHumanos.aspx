@@ -63,7 +63,7 @@
                                     <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
-                                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
+                                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111"/>
                                 </div>
                             </div>
                             <div id="row2_izq" class="form-group">
@@ -302,7 +302,7 @@
                             </div>
                             <div class="modal-footer">
                                 <asp:Button OnClick="btn_modal_reestablecer_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_reestablecer_cancelar" Text="Volver" runat="server" />
-                                <asp:Button OnClick="btn_modal_reestablecer_aceptar_Click" CssClass="btn btn-primary" ID="btn_modal_reestablecer_aceptar" Text="Confirmar" runat="server" />
+                                <asp:Button OnClick="btn_modal_reestablecer_aceptar_Click" CssClass="btn btn-warning" ID="btn_modal_reestablecer_aceptar" Text="Confirmar" runat="server" />
                             </div>
                         </div>
                     </ContentTemplate>

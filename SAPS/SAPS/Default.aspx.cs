@@ -15,7 +15,8 @@ namespace SAPS
             if (Request.IsAuthenticated)
             {
                 HtmlGenericControl cuerpo = (HtmlGenericControl)Page.Master.FindControl("cuerpo");
-                cuerpo.Attributes.Add("class", "container-fluid");
+                cuerpo.Attributes.Clear();
+                cuerpo.Attributes.Add("class", "container-fluid body-content");
             }
             else
             {

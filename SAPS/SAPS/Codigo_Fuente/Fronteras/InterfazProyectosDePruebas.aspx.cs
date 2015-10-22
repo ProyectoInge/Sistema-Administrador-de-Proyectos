@@ -40,7 +40,7 @@ namespace SAPS.Fronteras
         {
             if (Request.IsAuthenticated)
             {
-                ControladoraRecursosHumanos controladora_rh = new ControladoraRecursosHumanos(); 
+                ControladoraRecursosHumanos controladora_rh = new ControladoraRecursosHumanos();
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
@@ -62,8 +62,8 @@ namespace SAPS.Fronteras
                     m_es_administrador = controladora_rh.es_administrador(Context.User.Identity.Name);
                 }
                 llena_proyectos_de_pruebas();
-                
-                   
+
+
             }
             else
             {
@@ -101,7 +101,7 @@ namespace SAPS.Fronteras
                 if (m_opcion_tomada != 'e')
                 {
                     alerta_exito.Visible = true;
-                    if(m_opcion_tomada == 'i')
+                    if (m_opcion_tomada == 'i')
                     {
                         activa_desactiva_botones_ime(true);
                     }
@@ -156,6 +156,7 @@ namespace SAPS.Fronteras
             btn_crear.CssClass = "btn btn-default active";
             btn_modificar.CssClass = "btn btn-default";
         }
+
 
         /** @brief Evento que ocurre cuando el usuario se quiere devolver del modal de confirmar eliminacion del proyecto de pruebas, cierra el modal.
          * @param Los parametros por default de un evento de C#.
@@ -252,6 +253,14 @@ namespace SAPS.Fronteras
             activa_desactiva_inputs(false);
         }
 
+        /** @brief Metodo que se activa cuando el usuario selecciona una oficina del dropdown, llena la informacion correspondiente a esa oficina.
+         * @param Los parametros por default de un evento de C#.
+        */
+        protected void drop_oficina_asociada_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int id_oficina_elegida = Convert.ToInt32(((DropDownList)sender).SelectedValue); // Agarra el item seleccionado del dropdown
+            llena_campos_oficina(id_oficina_elegida);
+        }
         // ------------------------------------------------------------------------------------------------------------------------------
         // |                                                Metodos auxiliares de la clase                                              |
         // ------------------------------------------------------------------------------------------------------------------------------
@@ -271,7 +280,8 @@ namespace SAPS.Fronteras
             try
             {
                 input_finish_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_final"]).ToString("yyyy-MM-dd");
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 input_finish_date.Text = "yyyy-MM-dd";
             }
@@ -396,7 +406,7 @@ namespace SAPS.Fronteras
         private void llena_proyectos_de_pruebas()
         {
             DataTable tabla_de_datos;
-            if(m_es_administrador)
+            if (m_es_administrador)
                 tabla_de_datos = m_controladora_pdp.solicitar_proyectos_disponibles();
             else
                 tabla_de_datos = m_controladora_pdp.consultar_mi_proyecto(Context.User.Identity.Name);
@@ -404,7 +414,7 @@ namespace SAPS.Fronteras
             m_tamano_tabla_pdp = tabla_de_datos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             crea_encabezado_tabla_proyectos();
-            for (int i = (m_tamano_tabla_pdp-1); i >= 0; --i)
+            for (int i = (m_tamano_tabla_pdp - 1); i >= 0; --i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_boton = new TableCell();
@@ -633,9 +643,12 @@ namespace SAPS.Fronteras
                                         datos[5] = input_process.Text;
                                         datos[6] = DateTime.Parse(input_start_date.Text);
                                         datos[7] = DateTime.Parse(input_asignment_date.Text);
-                                        if (input_finish_date.Text == "") {
+                                        if (input_finish_date.Text == "")
+                                        {
                                             datos[8] = DBNull.Value;
-                                        }else{
+                                        }
+                                        else
+                                        {
                                             datos[8] = DateTime.Parse(input_finish_date.Text);
                                         }
 
@@ -671,7 +684,7 @@ namespace SAPS.Fronteras
                                 cuerpo_alerta_error.Text = " Es necesario ingresar un estado para el proyecto.";
                                 SetFocus(drop_estado_proyecto);
                                 respuesta = false;
-                            }                      
+                            }
                         }// Fecha de asignacion
                         else
                         {
@@ -864,6 +877,5 @@ namespace SAPS.Fronteras
         {
             tabla_proyectos_de_pruebas.Rows.Clear();
         }
-
     }
 }

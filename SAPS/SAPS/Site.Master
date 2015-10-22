@@ -53,7 +53,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li id="btn_rh"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx">Recursos Humanos</a></li>
-                        <li id="btn_pdp" ><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx">Proyectos De Pruebas</a></li>
+                        <li id="btn_pdp"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx">Proyectos De Pruebas</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>
@@ -79,9 +79,9 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </div>
-        <hr />
         <footer>
-            <div class="row">
+            <div class="row" >
+                <hr />
                 <div class="col-md-6 col-md-offset-4">
                     <p>
                         &copy; <%: DateTime.Now.Year %> - SAPS

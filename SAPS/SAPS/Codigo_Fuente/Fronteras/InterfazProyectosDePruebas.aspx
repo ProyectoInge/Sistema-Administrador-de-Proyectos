@@ -135,7 +135,7 @@
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_oficina_asociada">Oficina usuaria  <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-7">
-                                    <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control">
+                                    <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_oficina_asociada_SelectedIndexChanged" AutoPostBack="true">
                                     </asp:DropDownList>
                                     <asp:Button runat="server" CssClass="btn btn-link btn-sm" ID="btn_agregar_oficina" Text="¿Desea agregar una nueva oficina?" OnClick="btn_agregar_oficina_Click" />
                                 </div>
