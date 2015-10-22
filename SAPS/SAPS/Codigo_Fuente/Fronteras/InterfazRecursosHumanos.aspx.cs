@@ -147,7 +147,7 @@ namespace SAPS.Fronteras
                 if (m_opcion != 'e')
                 {
                     alerta_exito.Visible = true;
-                    if(m_opcion == 'i')
+                    if (m_opcion == 'i')
                     {
                         activa_desactiva_botones_ime(true);
                     }
@@ -438,7 +438,7 @@ namespace SAPS.Fronteras
             m_tamano_tabla_rh = tabla_de_datos.Rows.Count;
             m_tabla_recursos_disponibles = new string[m_tamano_tabla_rh, 2];
 
-            for (int i = (m_tamano_tabla_rh-1); i >=0 ; --i)
+            for (int i = (m_tamano_tabla_rh - 1); i >= 0; --i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_boton = new TableCell();
@@ -624,18 +624,10 @@ namespace SAPS.Fronteras
                                 {
                                     if (input_usuario.Text != "")
                                     {
-                                        if (input_contrasena.Text != "")
+                                        if (m_opcion == 'm')
                                         {
                                             Object[] datos = new Object[9];
-                                            if (m_opcion == 'm')
-                                            {
-
-                                                datos[0] = m_username_rh_mostrado;
-                                            }
-                                            else
-                                            {
-                                                datos[0] = input_usuario.Text;
-                                            }
+                                            datos[0] = m_username_rh_mostrado;
                                             datos[1] = input_name.Text;
                                             datos[2] = input_correo.Text;
                                             datos[3] = input_telefono.Text;
@@ -654,48 +646,65 @@ namespace SAPS.Fronteras
                                                 datos[8] = "";  //es admi entonces no tiene un rol asociado
                                             }
 
-                                            int resultado = -1;
-                                            if (m_opcion == 'm')
-                                            {
-                                                resultado = m_controladora_rh.modificar_recurso_humano(datos);
-                                            }
-                                            else
-                                            {
-                                                resultado = m_controladora_rh.insertar_recurso_humano(datos);
-                                            }
+                                            int resultado = m_controladora_rh.modificar_recurso_humano(datos);
                                             if (resultado == 0)
                                             {
-                                                if (m_opcion == 'm')
-                                                {
-                                                    cuerpo_alerta_exito.Text = " Se modificó el recurso humano correctamente.";
-                                                }
-                                                else
-                                                {
-                                                    cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
-                                                }
+                                                cuerpo_alerta_exito.Text = " Se modificó el recurso humano correctamente.";
                                                 actualiza_tabla_recursos_humanos();
                                                 btn_modificar.Enabled = true;
                                                 a_retornar = true;
                                             }
                                             else
                                             {
-                                                if (m_opcion == 'm')
-                                                {
-                                                    cuerpo_alerta_error.Text = " Hubo un error al modificar el recurso humano, intentelo nuevamente.";
-                                                }
-                                                else
-                                                {
-                                                    cuerpo_alerta_error.Text = " Hubo un error al ingresar el recurso humano, intentelo nuevamente.";
-                                                }
+                                                cuerpo_alerta_error.Text = " Hubo un error al modificar el recurso humano, intentelo nuevamente.";
                                                 a_retornar = false;
                                             }// Despues de la insercion o la modificacion
                                         }
                                         else
                                         {
-                                            cuerpo_alerta_error.Text = "Es necesario ingresar una contraseña.";
-                                            SetFocus(input_contrasena);
-                                            a_retornar = false;
-                                        } // Contraseña
+                                            if (input_contrasena.Text != "")
+                                            {
+                                                Object[] datos = new Object[9];
+                                                datos[0] = input_usuario.Text;
+                                                datos[1] = input_name.Text;
+                                                datos[2] = input_correo.Text;
+                                                datos[3] = input_telefono.Text;
+                                                datos[5] = input_contrasena.Text;
+                                                datos[7] = input_cedula.Text;
+                                                if (radio_btn_miembro.Checked == true)
+                                                {
+                                                    datos[6] = false; //no es admi
+                                                    datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
+                                                    datos[8] = drop_rol.SelectedItem.Text;
+                                                }
+                                                else
+                                                {
+                                                    datos[6] = true; //es admi
+                                                    datos[4] = "";  //es admi entonces no tiene proyecto asociado
+                                                    datos[8] = "";  //es admi entonces no tiene un rol asociado
+                                                }
+
+                                                int resultado = m_controladora_rh.insertar_recurso_humano(datos);
+                                                if (resultado == 0)
+                                                {
+                                                    cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
+                                                    actualiza_tabla_recursos_humanos();
+                                                    btn_modificar.Enabled = true;
+                                                    a_retornar = true;
+                                                }
+                                                else
+                                                {
+                                                    cuerpo_alerta_error.Text = " Hubo un error al ingresar el recurso humano, intentelo nuevamente.";
+                                                    a_retornar = false;
+                                                }// Despues de la insercion o la modificacion
+                                            }
+                                            else
+                                            {
+                                                cuerpo_alerta_error.Text = "Es necesario ingresar una contraseña.";
+                                                SetFocus(input_contrasena);
+                                                a_retornar = false;
+                                            } // Contraseña
+                                        }
                                     }
                                     else
                                     {

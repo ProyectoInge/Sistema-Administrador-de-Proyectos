@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazLogin.aspx.cs" Inherits="SAPS.Fronteras.InterfazLogin" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="background: #5682a3; height: 220px; margin-top: -50px; margin-left: -15px; margin-right: -15px"></div>
+    <div class="barra-celeste"></div>
     <div style="margin-top: -100px">
         <section id="login">
             <div class="row">
@@ -34,11 +34,6 @@
                                 <div id="row3" class="form-group">
                                     <div class="col-md-10 col-md-offset-1">
                                         <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" placeholder="Contraseña"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div id="row4" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1">
-                                        <asp:CheckBox runat="server" CssClass="checkbox" Text="Recordar mis datos" />
                                     </div>
                                 </div>
                             </div>

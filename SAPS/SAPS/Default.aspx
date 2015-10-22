@@ -1,12 +1,10 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SAPS._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div class="barra-default" style="margin-left: -15px; margin-right: -15px;">
-    </div>
-    <section id="texto_barra">
-        <div style="margin-top: -500px">
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1">
+    <div class="barra-default">
+        <div class="fila-titulo">
+            <div class="row" style="margin-right: 15px">
+                <div class="col-md-11 col-md-offset-1">
                     <div class="row">
                         <div class="col-md-8">
                             <h1 class="titulo">SAPS es su herramienta para administrar proyectos de software.</h1>
@@ -21,7 +19,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     <br />
     <br />
     <div style="margin-top: 150px">

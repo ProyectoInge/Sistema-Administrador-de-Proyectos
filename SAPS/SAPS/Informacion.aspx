@@ -1,8 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Informacion.aspx.cs" Inherits="SAPS.Contacto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="background: #5682a3; height: 220px; margin-top: -50px; margin-left: -15px; margin-right: -15px"></div>
-    <div style="margin-top: -100px">
+    <div class="barra-celeste"></div>
+    <div style="margin-top: -100px"><!-- Hace que el panel se "monte"sobre la barra celeste -->
         <section id="informacion">
             <div class="row">
                 <div id="panel_contacto" class="col-md-10 col-md-offset-1">
