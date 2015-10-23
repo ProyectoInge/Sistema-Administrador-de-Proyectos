@@ -41,7 +41,6 @@ namespace SAPS.Fronteras
             {
                 m_controladora_rh = new ControladoraRecursosHumanos();
                 m_controladora_pdp = new ControladoraProyectoPruebas();
-                m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
@@ -65,6 +64,7 @@ namespace SAPS.Fronteras
                 if (!IsPostBack)
                 {
                     actualiza_proyectos();
+                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
                 }
                 actualiza_tabla_recursos_humanos();
                 if (!m_es_administrador)

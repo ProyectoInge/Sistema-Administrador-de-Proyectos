@@ -44,9 +44,9 @@ namespace SAPS.Fronteras
          */
         protected void btn_login_Click(object sender, EventArgs e)
         {
-            if(input_usuario.Text != "")
+            if (input_usuario.Text != "")
             {
-                if(input_contrasena.Text != "")
+                if (input_contrasena.Text != "")
                 {
                     if (!m_controladora_rh.consultar_sesion(input_usuario.Text))
                     {

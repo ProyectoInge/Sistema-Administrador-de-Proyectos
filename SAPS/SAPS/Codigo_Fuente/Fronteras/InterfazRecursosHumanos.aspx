@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" EnableEventValidation="false" %>
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
@@ -49,7 +49,7 @@
         </div>
     </section>
     <br />
-    <section id="form">
+    <form id="form">
         <div class="row">
             <div id="panel_izquierda" class="col-md-5 col-md-offset-1">
                 <div class="panel panel-default">
@@ -160,10 +160,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </form>
     <div class="row">
         <div class="col-md-3 col-md-offset-9">
-            <asp:Label runat="server" CssClass="text-danger"><small style="text-align:right">* Campos obligatorios</small></asp:Label>
+            <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
         </div>
     </div>
     <br />
@@ -232,8 +232,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server" />
-                                <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
+                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server"/>
+                                <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server"/>
                             </div>
                         </div>
                     </ContentTemplate>
