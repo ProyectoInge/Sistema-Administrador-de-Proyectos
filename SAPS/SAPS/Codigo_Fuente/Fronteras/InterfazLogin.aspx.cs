@@ -27,6 +27,14 @@ namespace SAPS.Fronteras
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (Request.Cookies["UserName"] != null && Request.Cookies["Password"] != null)
+                {
+                    input_usuario.Text = Request.Cookies["UserName"].Value;
+                    input_contrasena.Attributes["value"] = Request.Cookies["Password"].Value;
+                }
+            }
             HtmlGenericControl nav_bar = (HtmlGenericControl)Page.Master.FindControl("navigation_bar"); //para ocultar el navbar
             HtmlGenericControl cuerpo = (HtmlGenericControl)Page.Master.FindControl("cuerpo");
             cuerpo.Attributes.Add("class", "container-fluid body-content");
@@ -53,7 +61,18 @@ namespace SAPS.Fronteras
                         int resultado = m_controladora_rh.autenticar(input_usuario.Text, input_contrasena.Text);
                         if (resultado == 0)
                         {
-
+                            if (checkbox_recordarme.Checked)
+                            {
+                                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
+                                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+                            }
+                            else
+                            {
+                                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
+                                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
+                            }
+                            Response.Cookies["UserName"].Value = input_usuario.Text.Trim();
+                            Response.Cookies["Password"].Value = input_contrasena.Text.Trim();
                             m_controladora_rh.iniciar_sesion(input_usuario.Text);
                             FormsAuthentication.Authenticate(input_usuario.Text, input_contrasena.Text);
                             FormsAuthentication.RedirectFromLoginPage(input_usuario.Text, true);

@@ -49,7 +49,7 @@
         </div>
     </section>
     <br />
-    <form id="form">
+    <div id="form">
         <div class="row">
             <div id="panel_izquierda" class="col-md-5 col-md-offset-1">
                 <div class="panel panel-default">
@@ -160,7 +160,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </div>
     <div class="row">
         <div class="col-md-3 col-md-offset-9">
             <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>

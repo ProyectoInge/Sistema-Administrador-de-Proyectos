@@ -36,6 +36,13 @@
                                         <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" placeholder="Contraseña"></asp:TextBox>
                                     </div>
                                 </div>
+                                <div id="row4" class="form-group">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="checkbox">
+                                            <asp:CheckBox runat="server" ID="checkbox_recordarme" Text="Recordar mis datos" Checked="true"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="panel-footer">
