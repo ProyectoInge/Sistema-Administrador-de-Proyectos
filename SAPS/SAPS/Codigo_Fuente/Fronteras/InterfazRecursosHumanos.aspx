@@ -1,10 +1,63 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" EnableEventValidation="false" %>
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
-    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
-    $(document).ready(function () {
-        $("#btn_rh").addClass("active");
-    });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn_rh").addClass("active");// Para activar el elemento en el navbar
+
+            /* Los metodos de aca son para realizar las validacion de datos de lado del cliente. */
+
+            //Escondo los labels de errores
+            $("#<%= label_cedula_vacia.ClientID%>").hide();
+            $("#<%= label_error_input_cedula.ClientID%>").hide();
+            $("#<%= label_nombre_vacio.ClientID%>").hide();
+            $("#<%= label_correo_vacio.ClientID %>").hide();
+            $("#<%= label_error_correo.ClientID %>").hide();
+
+            // Validacion de la cedula:
+            $("#<%= input_cedula.ClientID %>").blur(function () {
+                var cedula_ingresada = $("#<%= input_cedula.ClientID %>").val();
+                if (cedula_ingresada == "") {   //Verifica que no este vacía
+                    $("#<%= label_error_input_cedula.ClientID%>").hide();
+                    $("#<%= label_cedula_vacia.ClientID %>").show();
+                    $("#<%= input_cedula.ClientID %>").focus();
+                } else {
+                    $("#<%= label_cedula_vacia.ClientID%>").hide();
+                    var regex = /([1-7]|9)-\d{4}-\d{4}/;
+                    if (regex.test(cedula_ingresada) == false) {    //Verifica que coincida con la REGEX
+                        $("#<%= label_error_input_cedula.ClientID%>").show();
+                        $("#<%= input_cedula.ClientID %>").focus();
+                    } else {
+                        $("#<%= label_error_input_cedula.ClientID%>").hide();
+                    }
+                }
+            });
+
+            //Validacion del nombre
+            $("#<%= input_name.ClientID%>").blur(function () {
+                var nombre_ingresado = $("#<%= input_name.ClientID %>").val();
+                if (nombre_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_nombre_vacio.ClientID %>").show();
+                    $("#<%= input_name.ClientID %>").focus();
+                } else {
+                    $("#<%= label_nombre_vacio.ClientID %>").hide();
+                }
+            });
+
+            //Validacion del correo
+            $("#<%= input_correo.ClientID %>").blur(function () {
+                var correo_ingresado = $("#<%= input_correo.ClientID %>").val();
+                if (correo_ingresado == "") { //Verifica que no este vacio
+                    $("#<%= label_error_correo.ClientID %>").hide();
+                    $("#<%= label_correo_vacio.ClientID %>").show();
+                    $("#<%= input_correo.ClientID %>").focus();
+                } else {
+                    $("#<%= label_correo_vacio.ClientID %>").hide();
+                    // TO DO
+                }
+            });
+
+        });
     </script>
     <section id="page_header">
         <div class="row">
@@ -30,17 +83,17 @@
     <section id="alertas">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
+                <div class="alert alert-danger alert-dismissible fade" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <asp:Label runat="server" ID="cuerpo_alerta_error"></asp:Label>
                 </div>
-                <div class="alert alert-success alert-dismissible" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
+                <div class="alert alert-success alert-dismissible fade" id="alerta_exito" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <asp:Label runat="server" ID="cuerpo_alerta_exito"></asp:Label>
                 </div>
-                <div class="alert alert-warning alert-dismissible" id="alerta_advertencia" role="alert" aria-hidden="true" runat="server">
+                <div class="alert alert-warning alert-dismissible fade" id="alerta_advertencia" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <asp:Label runat="server" ID="cuerpo_alerta_advertencia"></asp:Label>
@@ -63,7 +116,9 @@
                                     <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
-                                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111"/>
+                                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
+                                    <asp:Label runat="server" ID="label_cedula_vacia" CssClass="text-danger"><small>Tiene que ingresar una cédula.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_error_input_cedula" CssClass="text-danger"><small>La cédula ingresada no es válida.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row2_izq" class="form-group">
@@ -72,6 +127,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
+                                    <asp:Label runat="server" ID="label_nombre_vacio" CssClass="text-danger"><small>Tiene que ingresar un nombre.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row3_izq" class="form-group">
@@ -80,6 +136,8 @@
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" placeholder="ejemplo@ejemplo.com" />
+                                    <asp:Label runat="server" ID="label_correo_vacio" CssClass="text-danger"><small>Tiene que ingresar un correo.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_error_correo" CssClass="text-danger"><small>El correo ingresado no es válido.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row4_izq" class="form-group">
@@ -232,8 +290,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server"/>
-                                <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server"/>
+                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
                             </div>
                         </div>
                     </ContentTemplate>

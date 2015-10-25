@@ -276,6 +276,7 @@ namespace SAPS.Fronteras
             {
                 mensaje_error_modal.Visible = true;
             }
+            Response.Redirect(Request.RawUrl);
             upModal.Update();
         }
 
