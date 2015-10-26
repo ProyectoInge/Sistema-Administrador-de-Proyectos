@@ -184,6 +184,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_telefono;
         
         /// <summary>
+        /// label_telefono_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_telefono_vacio;
+        
+        /// <summary>
+        /// label_error_telefono control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_error_telefono;
+        
+        /// <summary>
         /// radio_buttons control.
         /// </summary>
         /// <remarks>
@@ -236,6 +254,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_usuario;
+        
+        /// <summary>
+        /// label_usuario_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_usuario_vacio;
         
         /// <summary>
         /// label_contrasena control.
