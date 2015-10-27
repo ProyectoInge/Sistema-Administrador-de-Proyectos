@@ -58,6 +58,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_contrasena;
         
         /// <summary>
+        /// checkbox_recordarme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox checkbox_recordarme;
+        
+        /// <summary>
         /// btn_login control.
         /// </summary>
         /// <remarks>

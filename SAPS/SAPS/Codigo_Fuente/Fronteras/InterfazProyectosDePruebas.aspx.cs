@@ -80,6 +80,7 @@ namespace SAPS.Fronteras
             m_opcion_tomada = 'i';
             activa_desactiva_botones_ime(false);
             limpia_campos();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx");
         }
 
         /** @brief Boton encargado de cargar los datos de un proyecto de pruebas seleccionado del Grid, en la pantalla principal.

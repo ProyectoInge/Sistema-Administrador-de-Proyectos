@@ -1,10 +1,97 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" EnableEventValidation="false" %>
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
-    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
-    $(document).ready(function () {
-        $("#btn_rh").addClass("active");
-    });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn_rh").addClass("active");// Para activar el elemento en el navbar
+
+            /* Los metodos de aca son para realizar las validacion de datos de lado del cliente. */
+
+            //Escondo los labels de errores
+            // TO DO --> hay que poner esto en el header para que cargue bien.
+            $("#<%= label_cedula_vacia.ClientID%>").hide();
+            $("#<%= label_error_input_cedula.ClientID%>").hide();
+            $("#<%= label_nombre_vacio.ClientID%>").hide();
+            $("#<%= label_correo_vacio.ClientID %>").hide();
+            $("#<%= label_error_correo.ClientID %>").hide();
+            $("#<%= label_error_telefono.ClientID%>").hide();
+            $("#<%= label_telefono_vacio.ClientID%>").hide();
+            $("#<%= label_usuario_vacio.ClientID%>").hide();
+
+            // Validacion de la cedula:
+            $("#<%= input_cedula.ClientID %>").blur(function () {
+                var cedula_ingresada = $("#<%= input_cedula.ClientID %>").val();
+                if (cedula_ingresada == "") {   //Verifica que no este vacía
+                    $("#<%= label_error_input_cedula.ClientID%>").hide();
+                    $("#<%= label_cedula_vacia.ClientID %>").show();
+                    $("#<%= input_cedula.ClientID %>").focus();
+                } else {
+                    $("#<%= label_cedula_vacia.ClientID%>").hide();
+                    var regex = /([1-7]|9)-\d{4}-\d{4}/;
+                    if (regex.test(cedula_ingresada) == false) {    //Verifica que coincida con la REGEX
+                        $("#<%= label_error_input_cedula.ClientID%>").show();
+                        $("#<%= input_cedula.ClientID %>").focus();
+                    } else {
+                        $("#<%= label_error_input_cedula.ClientID%>").hide();
+                    }
+                }
+            });
+
+            //Validacion del nombre
+            $("#<%= input_name.ClientID%>").blur(function () {
+                var nombre_ingresado = $("#<%= input_name.ClientID %>").val();
+                if (nombre_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_nombre_vacio.ClientID %>").show();
+                    $("#<%= input_name.ClientID %>").focus();
+                } else {
+                    $("#<%= label_nombre_vacio.ClientID %>").hide();
+                }
+            });
+
+            //Validacion del correo
+            $("#<%= input_correo.ClientID %>").blur(function () {
+                var correo_ingresado = $("#<%= input_correo.ClientID %>").val();
+                if (correo_ingresado == "") { //Verifica que no este vacio
+                    $("#<%= label_error_correo.ClientID %>").hide();
+                    $("#<%= label_correo_vacio.ClientID %>").show();
+                    $("#<%= input_correo.ClientID %>").focus();
+                } else {
+                    $("#<%= label_correo_vacio.ClientID %>").hide();
+                    // TO DO --> validar el correo con una regex
+                }
+            });
+
+            //Validacion del telefono
+            $("#<%= input_telefono.ClientID %>").blur(function () {
+                var telefono_ingresado = $("#<%= input_telefono.ClientID %>").val();
+                if (telefono_ingresado == "") { //Verifica que no este vacio
+                    $("#<%= label_error_telefono.ClientID%>").hide();
+                    $("#<%= label_telefono_vacio.ClientID%>").show();
+                    $("#<%= input_telefono.ClientID %>").focus();
+                } else {
+                    $("#<%= label_telefono_vacio.ClientID%>").hide();
+                    var regex_telefono = /(\(?\+?\d{3}\))?(2|4|5|6|7|8)\d{3}-?\d{4}/;
+                    if (regex_telefono.test(telefono_ingresado) == false) { //Revisa si coincide el numero ingresado con la regex
+                        $("#<%= label_error_telefono.ClientID%>").show();
+                        $("#<%= input_telefono.ClientID %>").focus();
+                    } else {
+                        $("#<%= label_error_telefono.ClientID%>").hide();
+                    }
+                }
+            });
+
+            //Validacion del username
+            $("#<%= input_usuario.ClientID %>").blur(function () {
+                var usuario_ingresado = $("#<%= input_usuario%>").val();
+                if (usuario_ingresado == "") {
+                    $("#<%= label_usuario_vacio.ClientID%>").show();
+                    $("#<%= input_usuario.ClientID %>").focus();
+                } else {
+                    $("#<%= label_usuario_vacio.ClientID%>").hide();
+                }
+            });
+
+        });
     </script>
     <section id="page_header">
         <div class="row">
@@ -49,7 +136,7 @@
         </div>
     </section>
     <br />
-    <section id="form">
+    <div id="form">
         <div class="row">
             <div id="panel_izquierda" class="col-md-5 col-md-offset-1">
                 <div class="panel panel-default">
@@ -63,7 +150,9 @@
                                     <asp:Label runat="server" ID="label_cedula" CssClass="control-label" AssociatedControlID="input_cedula">Cédula <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
-                                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111"/>
+                                    <asp:TextBox runat="server" ID="input_cedula" CssClass="form-control" placeholder="1-1111-1111" />
+                                    <asp:Label runat="server" ID="label_cedula_vacia" CssClass="text-danger"><small>Tiene que ingresar una cédula.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_error_input_cedula" CssClass="text-danger"><small>La cédula ingresada no es válida.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row2_izq" class="form-group">
@@ -72,6 +161,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_name" CssClass="form-control" />
+                                    <asp:Label runat="server" ID="label_nombre_vacio" CssClass="text-danger"><small>Tiene que ingresar un nombre.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row3_izq" class="form-group">
@@ -80,6 +170,8 @@
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_correo" CssClass="form-control" TextMode="Email" placeholder="ejemplo@ejemplo.com" />
+                                    <asp:Label runat="server" ID="label_correo_vacio" CssClass="text-danger"><small>Tiene que ingresar un correo.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_error_correo" CssClass="text-danger"><small>El correo ingresado no es válido.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row4_izq" class="form-group">
@@ -88,6 +180,8 @@
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="input_telefono" CssClass="form-control" TextMode="Phone" />
+                                    <asp:Label runat="server" ID="label_telefono_vacio" CssClass="text-danger"><small>Tiene que ingresar un teléfono.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_error_telefono" CssClass="text-danger"><small>El teléfono ingresado no es válido.</small></asp:Label>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +196,7 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_der" class="form-group">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="radio_buttons">Perfil <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <section id="radio_buttons" runat="server">
@@ -117,7 +211,7 @@
                                 </section>
                             </div>
                             <div id="row2_der" class="form-group">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto</asp:Label>
                                 </div>
                                 <div class="col-md-8">
@@ -126,14 +220,14 @@
                                 </div>
                             </div>
                             <div id="row3_der" class="form-group">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_rol">Rol</asp:Label>
                                 </div>
                                 <div class="col-md-8">
                                     <asp:DropDownList ID="drop_rol" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="Lider" Value="0"></asp:ListItem>
-                                        <asp:ListItem Text="Usuario" Value="1"></asp:ListItem>
-                                        <asp:ListItem Text="Tester" Value="2"></asp:ListItem>
+                                        <asp:ListItem Text="Lider" Value="Lider"></asp:ListItem>
+                                        <asp:ListItem Text="Usuario" Value="Usuario"></asp:ListItem>
+                                        <asp:ListItem Text="Tester" Value="Tester"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -144,6 +238,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" />
+                                    <asp:Label runat="server" ID="label_usuario_vacio" CssClass="text-danger"><small>Tiene que ingresar un nombre de usuario.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row5_der" class="form-group">
@@ -160,10 +255,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
     <div class="row">
         <div class="col-md-3 col-md-offset-9">
-            <asp:Label runat="server" CssClass="text-danger"><small style="text-align:right">* Campos obligatorios</small></asp:Label>
+            <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
         </div>
     </div>
     <br />

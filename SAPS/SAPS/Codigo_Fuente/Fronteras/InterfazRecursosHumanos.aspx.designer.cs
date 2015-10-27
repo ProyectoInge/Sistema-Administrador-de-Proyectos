@@ -112,6 +112,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_cedula;
         
         /// <summary>
+        /// label_cedula_vacia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_cedula_vacia;
+        
+        /// <summary>
+        /// label_error_input_cedula control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_error_input_cedula;
+        
+        /// <summary>
         /// input_name control.
         /// </summary>
         /// <remarks>
@@ -119,6 +137,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_name;
+        
+        /// <summary>
+        /// label_nombre_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_nombre_vacio;
         
         /// <summary>
         /// input_correo control.
@@ -130,6 +157,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_correo;
         
         /// <summary>
+        /// label_correo_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_correo_vacio;
+        
+        /// <summary>
+        /// label_error_correo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_error_correo;
+        
+        /// <summary>
         /// input_telefono control.
         /// </summary>
         /// <remarks>
@@ -137,6 +182,24 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_telefono;
+        
+        /// <summary>
+        /// label_telefono_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_telefono_vacio;
+        
+        /// <summary>
+        /// label_error_telefono control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_error_telefono;
         
         /// <summary>
         /// radio_buttons control.
@@ -191,6 +254,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_usuario;
+        
+        /// <summary>
+        /// label_usuario_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_usuario_vacio;
         
         /// <summary>
         /// label_contrasena control.
