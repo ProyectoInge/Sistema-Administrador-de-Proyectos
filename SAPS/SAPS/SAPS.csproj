@@ -174,6 +174,7 @@
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\rotating-card.css" />
+    <Content Include="ErrorPage\ErrorPage.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Informacion.aspx" />
     <Content Include="Content\bootstrap.css" />
@@ -375,6 +376,13 @@
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx.designer.cs">
       <DependentUpon>InterfazProyectosDePruebas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPage\ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPage\ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Informacion.aspx.cs">
       <DependentUpon>Informacion.aspx</DependentUpon>

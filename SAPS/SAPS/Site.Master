@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - SAPS</title>
+    <title><%: Page.Title %> | SAPS</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -82,7 +82,7 @@
         <footer>
             <div class="row">
                 <hr />
-                <div class="col-md-6 col-md-offset-4">
+                <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-12">
                     <p>
                         &copy; <%: DateTime.Now.Year %> - SAPS
                             <asp:Button runat="server" CssClass="btn btn-link btn-sm" Text="Home" OnClick="btn_link_home" />
