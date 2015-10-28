@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" EnableEventValidation="false"%>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" EnableEventValidation="false" %>
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
     <section id="page_header">
@@ -173,7 +173,7 @@
     <section id="botones_aceptar_cancelar">
         <div class="row">
             <div class="col-md-3 col-md-offset-9">
-                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
+                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click"/>
                 <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
             </div>
         </div>
@@ -337,13 +337,11 @@
                 if (cedula_ingresada == "") {   //Verifica que no este vacía
                     $("#<%= label_error_input_cedula.ClientID%>").hide();
                     $("#<%= label_cedula_vacia.ClientID %>").show();
-                    $("#<%= input_cedula.ClientID %>").focus();
                 } else {
                     $("#<%= label_cedula_vacia.ClientID%>").hide();
                     var regex = /([1-7]|9)-\d{4}-\d{4}/;
                     if (regex.test(cedula_ingresada) == false) {    //Verifica que coincida con la REGEX
                         $("#<%= label_error_input_cedula.ClientID%>").show();
-                        $("#<%= input_cedula.ClientID %>").focus();
                     } else {
                         $("#<%= label_error_input_cedula.ClientID%>").hide();
                     }
@@ -355,7 +353,6 @@
                 var nombre_ingresado = $("#<%= input_name.ClientID %>").val();
                 if (nombre_ingresado == "") { //Verifica que no este vacia
                     $("#<%= label_nombre_vacio.ClientID %>").show();
-                    $("#<%= input_name.ClientID %>").focus();
                 } else {
                     $("#<%= label_nombre_vacio.ClientID %>").hide();
                 }
@@ -367,7 +364,6 @@
                 if (correo_ingresado == "") { //Verifica que no este vacio
                     $("#<%= label_error_correo.ClientID %>").hide();
                     $("#<%= label_correo_vacio.ClientID %>").show();
-                    $("#<%= input_correo.ClientID %>").focus();
                 } else {
                     $("#<%= label_correo_vacio.ClientID %>").hide();
                     // TO DO --> validar el correo con una regex
@@ -380,13 +376,11 @@
                 if (telefono_ingresado == "") { //Verifica que no este vacio
                     $("#<%= label_error_telefono.ClientID%>").hide();
                     $("#<%= label_telefono_vacio.ClientID%>").show();
-                    $("#<%= input_telefono.ClientID %>").focus();
                 } else {
                     $("#<%= label_telefono_vacio.ClientID%>").hide();
                     var regex_telefono = /(\(?\+?\d{3}\))?(2|4|5|6|7|8)\d{3}-?\d{4}/;
                     if (regex_telefono.test(telefono_ingresado) == false) { //Revisa si coincide el numero ingresado con la regex
                         $("#<%= label_error_telefono.ClientID%>").show();
-                        $("#<%= input_telefono.ClientID %>").focus();
                     } else {
                         $("#<%= label_error_telefono.ClientID%>").hide();
                     }
@@ -398,12 +392,10 @@
                 var usuario_ingresado = $("#<%= input_usuario%>").val();
                 if (usuario_ingresado == "") {
                     $("#<%= label_usuario_vacio.ClientID%>").show();
-                    $("#<%= input_usuario.ClientID %>").focus();
                 } else {
                     $("#<%= label_usuario_vacio.ClientID%>").hide();
                 }
             });
-
         });
     </script>
 </asp:Content>
