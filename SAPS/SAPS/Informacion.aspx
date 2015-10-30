@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Informacion.aspx.cs" Inherits="SAPS.Contacto" %>
+﻿<%@ Page Title="Información" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Informacion.aspx.cs" Inherits="SAPS.Contacto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="barra-celeste"></div>

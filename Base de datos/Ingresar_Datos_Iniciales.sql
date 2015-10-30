@@ -19,4 +19,4 @@ INSERT INTO Oficina VALUES ('Oficina4', '26895000','22610075','Felipe González')
 INSERT INTO Oficina VALUES ('Oficina5', '22491220','22910005','Sanders Jiménez')
 
 select * from ProyectoPruebas
-execute INSERTAR_PYP 9898, 1, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Pelarnos la picha', 'MPLP', 'Asignado'
+execute INSERTAR_PYP 9898, 1, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'MPLP', 'Asignado'

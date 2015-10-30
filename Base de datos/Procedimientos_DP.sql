@@ -8,20 +8,20 @@ DROP PROCEDURE CONSULTAR_DISENOS_DISPONIBLES
 
 GO 
 CREATE PROCEDURE INSERTAR_DP
-	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @nivel_prueba varchar(64)
+	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64)
 AS
 	INSERT INTO DisenoPrueba
-		(id_proyecto, nombre_diseno, fecha_inicio, tecnica_prueba, nivel_prueba)
+		(id_proyecto, nombre_diseno, fecha_inicio, tecnica_prueba, nivel_prueba, username_responsable)
 	VALUES
-		(@id_proyecto, @nombre_diseno, @fecha_inicio, @tecnica_prueba, @nivel_prueba)
+		(@id_proyecto, @nombre_diseno, @fecha_inicio, @tecnica_prueba, @nivel_prueba, @username_responsable)
 GO
 
 GO
 CREATE PROCEDURE MODIFICAR_DP
-	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @nivel_prueba varchar(64)
+	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64)
 AS
 	UPDATE DisenoPrueba
-		SET id_proyecto = @id_proyecto, nombre_diseno = @nombre_diseno, fecha_inicio = @fecha_inicio, tecnica_prueba = @tecnica_prueba, nivel_prueba = @nivel_prueba
+		SET id_proyecto = @id_proyecto, nombre_diseno = @nombre_diseno, fecha_inicio = @fecha_inicio, tecnica_prueba = @tecnica_prueba, nivel_prueba = @nivel_prueba, username_responsable = @username_responsable
 		WHERE id_diseno = @id_diseno
 GO
 
@@ -41,7 +41,8 @@ AS
 			DisenoPrueba.nombre_diseno,
 			DisenoPrueba.fecha_inicio,
 			DisenoPrueba.tecnica_prueba,
-			DisenoPrueba.nivel_prueba
+			DisenoPrueba.nivel_prueba,
+			DisenoPrueba.username_responsable
 	FROM DisenoPrueba
 	WHERE id_diseno = @id_diseno
 GO
@@ -54,7 +55,8 @@ AS BEGIN
 			DisenoPrueba.nombre_diseno,
 			DisenoPrueba.fecha_inicio,
 			DisenoPrueba.tecnica_prueba,
-			DisenoPrueba.nivel_prueba
+			DisenoPrueba.nivel_prueba,
+			DisenoPrueba.username_responsable
 	FROM DisenoPrueba
 	END
 GO
