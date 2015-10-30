@@ -349,11 +349,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Codigo_Fuente\Ayudantes\Seguridad.cs" />
+    <Compile Include="Codigo_Fuente\Base de Datos\BDDisenoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDRecursosHumanos.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\DataBaseAdapter.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\DisenoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Oficina.cs" />
     <Compile Include="Codigo_Fuente\Entidades\ProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx.cs">
