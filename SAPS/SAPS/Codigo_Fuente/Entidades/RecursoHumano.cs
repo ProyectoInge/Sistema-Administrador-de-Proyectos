@@ -30,7 +30,18 @@ namespace SAPS.Entidades
         // Constructores
 
         /** @param datos Un vector tipo objeto que contiene toda la información necesaria
-        * para crear un recurso humano.
+        * para crear un recurso humano, el orden de los parámetros va de la siguiente manera:
+            | Índice |      Descripción     | Tipo de datos |
+            |:------:|:--------------------:|:-------------:|
+            |    0   |  Nombre de ususario  |     String    |
+            |    1   |        Nombre        |     String    |
+            |    2   |  Correo electrónico  |     String    |
+            |    3   |       Teléfono       |     String    |
+            |    4   |   Proyecto asociado  |     String    |
+            |    5   |      Contraseña      |     String    |
+            |    6   |  ¿Es administrador?  |    Boolean    |
+            |    7   | Cédula de indentidad |     String    |
+            |    8   |          Rol         |     String    |
         */
         public RecursoHumano(Object[] datos) {
             m_usuario = datos[0].ToString();
