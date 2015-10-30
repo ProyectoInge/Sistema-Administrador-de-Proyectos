@@ -355,6 +355,7 @@
     <Compile Include="Codigo_Fuente\Base de Datos\DataBaseAdapter.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\Ayudantes\Datos.cs" />
     <Compile Include="Codigo_Fuente\Entidades\CasoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\DisenoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Oficina.cs" />
