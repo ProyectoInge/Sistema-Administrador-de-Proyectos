@@ -43,6 +43,7 @@ namespace SAPS.Base_de_Datos
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@username", SqlDbType.Int).Value = id_diseno;
             return m_data_base_adapter.ejecutar_consulta(comando);
+            //
 
         }
     }
