@@ -65,7 +65,10 @@ namespace SAPS.Base_de_Datos
         */
         private void rellena_parametros_diseno_pruebas(ref SqlCommand comando, DisenoPruebas diseno_pruebas)
         {
+            comando.CommandType = CommandType.StoredProcedure;
             /// @todo
+            /*comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = diseno_pruebas.id_diseno;
+             */
         }
     }
 }
