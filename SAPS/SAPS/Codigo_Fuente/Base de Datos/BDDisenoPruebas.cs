@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SAPS.Entidades;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace SAPS.Base_de_Datos
 {
@@ -37,8 +39,10 @@ namespace SAPS.Base_de_Datos
          */
         public int eliminar_diseno_pruebas(int id_diseno)
         {
-            int a_retornar = -1;
-            return a_retornar;
+            SqlCommand comando = new SqlCommand("ELIMINAR_DP");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@username", SqlDbType.Int).Value = id_diseno;
+            return m_data_base_adapter.ejecutar_consulta(comando);
 
         }
     }
