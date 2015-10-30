@@ -66,7 +66,8 @@ create table DisenoPrueba(
 	fecha_inicio		date		NOT NULL,
 	tecnica_prueba		varchar(64),
 	tipo_prueba			varchar(64) NOT NULL,
-	nivel_prueba		varchar(64)
+	nivel_prueba		varchar(64),
+	username_responsable		varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username)
 );
 
 create table Requerimientos(
