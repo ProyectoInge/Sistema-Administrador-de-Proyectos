@@ -169,6 +169,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
@@ -360,6 +361,13 @@
     <Compile Include="Codigo_Fuente\Entidades\DisenoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Oficina.cs" />
     <Compile Include="Codigo_Fuente\Entidades\ProyectoPruebas.cs" />
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx.cs">
+      <DependentUpon>InterfazCasosDePruebas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx.designer.cs">
+      <DependentUpon>InterfazCasosDePruebas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx.cs">
       <DependentUpon>InterfazCerrarSesionRemota.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
