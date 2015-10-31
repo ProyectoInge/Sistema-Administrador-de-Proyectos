@@ -43,7 +43,7 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder modificar un recurso humano.
-         * @param datos vector que contiene los datos para poder crear un recurso humano.
+         * @param datos vector que contiene los datos para poder modificar un recurso humano.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int modificar_recurso_humano(Object[] datos)
@@ -63,7 +63,7 @@ namespace SAPS.Controladoras
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar un recurso humano en específico.
          * @param nombre_usuario nombre de usuario del recursos humano a consultar.
-         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         * @return DataTable con los resultados de la consulta.
          */
         public DataTable consultar_recurso_humano(string nombre_usuario)
         {
