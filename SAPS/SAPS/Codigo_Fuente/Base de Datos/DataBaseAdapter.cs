@@ -10,6 +10,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
+
 namespace SAPS.Base_de_Datos
 {
     public class DataBaseAdapter
