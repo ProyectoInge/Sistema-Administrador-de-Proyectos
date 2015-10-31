@@ -14,6 +14,9 @@ using SAPS.Ayudantes;
 
 namespace SAPS.Controladoras
 {
+    /** @brief efectuar las comunicaciones relacionadas con proyectos de pruebas con la capa de
+               interfaz, la capa de base de datos y las controladoras de otros módulos.
+     */
     public class ControladoraProyectoPruebas
     {
         //Variables de instancia
