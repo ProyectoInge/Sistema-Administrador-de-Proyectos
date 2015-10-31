@@ -29,6 +29,8 @@ namespace SAPS.Base_de_Datos
             m_data_base_adapter = new DataBaseAdapter();
         }
 
+        /// @todo completar los metodos
+
 
     }
 }
