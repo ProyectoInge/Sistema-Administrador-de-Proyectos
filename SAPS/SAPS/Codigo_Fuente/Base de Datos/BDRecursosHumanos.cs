@@ -57,7 +57,7 @@ namespace SAPS.Base_de_Datos
 
 
         /** @brief Método que realiza la setencia SQL para eliminar un recurso humano en específico.
-         * @param nombre_usuario del recuros humano que se desea consultar.
+         * @param nombre_usuario del recuros humano que se desea eliminar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int eliminar_recurso_humano(string nombre_usuario)
