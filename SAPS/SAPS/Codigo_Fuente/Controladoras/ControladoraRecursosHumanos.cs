@@ -20,7 +20,7 @@ namespace SAPS.Controladoras
     public class ControladoraRecursosHumanos
     {
         // Variables de instancia
-        BDRecursosHumanos m_base_datos;
+        private BDRecursosHumanos m_base_datos;
 
 
         // Constructor

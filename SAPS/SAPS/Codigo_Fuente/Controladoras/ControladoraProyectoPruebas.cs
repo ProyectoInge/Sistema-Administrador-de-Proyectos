@@ -20,7 +20,7 @@ namespace SAPS.Controladoras
     public class ControladoraProyectoPruebas
     {
         //Variables de instancia
-        BDProyectoPruebas m_base_datos_pdp;
+        private BDProyectoPruebas m_base_datos_pdp;
         //Constructor
         public ControladoraProyectoPruebas()
         {

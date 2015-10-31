@@ -21,7 +21,7 @@ namespace SAPS.Controladoras
      */
     public class ControladoraRequerimientos
     {
-        BDRequerimientos m_base_datos;
+        private BDRequerimientos m_base_datos;
 
         //Constructor
         public ControladoraRequerimientos()
