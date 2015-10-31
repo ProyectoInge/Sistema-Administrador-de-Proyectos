@@ -72,8 +72,7 @@ create table DisenoPrueba(
 
 create table Requerimientos(
 	id_requerimiento	int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	nombre				varchar(64) NOT NULL,
-	a_probar			bit			NOT NULL
+	nombre				varchar(64) NOT NULL
 );
 
 create table SePrueba(
