@@ -175,6 +175,7 @@
     <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\hover.css" />
     <Content Include="Content\rotating-card.css" />
     <Content Include="ErrorPage\ErrorPage.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
