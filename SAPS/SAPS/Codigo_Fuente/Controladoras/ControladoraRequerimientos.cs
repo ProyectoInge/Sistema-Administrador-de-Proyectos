@@ -90,7 +90,7 @@ namespace SAPS.Controladoras
         */
         public int asociar_requerimiento(Object[] datos)
         {
-            return m_base_datos.asociar_requerimiento(datos);
+            return m_base_datos.asociar_requerimiento(datos); // Prueba
         }
     }
 }
