@@ -1,4 +1,8 @@
+﻿<<<<<<< HEAD
 ﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
+=======
+﻿<%@ Page Title="Proyectos de Pruebas" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
+>>>>>>> origin/sprint-2
 
 <asp:Content ID="content_pdp" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
@@ -80,6 +84,10 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_asignment_date" CssClass="form-control" TextMode="Date" />
+<<<<<<< HEAD
+=======
+                                    <asp:Label runat="server" ID="label_fecha_asigna_ingresar" CssClass="text-danger"><small>Debe ingresar una fecha de asignación.</small></asp:Label>
+>>>>>>> origin/sprint-2
                                 </div>
                             </div>
                             <div id="row4_izq" class="form-group">
@@ -88,6 +96,11 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" TextMode="Date" />
+<<<<<<< HEAD
+=======
+                                    <asp:Label runat="server" ID="label_fecha_asigna_vacia" CssClass="text-danger"><small>Debe ingresar una fecha de asignación.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_fecha_inicio_pronta" CssClass="text-danger"><small>Esta fecha debe ser posterior a la fecha de asignación.</small></asp:Label>
+>>>>>>> origin/sprint-2
                                 </div>
                             </div>
                             <div id="row5_izq" class="form-group">
@@ -96,12 +109,21 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_finish_date" CssClass="form-control" TextMode="Date" />
+<<<<<<< HEAD
+=======
+                                    <asp:Label runat="server" ID="label_fecha_inicio_vacia" CssClass="text-danger"><small>Debe ingresar una fecha de inicio.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_fecha_final_pronta" CssClass="text-danger"><small>Esta fecha debe ser posterior a la fecha de inicio.</small></asp:Label>
+>>>>>>> origin/sprint-2
                                 </div>
                             </div>
                             <div id="ro6_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo  <span class="text-danger">*</span></asp:Label>
+<<<<<<< HEAD
                                     <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" style="resize:none" TextMode="multiline" />
+=======
+                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" TextMode="multiline" />
+>>>>>>> origin/sprint-2
                                 </div>
                             </div>
                         </div>
@@ -323,6 +345,113 @@
         </div>
     </section>
     <!-- Modal confirmacion -->
+<<<<<<< HEAD
+=======
+
+
+    <!-- Script para validacion de fechas ingresadas por el usuario -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn_pdp").addClass("active");// Para activar el elemento en el navbar
+
+            /* Los metodos de aca son para realizar las validacion de datos de lado del cliente. */
+
+            //Se esconden los labels de errores
+            // TO DO --> hay que poner esto en el header para que cargue bien.
+            $("#<%= label_fecha_inicio_pronta.ClientID%>").hide();
+            $("#<%= label_fecha_final_pronta.ClientID%>").hide();
+            $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+            $("#<%= label_fecha_asigna_ingresar.ClientID%>").hide();
+            $("#<%= label_fecha_inicio_vacia.ClientID%>").hide();
+
+
+            // Validacion de la fecha de asignacion:
+
+            $("#<%= input_asignment_date.ClientID %>").blur(function () {
+
+                $("#<%= label_fecha_inicio_pronta.ClientID%>").hide();
+
+                var fecha_asignacion_ingresada = new Date($("#<%= input_asignment_date.ClientID %>").val());
+
+                if (isNaN(fecha_asignacion_ingresada.getTime())) {                      
+                    $("#<%= label_fecha_asigna_ingresar.ClientID%>").show();
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+                    $("#<%= input_asignment_date.ClientID %>").focus();
+                } else {
+                    $("#<%= label_fecha_asigna_ingresar.ClientID%>").hide();
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+                    $("#<%= input_start_date.ClientID %>").focus();
+                }
+
+            });
+
+            // Validacion de la fecha de inicio:
+
+            $("#<%= input_start_date.ClientID %>").blur(function () {
+
+                $("#<%= label_fecha_inicio_vacia.ClientID%>").hide();
+
+                // Asignacion de las fechas a un objeto en Javascript tipo Date
+                var fecha_inicio_ingresada = new Date($("#<%= input_start_date.ClientID%>").val());
+                var fecha_asignacion_ingresada = new Date($("#<%= input_asignment_date.ClientID %>").val());
+                
+                if ( isNaN(fecha_asignacion_ingresada.getTime()) ) {                    // No puede ingresar una fecha de inicio sin ingresar una fecha de asignacion.
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").show();                   
+                    $("#<%= input_asignment_date.ClientID %>").focus();
+                } else {
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+
+                    if (isNaN(fecha_inicio_ingresada.getTime())) {
+
+                        $("#<%= input_start_date.ClientID %>").focus();
+
+                    } else {
+
+                        if (fecha_inicio_ingresada < fecha_asignacion_ingresada) {        // La fecha de inicio no puede ser menor a la fecha de asignacion                        
+                            $("#<%= label_fecha_inicio_pronta.ClientID%>").show();
+                            $("#<%= input_start_date.ClientID %>").focus();
+                        } else {
+                            $("#<%= label_fecha_inicio_pronta.ClientID%>").hide();
+                            $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();       
+                            $("#<%= label_fecha_inicio_vacia.ClientID%>").hide();
+                            $("#<%= label_fecha_final_pronta.ClientID%>").hide();
+                            $("#<%= input_finish_date.ClientID %>").focus();
+                        }
+                    }
+                }
+            });
+
+            // Validacion de la fecha de finalizacion
+
+            $("#<%= input_finish_date.ClientID %>").blur(function () {
+
+                var fecha_inicio = new Date($("#<%= input_start_date.ClientID%>").val());
+                var fecha_final = new Date($("#<%= input_finish_date.ClientID%>").val());
+
+                if (isNaN(fecha_inicio.getTime())) {
+                    $("#<%= label_fecha_inicio_vacia.ClientID%>").show();
+                    $("#<%= input_start_date.ClientID %>").focus();
+                } else {
+
+                    if (isNaN(fecha_final.getTime())) {
+                        $("#<%= input_finish_date.ClientID %>").focus();
+                    } else {
+
+                        if (fecha_inicio > fecha_final) {
+                           $("#<%= label_fecha_final_pronta.ClientID%>").show();
+                            $("#<%= input_finish_date.ClientID %>").focus();
+                        } else {
+                            $("#<%= label_fecha_final_pronta.ClientID%>").hide();                            
+                        }
+                    }
+                }
+
+            });
+        });
+    </script>
+
+>>>>>>> origin/sprint-2
 </asp:Content>
 
 

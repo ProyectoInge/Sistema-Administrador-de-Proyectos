@@ -74,5 +74,23 @@ namespace SAPS.Controladoras
         {
             return m_base_datos.solicitar_requerimientos_disponibles();
         }
+
+        /** @brief Método que se encarga de asociar un requerimiento a un diseño de pruebas.
+         * @param Vector de objetos que tiene que venir de la siguiente manera:
+         
+            | Índice |        Descripción       | Tipo de datos |
+            |:------:|:------------------------:|:-------------:|
+            |   0    |     ID del diseño        |       int     |
+            |   1    |  ID del requerimiento    |       int     |
+            |   2    |  Criterios de aceptación |     String    |
+            |   3    |        Propósito         |     String    |
+            |   4    |      Procedimiento       |     String    |
+
+         * @return 0 si no hubo ningún problema, números negativos si hubo algún problema con la base de datos.
+        */
+        public int asociar_requerimiento(Object[] datos)
+        {
+            return m_base_datos.asociar_requerimiento(datos); // Prueba
+        }
     }
 }
