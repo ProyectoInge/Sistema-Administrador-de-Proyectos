@@ -5,6 +5,7 @@ DROP PROCEDURE MODIFICAR_REQUERIMIENTO
 DROP PROCEDURE ELIMINAR_REQUERIMIENTO
 DROP PROCEDURE CONSULTAR_REQUERIMIENTO
 DROP PROCEDURE CONSULTAR_REQUERIMIENTOS_DISPONIBLES
+DROP PROCEDURE ASOCIAR_REQUERIMIENTO
 
 GO
 CREATE PROCEDURE INSERTAR_REQUERIMIENTO
@@ -49,4 +50,14 @@ AS BEGIN
 			Requerimientos.nombre
 	FROM Requerimientos
 	END
+GO
+
+GO
+CREATE PROCEDURE ASOCIAR_REQUERIMIENTO
+	@id_diseno int, @id_requerimiento int, @criterio_aceptacion varchar(256), @proposito varchar(128), @procedimiento varchar(512)
+AS
+	INSERT INTO SePrueba
+		(id_diseno, id_requerimiento, criterio_aceptacion, proposito, procedimiento)
+	VALUES
+		(@id_diseno, @id_requerimiento, @criterio_aceptacion, @proposito, @procedimiento)
 GO

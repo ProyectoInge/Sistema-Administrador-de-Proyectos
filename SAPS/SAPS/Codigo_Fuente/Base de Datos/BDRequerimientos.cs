@@ -93,5 +93,23 @@ namespace SAPS.Base_de_Datos
             comando.CommandType = CommandType.StoredProcedure;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
+
+        /** @brief Método que se encarga de asociar un requerimiento con un diseño en la base de datos
+         * @param Vector de objetos que viene el ID del diseño (int), el ID del requerimiento (int), los criterios de aceptacion (String), propósito (String) y el procedimiento (String). 
+         * @return 0 si no hubo problema, números negativos si hubo algun problema en la base.
+        */
+        public int asociar_requerimiento(Object[] datos)
+        {
+            SqlCommand comando = new SqlCommand("ASOCIAR_REQUERIMIENTO");
+            comando.CommandType = CommandType.StoredProcedure;
+            // Se agarran los datos del vector de objects.
+            comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = Convert.ToInt32(datos[0]);
+            comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = Convert.ToInt32(datos[1]);
+            comando.Parameters.Add("@criterio_aceptacion", SqlDbType.VarChar).Value = Convert.ToString(datos[2]);
+            comando.Parameters.Add("@proposito", SqlDbType.VarChar).Value = Convert.ToString(datos[3]);
+            comando.Parameters.Add("@procedimiento", SqlDbType.VarChar).Value = Convert.ToString(datos[4]);
+            // Se ejecuta el procedimiento almacenado.
+            return m_data_base_adapter.ejecutar_consulta(comando);
+        }
     }
 }
