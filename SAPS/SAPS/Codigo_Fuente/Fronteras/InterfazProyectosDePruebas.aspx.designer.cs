@@ -121,6 +121,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_asignment_date;
         
         /// <summary>
+        /// label_fecha_asigna_ingresar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_fecha_asigna_ingresar;
+        
+        /// <summary>
         /// input_start_date control.
         /// </summary>
         /// <remarks>
@@ -130,6 +139,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_start_date;
         
         /// <summary>
+        /// label_fecha_asigna_vacia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_fecha_asigna_vacia;
+        
+        /// <summary>
+        /// label_fecha_inicio_pronta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_fecha_inicio_pronta;
+        
+        /// <summary>
         /// input_finish_date control.
         /// </summary>
         /// <remarks>
@@ -137,6 +164,24 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_finish_date;
+        
+        /// <summary>
+        /// label_fecha_inicio_vacia control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_fecha_inicio_vacia;
+        
+        /// <summary>
+        /// label_fecha_final_pronta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_fecha_final_pronta;
         
         /// <summary>
         /// input_objective control.
