@@ -101,7 +101,7 @@
                             <div id="ro6_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo  <span class="text-danger">*</span></asp:Label>
-                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" TextMode="multiline" />
+                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" style="resize:none" TextMode="multiline" />
                                 </div>
                             </div>
                         </div>

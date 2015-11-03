@@ -66,13 +66,13 @@ create table DisenoPrueba(
 	fecha_inicio		date		NOT NULL,
 	tecnica_prueba		varchar(64),
 	tipo_prueba			varchar(64) NOT NULL,
-	nivel_prueba		varchar(64)
+	nivel_prueba		varchar(64),
+	username_responsable		varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username)
 );
 
 create table Requerimientos(
 	id_requerimiento	int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	nombre				varchar(64) NOT NULL,
-	a_probar			bit			NOT NULL
+	nombre				varchar(64) NOT NULL
 );
 
 create table SePrueba(

@@ -15,12 +15,12 @@ using SAPS.Entidades;
 namespace SAPS.Controladoras
 {
     /** @brief efectuar las comunicaciones relacionadas con Recursos Humanos con la capa de
-     * interfaz y la capa de  base de datos.
+               interfaz, la capa de base de datos y las controladoras de otros módulos.
      */
     public class ControladoraRecursosHumanos
     {
         // Variables de instancia
-        BDRecursosHumanos m_base_datos;
+        private BDRecursosHumanos m_base_datos;
 
 
         // Constructor
@@ -36,17 +36,17 @@ namespace SAPS.Controladoras
          * @param datos vector que contiene los datos para poder crear un recurso humano.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int insertar_recurso_humano(Object[] datos) 
+        public int insertar_recurso_humano(Object[] datos)
         {
             RecursoHumano recurso_humano = new RecursoHumano(datos);
             return m_base_datos.insertar_recurso_humano(recurso_humano);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder modificar un recurso humano.
-         * @param datos vector que contiene los datos para poder crear un recurso humano.
+         * @param datos vector que contiene los datos para poder modificar un recurso humano.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int modificar_recurso_humano(Object[] datos) 
+        public int modificar_recurso_humano(Object[] datos)
         {
             RecursoHumano recurso_humano = new RecursoHumano(datos);
             return m_base_datos.modificar_recurso_humano(recurso_humano);
@@ -56,14 +56,14 @@ namespace SAPS.Controladoras
          * @param nombre_usuario nombre de usuario del recursos humano a eliminar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int eliminar_recurso_humano(string nombre_usuario) 
+        public int eliminar_recurso_humano(string nombre_usuario)
         {
             return m_base_datos.eliminar_recurso_humano(nombre_usuario);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar un recurso humano en específico.
          * @param nombre_usuario nombre de usuario del recursos humano a consultar.
-         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         * @return DataTable con los resultados de la consulta.
          */
         public DataTable consultar_recurso_humano(string nombre_usuario)
         {
@@ -86,7 +86,7 @@ namespace SAPS.Controladoras
          * @param nueva_contrasena string con la nueva contraseña deseada.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int restablecer_contrasena(string nombre_usuario, string nueva_contrasena) 
+        public int restablecer_contrasena(string nombre_usuario, string nueva_contrasena)
         {
             return m_base_datos.cambiar_contrasena(new RecursoHumano(nombre_usuario, nueva_contrasena));
         }
@@ -96,7 +96,7 @@ namespace SAPS.Controladoras
          * @param contrasena string que contiene la contraseña digitada por el usuario.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int autenticar(string nombre_usuario, string contrasena_a_probar) 
+        public int autenticar(string nombre_usuario, string contrasena_a_probar)
         {
             int resultado_autenticacion = -1;
             DataTable consulta_de_usuario = m_base_datos.consultar_recurso_humano(nombre_usuario);
@@ -111,7 +111,7 @@ namespace SAPS.Controladoras
                     resultado_autenticacion = 0;
                 }
             }
-            return resultado_autenticacion;              
+            return resultado_autenticacion;
         }
 
         /** @brief Método que inicia la sesión para un usuario.
@@ -127,24 +127,28 @@ namespace SAPS.Controladoras
          * @param nombre_usuario usuario cuya sesion se desea cerrar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int cerrar_sesion(string nombre_usuario) 
+        public int cerrar_sesion(string nombre_usuario)
         {
-            return m_base_datos.cerrar_sesion(nombre_usuario);           
+            return m_base_datos.cerrar_sesion(nombre_usuario);
         }
 
         /** @brief Método que consulta el estado de la sesion de un nombre de usuario
          * @param nombre_usuario usuario cuya sesion se desea consultar.
-         * @return 0 si la sesion no esta iniciada, 1 si está iniciada
+         * @return false si la sesion no esta iniciada, true si está iniciada
          */
         public bool consultar_sesion(string nombre_usuario)
         {
             return m_base_datos.consultar_sesion(nombre_usuario);
         }
 
+        /** @brief Método que consulta el perfil de un usuario del sistema.
+         * @param nombre_usuario usuario cuyo perfil se desea consultar.
+         * @return false si es administrador, true si es miembro
+         */
         public bool es_administrador(string nombre_usuario)
         {
             return m_base_datos.es_administrador(nombre_usuario);
         }
-        
+
     }
 }

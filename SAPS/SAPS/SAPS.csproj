@@ -169,6 +169,7 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazDisenoPruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
@@ -353,12 +354,25 @@
     <Compile Include="Codigo_Fuente\Base de Datos\BDDisenoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDRecursosHumanos.cs" />
+    <Compile Include="Codigo_Fuente\Base de Datos\BDRequerimientos.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\DataBaseAdapter.cs" />
+    <Compile Include="Codigo_Fuente\Controladoras\ControladoraDisenosPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
+    <Compile Include="Codigo_Fuente\Controladoras\ControladoraRequerimientos.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\Ayudantes\Datos.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\CasoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\DisenoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Oficina.cs" />
     <Compile Include="Codigo_Fuente\Entidades\ProyectoPruebas.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\Requerimiento.cs" />
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx.cs">
+      <DependentUpon>InterfazCasosDePruebas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx.designer.cs">
+      <DependentUpon>InterfazCasosDePruebas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx.cs">
       <DependentUpon>InterfazCerrarSesionRemota.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
