@@ -350,11 +350,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Codigo_Fuente\Ayudantes\Seguridad.cs" />
+    <Compile Include="Codigo_Fuente\Base de Datos\BDCasoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDDisenoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDRecursosHumanos.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDRequerimientos.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\DataBaseAdapter.cs" />
+    <Compile Include="Codigo_Fuente\Base de Datos\SqlDatabaseSetup.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraDisenosPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
@@ -485,6 +487,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' == ''" />
+  <PropertyGroup>
+    <SsdtUnitTestVersion>2.0</SsdtUnitTestVersion>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
