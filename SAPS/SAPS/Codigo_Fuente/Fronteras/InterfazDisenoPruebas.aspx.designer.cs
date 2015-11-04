@@ -112,24 +112,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.DropDownList drop_proyecto;
         
         /// <summary>
-        /// primero control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem primero;
-        
-        /// <summary>
-        /// seguas control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListItem seguas;
-        
-        /// <summary>
         /// label_error_proyecto control.
         /// </summary>
         /// <remarks>

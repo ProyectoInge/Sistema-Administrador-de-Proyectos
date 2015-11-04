@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
 
 namespace SAPS.Fronteras
 {
@@ -14,8 +15,12 @@ namespace SAPS.Fronteras
         private static ControladoraDisenosPruebas m_controladora_dp;
         private static ControladoraRecursosHumanos m_controladora_rh;
         private static ControladoraProyectoPruebas m_controladora_pyp;
+
         private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
         private static bool m_es_administrador;   // true si el usuario de la sesion es administrador, false si no.
+
+        private static Object[,] m_tabla_proyectos_disponibles;
+        private static int m_tamano_tabla_pyp;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -23,7 +28,9 @@ namespace SAPS.Fronteras
             if (Request.IsAuthenticated)
             {
                 m_controladora_dp = new ControladoraDisenosPruebas();
-                alerta_error.Visible = false;
+                m_controladora_rh = new ControladoraRecursosHumanos();
+                m_controladora_pyp = new ControladoraProyectoPruebas();
+        alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
 
@@ -47,8 +54,39 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Método que carga los proyectos existentes en el combo box.
+        */
+        protected void actualiza_proyectos()
+        {
+            vacia_proyectos();
+            llena_proyectos_disponibles();
+        }
 
-        //actualiza_proyectos();
+        /** @brief Método que vacía el combobox de proyectos.
+        */
+        protected void vacia_proyectos()
+        {
+            drop_proyecto.Items.Clear();
+        }
+
+        /** @brief Método que llena los proyectos en el combo box.
+        */
+        protected void llena_proyectos_disponibles()
+        {
+            DataTable tabla_proyectos = m_controladora_pyp.solicitar_proyectos_disponibles();
+            m_tamano_tabla_pyp = tabla_proyectos.Rows.Count;
+            m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pyp, 2];
+            for (int i = 0; i < m_tamano_tabla_pyp; ++i)
+            {
+                m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_proyectos.Rows[i]["id_proyecto"]);
+                m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();
+                ListItem item_proyecto = new ListItem();
+                item_proyecto.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
+                item_proyecto.Value = Convert.ToString(m_tabla_proyectos_disponibles[i, 0]);
+                drop_proyecto.Items.Add(item_proyecto);
+            }
+        }
+
         //actualiza_requerimientos();
         //actualiza_rh();
         //actualiza_tabla_disenos();

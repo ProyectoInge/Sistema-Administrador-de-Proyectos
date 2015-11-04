@@ -63,10 +63,7 @@
                                             <asp:Label runat="server" ID="label_proyecto" CssClass="control-label" AssociatedControlID="drop_proyecto">Proyecto de prueba <span class="text-danger">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-7">
-                                            <asp:DropDownList runat="server" ID="drop_proyecto" CssClass="form-control">
-                                                <asp:ListItem runat="server" ID="primero" Text="" Value=""></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="seguas" Text="rofl" Value="rofl"></asp:ListItem>
-                                            </asp:DropDownList>
+                                            <asp:DropDownList runat="server" ID="drop_proyecto" CssClass="form-control"></asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_proyecto" CssClass="text-danger"><small>Debe seleccionar un proyecto.</small></asp:Label>
                                         </div>
                                     </div>
