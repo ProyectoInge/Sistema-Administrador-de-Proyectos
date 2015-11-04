@@ -83,5 +83,25 @@ namespace PruebasUnitarias
             string no_esperado = "Perro";
             Assert.AreNotEqual(no_esperado, nombre_requerimiento, "Efectivamente, los valores no coinciden");
         }
+
+        // ---------------------------------- Pruebas de consultar requerimientos ----------------------------------
+
+        [TestMethod]
+        public void test_modificar_requerimiento_1()
+        {
+            Object[] datos = { 4, "Cambio requerimiento" };
+            int resultado = m_controladora_requerimientos.modificar_requerimiento(datos);
+            int esperado = 0;
+            Assert.AreEqual(esperado, resultado, "Se logro modificar con exito el requerimiento");
+        }
+
+        [TestMethod]
+        public void test_modificar_requerimiento_2()
+        {
+            Object[] datos = { 200, "Perro" };
+            int resultado = m_controladora_requerimientos.modificar_requerimiento(datos);
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "El ID no corresponde entonces no hizo el cambio");
+        }
     }
 }
