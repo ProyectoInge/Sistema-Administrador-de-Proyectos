@@ -176,6 +176,19 @@
                                     <asp:Label runat="server" ID="label_error_procedimiento" CssClass="text-danger"><small>Debe ingresar un procedimiento de pruebas.</small></asp:Label>
                                 </div>
                             </div>
+                            <div id="row7" class="form-group">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-5">
+                                            <asp:Label runat="server" ID="label_responsable" CssClass="control-label" AssociatedControlID="drop_responsable">Procedimiento: <span class="text-danger">*</span></asp:Label>
+                                            <asp:DropDownList ID="drop_responsable" runat="server" CssClass="form-control" Rows="3" TextMode="MultiLine" Style="resize: none"></asp:DropDownList>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
