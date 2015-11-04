@@ -4,8 +4,8 @@
     <div class="barra-default">
     </div>
     <div class="row titulo-default">
-        <div class="col-md-7 col-md-offset-1 col-sm-7 col-sm-offset-1 col-lg-5 col-lg-offset-1">
-            <h1>SAPS es su herramienta para administrar proyectos de software.</h1>
+        <div class="col-md-9 col-md-offset-1 col-sm-9 col-sm-offset-1 col-lg-7 col-lg-offset-1">
+            <h1 style="font-size:60px">SAPS es su herramienta para administrar proyectos de software.</h1>
         </div>
     </div>
     <div class="row">
