@@ -14,13 +14,14 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-8">
                 <div class="btn-group" role="group">
-                    <asp:Button runat="server" CssClass="btn btn-default active" ID="btn_crear" Enabled="true" Text="Ingresar" OnClick="btn_crear_Click"/>
-                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Text="Modificar"  OnClick="btn_modificar_Click"/>
-                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_eliminar" Text="Eliminar"  OnClick="btn_eliminar_Click"/>
+                    <asp:Button runat="server" CssClass="btn btn-default active" ID="btn_crear" Enabled="true" Text="Ingresar" OnClick="btn_crear_Click" />
+                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Text="Modificar" OnClick="btn_modificar_Click" />
+                    <asp:Button runat="server" CssClass="btn btn-default" ID="btn_eliminar" Text="Eliminar" OnClick="btn_eliminar_Click" />
                 </div>
             </div>
         </div>
     </section>
+    <br />
     <section id="alertas">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -43,7 +44,8 @@
         </div>
     </section>
     <div id="form">
-        <div id="panel_izquierda" class="col-md-5 col-md-offset-1">
+        <div class="row">
+            <div id="panel_izquierda" class="col-md-5 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Resumen</div>
@@ -51,7 +53,7 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_izq" class="form-group">
-                                <div class="col-md-3"> 
+                                <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_proyecto" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto<span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
@@ -60,7 +62,7 @@
                                 </div>
                             </div>
                             <div id="row2_izq" class="form-group">
-                                <div class="col-md-3"> 
+                                <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_diseno" CssClass="control-label" AssociatedControlID="drop_diseno_asociado">Diseño<span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
@@ -69,7 +71,7 @@
                                 </div>
                             </div>
                             <div id="row3_izq" class="form-group">
-                                <div class="col-md-3"> 
+                                <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_caracteristicas_diseno" CssClass="control-label" AssociatedControlID="drop_caracteristicas_diseno">Características<span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
@@ -81,7 +83,65 @@
                     </div>
                 </div>
             </div>
+            <div id="panel_derecha" class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">Entrada de datos</div>
+                    </div>
+                    <div class="panel-body">
+                <div class="form-horizontal">
+                    <div id="row1_der" class="form-group">
+                        <div class="col-md-3">
+                            <!-- @todo label insertar entrada de datos -->
+                        </div>
+                        <div class="col-md-9">
+                            <!-- @todo tabla para insertar entrada de datos -->
+                        </div>
+                    </div>
+                    <div id="row2_der" class="form-group">
+                        <div class="col-md-3">
+                            <!-- @todo label resultado esperado -->
+                        </div>
+                        <div class="col-md-9">
+                            <!-- @todo insetar resultados esperados -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="panel_izquierda2" class="col-md-5 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">Datos del caso de prueba</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div id="row1_izq_2" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" ID="label1" CssClass="control-label" AssociatedControlID="text_proposito">Propósito<span class="text-danger">*</span></asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="text_proposito" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
+                                </div>
+                            </div>
+                            <div id="row2_izq_2" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" ID="label2" CssClass="control-label" AssociatedControlID="text_flujo_central">Flujo Central<span class="text-danger">*</span></asp:Label>
+                                </div>
+                                <div class="col-md-9">
+                                    <asp:TextBox runat="server" ID="text_flujo_central" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div class="row">
         <div class="col-md-3 col-md-offset-9">
             <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
