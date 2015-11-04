@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SAPS.Controladoras;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,17 +11,51 @@ namespace SAPS.Fronteras
     public partial class InterfazDisenoPruebas : System.Web.UI.Page
     {
 
+        private static ControladoraDisenosPruebas m_controladora_dp;
+        private static ControladoraRecursosHumanos m_controladora_rh;
+        private static ControladoraProyectoPruebas m_controladora_pyp;
         private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
+        private static bool m_es_administrador;   // true si el usuario de la sesion es administrador, false si no.
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.IsAuthenticated)
+            {
+                m_controladora_dp = new ControladoraDisenosPruebas();
+                alerta_error.Visible = false;
+                alerta_exito.Visible = false;
+                alerta_advertencia.Visible = false;
 
+                if (!IsPostBack)
+                {
+                    //actualiza_proyectos();
+                    //actualiza_requerimientos();
+                    //actualiza_rh();
+                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
+                }
+                //actualiza_tabla_disenos();
+                if (!m_es_administrador)
+                {
+                    btn_crear.Enabled = false;
+                }
+
+            }
+            else
+            {
+                Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
+            }
         }
 
+
+        //actualiza_proyectos();
+        //actualiza_requerimientos();
+        //actualiza_rh();
+        //actualiza_tabla_disenos();
+
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "modificar".
- * @param Los parametros por default de un evento de C#.
-*/
+        * @param Los parametros por default de un evento de C#.
+        */
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
             m_opcion = 'm';
