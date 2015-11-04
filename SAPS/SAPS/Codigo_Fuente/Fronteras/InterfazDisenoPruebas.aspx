@@ -60,10 +60,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-5">
-                                            <asp:Label runat="server" ID="label_proyecto" CssClass="control-label" AssociatedControlID="input_proyecto">Proyecto de prueba <span class="text-danger">*</span></asp:Label>
+                                            <asp:Label runat="server" ID="label_proyecto" CssClass="control-label" AssociatedControlID="drop_proyecto">Proyecto de prueba <span class="text-danger">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-7">
-                                            <asp:DropDownList runat="server" ID="input_proyecto" CssClass="form-control"></asp:DropDownList>
+                                            <asp:DropDownList runat="server" ID="drop_proyecto" CssClass="form-control">
+                                                <asp:ListItem runat="server" ID="primero" Text="" Value=""></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="seguas" Text="rofl" Value="rofl"></asp:ListItem>
+                                            </asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_proyecto" CssClass="text-danger"><small>Debe seleccionar un proyecto.</small></asp:Label>
                                         </div>
                                     </div>
@@ -78,7 +81,6 @@
                                         <div class="col-md-7">
                                             <asp:TextBox runat="server" ID="input_nombre" CssClass="form-control" />
                                             <asp:Label runat="server" ID="label_nombre_vacio" CssClass="text-danger"><small>Debe ingresar un nombre de diseño.</small></asp:Label>
-                                            <asp:Label runat="server" ID="label_error_input_nombre" CssClass="text-danger"><small>El nombre ingresado no es válido.</small></asp:Label>
                                         </div>
                                     </div>
                                 </div>
@@ -180,13 +182,23 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-5">
-                                            <asp:Label runat="server" ID="label_responsable" CssClass="control-label" AssociatedControlID="drop_responsable">Procedimiento: <span class="text-danger">*</span></asp:Label>
-                                            <asp:DropDownList ID="drop_responsable" runat="server" CssClass="form-control" Rows="3" TextMode="MultiLine" Style="resize: none"></asp:DropDownList>
+                                            <asp:Label runat="server" ID="label_responsable" CssClass="control-label" AssociatedControlID="drop_responsable">Responsable: <span class="text-danger">*</span></asp:Label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <asp:DropDownList ID="drop_responsable" runat="server" CssClass="form-control"></asp:DropDownList>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-
+                                    <div class="form-group">
+                                        <div class="col-md-5">
+                                            <asp:Label runat="server" ID="label_fecha" CssClass="control-label" AssociatedControlID="input_fecha">Fecha: <span class="text-danger">*</span></asp:Label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <asp:TextBox runat="server" ID="input_fecha" CssClass="form-control" TextMode="Date" />
+                                            <asp:Label runat="server" ID="label_error_fecha" CssClass="text-danger"><small>Debe ingresar una fecha.</small></asp:Label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -195,5 +207,168 @@
             </div>
         </div>
     </div>
+        <div class="row">
+        <div class="col-md-3 col-md-offset-9">
+            <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
+        </div>
     </div>
+    <br />
+    <section id="botones_aceptar_cancelar">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1">
+                <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_Consultar" Text="Consultar diseños asociados"/>
+            </div>
+            <div class="col-md-3 col-md-offset-4">
+                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
+                <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar"/>
+            </div>
+        </div>
+    </section>
+    <section id="linea_separadora">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <hr />
+            </div>
+        </div>
+    </section>
+    <section id="area_consultas">
+        <div class="row">
+            <div class="col-md-11 col-md-offset-1">
+                <h4>Diseños de prueba disponibles</h4>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
+                <asp:Table runat="server" ID="tabla_disenos_prueba" CssClass="table table-hover form-group">
+                    <asp:TableHeaderRow runat="server" ID="tabla_disenos_prueba_header">
+                    </asp:TableHeaderRow>
+                </asp:Table>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn_dp").addClass("active");// Para activar el elemento en el navbar
+
+            /* Los metodos de aca son para realizar las validacion de datos de lado del cliente. */
+
+            //Escondo los labels de errores
+            // TO DO --> hay que poner esto en el header para que cargue bien.
+            $("#<%= label_error_ambiente.ClientID%>").hide();
+            $("#<%= label_error_criterio.ClientID%>").hide();
+            $("#<%= label_error_drop_nivel.ClientID%>").hide();
+            $("#<%= label_error_drop_tecnica.ClientID %>").hide();
+            $("#<%= label_error_drop_tipo.ClientID %>").hide();
+            $("#<%= label_error_fecha.ClientID%>").hide();
+            $("#<%= label_nombre_vacio.ClientID%>").hide();
+            $("#<%= label_error_procedimiento.ClientID%>").hide();
+            $("#<%= label_error_proyecto.ClientID%>").hide();
+
+            // Validacion del ambiente:
+            $("#<%= input_ambiente.ClientID %>").blur(function () {
+                var cedula_ingresada = $("#<%= input_ambiente.ClientID %>").val();
+                if (cedula_ingresada == "") {   //Verifica que no este vacía
+                    $("#<%= label_error_ambiente.ClientID %>").show();
+                } else {
+                    $("#<%= label_error_ambiente.ClientID%>").hide();
+                }
+            });
+
+            //Validacion del criterio 
+            $("#<%=input_criterio.ClientID%>").blur(function () {
+                var nombre_ingresado = $("#<%= input_criterio.ClientID %>").val();
+                if (nombre_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_error_criterio.ClientID %>").show();
+                } else {
+                    $("#<%= label_error_criterio.ClientID %>").hide();
+                }
+            });
+
+            //Validacion de la fecha
+            $("#<%= input_fecha.ClientID %>").blur(function () {
+                var input_fecha = $("#<%= input_fecha.ClientID %>").val();
+                if (input_fecha == "") { //Verifica que no este vacio
+                    $("#<%= label_error_fecha.ClientID %>").show();
+                } else {
+                    $("#<%= label_error_fecha.ClientID %>").hide();
+                    // TO DO --> validar el correo con una regex
+                }
+            });
+
+            //Validacion del nombre
+            $("#<%= input_nombre.ClientID %>").blur(function () {
+                var input_nombre = $("#<%= input_nombre.ClientID %>").val();
+                if (input_nombre == "") { //Verifica que no este vacio
+                    $("#<%= label_nombre_vacio.ClientID%>").show();
+                } else {
+                    $("#<%= label_nombre_vacio.ClientID%>").hide();
+                }
+            });
+
+            //Validacion del procedimiento
+            $("#<%= input_procedimiento.ClientID %>").blur(function () {
+                var input_procedimiento = $("#<%= input_procedimiento%>").val();
+                if (input_procedimiento == "") {
+                    $("#<%= label_error_procedimiento.ClientID%>").show();
+                } else {
+                    $("#<%= label_error_procedimiento.ClientID%>").hide();
+                }
+            });
+
+            //Validación de proyecto
+            $("#<%= drop_proyecto.ClientID %>").blur(function () {
+                var drop_proyecto = $(this).val();
+                if (drop_proyecto == "") {
+                    $("#<%= label_error_proyecto.ClientID%>").show();
+                } else {
+                    $("#<%= label_error_proyecto.ClientID%>").hide();
+                }
+            });
+
+            //Validación de nivel
+            $("#<%= drop_nivel.ClientID %>").blur(function () {
+                var drop_nivel = $(this).val();
+                if (drop_nivel == "") {
+                    $("#<%= label_error_drop_nivel.ClientID%>").show();
+                } else {
+                    $("#<%= label_error_drop_nivel.ClientID%>").hide();
+                }
+            });
+
+            //Validación de técnica
+            $("#<%= drop_tecnica.ClientID %>").blur(function () {
+                var drop_tecnica = $(this).val();
+                if (drop_tecnica == "") {
+                    $("#<%= label_error_drop_tecnica.ClientID%>").show();
+                } else {
+                    $("#<%= label_error_drop_tecnica.ClientID%>").hide();
+                }
+            });
+
+
+            //Validación de tipo
+            $("#<%= drop_tecnica.ClientID %>").blur(function () {
+                var drop_tecnica = $(this).val();
+                if (drop_tecnica == "") {
+                    $("#<%= label_error_drop_tecnica.ClientID%>").show();
+                } else {
+                    $("#<%= label_error_drop_tecnica.ClientID%>").hide();
+                }
+            });
+
+
+            //Validación de responsable
+            $("#<%= drop_nivel.ClientID %>").blur(function () {
+                var drop_nivel = $(this).val();
+                if (drop_nivel == "") {
+                    $("#<%= label_error_drop_nivel.ClientID%>").show();
+                } else {
+                    $("#<%= label_error_drop_nivel.ClientID%>").hide();
+                }
+            });
+
+
+        });
+    </script>
 </asp:Content>
