@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SAPS.Controladoras;
+using System.Data;
 
 namespace PruebasUnitarias
 {
@@ -11,7 +12,7 @@ namespace PruebasUnitarias
 
         // ---------------------------------- Pruebas de insertar requerimientos ----------------------------------
         [TestMethod]
-        public void test_insertar_requerimiento()
+        public void test_insertar_requerimiento_1()
         {
             Object[] datos = { 0, "Requerimiento de prueba" };
             int resultado = m_controladora_requerimientos.insertar_requerimiento(datos);
@@ -33,8 +34,8 @@ namespace PruebasUnitarias
         {
             Object[] datos = { 0, null };
             int resultado = m_controladora_requerimientos.insertar_requerimiento(datos);
-            int esperado = 0;
-            Assert.AreNotEqual(esperado, resultado, "No deberia de dar 0 ya que faltan datos en el vector.");
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "No deberia de dar 0 ya que faltan datos en el vector.");
         }
 
         [TestMethod]
@@ -42,12 +43,45 @@ namespace PruebasUnitarias
         {
             Object[] datos = new Object[2];
             int resultado = m_controladora_requerimientos.insertar_requerimiento(datos);
-            int esperado = 0;
-            Assert.AreNotEqual(esperado, resultado, "No se inicializo el vector, por lo que debe dar error");
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "No se inicializo el vector, por lo que debe dar error");
         }
 
-
         // ---------------------------------- Pruebas de eliminar requerimientos ----------------------------------
+        [TestMethod]
+        public void test_eliminar_requerimiento_1()
+        {
+            int resultado = m_controladora_requerimientos.eliminar_requerimiento(10);
+            int esperado = 0;
+            Assert.AreEqual(esperado, resultado, "Se eliminó correctamente el requerimiento");
+        }
 
+        [TestMethod]
+        public void test_eliminar_requerimiento_2()
+        {
+            int resultado = m_controladora_requerimientos.eliminar_requerimiento(200);
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "El ID 200 no existe entonces da error");
+        }
+
+        // ---------------------------------- Pruebas de consultar requerimientos ----------------------------------
+
+        [TestMethod]
+        public void test_consultar_requerimiento_1()
+        {
+            DataTable resultado = m_controladora_requerimientos.consultar_requerimiento(1);
+            string nombre_requerimiento = Convert.ToString(resultado.Rows[0]["nombre"]);
+            string esperado = "Requerimiento de prueba";
+            Assert.AreEqual(esperado, nombre_requerimiento, "Se consulto el requerimiento correctamente");
+        }
+
+        [TestMethod]
+        public void test_consultar_requerimiento_2()
+        {
+            DataTable resultado = m_controladora_requerimientos.consultar_requerimiento(1);
+            string nombre_requerimiento = Convert.ToString(resultado.Rows[0]["nombre"]);
+            string no_esperado = "Perro";
+            Assert.AreNotEqual(no_esperado, nombre_requerimiento, "Efectivamente, los valores no coinciden");
+        }
     }
 }
