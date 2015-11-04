@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="Recursos Humanos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" EnableEventValidation="false" %>
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
+    $(document).ready(function () {
+        $("#btn_rh").addClass("active");
+    });
+    </script>
     <section id="page_header">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -173,7 +178,7 @@
     <section id="botones_aceptar_cancelar">
         <div class="row">
             <div class="col-md-3 col-md-offset-9">
-                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click"/>
+                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
                 <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
             </div>
         </div>

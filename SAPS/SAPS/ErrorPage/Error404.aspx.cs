@@ -14,22 +14,21 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-namespace SAPS
+namespace SAPS.ErrorPage
 {
-    public partial class _Default : Page
+    public partial class Error404 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.IsAuthenticated)
+            if (!Request.IsAuthenticated)
             {
-                HtmlGenericControl cuerpo = (HtmlGenericControl)Page.Master.FindControl("cuerpo");
-                cuerpo.Attributes.Clear();
-                cuerpo.Attributes.Add("class", "container-fluid body-content");
+                HtmlGenericControl nav_bar = (HtmlGenericControl)Page.Master.FindControl("navigation_bar"); //para ocultar el navbar
+                nav_bar.Style.Add("display", "none");
             }
-            else
-            {
-                Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
-            }
+
+            HtmlGenericControl cuerpo = (HtmlGenericControl)Page.Master.FindControl("cuerpo");
+            cuerpo.Attributes.Add("class", "container-fluid body-content");
+
         }
     }
 }

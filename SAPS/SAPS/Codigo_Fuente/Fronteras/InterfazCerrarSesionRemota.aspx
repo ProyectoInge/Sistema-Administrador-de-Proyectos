@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazCerrarSesionRemota.aspx.cs" Inherits="SAPS.Fronteras.InterfazCerrarSesionRemota" %>
+﻿<%@ Page Title="Cerrar sesión" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazCerrarSesionRemota.aspx.cs" Inherits="SAPS.Fronteras.InterfazCerrarSesionRemota" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div style="background: #5682a3; height: 220px; margin-top: -50px; margin-left: -15px; margin-right: -15px"></div>

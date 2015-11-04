@@ -30,11 +30,20 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder insertar un requerimiento.
-         * @param datos vector que contiene los datos para poder crear un requerimientos.
+         * @@param datos Un vector tipo objeto que contiene toda la información necesaria
+                   para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
+            | Índice |      Descripción     | Tipo de datos |
+            |:------:|:--------------------:|:-------------:|
+            |    0   | ID del requerimiento |       int     |
+            |    1   |        Nombre        |     String    |
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int insertar_requerimiento(Object[] datos)
         {
+            if(datos[0]== null || datos[1] == null)
+            {
+                return -1;
+            }
             Requerimiento requerimiento = new Requerimiento(datos);
             return m_base_datos.insertar_requerimiento(requerimiento);
         }

@@ -32,9 +32,10 @@
                         <h3>Diseños de prueba</h3>
                         <hr />
                         <p>
-                            Esta sección se incluirá próximamente en el sistema.
+                            En los diseños de prueba se va a pdoer llevar control de todos los diseños disponibles para un proyecto. En este apartado
+                            se incluye todos los requerimientos que tiene un proyecto para probarlos.
                         </p>
-                        <a runat="server" href="~/" class="btn btn-primary">Diseños de prueba &raquo;</a>
+                        <a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazDisenoPruebas.aspx" class="btn btn-primary">Diseños de prueba &raquo;</a>
                     </div>
                 </div>
                 <div class="form-group">
