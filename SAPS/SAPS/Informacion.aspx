@@ -101,7 +101,7 @@
                                                     <div class="content">
                                                         <div class="main">
                                                             <h3 class="name">Stefano Del Vecchio</h3>
-                                                            <p class="profession">Monigote</p>
+                                                            <p class="profession">Software Developer</p>
                                                             <h5><i class="fa fa-map-marker fa-fw text-muted"></i>San José, Costa Rica</h5>
                                                             <h5><i class="fa fa-building-o fa-fw text-muted"></i>Universidad de Costa Rica </h5>
                                                             <h5><i class="fa fa-envelope-o fa-fw text-muted"></i>sdelvecchioc@gmail.com</h5>
@@ -117,7 +117,7 @@
                                                 </div>
                                                 <div class="back">
                                                     <div class="header">
-                                                        <h5 class="motto">"Me gusta comer mocos."</h5>
+                                                        <h5 class="motto">"If you're going to try, go all the way. Otherwise, don't even start."</h5>
                                                     </div>
                                                     <div class="content">
                                                         <div class="main">

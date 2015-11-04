@@ -23,9 +23,9 @@ body {
     background: #5682a3;
     padding-top: 40px;
     padding-bottom: 40px;
-    min-height: 500px;
     margin-left: -15px;
     margin-right: -15px;
+    height: 100vh; /*Para que tenga el alto de la pantalla.*/
 }
 
 .default-header {
@@ -64,8 +64,8 @@ body {
 }
 
 .titulo-default {
-    margin-top: -370px;
-    margin-bottom: 450px;
+    margin-top: -500px;
+    margin-bottom: 400px;
     color: white;
 }
 

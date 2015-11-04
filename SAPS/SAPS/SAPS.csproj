@@ -171,9 +171,11 @@
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazDisenoPruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\hover.css" />
     <Content Include="Content\rotating-card.css" />
     <Content Include="ErrorPage\ErrorPage.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -378,6 +380,13 @@
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx.designer.cs">
       <DependentUpon>InterfazCerrarSesionRemota.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazDisenoPruebas.aspx.cs">
+      <DependentUpon>InterfazDisenoPruebas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazDisenoPruebas.aspx.designer.cs">
+      <DependentUpon>InterfazDisenoPruebas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx.cs">
       <DependentUpon>InterfazLogin.aspx</DependentUpon>

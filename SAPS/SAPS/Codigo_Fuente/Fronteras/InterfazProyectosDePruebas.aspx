@@ -1,4 +1,8 @@
+﻿<<<<<<< HEAD
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
+=======
 ﻿<%@ Page Title="Proyectos de Pruebas" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
+>>>>>>> origin/sprint-2
 
 <asp:Content ID="content_pdp" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
@@ -80,7 +84,10 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_asignment_date" CssClass="form-control" TextMode="Date" />
+<<<<<<< HEAD
+=======
                                     <asp:Label runat="server" ID="label_fecha_asigna_ingresar" CssClass="text-danger"><small>Debe ingresar una fecha de asignación.</small></asp:Label>
+>>>>>>> origin/sprint-2
                                 </div>
                             </div>
                             <div id="row4_izq" class="form-group">
@@ -89,8 +96,11 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" TextMode="Date" />
+<<<<<<< HEAD
+=======
                                     <asp:Label runat="server" ID="label_fecha_asigna_vacia" CssClass="text-danger"><small>Debe ingresar una fecha de asignación.</small></asp:Label>
                                     <asp:Label runat="server" ID="label_fecha_inicio_pronta" CssClass="text-danger"><small>Esta fecha debe ser posterior a la fecha de asignación.</small></asp:Label>
+>>>>>>> origin/sprint-2
                                 </div>
                             </div>
                             <div id="row5_izq" class="form-group">
@@ -99,14 +109,21 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_finish_date" CssClass="form-control" TextMode="Date" />
+<<<<<<< HEAD
+=======
                                     <asp:Label runat="server" ID="label_fecha_inicio_vacia" CssClass="text-danger"><small>Debe ingresar una fecha de inicio.</small></asp:Label>
                                     <asp:Label runat="server" ID="label_fecha_final_pronta" CssClass="text-danger"><small>Esta fecha debe ser posterior a la fecha de inicio.</small></asp:Label>
+>>>>>>> origin/sprint-2
                                 </div>
                             </div>
                             <div id="ro6_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo  <span class="text-danger">*</span></asp:Label>
+<<<<<<< HEAD
+                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" style="resize:none" TextMode="multiline" />
+=======
                                     <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" TextMode="multiline" />
+>>>>>>> origin/sprint-2
                                 </div>
                             </div>
                         </div>
@@ -328,6 +345,8 @@
         </div>
     </section>
     <!-- Modal confirmacion -->
+<<<<<<< HEAD
+=======
 
 
     <!-- Script para validacion de fechas ingresadas por el usuario -->
@@ -432,6 +451,7 @@
         });
     </script>
 
+>>>>>>> origin/sprint-2
 </asp:Content>
 
 
