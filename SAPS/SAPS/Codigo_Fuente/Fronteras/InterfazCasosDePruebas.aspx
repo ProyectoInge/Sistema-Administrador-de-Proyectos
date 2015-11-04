@@ -86,28 +86,20 @@
             <div id="panel_derecha" class="col-md-5">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">Entrada de datos</div>
+                        <div class="panel-title">Requerimientos</div>
                     </div>
                     <div class="panel-body">
-                <div class="form-horizontal">
-                    <div id="row1_der" class="form-group">
-                        <div class="col-md-3">
-                            <!-- @todo label insertar entrada de datos -->
-                        </div>
-                        <div class="col-md-9">
-                            <!-- @todo tabla para insertar entrada de datos -->
-                        </div>
-                    </div>
-                    <div id="row2_der" class="form-group">
-                        <div class="col-md-3">
-                            <!-- @todo label resultado esperado -->
-                        </div>
-                        <div class="col-md-9">
-                            <!-- @todo insetar resultados esperados -->
+                        <div class="form-horizontal">
+                            <div id="row1_der" class="form-group">
+                                <div class="col-md-3">
+                                    <!-- @todo label para asociar requerimientos -->
+                                </div>
+                                <div class="col-md-9">
+                                    <!-- @todo Checkbox en que se seleccionan los requerimientos -->
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
                 </div>
             </div>
         </div>
@@ -133,6 +125,33 @@
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="text_flujo_central" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="panel_derecha_2" class="col-md-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">Entrada de datos</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div id="row1_der_2" class="form-group">
+                                <div class="col-md-3">
+                                    <!-- @todo label insertar entrada de datos -->
+                                </div>
+                                <div class="col-md-9">
+                                    <!-- @todo tabla para insertar entrada de datos -->
+                                </div>
+                            </div>
+                            <div id="row2_der_2" class="form-group">
+                                <div class="col-md-3">
+                                    <!-- @todo label resultado esperado -->
+                                </div>
+                                <div class="col-md-9">
+                                    <!-- @todo insetar resultados esperados -->
                                 </div>
                             </div>
                         </div>
