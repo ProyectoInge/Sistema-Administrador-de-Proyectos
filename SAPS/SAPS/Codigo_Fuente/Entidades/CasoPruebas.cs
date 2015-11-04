@@ -17,18 +17,35 @@ namespace SAPS.Entidades
     public class CasoPruebas
     {
         // Campos
+        private int m_id;
+        private int m_id_diseno;
         private string m_proposito;
         private string m_flujo_central;
         private Datos[] m_entrda_de_datos;
 
         public CasoPruebas(Object[] datos, Datos[] entrada_datos)
         {
-            m_proposito = datos[0].ToString();
-            m_flujo_central = datos[1].ToString();
+            m_id = Convert.ToInt32(datos[0]);
+            m_id_diseno = Convert.ToInt32(datos[1]);
+            m_proposito = datos[2].ToString();
+            m_flujo_central = datos[3].ToString();
             m_entrda_de_datos = entrada_datos;
         }
 
+
         // Métodos
+
+        public int id
+        {
+            get { return m_id; }
+            set { m_id = value; }
+        }
+
+        public int id_diseno
+        {
+            get { return m_id_diseno; }
+            set { m_id_diseno = value; }
+        }
 
         public string proposito
         {
