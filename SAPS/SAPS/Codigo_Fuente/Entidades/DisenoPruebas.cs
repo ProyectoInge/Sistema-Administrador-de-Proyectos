@@ -13,6 +13,8 @@ using System.Web;
 
 namespace SAPS.Entidades
 {
+    /** @brief Clase que se encarga de crear un objeto "Diseño de pruebas", encapsula los datos correspondientes.
+    */
     public class DisenoPruebas
     {
         //Atributos del objeto
