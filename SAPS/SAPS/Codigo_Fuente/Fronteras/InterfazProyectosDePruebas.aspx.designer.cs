@@ -193,15 +193,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_objective;
         
         /// <summary>
-        /// input_objective control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_objective;
-        
-        /// <summary>
         /// drop_estado_proyecto control.
         /// </summary>
         /// <remarks>
