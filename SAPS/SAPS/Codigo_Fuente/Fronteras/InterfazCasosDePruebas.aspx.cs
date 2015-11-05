@@ -121,13 +121,13 @@ namespace SAPS.Fronteras
             ListItem primer_item = new ListItem();
             primer_item.Text = "";
             primer_item.Value = "";
-            drop_proyecto_asociado.Items.Add(primer_item);
+            drop_requerimientos.Items.Add(primer_item);
             for (int i = 0; i < tabla_requerimientos.Rows.Count; ++i)
             {
                 ListItem item_proyecto = new ListItem();
                 item_proyecto.Text = tabla_requerimientos.Rows[i]["nombre"].ToString();
                 item_proyecto.Value = Convert.ToString(tabla_requerimientos.Rows[i]["id_requerimiento"]);
-                drop_proyecto_asociado.Items.Add(item_proyecto);
+                drop_requerimientos.Items.Add(item_proyecto);
             }
 
         }
