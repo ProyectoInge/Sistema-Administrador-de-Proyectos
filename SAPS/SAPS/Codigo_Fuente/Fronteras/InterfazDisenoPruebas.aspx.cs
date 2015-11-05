@@ -480,5 +480,14 @@ namespace SAPS.Fronteras
             actualiza_rh(drop_proyecto.SelectedItem.Value);
             drop_responsable.Enabled = true;
         }
+
+        /** @brief Método que se activa al hacer click en el botón para administrar los requerimientos disponibles, lo redirecciona a la pantalla para administrar
+                   los requerimientos.
+         * @param Los parámetros típicos de un evento en C#.
+        */
+        protected void btn_admi_requerimientos_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazRequerimientos.aspx");
+        }
     }
 }

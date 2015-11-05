@@ -105,9 +105,8 @@ namespace SAPS.Base_de_Datos
             // Se agarran los datos del vector de objects.
             comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = Convert.ToInt32(datos[0]);
             comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = Convert.ToInt32(datos[1]);
-            comando.Parameters.Add("@criterio_aceptacion", SqlDbType.VarChar).Value = Convert.ToString(datos[2]);
-            comando.Parameters.Add("@proposito", SqlDbType.VarChar).Value = Convert.ToString(datos[3]);
-            comando.Parameters.Add("@procedimiento", SqlDbType.VarChar).Value = Convert.ToString(datos[4]);
+            comando.Parameters.Add("@proposito", SqlDbType.VarChar).Value = Convert.ToString(datos[2]);
+            comando.Parameters.Add("@procedimiento", SqlDbType.VarChar).Value = Convert.ToString(datos[3]);
             // Se ejecuta el procedimiento almacenado.
             return m_data_base_adapter.ejecutar_consulta(comando);
         }

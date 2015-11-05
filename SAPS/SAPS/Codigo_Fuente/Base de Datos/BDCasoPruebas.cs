@@ -28,7 +28,7 @@ namespace SAPS.Base_de_Datos
         }
 
 
-       // Métodos
+        // Métodos
 
         /** @brief Método que realiza la setencia SQL para insertar un nuevo caso de pruebas.
          * @param caso de pruebas a guardar en la base de datos.
@@ -43,20 +43,20 @@ namespace SAPS.Base_de_Datos
 
             // Guardar entrada de datos
             if (caso_pruebas.entrada_de_datos != null)
-        {
+            {
                 for (int i = 0; i < caso_pruebas.entrada_de_datos.Length; ++i)
                 {
                     guardar_entrada_de_datos(caso_pruebas.entrada_de_datos[i], caso_pruebas.id);
                     m_data_base_adapter.ejecutar_consulta(comando);
-        }
+                }
             }
             return resultado;
         }
 
         /** @brief Método que realiza la setencia SQL para modificar un caso de pruebas.
-             * @param caso a guardar en la base de datos.
-             * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
-             */
+         * @param caso a guardar en la base de datos.
+         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         */
         public int modificar_caso_pruebas(CasoPruebas caso)
         {
             borrar_entrada_de_datos_asociados(caso.id);
@@ -74,7 +74,7 @@ namespace SAPS.Base_de_Datos
                     guardar_entrada_de_datos(caso.entrada_de_datos[i], caso.id);
                 }
             }
-            
+
             return result;
         }
 
@@ -93,15 +93,10 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
-
-
-
-
         /** @brief Método que realiza la setencia SQL para conultar un caso de pruebas en específico
-            * @param id del caso que se desea consultar.
-            * @return DataTable con los resultados de la consultas.
-            */
-
+         * @param id del caso que se desea consultar.
+         * @return DataTable con los resultados de la consultas.
+         */
         public DataTable consultar_caso_pruebas(string id_caso)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_CP");
@@ -110,10 +105,28 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        public Datos[] consultar_entrada_datos(string id_caso_prueba)
+        {
+            SqlCommand comando = new SqlCommand("CONSULTAR_ENTRADA_DATOS");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso_prueba;
+            DataTable resultados = m_data_base_adapter.obtener_resultado_consulta(comando);
+
+            Datos[] resultado = new Datos[resultados.Rows.Count];
+
+            // Se convierte a Objetos Datos y se insertan en el array
+            for (int i = 0; i < resultados.Rows.Count; ++i)
+            {
+                Datos dato = new Datos(resultados.Rows[i]["entrada_de_datos"].ToString(), resultados.Rows[i]["estado_datos"].ToString(), resultados.Rows[i]["resultado_esperado"].ToString());
+                resultado.SetValue(dato, i);
+            }
+            return resultado;
+        }
+
         /** @brief Método que realiza la setencia SQL para consultar todos los casos de pruebas que se encuentran en la base de datos.
          *  @param id_diseno diseno al que se quieren consultar los casos de pruebas asociados.
-          * @return DataTable con los resultados de la consultas.
-          */
+         * @return DataTable con los resultados de la consultas.
+         */
         public DataTable solicitar_casos_disponibles(int id_diseno)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_CASOS_DISPONIBLES");
@@ -122,9 +135,22 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        /** @brief Asocia un caso de prueba con un requerimiento.
+         *  @param id_caso_prueba id con el caso de prueba que se desea asociar.
+         *  @param id_requerimiento id con el requerimiento que se desea asociar.
+         *  @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+        */
+        public int asociar_caso_prueba_con_requerimiento(string id_caso_prueba, int id_requerimiento)
+        {
+            SqlCommand comando = new SqlCommand("ASOCIAR_CASO_CON_REQUERIMIENTO");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_caso_prueba", SqlDbType.VarChar).Value = id_caso_prueba;
+            comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = id_requerimiento;
+            return m_data_base_adapter.ejecutar_consulta(comando);
+        }
+
 
         // Métodos auxiliares
-        
 
         /** @brief Método auxiliar que rellena los parámetros de un caso de pruebas para poder realizar un procedimiento almacenado,
                    se usa para agregar y modificar casos de prueba.

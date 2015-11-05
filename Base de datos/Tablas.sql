@@ -11,7 +11,7 @@ use proyectoDB;
 	drop table RecursosHumanos;
 	drop table ProyectoPruebas;
 	drop table Oficina;
-	drop table CasoPrueba;
+
 
 
 create table Oficina(
@@ -99,8 +99,8 @@ create table DatosCasoDePrueba(
 );
 
 create table NecesitaDe(
-	id_requerimientos	int NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
-	id_caso				int NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_requerimiento	int NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
+	id_caso				varchar(24) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
 	precondiciones		varchar(512),
 	variables			varchar(512),
 	restricciones		varchar(512),

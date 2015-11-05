@@ -11,6 +11,7 @@ execute INSERTAR_RH 'ramon',		'1-1111-1111',	NULL,	'22602556',	'Don Ramon',		'o+
 execute INSERTAR_RH 'sabogol',		'3-2211-4455',	NULL,	'88771122',	'Alvaro Saborio',	'uBuAwDV6kMIg955nFxRx0xw7wkm9eTSWUK1fODqRTWmyVJ9+',	'sabo@sele.com',				NULL,	1
 execute INSERTAR_RH 'slyjose',		'1-1549-0003',	NULL,	'87107648',	'Jose Ureña',		'pm2Gz+4j7brvixNVxbuiA8dGJqRscqDXWPualhW551BNE4HV',	'jpurena14@hotmail.com',		NULL,	1
 
+
 select * from Oficina
 INSERT INTO Oficina VALUES ('Oficina1', '25110000','25112355','Vladimir Rodríguez')
 INSERT INTO Oficina VALUES ('Oficina2', '29960800','28010745','Adolfo Gutiérrez')
