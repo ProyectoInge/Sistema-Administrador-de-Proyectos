@@ -71,7 +71,7 @@ namespace SAPS.Entidades
             set { m_tipo_prueba = value; }
         }
 
-        public string tenica_prueba
+        public string tecnica_prueba
         {
             get { return m_tecnica_prueba; }
             set { m_tecnica_prueba = value; }

@@ -101,8 +101,6 @@ namespace SAPS.Base_de_Datos
         {
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = diseno_pruebas.id_diseno;
-            /// @todo Descomentar esto cuando la entidad este lista
-            /*
             comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = diseno_pruebas.id_proyecto;
             comando.Parameters.Add("@nombre_diseno", SqlDbType.VarChar).Value = diseno_pruebas.nombre_diseno;
             comando.Parameters.Add("@fecha_inicio", SqlDbType.DateTime).Value = diseno_pruebas.fecha_inicio;
@@ -110,7 +108,6 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@tipo_prueba", SqlDbType.VarChar).Value = diseno_pruebas.tipo_prueba;
             comando.Parameters.Add("@nivel_prueba", SqlDbType.VarChar).Value = diseno_pruebas.nivel_prueba;
             comando.Parameters.Add("@username_responsable", SqlDbType.VarChar).Value = diseno_pruebas.username_responsable;
-            */
         }
     }
 }

@@ -30,7 +30,18 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para insertar un nuevo diseño de pruebas en la base de datos.
-        * @param Vector de "objects" con los datos para el nuevo diseño de pruebas.
+        * @param datos Un vector tipo objeto que contiene toda la información necesaria
+           para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
+            | Índice |      Descripción     | Tipo de datos |
+            |:------:|:--------------------:|:-------------:|
+            |    0   |     ID del diseño    |       int     |
+            |    1   |    ID del proyecto   |       int     |
+            |    2   |   Nombre del diseño  |     string    |
+            |    3   |   Fecha de inicio    |    DateTime   |
+            |    4   |  Tecnica de prueba   |     string    |
+            |    5   |    Tipo de prueba    |     string    |
+            |    6   |    Nivel de prueba   |     string    |
+            |    7   | Username responsable |     string    |
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         public int insertar_diseno_pruebas(Object[] datos)
@@ -73,6 +84,18 @@ namespace SAPS.Controladoras
         public DataTable solicitar_disenos_disponibles()
         {
             return m_base_datos.solicitar_disenos_disponibles();
+        }
+
+        public DataTable solicitar_requerimientos_asociados(int id_diseno)
+        {
+            /// @todo Hacer todos los metodos de este mofo
+            return null;
+        }
+
+        public DataTable solicitar_disenos_asociados_proyecto(int id_proyecto)
+        {
+            /// @todo Hacer todos los metodos de este mofo
+            return null;
         }
     }
 }

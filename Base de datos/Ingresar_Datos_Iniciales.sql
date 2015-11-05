@@ -20,3 +20,8 @@ INSERT INTO Oficina VALUES ('Oficina5', '22491220','22910005','Sanders Jiménez')
 
 select * from ProyectoPruebas
 execute INSERTAR_PYP 9898, 1, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'MPLP', 'Asignado'
+
+select * from DisenoPrueba
+execute INSERTAR_DP 0, 1, 'Diseño 1', '09-12-2015', 'bla', 'bla', 'bla', 'root'
+execute INSERTAR_DP 0, 1, 'Diseño 2', '08-31-2015', 'bla', 'bla', 'bla', 'root'
+execute INSERTAR_DP 0, 1, 'Diseño 3', '11-28-2015', 'bla', 'bla', 'bla', 'root'

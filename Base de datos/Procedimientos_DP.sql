@@ -8,12 +8,12 @@ DROP PROCEDURE CONSULTAR_DISENOS_DISPONIBLES
 
 GO 
 CREATE PROCEDURE INSERTAR_DP
-	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64)
+	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @tipo_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64)
 AS
 	INSERT INTO DisenoPrueba
-		(id_proyecto, nombre_diseno, fecha_inicio, tecnica_prueba, nivel_prueba, username_responsable)
+		(id_proyecto, nombre_diseno, fecha_inicio, tecnica_prueba, tipo_prueba, nivel_prueba, username_responsable)
 	VALUES
-		(@id_proyecto, @nombre_diseno, @fecha_inicio, @tecnica_prueba, @nivel_prueba, @username_responsable)
+		(@id_proyecto, @nombre_diseno, @fecha_inicio, @tecnica_prueba, @tipo_prueba, @nivel_prueba, @username_responsable)
 GO
 
 GO

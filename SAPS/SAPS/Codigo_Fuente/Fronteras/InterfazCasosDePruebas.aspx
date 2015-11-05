@@ -70,6 +70,7 @@
                                     </asp:DropDownList>
                                 </div>
                             </div>
+                            <!-- Esto es necesario para pruebas de integracion, ahorita solo vamos a hacer unitarias
                             <div id="row3_izq" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_caracteristicas_diseno" CssClass="control-label" AssociatedControlID="drop_caracteristicas_diseno">Características<span class="text-danger">*</span></asp:Label>
@@ -78,7 +79,7 @@
                                     <asp:DropDownList ID="drop_caracteristicas_diseno" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_diseno_asociado_SelectedIndexChanged" AutoPostBack="true">
                                     </asp:DropDownList>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -92,12 +93,9 @@
                         <div class="form-horizontal">
                             <div id="row1_der" class="form-group">
                                 <div class="col-md-12">
-                                    <!-- @todo Llenar el checkbox con los requerimientos del diseño asociado -->
-                                    <asp:CheckBoxList id="checkboxlist_requerimientos" runat="server"> 
-                                        <asp:ListItem> Item 1</asp:ListItem>
-                                        <asp:ListItem> Item 2</asp:ListItem>  
-                                        <asp:ListItem> Item 3</asp:ListItem>          
-                                    </asp:CheckBoxList>
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_requerimientos">Requerimientos disponibles<span class="text-danger">*</span></asp:Label>
+                                    <asp:DropDownList ID="drop_requerimientos" runat="server" CssClass="form-control">
+                                    </asp:DropDownList>
                                 </div>
                             </div>
                         </div>
@@ -114,18 +112,14 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_izq_2" class="form-group">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     <asp:Label runat="server" ID="lebel_text_proposito" CssClass="control-label" AssociatedControlID="text_proposito">Propósito<span class="text-danger">*</span></asp:Label>
-                                </div>
-                                <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="text_proposito" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
                                 </div>
                             </div>
                             <div id="row2_izq_2" class="form-group">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     <asp:Label runat="server" ID="lebel_text_flujo_central" CssClass="control-label" AssociatedControlID="text_flujo_central">Flujo Central<span class="text-danger">*</span></asp:Label>
-                                </div>
-                                <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="text_flujo_central" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
                                 </div>
                             </div>
