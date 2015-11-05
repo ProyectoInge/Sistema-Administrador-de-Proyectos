@@ -106,7 +106,7 @@ namespace SAPS.Controladoras
         */
         public int asociar_requerimiento(Object[] datos)
         {
-            if (existe_requerimiento(Convert.ToInt32(datos[1]))) //Verifica que el requerimiento exista
+            if (existe_requerimiento(Convert.ToInt32(datos[1])) && datos.Length != 5) //Verifica que el requerimiento exista
                 return m_base_datos.asociar_requerimiento(datos);
             return -1;
         }

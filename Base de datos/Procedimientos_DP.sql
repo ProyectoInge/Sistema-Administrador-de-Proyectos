@@ -76,7 +76,8 @@ GO
 CREATE PROCEDURE SOLICITAR_DISENOS_ASOCIADOS_PROYECTO
 	@id_proyecto int
 AS
-	SELECT DisenoPrueba.id_diseno
+	SELECT DisenoPrueba.id_diseno,
+		   DisenoPrueba.nombre_diseno
 	FROM DisenoPrueba
 	WHERE id_proyecto = @id_proyecto
 GO

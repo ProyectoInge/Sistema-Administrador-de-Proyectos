@@ -86,8 +86,7 @@ namespace SAPS.Fronteras
         protected void drop_proyecto_asociado_SelectedIndexChanged(object sender, EventArgs e)
         {
             int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
-            DataTable disenos_asociados = m_controladora_dp.solicitar_disenos_asociados_proyecto(id_proyecto_seleccionado);
-            /// @todo Llenar el DropBox con base en los datos que tengo en "disenos_asociados"
+            actualiza_disenos_asociados(id_proyecto_seleccionado);
         }
 
         /** @brief Metodo que se activa cuando el usuario selecciona un diseño del dropdown, llena la informacion correspondiente a ese diseño.
@@ -95,7 +94,6 @@ namespace SAPS.Fronteras
         */
         protected void drop_diseno_asociado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ///@todo Agarrar el ID del diseno
             int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
             actualiza_requerimientos(id_diseno_seleccionado);
         }
@@ -120,6 +118,10 @@ namespace SAPS.Fronteras
         private void llena_requerimientos_disponibles(int id_diseno)
         {
             DataTable tabla_requerimientos = m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
+            ListItem primer_item = new ListItem();
+            primer_item.Text = "";
+            primer_item.Value = "";
+            drop_proyecto_asociado.Items.Add(primer_item);
             for (int i = 0; i < tabla_requerimientos.Rows.Count; ++i)
             {
                 ListItem item_proyecto = new ListItem();
@@ -152,12 +154,52 @@ namespace SAPS.Fronteras
         private void llena_proyectos_disponibles()
         {
             DataTable tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
+            ListItem primer_item = new ListItem();
+            primer_item.Text = "";
+            primer_item.Value = "";
+            drop_proyecto_asociado.Items.Add(primer_item);
             for (int i = 0; i < tabla_proyectos.Rows.Count; ++i)
             {
                 ListItem item_proyecto = new ListItem();
                 item_proyecto.Text = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();
                 item_proyecto.Value = Convert.ToString(tabla_proyectos.Rows[i]["id_proyecto"]);
                 drop_proyecto_asociado.Items.Add(item_proyecto);
+            }
+
+        }
+
+        /** @brief Metodo que actualiza la tabla de disenos asociados a un proyecto de pruebas con la información más reciente.
+         * @param El identificador del proyecto
+        */
+        private void actualiza_disenos_asociados(int id_proyecto)
+        {
+            vaciar_disenos();
+            llenar_disenos_asociados(id_proyecto);
+        }
+
+        /** @brief Metodo que vacia por completo la tabla de los disenos disponibles.
+        */
+        private void vaciar_disenos()
+        {
+            drop_diseno_asociado.Items.Clear();
+        }
+
+        /** @brief Metodo que se encarga de llenar el DropBox con los disenos asociados de un proyecto que hay en la base de datos.
+         * @param El identificador del proyecto.
+        */
+        private void llenar_disenos_asociados(int id_proyecto)
+        {
+            DataTable tabla_disenos_asociados = m_controladora_dp.solicitar_disenos_asociados_proyecto(id_proyecto);
+            ListItem primer_item = new ListItem();
+            primer_item.Text = "";
+            primer_item.Value = "";
+            drop_diseno_asociado.Items.Add(primer_item);
+            for (int i = 0; i < tabla_disenos_asociados.Rows.Count; ++i)
+            {
+                ListItem item_diseno = new ListItem();
+                item_diseno.Text = tabla_disenos_asociados.Rows[i]["nombre_diseno"].ToString();
+                item_diseno.Value = Convert.ToString(tabla_disenos_asociados.Rows[i]["id_diseno"]);
+                drop_diseno_asociado.Items.Add(item_diseno);
             }
 
         }
