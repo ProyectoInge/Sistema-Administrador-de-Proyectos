@@ -11,7 +11,7 @@ use proyectoDB;
 	drop table RecursosHumanos;
 	drop table ProyectoPruebas;
 	drop table Oficina;
-	drop table CasoPrueba;
+
 
 
 create table Oficina(
