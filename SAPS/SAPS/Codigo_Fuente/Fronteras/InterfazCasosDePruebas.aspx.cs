@@ -98,6 +98,13 @@ namespace SAPS.Fronteras
             actualiza_requerimientos(id_diseno_seleccionado);
         }
 
+        /** @brief Evento cuando un botón del ID de caso de pruebas se presiona */
+        protected void btn_lista_Clicked(Object sender, EventArgs e)
+        {
+
+        }
+
+
         /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
         */
         private void actualiza_requerimientos(int id_diseno)
@@ -165,7 +172,6 @@ namespace SAPS.Fronteras
                 item_proyecto.Value = Convert.ToString(tabla_proyectos.Rows[i]["id_proyecto"]);
                 drop_proyecto_asociado.Items.Add(item_proyecto);
             }
-
         }
 
         /** @brief Metodo que actualiza la tabla de disenos asociados a un proyecto de pruebas con la información más reciente.
@@ -204,5 +210,58 @@ namespace SAPS.Fronteras
 
         }
 
+        private void actualiza_caso_de_pruebas_disponibles()
+        {
+            vacia_caso_de_pruebas_disponibles();
+            llenar_caso_de_pruebas_disponibles();
+        }
+
+        private void vacia_caso_de_pruebas_disponibles()
+        {
+            tabla_casos_pruebas.Rows.Clear();
+        }
+
+        private void llenar_caso_de_pruebas_disponibles() 
+        {
+            crea_encabezado_tabla_cdp();
+
+            // @todo llamar a a la controladora para solicitar los casos de pruebas disponibles.
+            DataTable caso_de_pruebas_disponibles = null; // = m_controladora_cdp.obtener_casos_de_prueba_disponibles();
+
+            for (int i = caso_de_pruebas_disponibles.Rows.Count - 1; i >= 0; --i) 
+            {
+                TableRow fila = new TableRow();
+                TableCell celda_id = new TableCell();
+                TableCell celda_proposito = new TableCell();
+                Button btn = new Button();
+                btn.ID = caso_de_pruebas_disponibles.Rows[i]["id_caso"].ToString();
+                btn.CssClass = "btn btn-link";
+                btn.Click += new EventHandler(btn_lista_Clicked);
+
+                // Se inserta la información a la tabla
+                btn.Text = caso_de_pruebas_disponibles.Rows[i]["id_caso"].ToString();
+                celda_proposito.Text = caso_de_pruebas_disponibles.Rows[i]["proposito"].ToString();
+
+                celda_id.Controls.AddAt(0, btn);
+                fila.Cells.AddAt(0, celda_id);
+                fila.Cells.AddAt(1, celda_proposito);
+
+                tabla_casos_pruebas.Rows.Add(fila);
+            }
+        }
+
+        /** @brief Metodo que crea el encabezado para la tabla de los recursos humanos.
+         */
+        private void crea_encabezado_tabla_cdp()
+        {
+            TableHeaderRow header = new TableHeaderRow();
+            TableHeaderCell celda_header_id_caso_prueba = new TableHeaderCell();
+            TableHeaderCell celda_header_proposito = new TableHeaderCell();
+            celda_header_id_caso_prueba.Text = "ID del caso de prueba";
+            header.Cells.AddAt(0, celda_header_id_caso_prueba);
+            celda_header_proposito.Text = "Propòsito de el caso de prueba";
+            header.Cells.AddAt(1, celda_header_proposito);
+            tabla_casos_pruebas.Rows.Add(header);
+        }
     }
 }
