@@ -63,7 +63,7 @@
                                             <asp:Label runat="server" ID="label_proyecto" CssClass="control-label" AssociatedControlID="drop_proyecto">Proyecto de prueba <span class="text-danger">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-7">
-                                            <asp:DropDownList runat="server" ID="drop_proyecto" CssClass="form-control"></asp:DropDownList>
+                                            <asp:DropDownList runat="server" ID="drop_proyecto" CssClass="form-control" OnSelectedIndexChanged ="drop_proyecto_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_proyecto" CssClass="text-danger"><small>Debe seleccionar un proyecto.</small></asp:Label>
                                         </div>
                                     </div>
@@ -120,7 +120,13 @@
                                             <asp:Label runat="server" ID="label_nivel" CssClass="control-label" AssociatedControlID="drop_nivel">Nivel de prueba: <span class="text-danger">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-7">
-                                            <asp:DropDownList ID="drop_nivel" runat="server" CssClass="form-control"></asp:DropDownList>
+                                            <asp:DropDownList ID="drop_nivel" runat="server" CssClass="form-control">
+                                                <asp:ListItem runat="server" ID="vacio" Text=""></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="unitaria" Text="Unitaria"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="de_integracion" Text="De integración"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="de_sistema" Text="Del sistema"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="de_aceptacion" Text="De aceptación"></asp:ListItem>
+                                            </asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_drop_nivel" CssClass="text-danger"><small>Debe seleccionar un nivel de prueba.</small></asp:Label>
                                         </div>
                                     </div>
@@ -131,7 +137,12 @@
                                             <asp:Label runat="server" ID="label_tecnica" CssClass="control-label" AssociatedControlID="drop_tecnica">Técnica de prueba: <span class="text-danger">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-7">
-                                            <asp:DropDownList ID="drop_tecnica" runat="server" CssClass="form-control"></asp:DropDownList>
+                                            <asp:DropDownList ID="drop_tecnica" runat="server" CssClass="form-control">
+                                                <asp:ListItem runat="server" ID="vacio2" Text=""></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="caja_negra" Text="Caja negra"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="caja_blanca" Text="Caja blanca"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="exploratoria" Text="Exploratoria"></asp:ListItem>
+                                            </asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_drop_tecnica" CssClass="text-danger"><small>Debe seleccionar una técnica de prueba.</small></asp:Label>
                                         </div>
                                     </div>
@@ -144,7 +155,16 @@
                                             <asp:Label runat="server" ID="label_tipo" CssClass="control-label" AssociatedControlID="drop_tipo">Tipo de prueba: <span class="text-danger">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-7">
-                                            <asp:DropDownList ID="drop_tipo" runat="server" CssClass="form-control"></asp:DropDownList>
+                                            <asp:DropDownList ID="drop_tipo" runat="server" CssClass="form-control">
+                                                <asp:ListItem runat="server" ID="vacio3" Text=""></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="funcional" Text="Funcional"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="interfaz" Text="Interfaz de usuario"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="rendimiento" Text="Rendimiento"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="stress" Text="Stress"></asp:ListItem>                                                
+                                                <asp:ListItem runat="server" ID="volumen" Text="Volumen"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="configuracion" Text="Configuración"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="instalacion" Text="Instalación"></asp:ListItem>
+                                            </asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_drop_tipo" CssClass="text-danger"><small>Debe seleccionar un tipo de prueba.</small></asp:Label>
                                         </div>
                                     </div>
@@ -182,7 +202,8 @@
                                             <asp:Label runat="server" ID="label_responsable" CssClass="control-label" AssociatedControlID="drop_responsable">Responsable: <span class="text-danger">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-7">
-                                            <asp:DropDownList ID="drop_responsable" runat="server" CssClass="form-control"></asp:DropDownList>
+                                            <asp:DropDownList ID="drop_responsable" runat="server" CssClass="form-control" Enabled="false"></asp:DropDownList>
+                                            <asp:Label runat="server" ID="label_error_rh" CssClass="text-danger"><small>Debe seleccionar un responsable.</small></asp:Label>
                                         </div>
                                     </div>
                                 </div>
@@ -216,7 +237,7 @@
                 <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_Consultar" Text="Consultar diseños asociados"/>
             </div>
             <div class="col-md-3 col-md-offset-4">
-                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar"/>
+                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click"/>
                 <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar"/>
             </div>
         </div>
@@ -261,6 +282,7 @@
             $("#<%= label_nombre_vacio.ClientID%>").hide();
             $("#<%= label_error_procedimiento.ClientID%>").hide();
             $("#<%= label_error_proyecto.ClientID%>").hide();
+            $("#<%= label_error_rh.ClientID%>").hide();
 
             // Validacion del ambiente:
             $("#<%= input_ambiente.ClientID %>").blur(function () {
@@ -345,23 +367,23 @@
 
 
             //Validación de tipo
-            $("#<%= drop_tecnica.ClientID %>").blur(function () {
-                var drop_tecnica = $(this).val();
-                if (drop_tecnica == "") {
-                    $("#<%= label_error_drop_tecnica.ClientID%>").show();
+            $("#<%= drop_tipo.ClientID %>").blur(function () {
+                var drop_tipo = $(this).val();
+                if (drop_tipo == "") {
+                    $("#<%= label_error_drop_tipo.ClientID%>").show();
                 } else {
-                    $("#<%= label_error_drop_tecnica.ClientID%>").hide();
+                    $("#<%= label_error_drop_tipo.ClientID%>").hide();
                 }
             });
 
 
             //Validación de responsable
-            $("#<%= drop_nivel.ClientID %>").blur(function () {
-                var drop_nivel = $(this).val();
-                if (drop_nivel == "") {
-                    $("#<%= label_error_drop_nivel.ClientID%>").show();
+            $("#<%= drop_responsable.ClientID %>").blur(function () {
+                var drop_responsable = $(this).val();
+                if (drop_responsable == "") {
+                    $("#<%= label_error_rh.ClientID%>").show();
                 } else {
-                    $("#<%= label_error_drop_nivel.ClientID%>").hide();
+                    $("#<%= label_error_rh.ClientID%>").hide();
                 }
             });
 

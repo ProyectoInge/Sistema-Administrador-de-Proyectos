@@ -23,10 +23,13 @@ namespace SAPS.Fronteras
         private static Object[,] m_tabla_proyectos_disponibles;
         private static int m_tamano_tabla_pyp;
 
-        private static string[] m_tabla_requerimientos_disponibles;
+        private static Object[,] m_tabla_rh;
+        private static int m_tamano_tabla_rh;
+
+        private static List<string> m_tabla_requerimientos_disponibles;
         private static int m_tamano_tabla_req;
 
-        private static string[] m_tabla_requerimientos_seleccionados;
+        private static List<string> m_tabla_requerimientos_seleccionados;
         private static int m_tamano_tabla_seleccionados;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -45,11 +48,13 @@ namespace SAPS.Fronteras
                 {
                     m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
                     actualiza_proyectos();
+
+                    carga_requerimientos_nuevo();
+
                     //actualiza_rh();
                 }
                 //actualiza_tabla_disenos();
-                actualiza_requerimientos_disponibles();
-
+                refrescar_requerimientos();
             }
             else
             {
@@ -85,10 +90,10 @@ namespace SAPS.Fronteras
             {
                 tabla_proyectos = m_controladora_pyp.consultar_mi_proyecto(Context.User.Identity.Name);   // cargo solo mi informacion
             }
-            m_controladora_pyp.solicitar_proyectos_disponibles();
             m_tamano_tabla_pyp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pyp, 2];
 
+            
             ListItem item_proyecto = new ListItem();
             item_proyecto.Text = "";
             item_proyecto.Value = "";
@@ -105,65 +110,247 @@ namespace SAPS.Fronteras
             }
         }
 
-        protected void actualiza_requerimientos_disponibles()
+        protected void carga_requerimientos_nuevo()
         {
             //crea_encabezado_tabla_rh();
             DataTable tabla_de_datos;
 
             tabla_de_datos = m_controladora_req.solicitar_requerimientos_disponibles(); // cargo todos los requerimientos
-            
+
+
+            //se inicializa la tabla interna de disponibles
             m_tamano_tabla_req = tabla_de_datos.Rows.Count;
-            m_tabla_requerimientos_disponibles = new string[m_tamano_tabla_req];
+            m_tabla_requerimientos_disponibles = new List<string>();
+
+            //se inicializa la tabla interna de agregados (es nueva por lo tanto: 0)
+            m_tamano_tabla_seleccionados = 0;
+            m_tabla_requerimientos_seleccionados = new List<string>();
+
+
 
             for (int i = (m_tamano_tabla_req - 1); i >= 0; --i)
+            {
+               m_tabla_requerimientos_disponibles.Add(tabla_de_datos.Rows[i]["nombre"].ToString());
+            }
+            refrescar_requerimientos();
+        }
+
+        private void carga_requerimientos_transicion(string nombre_requerimiento, bool agregar) //agregar 1: se agrega, agregar 0: se desasocia
+        {
+            if (agregar)
+            {
+                m_tabla_requerimientos_disponibles.Remove(nombre_requerimiento);
+                m_tamano_tabla_req--;
+                m_tamano_tabla_seleccionados++;
+                m_tabla_requerimientos_seleccionados.Add(nombre_requerimiento);
+            }
+            else
+            {
+                m_tabla_requerimientos_seleccionados.Remove(nombre_requerimiento);
+                m_tamano_tabla_req++;
+                m_tamano_tabla_seleccionados--;
+                m_tabla_requerimientos_disponibles.Add(nombre_requerimiento);
+            }
+
+            refrescar_requerimientos();
+        }
+
+        private void consultar_disenos()
+        {
+
+        }
+
+        private bool ingresar_diseno()
+        {
+            bool a_retornar = true;
+            if (input_nombre.Text != "")
+            {
+                if(drop_proyecto.Text != "")
+                {
+                    if(drop_nivel.Text != "")
+                    {
+                        if(drop_tecnica.Text != "")
+                        {
+                            if(drop_tipo.Text != "")
+                            {
+                                if(input_ambiente.Text != "")
+                                {
+                                    if(input_criterio.Text != "")
+                                    {
+                                        if(input_procedimiento.Text != "")
+                                        {
+                                            if(drop_responsable.Text != "")
+                                            {
+                                                if(input_fecha.Text != "")
+                                                {
+
+                                                }
+                                                else
+                                                {
+                                                    cuerpo_alerta_error.Text = "Es necesario seleccionar una fecha.";
+                                                    SetFocus(input_fecha);
+                                                    a_retornar = false;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                cuerpo_alerta_error.Text = "Es necesario seleccionar un responsable.";
+                                                SetFocus(drop_responsable);
+                                                a_retornar = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar el procedimiento de prueba.";
+                                            SetFocus(input_procedimiento);
+                                            a_retornar = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar un criterio de prueba.";
+                                        SetFocus(input_criterio);
+                                        a_retornar = false;
+                                    }
+                                }
+                                else
+                                {
+                                    cuerpo_alerta_error.Text = "Es necesario ingresar un ambiente de prueba..";
+                                    SetFocus(input_ambiente);
+                                    a_retornar = false;
+                                }
+                            }
+                            else
+                            {
+                                cuerpo_alerta_error.Text = "Es necesario seleccionar un tipo de prueba.";
+                                SetFocus(drop_tipo);
+                                a_retornar = false;
+                            }
+                        }
+                        else
+                        {
+                            cuerpo_alerta_error.Text = "Es necesario seleccionar una técnica de prueba.";
+                            SetFocus(drop_tecnica);
+                            a_retornar = false;
+                        }
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = "Es necesario seleccionar un nivel de prueba.";
+                        SetFocus(drop_nivel);
+                        a_retornar = false;
+                    }
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = "Es necesario seleccionar un proyecto.";
+                    SetFocus(drop_proyecto);
+                    a_retornar = false;
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de diseño.";
+                SetFocus(input_nombre);
+                a_retornar = false;
+            }
+            if (a_retornar == false)
+            {
+                alerta_error.Visible = true;
+            }
+
+            return a_retornar;
+        }
+
+        private void refrescar_requerimientos()
+        {
+            tabla_disponibles.Rows.Clear();
+            tabla_agregados.Rows.Clear();
+            
+            for (int i = 0; i < m_tamano_tabla_req; i++)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_boton = new TableCell();
                 Button btn = new Button();
-                m_tabla_requerimientos_disponibles[i] = tabla_de_datos.Rows[i]["nombre"].ToString();
-                btn.ID = "btn_lista_" + i.ToString();
+                btn.ID = "btn_lista_disponibles_" + i.ToString();
                 btn.Text = m_tabla_requerimientos_disponibles[i];
                 btn.CssClass = "btn btn-link";
-                btn.Click += new EventHandler(btn_lista_req_click);
-
-                celda_boton.Text = Convert.ToString(tabla_de_datos.Rows[i]["nombre"]);
-                
-
+                btn.Click += new EventHandler(btn_lista_req_click_asociar);
+                celda_boton.Text = Convert.ToString(m_tabla_requerimientos_disponibles[i]);
                 celda_boton.Controls.AddAt(0, btn);
                 fila.Cells.AddAt(0, celda_boton);
                 tabla_disponibles.Rows.Add(fila);
             }
+            for (int i = 0; i < m_tamano_tabla_seleccionados; i++)
+            {
+                TableRow fila = new TableRow();
+                TableCell celda_boton = new TableCell();
+                Button btn = new Button();
+                btn.ID = "btn_lista_asociados_" + i.ToString();
+                btn.Text = m_tabla_requerimientos_seleccionados[i];
+                btn.CssClass = "btn btn-link";
+                btn.Click += new EventHandler(btn_lista_req_click_asociar);
+                celda_boton.Text = Convert.ToString(m_tabla_requerimientos_seleccionados[i]);
+                celda_boton.Controls.AddAt(0, btn);
+                fila.Cells.AddAt(0, celda_boton);
+                tabla_agregados.Rows.Add(fila);
+            }
         }
 
-
-        private void btn_lista_req_click(object sender, EventArgs e)
+        /*
+        private void carga_requerimientos_existente()
         {
-            string nombre_usuario = ((Button)sender).Text;
-            string username = buscar_usuario(nombre_usuario);
-            m_username_rh_mostrado = username;
-            llena_informacion_consulta(username);
-            if (!m_es_administrador && m_username_rh_mostrado.Equals(Context.User.Identity.Name))
-            {
-                activa_desactiva_botones_ime(true);
-            }
-            else
-            {
-                if (m_es_administrador)
-                {
-                    activa_desactiva_botones_ime(true);
-                }
-                else
-                {
-                    activa_desactiva_botones_ime(false);
-                }
-            }
-            activa_desactiva_inputs(false);
             
         }
+        */
 
 
-        //actualiza_rh();
+        private void btn_lista_req_click_asociar(object sender, EventArgs e)
+        {
+            Button enviador = sender as Button;
+            bool se_agrega = enviador.ID.StartsWith("btn_lista_disponibles");
+            carga_requerimientos_transicion(enviador.Text, se_agrega);
+
+            
+        }
+        
+        
+
+        private void actualiza_rh(string id_proyecto)
+        {
+            DataTable tabla_rh= new DataTable();
+            
+                tabla_rh = m_controladora_rh.solicitar_recursos_disponibles(); // cargo todos los recursos humanos, TODO cambiar a solo los de idproy
+
+            m_tamano_tabla_rh = tabla_rh.Rows.Count;
+            m_tabla_rh = new Object[m_tamano_tabla_rh, 2];
+
+
+            ListItem item_rh = new ListItem();
+            item_rh.Text = "";
+            item_rh.Value = "";
+            drop_responsable.Items.Add(item_rh);
+
+            for (int i = 0; i < m_tamano_tabla_rh; ++i)
+            {
+                item_rh = new ListItem();
+                m_tabla_rh[i, 0] = tabla_rh.Rows[i]["username"].ToString();
+                m_tabla_rh[i, 1] = tabla_rh.Rows[i]["nombre"].ToString();
+                item_rh.Text = Convert.ToString(m_tabla_rh[i, 1]);
+                item_rh.Value = Convert.ToString(m_tabla_rh[i, 0]);
+                drop_responsable.Items.Add(item_rh);
+            }
+        }
         //actualiza_tabla_disenos();
+
+
+        protected void btn_Aceptar_Click(object sender, EventArgs e)
+        {
+            if(m_opcion == 'i')
+            {
+                ingresar_diseno();
+            }
+        }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "modificar".
         * @param Los parametros por default de un evento de C#.
@@ -241,6 +428,12 @@ namespace SAPS.Fronteras
                 alerta_advertencia.Visible = true;
             }
             */
+        }
+
+        protected void drop_proyecto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            actualiza_rh(drop_proyecto.SelectedItem.Value);
+            drop_responsable.Enabled = true;
         }
     }
 }
