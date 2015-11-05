@@ -11,6 +11,7 @@ use proyectoDB;
 	drop table RecursosHumanos;
 	drop table ProyectoPruebas;
 	drop table Oficina;
+	drop table CasoPrueba;
 
 
 
@@ -86,9 +87,16 @@ create table CasoPrueba(
 	id_caso				int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
 	proposito			varchar(256),
-	datos_entrada		varchar(128),
-	flujo_central		varchar(512),
-	resultado_esperado	varchar(512)
+	flujo_central		varchar(512)
+);
+
+
+create table DatosCasoDePrueba(
+	id_dato int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	id_caso_prueba int NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	entrada_de_datos varchar(256),
+	estado_datos varchar(24),
+	resultado_esperado varchar(256)
 );
 
 create table NecesitaDe(
