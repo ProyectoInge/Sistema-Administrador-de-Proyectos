@@ -99,6 +99,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_finish_date" CssClass="form-control" TextMode="Date" />
+
                                     <asp:Label runat="server" ID="label_fecha_inicio_vacia" CssClass="text-danger"><small>Debe ingresar una fecha de inicio.</small></asp:Label>
                                     <asp:Label runat="server" ID="label_fecha_final_pronta" CssClass="text-danger"><small>Esta fecha debe ser posterior a la fecha de inicio.</small></asp:Label>
                                 </div>
@@ -106,7 +107,7 @@
                             <div id="ro6_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo  <span class="text-danger">*</span></asp:Label>
-                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" TextMode="multiline" />
+                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" style="resize:none" TextMode="multiline" />
                                 </div>
                             </div>
                         </div>
@@ -329,7 +330,6 @@
     </section>
     <!-- Modal confirmacion -->
 
-
     <!-- Script para validacion de fechas ingresadas por el usuario -->
 
     <script type="text/javascript">
@@ -431,7 +431,6 @@
             });
         });
     </script>
-
 </asp:Content>
 
 

@@ -6,8 +6,6 @@
  * II Semestre 2015
 */
 
-using System;
-
 namespace SAPS.Entidades.Ayudantes
 {
     public class Datos
@@ -38,6 +36,12 @@ namespace SAPS.Entidades.Ayudantes
         {
             get { return m_estado_datos; }
             set { m_estado_datos = value; }
+        }
+
+        public string resultado_esperado
+        {
+            get { return m_resultado_esperado; }
+            set { m_resultado_esperado = value; }
         }
     }
 }

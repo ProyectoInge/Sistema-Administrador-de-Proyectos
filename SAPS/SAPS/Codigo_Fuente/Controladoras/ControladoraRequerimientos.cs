@@ -30,21 +30,35 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder insertar un requerimiento.
-         * @param datos vector que contiene los datos para poder crear un requerimientos.
+         * @param datos Un vector tipo objeto que contiene toda la información necesaria
+                   para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
+            | Índice |      Descripción     | Tipo de datos |
+            |:------:|:--------------------:|:-------------:|
+            |    0   | ID del requerimiento |       int     |
+            |    1   |        Nombre        |     String    |
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int insertar_requerimiento(Object[] datos)
         {
+            if (datos.Length != 2)
+                return -1;
             Requerimiento requerimiento = new Requerimiento(datos);
             return m_base_datos.insertar_requerimiento(requerimiento);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder modificar un requerimiento.
-         * @param datos vector que contiene los datos para poder modificar un requerimiento.
+         * @param datos Un vector tipo objeto que contiene toda la información necesaria
+                   para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
+            | Índice |      Descripción     | Tipo de datos |
+            |:------:|:--------------------:|:-------------:|
+            |    0   | ID del requerimiento |       int     |
+            |    1   |        Nombre        |     String    |
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int modificar_requerimiento(Object[] datos)
         {
+            if (!existe_requerimiento(Convert.ToInt32(datos[0])) && datos.Length != 2) //Verifica que el requerimiento exista
+                return -1;
             Requerimiento requerimiento = new Requerimiento(datos);
             return m_base_datos.modificar_requerimiento(requerimiento);
         }
@@ -55,6 +69,8 @@ namespace SAPS.Controladoras
          */
         public int eliminar_requerimiento(int id_requerimiento)
         {
+            if (!existe_requerimiento(id_requerimiento))
+                return -1;
             return m_base_datos.eliminar_requerimiento(id_requerimiento);
         }
 
@@ -73,6 +89,42 @@ namespace SAPS.Controladoras
         public DataTable solicitar_requerimientos_disponibles()
         {
             return m_base_datos.solicitar_requerimientos_disponibles();
+        }
+
+        /** @brief Método que se encarga de asociar un requerimiento a un diseño de pruebas.
+         * @param Vector de objetos que tiene que venir de la siguiente manera:
+         
+            | Índice |        Descripción       | Tipo de datos |
+            |:------:|:------------------------:|:-------------:|
+            |   0    |     ID del diseño        |       int     |
+            |   1    |  ID del requerimiento    |       int     |
+            |   2    |  Criterios de aceptación |     String    |
+            |   3    |        Propósito         |     String    |
+            |   4    |      Procedimiento       |     String    |
+
+         * @return 0 si no hubo ningún problema, números negativos si hubo algún problema con la base de datos.
+        */
+        public int asociar_requerimiento(Object[] datos)
+        {
+            if (existe_requerimiento(Convert.ToInt32(datos[1])) && datos.Length != 5) //Verifica que el requerimiento exista
+                return m_base_datos.asociar_requerimiento(datos);
+            return -1;
+        }
+
+        /** @brief Método que se encarga de verificar si un requerimiento existe en la base de datos.
+         * @param El identificador del requerimiento que se quiere verificar si existe.
+         * @return True si el requerimiento está en la base, False si no.
+        */
+        private bool existe_requerimiento(int id_requerimiento)
+        {
+            DataTable resultado = solicitar_requerimientos_disponibles();
+            int cant_filas = resultado.Rows.Count;
+            for (int i = 0; i < cant_filas; ++i)
+            {
+                if (Convert.ToInt32(resultado.Rows[i]["id_requerimiento"]) == id_requerimiento)
+                    return true;
+            }
+            return false;
         }
     }
 }

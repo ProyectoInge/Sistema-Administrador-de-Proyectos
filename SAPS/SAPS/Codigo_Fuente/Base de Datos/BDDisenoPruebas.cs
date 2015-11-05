@@ -89,6 +89,30 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        /** @brief Método que se encarga de buscar los requerimientos asociados a un diseño.
+         * @param El identificador del diseño al que se le quieren encontrar los requerimientos que tiene asociados.
+         * @return DataTable con todos los requerimientos que tiene asociados el diseño consultado.
+        */
+        public DataTable solicitar_requerimientos_asociados(int id_diseno)
+        {
+            SqlCommand comando = new SqlCommand("SOLICITAR_REQUERIMIENTOS_ASOCIADOS");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = id_diseno;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
+        /** @brief Método que se encarga de buscar los diseños asociados a un proyecto.
+         * @param El identificador del proyecto al que se le quieren encontrar los diseños que tiene asociados.
+         * @return DataTable con todos los diseños que tiene asociados el proyecto.
+        */
+        public DataTable solicitar_disenos_asociados_proyecto(int id_proyecto)
+        {
+            SqlCommand comando = new SqlCommand("SOLICITAR_DISENOS_ASOCIADOS_PROYECTO");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = id_proyecto;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
         // Métodos auxiliares
 
         /** @brief Método auxiliar que rellena los parámetros de un diseño de pruebas para poder realizar un procedimiento almacenado,
@@ -101,8 +125,6 @@ namespace SAPS.Base_de_Datos
         {
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = diseno_pruebas.id_diseno;
-            /// @todo Descomentar esto cuando la entidad este lista
-            /*
             comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = diseno_pruebas.id_proyecto;
             comando.Parameters.Add("@nombre_diseno", SqlDbType.VarChar).Value = diseno_pruebas.nombre_diseno;
             comando.Parameters.Add("@fecha_inicio", SqlDbType.DateTime).Value = diseno_pruebas.fecha_inicio;
@@ -110,7 +132,6 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@tipo_prueba", SqlDbType.VarChar).Value = diseno_pruebas.tipo_prueba;
             comando.Parameters.Add("@nivel_prueba", SqlDbType.VarChar).Value = diseno_pruebas.nivel_prueba;
             comando.Parameters.Add("@username_responsable", SqlDbType.VarChar).Value = diseno_pruebas.username_responsable;
-            */
         }
     }
 }

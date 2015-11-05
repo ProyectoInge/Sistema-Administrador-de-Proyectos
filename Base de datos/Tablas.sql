@@ -72,13 +72,13 @@ create table DisenoPrueba(
 
 create table Requerimientos(
 	id_requerimiento	int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	nombre				varchar(64) NOT NULL
+	nombre				varchar(64) NOT NULL,
+	criterio_aceptacion varchar(256) NOT NULL,
 );
 
 create table SePrueba(
-	id_diseno			int IDENTITY(1,1) NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
 	id_requerimiento	int NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
-	criterio_aceptacion varchar(256) NOT NULL,
 	proposito			varchar(128) NOT NULL,
 	procedimiento		varchar(512) NOT NULL,
 	PRIMARY KEY(id_diseno, id_requerimiento)

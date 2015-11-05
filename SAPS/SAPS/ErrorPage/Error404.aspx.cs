@@ -16,7 +16,7 @@ using System.Web.UI.WebControls;
 
 namespace SAPS.ErrorPage
 {
-    public partial class ErrorPage : System.Web.UI.Page
+    public partial class Error404 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,11 +28,7 @@ namespace SAPS.ErrorPage
 
             HtmlGenericControl cuerpo = (HtmlGenericControl)Page.Master.FindControl("cuerpo");
             cuerpo.Attributes.Add("class", "container-fluid body-content");
-        }
 
-        protected void btn_home_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Default.aspx");
         }
     }
 }
