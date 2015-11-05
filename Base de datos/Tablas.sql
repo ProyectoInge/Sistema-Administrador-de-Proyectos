@@ -1,8 +1,6 @@
 
 use proyectoDB;
 
-
-
 	drop table Ejecucion;
 	drop table NecesitaDe;
 	drop table CasoPrueba;
@@ -86,6 +84,7 @@ create table SePrueba(
 
 create table CasoPrueba(
 	id_caso				int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
 	proposito			varchar(256),
 	datos_entrada		varchar(128),
 	flujo_central		varchar(512),

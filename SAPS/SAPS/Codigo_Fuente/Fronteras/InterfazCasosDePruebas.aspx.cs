@@ -4,8 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SAPS.Controladoras;
 using System.Data;
+using SAPS.Controladoras;
+using SAPS.Entidades.Ayudantes;
 
 namespace SAPS.Fronteras
 {
@@ -98,6 +99,7 @@ namespace SAPS.Fronteras
         {
             int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
             actualiza_requerimientos(id_diseno_seleccionado);
+            actualiza_caso_de_pruebas_disponibles();
         }
 
         /** @brief Evento cuando un botón del ID de caso de pruebas se presiona */
@@ -235,10 +237,10 @@ namespace SAPS.Fronteras
         {
             crea_encabezado_tabla_cdp();
 
-            // @todo llamar a a la controladora para solicitar los casos de pruebas disponibles.
-            DataTable caso_de_pruebas_disponibles = null; // = m_controladora_cdp.obtener_casos_de_prueba_disponibles();
+            int diseno_asociado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
+            DataTable caso_de_pruebas_disponibles = m_controladora_cdp.solicitar_casos_pruebas_disponibles(diseno_asociado);
 
-            for (int i = caso_de_pruebas_disponibles.Rows.Count - 1; i >= 0; --i) 
+            for (int i = 0; i < caso_de_pruebas_disponibles.Rows.Count; ++i) 
             {
                 TableRow fila = new TableRow();
                 TableCell celda_id = new TableCell();
@@ -269,7 +271,7 @@ namespace SAPS.Fronteras
             TableHeaderCell celda_header_proposito = new TableHeaderCell();
             celda_header_id_caso_prueba.Text = "ID del caso de prueba";
             header.Cells.AddAt(0, celda_header_id_caso_prueba);
-            celda_header_proposito.Text = "Propòsito de el caso de prueba";
+            celda_header_proposito.Text = "Propósito de el caso de prueba";
             header.Cells.AddAt(1, celda_header_proposito);
             tabla_casos_pruebas.Rows.Add(header);
         }

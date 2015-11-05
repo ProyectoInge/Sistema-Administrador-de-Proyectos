@@ -22,6 +22,7 @@ AS
 
 GO
 
+
 GO
 CREATE PROCEDURE MODIFICAR_PYP
 	@id_proyecto int, @id_oficina int, @fecha_inicio date, @fecha_asignacion date, @fecha_final date, @nombre_sistema varchar(64), @obj_general varchar(256), @nombre_proyecto varchar(64), @estado varchar(32)
@@ -59,6 +60,7 @@ AS
 	WHERE	ProyectoPruebas.id_proyecto = @id_proyecto AND ProyectoPruebas.eliminado = 0
 GO 
 
+
 GO
 CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 	AS BEGIN
@@ -71,6 +73,7 @@ CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 	END
 GO
 
+
 GO
 CREATE PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
 AS BEGIN
@@ -82,6 +85,7 @@ AS BEGIN
 	FROM	Oficina
 	END
 GO
+
 
 GO
 CREATE PROCEDURE CONSULTAR_MI_PROYECTO
@@ -108,6 +112,7 @@ AS
 	VALUES
 		(@nombre_oficina, @telefono, @telefono2, @nom_representante) 
 GO
+
 
 GO
 CREATE PROCEDURE CONSULTAR_OFICINA

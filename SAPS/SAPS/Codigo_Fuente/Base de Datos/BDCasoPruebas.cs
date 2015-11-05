@@ -86,19 +86,21 @@ namespace SAPS.Base_de_Datos
         }
 
         /** @brief Método que realiza la setencia SQL para consultar todos los casos de pruebas que se encuentran en la base de datos.
-             * @return DataTable con los resultados de la consultas.
-            */
-        public DataTable solicitar_casos_disponibles()
+         *  @param id_diseno diseno al que se quieren consultar los casos de pruebas asociados.
+          * @return DataTable con los resultados de la consultas.
+          */
+        public DataTable solicitar_casos_disponibles(int id_diseno)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_CASOS_DISPONIBLES");
             comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = id_diseno;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
-                                                     // Métodos auxiliares
 
+        // Métodos auxiliares
         
-        
+
         /** @brief Método auxiliar que rellena los parámetros de un caso de pruebas para poder realizar un procedimiento almacenado,
                    se usa para agregar y modificar casos de prueba.
         *  @param comando comando sql que contendrá el procedimiento y sus respectivos parámetros. Se envía por referencia por lo tanto
