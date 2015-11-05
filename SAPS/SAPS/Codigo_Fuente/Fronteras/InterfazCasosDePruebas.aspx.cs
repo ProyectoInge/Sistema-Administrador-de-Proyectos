@@ -12,10 +12,13 @@ namespace SAPS.Fronteras
 {
     public partial class InterfazCasosDePruebas : System.Web.UI.Page
     {
+        //Variables de instacia
         private static ControladoraRecursosHumanos m_controladora_rh;
         private static ControladoraProyectoPruebas m_controladora_pdp;
         private static ControladoraDisenosPruebas m_controladora_dp;
         private static ControladoraCasoPruebas m_controladora_cdp;
+
+        private static char m_opcion = 'i'; //i = insertar, m = modificar, e = eliminar
 
         private static bool m_es_administrador;
         protected void Page_Load(object sender, EventArgs e)
@@ -40,15 +43,50 @@ namespace SAPS.Fronteras
         */
         protected void btn_cancelar_Click(object sender, EventArgs e)
         {
+            m_opcion = 'i';
+            //limpia_campos();
+            /*drop_proyecto_asociado.Enabled = false;
+            drop_rol.Enabled = false;
+            btn_reestablece_contrasena.Visible = false;
+            activa_desactiva_botones_ime(false);
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx");
+            */
+        }
+
+        /** @brief Se encarga de limpiar los strings que hay en los textbox y de deshabilitar los campos 
+        */
+        private void limpia_campos()
+        {
+
 
         }
+
+
+
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "aceptar".
         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_aceptar_Click(object sender, EventArgs e)
         {
-
+            if (valida_campos() == true)
+            {
+                if (m_opcion != 'e')
+                {
+                    alerta_exito.Visible = true;
+                    if (m_opcion == 'i')
+                    {
+                        //activa_desactiva_botones_ime(true);
+                    }
+                }
+            }
+            else
+            {
+                if (m_opcion != 'e')
+                {
+                    alerta_error.Visible = true;
+                }
+            }
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "crear".
@@ -56,8 +94,55 @@ namespace SAPS.Fronteras
         */
         protected void btn_crear_Click(object sender, EventArgs e)
         {
-
+            m_opcion = 'i';
         }
+
+        /** @brief Metodo que valida los campos que se ocupan para insertar o modificar un caso de pruebas, si no hay problema entonces lo inserta o lo modifica en la base.
+        */
+        private bool insertar_modificar_caso_pruebas()
+        {
+            bool resultado = false;
+            if (drop_proyecto_asociado.Text != "")
+            {
+                if (drop_diseno_asociado.Text != "")
+                {
+                    //Insertar o modificar la madre
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = "Es necesario escoger un diseño.";
+                    SetFocus(drop_diseno_asociado);
+                    //resultado = false;
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = "Es necesario escoger un proyecto.";
+                SetFocus(drop_proyecto_asociado);
+                //resultado = false;
+            }
+            return resultado;
+        }
+
+        /** @brief Metodo que valida los campos que se ocupan para eliminar un caso de pruebas, si no hay problema entonces lo elimina de la base.
+       */
+
+        /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora y realiza la operación respectiva.
+         */
+        private bool valida_campos()
+        {
+            bool a_retornar = false;
+            if (m_opcion == 'e')
+            {
+                //a_retornar = eliminar_caso_pruebas();
+            }
+            else
+            {
+                a_retornar = insertar_modificar_caso_pruebas();
+            }
+            return a_retornar;
+        }
+
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "modificar".
         * @param Los parametros por default de un evento de C#.

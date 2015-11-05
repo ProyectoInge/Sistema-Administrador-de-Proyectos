@@ -44,8 +44,6 @@ namespace SAPS.Base_de_Datos
             SqlCommand comando = new SqlCommand("INSERTAR_CP");
             rellena_parametros_caso_pruebas(ref comando, caso_pruebas);
             return m_data_base_adapter.ejecutar_consulta(comando);
-
-            
         }
 
         /** @brief Método que realiza la setencia SQL para eliminar un caso de pruebas en específico.
@@ -82,7 +80,6 @@ namespace SAPS.Base_de_Datos
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@id_caso", SqlDbType.Int).Value = id_caso;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
-
         }
 
         /** @brief Método que realiza la setencia SQL para consultar todos los casos de pruebas que se encuentran en la base de datos.
