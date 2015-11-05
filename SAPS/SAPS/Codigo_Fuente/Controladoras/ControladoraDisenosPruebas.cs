@@ -86,16 +86,22 @@ namespace SAPS.Controladoras
             return m_base_datos.solicitar_disenos_disponibles();
         }
 
+        /** @brief Método que se encarga de buscar los requerimientos asociados a un diseño.
+         * @param El identificador del diseño al que se le quieren encontrar los requerimientos que tiene asociados.
+         * @return DataTable con todos los requerimientos que tiene asociados el diseño consultado.
+        */
         public DataTable solicitar_requerimientos_asociados(int id_diseno)
         {
-            /// @todo Hacer todos los metodos de este mofo
-            return null;
+            return m_base_datos.solicitar_requerimientos_asociados(id_diseno);
         }
 
+        /** @brief Método que se encarga de buscar los diseños asociados a un proyecto.
+         * @param El identificador del proyecto al que se le quieren encontrar los diseños que tiene asociados.
+         * @return DataTable con todos los diseños que tiene asociados el proyecto.
+        */
         public DataTable solicitar_disenos_asociados_proyecto(int id_proyecto)
         {
-            /// @todo Hacer todos los metodos de este mofo
-            return null;
+            return m_base_datos.solicitar_disenos_asociados_proyecto(id_proyecto);
         }
     }
 }
