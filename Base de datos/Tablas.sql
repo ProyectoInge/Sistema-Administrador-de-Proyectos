@@ -77,7 +77,7 @@ create table Requerimientos(
 );
 
 create table SePrueba(
-	id_diseno			int IDENTITY(1,1) NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
 	id_requerimiento	int NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
 	proposito			varchar(128) NOT NULL,
 	procedimiento		varchar(512) NOT NULL,
