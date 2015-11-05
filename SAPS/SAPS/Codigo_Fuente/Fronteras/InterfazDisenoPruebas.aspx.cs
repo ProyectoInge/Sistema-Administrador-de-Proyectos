@@ -15,6 +15,7 @@ namespace SAPS.Fronteras
         private static ControladoraDisenosPruebas m_controladora_dp;
         private static ControladoraRecursosHumanos m_controladora_rh;
         private static ControladoraProyectoPruebas m_controladora_pyp;
+        private static ControladoraRequerimientos m_controladora_req;
 
         private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
         private static bool m_es_administrador;   // true si el usuario de la sesion es administrador, false si no.
@@ -22,6 +23,11 @@ namespace SAPS.Fronteras
         private static Object[,] m_tabla_proyectos_disponibles;
         private static int m_tamano_tabla_pyp;
 
+        private static string[] m_tabla_requerimientos_disponibles;
+        private static int m_tamano_tabla_req;
+
+        private static string[] m_tabla_requerimientos_seleccionados;
+        private static int m_tamano_tabla_seleccionados;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,22 +36,19 @@ namespace SAPS.Fronteras
                 m_controladora_dp = new ControladoraDisenosPruebas();
                 m_controladora_rh = new ControladoraRecursosHumanos();
                 m_controladora_pyp = new ControladoraProyectoPruebas();
+                m_controladora_req = new ControladoraRequerimientos();
         alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
 
                 if (!IsPostBack)
                 {
-                    //actualiza_proyectos();
-                    //actualiza_requerimientos();
-                    //actualiza_rh();
                     m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
+                    actualiza_proyectos();
+                    //actualiza_rh();
                 }
                 //actualiza_tabla_disenos();
-                if (!m_es_administrador)
-                {
-                    btn_crear.Enabled = false;
-                }
+                actualiza_requerimientos_disponibles();
 
             }
             else
@@ -73,21 +76,92 @@ namespace SAPS.Fronteras
         */
         protected void llena_proyectos_disponibles()
         {
-            DataTable tabla_proyectos = m_controladora_pyp.solicitar_proyectos_disponibles();
+            DataTable tabla_proyectos;
+            if (m_es_administrador)
+            {
+                tabla_proyectos = m_controladora_pyp.solicitar_proyectos_disponibles(); // cargo todos los recursos humanos
+            }
+            else
+            {
+                tabla_proyectos = m_controladora_pyp.consultar_mi_proyecto(Context.User.Identity.Name);   // cargo solo mi informacion
+            }
+            m_controladora_pyp.solicitar_proyectos_disponibles();
             m_tamano_tabla_pyp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pyp, 2];
+
+            ListItem item_proyecto = new ListItem();
+            item_proyecto.Text = "";
+            item_proyecto.Value = "";
+            drop_proyecto.Items.Add(item_proyecto);
+
             for (int i = 0; i < m_tamano_tabla_pyp; ++i)
             {
+                item_proyecto = new ListItem();
                 m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_proyectos.Rows[i]["id_proyecto"]);
-                m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();
-                ListItem item_proyecto = new ListItem();
+                m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();                
                 item_proyecto.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
                 item_proyecto.Value = Convert.ToString(m_tabla_proyectos_disponibles[i, 0]);
                 drop_proyecto.Items.Add(item_proyecto);
             }
         }
 
-        //actualiza_requerimientos();
+        protected void actualiza_requerimientos_disponibles()
+        {
+            //crea_encabezado_tabla_rh();
+            DataTable tabla_de_datos;
+
+            tabla_de_datos = m_controladora_req.solicitar_requerimientos_disponibles(); // cargo todos los requerimientos
+            
+            m_tamano_tabla_req = tabla_de_datos.Rows.Count;
+            m_tabla_requerimientos_disponibles = new string[m_tamano_tabla_req];
+
+            for (int i = (m_tamano_tabla_req - 1); i >= 0; --i)
+            {
+                TableRow fila = new TableRow();
+                TableCell celda_boton = new TableCell();
+                Button btn = new Button();
+                m_tabla_requerimientos_disponibles[i] = tabla_de_datos.Rows[i]["nombre"].ToString();
+                btn.ID = "btn_lista_" + i.ToString();
+                btn.Text = m_tabla_requerimientos_disponibles[i];
+                btn.CssClass = "btn btn-link";
+                btn.Click += new EventHandler(btn_lista_req_click);
+
+                celda_boton.Text = Convert.ToString(tabla_de_datos.Rows[i]["nombre"]);
+                
+
+                celda_boton.Controls.AddAt(0, btn);
+                fila.Cells.AddAt(0, celda_boton);
+                tabla_disponibles.Rows.Add(fila);
+            }
+        }
+
+
+        private void btn_lista_req_click(object sender, EventArgs e)
+        {
+            string nombre_usuario = ((Button)sender).Text;
+            string username = buscar_usuario(nombre_usuario);
+            m_username_rh_mostrado = username;
+            llena_informacion_consulta(username);
+            if (!m_es_administrador && m_username_rh_mostrado.Equals(Context.User.Identity.Name))
+            {
+                activa_desactiva_botones_ime(true);
+            }
+            else
+            {
+                if (m_es_administrador)
+                {
+                    activa_desactiva_botones_ime(true);
+                }
+                else
+                {
+                    activa_desactiva_botones_ime(false);
+                }
+            }
+            activa_desactiva_inputs(false);
+            
+        }
+
+
         //actualiza_rh();
         //actualiza_tabla_disenos();
 
