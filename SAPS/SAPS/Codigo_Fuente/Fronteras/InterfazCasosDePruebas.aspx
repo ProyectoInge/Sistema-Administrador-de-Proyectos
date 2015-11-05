@@ -91,11 +91,13 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_der" class="form-group">
-                                <div class="col-md-3">
-                                    <!-- @todo label para asociar requerimientos -->
-                                </div>
-                                <div class="col-md-9">
-                                    <!-- @todo Checkbox en que se seleccionan los requerimientos -->
+                                <div class="col-md-12">
+                                    <!-- @todo Llenar el checkbox con los requerimientos del diseño asociado -->
+                                    <asp:CheckBoxList id="checkboxlist_requerimientos" runat="server"> 
+                                        <asp:ListItem> Item 1</asp:ListItem>
+                                        <asp:ListItem> Item 2</asp:ListItem>  
+                                        <asp:ListItem> Item 3</asp:ListItem>          
+                                    </asp:CheckBoxList>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +115,7 @@
                         <div class="form-horizontal">
                             <div id="row1_izq_2" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" ID="label1" CssClass="control-label" AssociatedControlID="text_proposito">Propósito<span class="text-danger">*</span></asp:Label>
+                                    <asp:Label runat="server" ID="lebel_text_proposito" CssClass="control-label" AssociatedControlID="text_proposito">Propósito<span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="text_proposito" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
@@ -121,7 +123,7 @@
                             </div>
                             <div id="row2_izq_2" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" ID="label2" CssClass="control-label" AssociatedControlID="text_flujo_central">Flujo Central<span class="text-danger">*</span></asp:Label>
+                                    <asp:Label runat="server" ID="lebel_text_flujo_central" CssClass="control-label" AssociatedControlID="text_flujo_central">Flujo Central<span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
                                     <asp:TextBox runat="server" ID="text_flujo_central" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
@@ -166,6 +168,7 @@
             <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
         </div>
     </div>
+    <br />
     <section id="botones_aceptar_cancelar">
         <div class="row">
             <div class="col-md-3 col-md-offset-9">
