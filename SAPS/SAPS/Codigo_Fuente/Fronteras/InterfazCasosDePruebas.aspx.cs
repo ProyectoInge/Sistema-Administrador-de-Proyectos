@@ -11,9 +11,10 @@ namespace SAPS.Fronteras
 {
     public partial class InterfazCasosDePruebas : System.Web.UI.Page
     {
+        private static ControladoraRecursosHumanos m_controladora_rh;
         private static ControladoraProyectoPruebas m_controladora_pdp;
         private static ControladoraDisenosPruebas m_controladora_dp;
-        private static ControladoraRecursosHumanos m_controladora_rh;
+        private static ControladoraCasoPruebas m_controladora_cdp;
 
         private static bool m_es_administrador;
         protected void Page_Load(object sender, EventArgs e)
@@ -21,14 +22,15 @@ namespace SAPS.Fronteras
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             alerta_advertencia.Visible = false;
-            m_controladora_dp = new ControladoraDisenosPruebas();
-            m_controladora_pdp = new ControladoraProyectoPruebas();
             m_controladora_rh = new ControladoraRecursosHumanos();
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            m_controladora_dp = new ControladoraDisenosPruebas();
+            m_controladora_cdp = new ControladoraCasoPruebas();
 
             if (!IsPostBack)
             {
-                actualiza_proyectos();
                 m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
+                actualiza_proyectos();
             }
         }
 
@@ -104,7 +106,6 @@ namespace SAPS.Fronteras
 
         }
 
-
         /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
         */
         private void actualiza_requerimientos(int id_diseno)
@@ -160,7 +161,16 @@ namespace SAPS.Fronteras
         */
         private void llena_proyectos_disponibles()
         {
-            DataTable tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
+            DataTable tabla_proyectos;
+            if (m_es_administrador)
+            {
+                tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
+            }
+            else
+            {
+                tabla_proyectos = m_controladora_pdp.consultar_mi_proyecto(Context.User.Identity.Name);
+            }
+
             ListItem primer_item = new ListItem();
             primer_item.Text = "";
             primer_item.Value = "";

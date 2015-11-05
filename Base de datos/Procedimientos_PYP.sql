@@ -5,6 +5,7 @@ DROP PROCEDURE MODIFICAR_PYP
 DROP PROCEDURE ELIMINAR_PYP
 DROP PROCEDURE CONSULTAR_PYP
 DROP PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
+DROP PROCEDURE CONSULTAR_MI_PROYECTO
 DROP PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
 DROP PROCEDURE INSERTAR_OFICINA
 DROP PROCEDURE CONSULTAR_OFICINA
@@ -80,6 +81,21 @@ AS BEGIN
 			Oficina.nom_representante
 	FROM	Oficina
 	END
+GO
+
+GO
+CREATE PROCEDURE CONSULTAR_MI_PROYECTO
+	@username varchar(64)
+AS BEGIN
+	SELECT  ProyectoPruebas.nombre_proyecto,
+			ProyectoPruebas.id_proyecto,
+			ProyectoPruebas.estado,
+			ProyectoPruebas.id_oficina
+	FROM ProyectoPruebas
+	WHERE ProyectoPruebas.id_proyecto = (SELECT RecursosHumanos.id_proyecto
+											FROM RecursosHumanos
+											WHERE RecursosHumanos.username = @username);
+END 
 GO
 
 

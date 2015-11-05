@@ -361,7 +361,6 @@
     <Compile Include="Codigo_Fuente\Base de Datos\BDRecursosHumanos.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDRequerimientos.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\DataBaseAdapter.cs" />
-    <Compile Include="Codigo_Fuente\Base de Datos\SqlDatabaseSetup.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraCasoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraDisenosPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectoPruebas.cs" />

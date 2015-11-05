@@ -31,8 +31,7 @@ namespace SAPS.Base_de_Datos
         }
 
 
-
-                                                    // Métodos
+       // Métodos
 
         /** @brief Método que realiza la setencia SQL para insertar un nuevo caso de pruebas.
          * @param caso de pruebas a guardar en la base de datos.
