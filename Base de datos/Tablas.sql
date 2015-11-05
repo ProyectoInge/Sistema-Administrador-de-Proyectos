@@ -1,6 +1,6 @@
-
 use proyectoDB;
 
+	drop table DatosCasoDePrueba;
 	drop table Ejecucion;
 	drop table NecesitaDe;
 	drop table CasoPrueba;
@@ -12,7 +12,6 @@ use proyectoDB;
 	drop table ProyectoPruebas;
 	drop table Oficina;
 	drop table CasoPrueba;
-
 
 
 create table Oficina(

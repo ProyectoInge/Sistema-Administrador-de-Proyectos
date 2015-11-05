@@ -39,7 +39,7 @@ namespace SAPS.Fronteras
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "cancelar".
-         * @param Los parametros por default de un evento de C#.
+        * @param Los parametros por default de un evento de C#.
         */
         protected void btn_cancelar_Click(object sender, EventArgs e)
         {
@@ -160,14 +160,6 @@ namespace SAPS.Fronteras
 
         }
 
-        /** @brief Evento que se activa cuando el usuario selecciona el boton de "consultar".
-         * @param Los parametros por default de un evento de C#.
-        */
-        protected void btn_consultar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         /** @brief Metodo que se activa cuando el usuario selecciona un proyecto del dropdown, llena la informacion correspondiente a ese proyecto.
          * @param Los parametros por default de un evento de C#.
         */
@@ -190,7 +182,14 @@ namespace SAPS.Fronteras
         /** @brief Evento cuando un botón del ID de caso de pruebas se presiona */
         protected void btn_lista_Clicked(Object sender, EventArgs e)
         {
+            int id_caso_de_prueba = Convert.ToInt32(((Button)sender).ID);
+            DataTable caso_de_prueba = m_controladora_cdp.consultar_caso_pruebas(id_caso_de_prueba);
 
+            // Completa la información del caso de prueba en la interfaz
+            text_proposito.Text = caso_de_prueba.Rows[0]["proposito"].ToString();
+            text_flujo_central.Text = caso_de_prueba.Rows[0]["flujo_central"].ToString();
+
+            // @todo llenar los datos relacionados.
         }
 
         /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
