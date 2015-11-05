@@ -40,21 +40,24 @@ namespace SAPS.Controladoras
          */
         public int insertar_requerimiento(Object[] datos)
         {
-            if(datos[0]== null || datos[1] == null)
-            {
+            if (datos.Length != 2)
                 return -1;
-            }
             Requerimiento requerimiento = new Requerimiento(datos);
             return m_base_datos.insertar_requerimiento(requerimiento);
         }
 
         /** @brief Método que asigna las operaciones necesarias para poder modificar un requerimiento.
-         * @param datos vector que contiene los datos para poder modificar un requerimiento.
+         * @param datos Un vector tipo objeto que contiene toda la información necesaria
+                   para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
+            | Índice |      Descripción     | Tipo de datos |
+            |:------:|:--------------------:|:-------------:|
+            |    0   | ID del requerimiento |       int     |
+            |    1   |        Nombre        |     String    |
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int modificar_requerimiento(Object[] datos)
         {
-            if (!existe_requerimiento(Convert.ToInt32(datos[0]))) //Verifica que el requerimiento exista
+            if (!existe_requerimiento(Convert.ToInt32(datos[0])) && datos.Length != 2) //Verifica que el requerimiento exista
                 return -1;
             Requerimiento requerimiento = new Requerimiento(datos);
             return m_base_datos.modificar_requerimiento(requerimiento);
@@ -66,7 +69,7 @@ namespace SAPS.Controladoras
          */
         public int eliminar_requerimiento(int id_requerimiento)
         {
-            if(!existe_requerimiento(id_requerimiento))
+            if (!existe_requerimiento(id_requerimiento))
                 return -1;
             return m_base_datos.eliminar_requerimiento(id_requerimiento);
         }
@@ -103,7 +106,7 @@ namespace SAPS.Controladoras
         */
         public int asociar_requerimiento(Object[] datos)
         {
-            if(existe_requerimiento(Convert.ToInt32(datos[1]))) //Verifica que el requerimiento exista
+            if (existe_requerimiento(Convert.ToInt32(datos[1]))) //Verifica que el requerimiento exista
                 return m_base_datos.asociar_requerimiento(datos);
             return -1;
         }
@@ -116,7 +119,7 @@ namespace SAPS.Controladoras
         {
             DataTable resultado = solicitar_requerimientos_disponibles();
             int cant_filas = resultado.Rows.Count;
-            for(int i=0; i<cant_filas; ++i)
+            for (int i = 0; i < cant_filas; ++i)
             {
                 if (Convert.ToInt32(resultado.Rows[i]["id_requerimiento"]) == id_requerimiento)
                     return true;

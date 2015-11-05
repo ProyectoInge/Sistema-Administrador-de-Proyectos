@@ -46,16 +46,31 @@ namespace SAPS.Controladoras
         */
         public int insertar_diseno_pruebas(Object[] datos)
         {
+            if (datos.Length != 8)
+                return -1;
             DisenoPruebas diseno_pruebas = new DisenoPruebas(datos);
             return m_base_datos.insertar_diseno_pruebas(diseno_pruebas);
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para modificar un diseño de pruebas en la base de datos.
-        * @param Vector de "objects" con los datos para el diseño de pruebas.
+        * @param datos Un vector tipo objeto que contiene toda la información necesaria
+           para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
+            | Índice |      Descripción     | Tipo de datos |
+            |:------:|:--------------------:|:-------------:|
+            |    0   |     ID del diseño    |       int     |
+            |    1   |    ID del proyecto   |       int     |
+            |    2   |   Nombre del diseño  |     string    |
+            |    3   |   Fecha de inicio    |    DateTime   |
+            |    4   |  Tecnica de prueba   |     string    |
+            |    5   |    Tipo de prueba    |     string    |
+            |    6   |    Nivel de prueba   |     string    |
+            |    7   | Username responsable |     string    |
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         public int modificar_diseno_pruebas(Object[] datos)
         {
+            if (datos.Length != 8)
+                return -1;
             DisenoPruebas diseno_pruebas = new DisenoPruebas(datos);
             return m_base_datos.modificar_diseno_pruebas(diseno_pruebas);
         }
@@ -77,7 +92,7 @@ namespace SAPS.Controladoras
         {
             return m_base_datos.consultar_diseno_pruebas(id_diseno);
         }
-        
+
         /** @brief Método que se encarga de las operaciones necesarias para consultar los diseños de pruebas disponibles que hay en la base de datos.
         * @return DataTable con los datos de todos los diseños disponibles que hay en la base de datos.
         */

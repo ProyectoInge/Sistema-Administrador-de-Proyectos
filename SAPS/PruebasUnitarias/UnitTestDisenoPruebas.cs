@@ -18,6 +18,24 @@ namespace PruebasUnitarias
             Assert.AreEqual(esperado, resultado, "Se ingreso el diseño correctamente");
         }
 
+        [TestMethod]
+        public void test_insertar_diseno_2()
+        {
+            Object[] datos = { 0, 3, "Prueba erronea", "2003-09-12", "bla", "bla", "root" };
+            int resultado = m_controladora_dp.insertar_diseno_pruebas(datos);
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "No se agrega ya faltan elementos en el array");
+        }
+
+        [TestMethod]
+        public void test_insertar_diseno_3()
+        {
+            Object[] datos = { 0, 3, "Prueba erronea", "2003-09-12", "bla", "bla","bla", "bla", "root" };
+            int resultado = m_controladora_dp.insertar_diseno_pruebas(datos);
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "No se agrega ya que son demasiados elementos en el array");
+        }
+
         /// @todo Todas las demas pruebas de unidad.
     }
 }
