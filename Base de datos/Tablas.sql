@@ -1,16 +1,17 @@
 use proyectoDB;
-	
-drop table Oficina;
-drop table ProyectoPruebas;
-drop table RecursosHumanos;
-drop table MiembroPertenece
-drop table DisenoPrueba;
-drop table Requerimientos;
-drop table SePrueba;
-drop table CasoPrueba;
-drop table DatosCasoDePrueba;
-drop table NecesitaDe;
-drop table Ejecucion;
+
+	drop table DatosCasoDePrueba;
+	drop table Ejecucion;
+	drop table NecesitaDe;
+	drop table CasoPrueba;
+	drop table SePrueba;
+	drop table Requerimientos;
+	drop table DisenoPrueba;
+	drop table MiembroPertenece;
+	drop table RecursosHumanos;
+	drop table ProyectoPruebas;
+	drop table Oficina;
+	drop table CasoPrueba;
 
 
 create table Oficina(

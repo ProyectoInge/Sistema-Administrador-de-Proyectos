@@ -38,3 +38,5 @@ execute INSERTAR_REQUERIMIENTO 0, 'Requerimiento 4', 'Criterio 1, Criterio 2'
 select * from SePrueba
 execute ASOCIAR_REQUERIMIENTO 1, 2, 'Proposito', 'Procedimiento'
 execute ASOCIAR_REQUERIMIENTO 2, 1, 'Proposito', 'Procedimiento'
+
+execute INSERTAR_RH 'kefds',		'1-115580434',  1,		'77777777',	'Kevin Delgado',	'4/bVsJ4mkhdoK6vOu3M5dN60TnhFNGqBtu43Yt1P2co8lgGL',	'kremlin@urss.ru',				'Usuario',	0
