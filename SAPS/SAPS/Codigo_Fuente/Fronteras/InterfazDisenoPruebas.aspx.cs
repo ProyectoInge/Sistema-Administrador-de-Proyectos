@@ -26,6 +26,9 @@ namespace SAPS.Fronteras
         private static Object[,] m_tabla_rh;
         private static int m_tamano_tabla_rh;
 
+        private static string[,] m_tabla_dp; //posicion: 0 --> username, 1 --> nombre
+        private static int m_tamano_tabla_dp;
+
         private static List<Tuple<string, int>> m_tabla_requerimientos_disponibles;
         private static int m_tamano_tabla_req;
 
@@ -53,7 +56,7 @@ namespace SAPS.Fronteras
 
                     //actualiza_rh();
                 }
-                //actualiza_tabla_disenos();
+                actualiza_grid_dp();
                 refrescar_requerimientos();
             }
             else
@@ -175,8 +178,6 @@ namespace SAPS.Fronteras
                             {
                                 if(input_ambiente.Text != "")
                                 {
-                                    if(input_criterio.Text != "")
-                                    {
                                         if(input_procedimiento.Text != "")
                                         {
                                             if(drop_responsable.Text != "")
@@ -199,14 +200,20 @@ namespace SAPS.Fronteras
 
                                                     for (int i = 0; i < m_tabla_requerimientos_seleccionados.Count; i++)
                                                     {
-                                                        Object[] datosAsoc = new Object[5];
+                                                        Object[] datosAsoc = new Object[4];
+                                                        datosAsoc[0] = id_agregado;
+                                                        datosAsoc[1] = m_tabla_requerimientos_seleccionados[i].Item2;
+                                                        datosAsoc[2] = "";
+                                                        datosAsoc[3] = input_procedimiento.Text;
+
+                                                        m_controladora_req.asociar_requerimiento(datosAsoc);
                                                     }
 
 
                                                     if (resultado == 0)
                                                     {
                                                         cuerpo_alerta_exito.Text = " Se ha insertado un nuevo diseño correctamente.";
-                                                        //actualiza_grid();
+                                                        actualiza_grid_dp();
                                                     }
                                                     else
                                                     {
@@ -234,13 +241,7 @@ namespace SAPS.Fronteras
                                             SetFocus(input_procedimiento);
                                             a_retornar = false;
                                         }
-                                    }
-                                    else
-                                    {
-                                        cuerpo_alerta_error.Text = "Es necesario ingresar un criterio de prueba.";
-                                        SetFocus(input_criterio);
-                                        a_retornar = false;
-                                    }
+                                    
                                 }
                                 else
                                 {
@@ -386,8 +387,111 @@ namespace SAPS.Fronteras
                 drop_responsable.Items.Add(item_rh);
             }
         }
-        //actualiza_tabla_disenos();
+        private void actualiza_grid_dp()
+        {
+            int proy_id=-1;
+            tabla_disenos_prueba.Rows.Clear();
+            crea_encabezado_tabla_rh();
+            DataTable tabla_de_datos;
+            if (m_es_administrador)
+            {
+                tabla_de_datos = m_controladora_dp.solicitar_disenos_disponibles(); 
+            }
+            else
+            {
+                proy_id = Convert.ToInt32(m_controladora_pyp.consultar_mi_proyecto(Context.User.Identity.Name).Rows[0]["id_proyecto"]);
+                tabla_de_datos = m_controladora_dp.solicitar_disenos_asociados_proyecto(proy_id);   // cargo solo mi informacion
+            }
+            m_tamano_tabla_dp = tabla_de_datos.Rows.Count;
+            m_tabla_dp = new string[m_tamano_tabla_dp, 2];
 
+            for (int i = (m_tamano_tabla_dp - 1); i >= 0; --i)
+            {
+                TableRow fila = new TableRow();
+                TableCell celda_boton = new TableCell();
+                TableCell celda_proyecto = new TableCell();
+                Button btn = new Button();
+                m_tabla_dp[i, 0] = tabla_de_datos.Rows[i]["id_diseno"].ToString();
+                m_tabla_dp[i, 1] = tabla_de_datos.Rows[i]["nombre_diseno"].ToString();
+                btn.ID = "btn_lista_" + i.ToString();
+                btn.Text = m_tabla_dp[i, 1];
+                btn.CssClass = "btn btn-link";
+                btn.Click += new EventHandler(btn_lista_dp_click);
+                
+
+                int id_proyecto_asociado = Convert.ToInt32(tabla_de_datos.Rows[i]["id_proyecto"]);
+                celda_proyecto.Text = m_controladora_pyp.consultar_proyecto(id_proyecto_asociado).Rows[0]["nombre_proyecto"].ToString();
+                
+
+               
+                celda_boton.Controls.AddAt(0, btn);
+                fila.Cells.AddAt(0, celda_boton);
+                fila.Cells.AddAt(1, celda_proyecto);
+                tabla_disenos_prueba.Rows.Add(fila);
+            }
+        }
+
+        private void btn_lista_dp_click(object sender, EventArgs e)
+        {
+            string dp_nombre = ((Button)sender).Text;
+            string dp_id = "";
+            for(int i = 0; i< m_tamano_tabla_dp; i++)
+            {
+                if (m_tabla_dp[i, 1].Equals(dp_nombre)) {
+                    dp_id = m_tabla_dp[i, 0];
+                }
+
+            }
+            llena_informacion_consulta(dp_id);
+           
+           
+            activa_desactiva_inputs(false);
+        }
+
+        private void activa_desactiva_inputs(bool v)
+        {
+            input_nombre.Enabled = v;
+            drop_proyecto.Enabled = v;
+            drop_nivel.Enabled = v;
+            drop_tecnica.Enabled = v;
+            drop_tipo.Enabled = v;
+            input_ambiente.Enabled = v;
+            input_procedimiento.Enabled = v;
+            drop_responsable.Enabled = false;
+            input_fecha.Enabled = v;
+        }
+
+        private void llena_informacion_consulta(string dp_id)
+        {
+            DataTable tabla_dp = m_controladora_dp.consultar_diseno_pruebas(Convert.ToInt32(dp_id));
+            DataTable tabla_req_asoc = m_controladora_dp.solicitar_requerimientos_asociados(Convert.ToInt32(dp_id));
+            DataTable tabla_req_disp = m_controladora_dp.solicitar_requerimientos_no_asociados(Convert.ToInt32(dp_id));
+            input_nombre.Text = tabla_dp.Rows[0]["nombre_diseno"].ToString();
+            drop_proyecto.ClearSelection();
+            drop_proyecto.Items.FindByValue(tabla_dp.Rows[0]["id_proyecto"].ToString());
+            drop_nivel.ClearSelection();
+            drop_nivel.Items.FindByValue(tabla_dp.Rows[0]["nivel_prueba"].ToString());
+            drop_tecnica.ClearSelection();
+            drop_tecnica.Items.FindByValue(tabla_dp.Rows[0]["nivel_prueba"].ToString());
+            drop_tipo.ClearSelection();
+            drop_tipo.Items.FindByValue(tabla_dp.Rows[0]["tipo_prueba"].ToString());
+            input_ambiente.Text = tabla_req_asoc.Rows[0]["ambiente"].ToString();
+
+        }
+
+        private void crea_encabezado_tabla_rh()
+        {
+            TableHeaderRow header = new TableHeaderRow();
+            TableHeaderCell celda_header_nombre = new TableHeaderCell();
+            TableHeaderCell celda_header_proyecto = new TableHeaderCell();
+            TableHeaderCell celda_header_rol = new TableHeaderCell();
+            celda_header_nombre.Text = "Nombre del diseño";
+            header.Cells.AddAt(0, celda_header_nombre);
+            celda_header_proyecto.Text = "Proyecto";
+            header.Cells.AddAt(1, celda_header_proyecto);
+            header.Cells.AddAt(2, celda_header_rol);
+            tabla_disenos_prueba.Rows.Add(header);
+        }
 
         protected void btn_Aceptar_Click(object sender, EventArgs e)
         {

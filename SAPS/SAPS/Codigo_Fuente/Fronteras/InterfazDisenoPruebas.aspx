@@ -185,14 +185,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="row5" class="form-group">
-                                <div class="col-md-12">
-                                    <asp:Label runat="server" ID="label_criterios" CssClass="control-label" AssociatedControlID="input_criterio">Criterios de aceptación: <span class="text-danger">*</span></asp:Label>
-                                    <asp:TextBox ID="input_criterio" runat="server" CssClass="form-control" Rows="3" TextMode="MultiLine" Style="resize: none"></asp:TextBox>
-                                    <asp:Label runat="server" ID="label_error_criterio" CssClass="text-danger"><small>Debe ingresar un criterio de prueba.</small></asp:Label>
-                                </div>
-                            </div>
+                            </div>                           
                             <div id="row6" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="label_procedimiento" CssClass="control-label" AssociatedControlID="input_procedimiento">Procedimiento: <span class="text-danger">*</span></asp:Label>
@@ -279,7 +272,6 @@
             //Escondo los labels de errores
             // TO DO --> hay que poner esto en el header para que cargue bien.
             $("#<%= label_error_ambiente.ClientID%>").hide();
-            $("#<%= label_error_criterio.ClientID%>").hide();
             $("#<%= label_error_drop_nivel.ClientID%>").hide();
             $("#<%= label_error_drop_tecnica.ClientID %>").hide();
             $("#<%= label_error_drop_tipo.ClientID %>").hide();
@@ -299,16 +291,7 @@
                 }
             });
 
-            //Validacion del criterio 
-            $("#<%=input_criterio.ClientID%>").blur(function () {
-                var nombre_ingresado = $("#<%= input_criterio.ClientID %>").val();
-                if (nombre_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_error_criterio.ClientID %>").show();
-                } else {
-                    $("#<%= label_error_criterio.ClientID %>").hide();
-                }
-            });
-
+            
             //Validacion de la fecha
             $("#<%= input_fecha.ClientID %>").blur(function () {
                 var input_fecha = $("#<%= input_fecha.ClientID %>").val();
