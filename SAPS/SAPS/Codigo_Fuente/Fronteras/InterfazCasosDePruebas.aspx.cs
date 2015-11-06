@@ -23,50 +23,33 @@ namespace SAPS.Fronteras
         private static bool m_es_administrador;
         protected void Page_Load(object sender, EventArgs e)
         {
-            alerta_error.Visible = false;
-            alerta_exito.Visible = false;
-            alerta_advertencia.Visible = false;
-            m_controladora_rh = new ControladoraRecursosHumanos();
-            m_controladora_pdp = new ControladoraProyectoPruebas();
-            m_controladora_dp = new ControladoraDisenosPruebas();
-            m_controladora_cdp = new ControladoraCasoPruebas();
-
-            if (!IsPostBack)
+            if (Request.IsAuthenticated)
             {
-                m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
-                actualiza_proyectos();
-            }
-        }
+                alerta_error.Visible = false;
+                alerta_exito.Visible = false;
+                alerta_advertencia.Visible = false;
+                activa_desactiva_botones_ime(false);
+                drop_diseno_asociado.Enabled = false;
+                drop_requerimientos.Enabled = false;
+                m_controladora_rh = new ControladoraRecursosHumanos();
+                m_controladora_pdp = new ControladoraProyectoPruebas();
+                m_controladora_dp = new ControladoraDisenosPruebas();
+                m_controladora_cdp = new ControladoraCasoPruebas();
 
-        /** @brief Evento que se activa cuando el usuario selecciona el boton de "cancelar".
-        * @param Los parametros por default de un evento de C#.
-        */
-        protected void btn_cancelar_Click(object sender, EventArgs e)
-        {
-            m_opcion = 'i';
-            //limpia_campos();
-            /*drop_proyecto_asociado.Enabled = false;
-            drop_rol.Enabled = false;
-            btn_reestablece_contrasena.Visible = false;
-            activa_desactiva_botones_ime(false);
-            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx");
-            */
-        }
-
-        /** @brief Se encarga de limpiar los strings que hay en los textbox y de deshabilitar los campos 
-        */
-        private void limpia_campos()
-        {
-
-
+                if (!IsPostBack)
+                {
+                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
+                    actualiza_proyectos();
+                }
+            }    
         }
 
 
-
+        #region Métodos Botones
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "aceptar".
         * @param Los parametros por default de un evento de C#.
-        */
+    */
         protected void btn_aceptar_Click(object sender, EventArgs e)
         {
             if (valida_campos() == true)
@@ -76,7 +59,7 @@ namespace SAPS.Fronteras
                     alerta_exito.Visible = true;
                     if (m_opcion == 'i')
                     {
-                        //activa_desactiva_botones_ime(true);
+                        activa_desactiva_botones_ime(true);
                     }
                 }
             }
@@ -89,43 +72,208 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Evento que se activa cuando el usuario selecciona el boton de "cancelar".
+        * @param Los parametros por default de un evento de C#.
+        */
+        protected void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            m_opcion = 'i';
+            limpia_campos();
+            activa_desactiva_botones_ime(false);
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazCasosDePruebas.aspx");
+        }
+        //Ya está
+
+
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "crear".
         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_crear_Click(object sender, EventArgs e)
+        {        
+            m_opcion = 'i';
+            activa_desactiva_inputs(true);
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default ";
+        }
+        //Ya está
+
+        /** @brief Evento que se activa cuando el usuario selecciona el boton de "modificar".
+        * @param Los parametros por default de un evento de C#.
+         */
+        protected void btn_modificar_Click(object sender, EventArgs e)
         {
+            m_opcion = 'm';
+            activa_desactiva_inputs(true);
+            activa_desactiva_botones_ime(true);           
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default active";
+        }
+        //Ya está
+
+        /** @brief Evento que se activa cuando el usuario selecciona el boton de "eliminar".
+        * @param Los parametros por default de un evento de C#.
+        */
+        protected void btn_eliminar_Click(object sender, EventArgs e)
+        {
+            m_opcion = 'e';            
+            activa_desactiva_inputs(false);
+            activa_desactiva_botones_ime(true);
+            btn_eliminar.CssClass = "btn btn-default active";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default";
+        }
+        //Ya está
+
+        /** @brief Evento cuando un botón del ID de caso de pruebas se presiona */
+        protected void btn_lista_Clicked(Object sender, EventArgs e)
+        {
+            int id_caso_de_prueba = Convert.ToInt32(((Button)sender).ID);
+            DataTable caso_de_prueba = m_controladora_cdp.consultar_caso_pruebas(id_caso_de_prueba);
+
+            // Completa la información del caso de prueba en la interfaz
+            text_proposito.Text = caso_de_prueba.Rows[0]["proposito"].ToString();
+            text_flujo_central.Text = caso_de_prueba.Rows[0]["flujo_central"].ToString();
+
+            // @todo llenar los datos relacionados.
+        }
+
+        #endregion
+
+
+        /** @brief Pone activos los botones de "Eliminar" y "Modificar"
+        * @param Bool con el estado de activacion de los botones ime (true/false)
+        */
+        private void activa_desactiva_botones_ime(bool estado)
+        {
+            if (m_es_administrador)
+            {
+                btn_eliminar.Enabled = estado;
+                btn_modificar.Enabled = estado;
+                btn_crear.Enabled = true;
+            }
+            else
+            {
+                btn_eliminar.Enabled = false;
+                btn_modificar.Enabled = estado;
+                btn_crear.Enabled = false;
+            }
+        }
+        //Ya está
+
+        /** @brief Se encarga de limpiar los strings que hay en los textbox y de deshabilitar los campos 
+        */
+        private void limpia_campos()
+        {
+            drop_proyecto_asociado.Text = "";
+            drop_diseno_asociado.Text = "";
+            drop_requerimientos.Text = "";
+            text_proposito.Text = "";
+            text_flujo_central.Text = "";
             m_opcion = 'i';
         }
 
+        /** @brief Activa o desactiva los campos de ingresar texto.
+       * @param Bool "estado" que indica si activa o desactiva los campos.
+       */
+        private void activa_desactiva_inputs(bool estado)
+        {
+            drop_proyecto_asociado.Enabled = estado;
+            text_proposito.Enabled = estado;
+            text_flujo_central.Enabled = estado;            
+        }
+
+
+        #region Métodos IMEC
         /** @brief Metodo que valida los campos que se ocupan para insertar o modificar un caso de pruebas, si no hay problema entonces lo inserta o lo modifica en la base.
         */
         private bool insertar_modificar_caso_pruebas()
         {
-            bool resultado = false;
+            bool a_retornar = false;
             if (drop_proyecto_asociado.Text != "")
             {
                 if (drop_diseno_asociado.Text != "")
                 {
-                    //Insertar o modificar la madre
+                    if (drop_requerimientos.Text != "")
+                    {
+                        if (text_proposito.Text != "")
+                        {
+                            if (text_flujo_central.Text != "")
+                            {
+                                Object[] datos = new Object[5];
+                                datos[0] = drop_proyecto_asociado.Text;
+                                datos[1] = drop_diseno_asociado.Text;
+                                datos[2] = drop_requerimientos.Text;
+                                datos[3] = text_proposito.Text;
+                                datos[4] = text_flujo_central.Text;
+                                int resultado = 0; //m_controladora_cdp.insertar_caso_pruebas(datos);
+                                if (resultado == 0)
+                                {
+                                    if('i' == m_opcion)
+                                    {
+                                        cuerpo_alerta_exito.Text = " Se ingresó el caso de pruebas correctamente.";
+
+                                    }
+                                    else
+                                    {
+                                        cuerpo_alerta_exito.Text = " Se modificó el caso de pruebas correctamente.";
+
+                                    }                                  
+                                    //actualiza_tabla_casos_prueba
+                                    //Si es insertar o modificar: btn_modificar.Enabled = true;
+                                    a_retornar = true;
+                                }
+                                else
+                                {
+                                    cuerpo_alerta_error.Text = " Hubo un error al modificar el recurso humano, intentelo nuevamente.";
+                                    //a_retornar = false;
+                                }// Despues de la insercion o la modificacion
+                                //Insertar o modificar la madre
+                            }
+                            else
+                            {
+                                cuerpo_alerta_error.Text = "Es necesario especificar el flujo central del caso de pruebas.";
+                                SetFocus(text_flujo_central);
+                            }
+                        }
+                        else
+                        {
+                            cuerpo_alerta_error.Text = "Es necesario especificar el propósito del caso de pruebas.";
+                            SetFocus(text_proposito);
+                        }
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = "Es necesario escoger al menos un requerimiento.";
+                        SetFocus(drop_requerimientos);
+                    }                   
                 }
                 else
                 {
                     cuerpo_alerta_error.Text = "Es necesario escoger un diseño.";
-                    SetFocus(drop_diseno_asociado);
-                    //resultado = false;
+                    SetFocus(drop_diseno_asociado);                   
                 }
             }
             else
             {
                 cuerpo_alerta_error.Text = "Es necesario escoger un proyecto.";
                 SetFocus(drop_proyecto_asociado);
-                //resultado = false;
             }
-            return resultado;
+            return a_retornar;
         }
 
         /** @brief Metodo que valida los campos que se ocupan para eliminar un caso de pruebas, si no hay problema entonces lo elimina de la base.
-       */
+          */
+        private bool eliminar_caso_pruebas()
+        {
+
+            return false;
+        }
+
+        #endregion
+
+       
 
         /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora y realiza la operación respectiva.
          */
@@ -144,29 +292,20 @@ namespace SAPS.Fronteras
         }
 
 
-        /** @brief Evento que se activa cuando el usuario selecciona el boton de "modificar".
-        * @param Los parametros por default de un evento de C#.
-        */
-        protected void btn_modificar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        /** @brief Evento que se activa cuando el usuario selecciona el boton de "eliminar".
-       * @param Los parametros por default de un evento de C#.
-       */
-        protected void btn_eliminar_Click(object sender, EventArgs e)
-        {
-
-        }
+    
 
         /** @brief Metodo que se activa cuando el usuario selecciona un proyecto del dropdown, llena la informacion correspondiente a ese proyecto.
          * @param Los parametros por default de un evento de C#.
         */
         protected void drop_proyecto_asociado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
-            actualiza_disenos_asociados(id_proyecto_seleccionado);
+            if("" != drop_proyecto_asociado.SelectedItem.Value)
+            {
+                int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
+                drop_diseno_asociado.Enabled = true;
+                actualiza_disenos_asociados(id_proyecto_seleccionado);
+                vacia_requerimientos();
+            }
         }
 
         /** @brief Metodo que se activa cuando el usuario selecciona un diseño del dropdown, llena la informacion correspondiente a ese diseño.
@@ -174,30 +313,50 @@ namespace SAPS.Fronteras
         */
         protected void drop_diseno_asociado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
-            actualiza_requerimientos(id_diseno_seleccionado);
-            actualiza_caso_de_pruebas_disponibles();
+            if ("" != drop_diseno_asociado.SelectedItem.Value)
+            {
+                int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
+                drop_requerimientos.Enabled = true;
+                drop_diseno_asociado.Enabled = true;
+                actualiza_requerimientos(id_diseno_seleccionado);
+                actualiza_caso_de_pruebas_disponibles();
+            }           
         }
 
-        /** @brief Evento cuando un botón del ID de caso de pruebas se presiona */
-        protected void btn_lista_Clicked(Object sender, EventArgs e)
-        {
-            int id_caso_de_prueba = Convert.ToInt32(((Button)sender).ID);
-            DataTable caso_de_prueba = m_controladora_cdp.consultar_caso_pruebas(id_caso_de_prueba);
-
-            // Completa la información del caso de prueba en la interfaz
-            text_proposito.Text = caso_de_prueba.Rows[0]["proposito"].ToString();
-            text_flujo_central.Text = caso_de_prueba.Rows[0]["flujo_central"].ToString();
-
-            // @todo llenar los datos relacionados.
-        }
+   
 
         /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
         */
         private void actualiza_requerimientos(int id_diseno)
         {
             vacia_requerimientos();
-            llena_requerimientos_disponibles(id_diseno);
+            if (!llena_requerimientos_disponibles(id_diseno)) {
+                cuerpo_alerta_error.Text = "Este diseño no tiene requerimientos asociados, no es posible asignarle un caso de pruebas.";
+                drop_requerimientos.Enabled = false;
+                alerta_error.Visible = true;
+            }
+        }
+        //Ya está
+
+        /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
+       */
+        private bool llena_requerimientos_disponibles(int id_diseno)
+        {
+            bool resultado = true;
+            DataTable tabla_requerimientos = m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
+            ListItem primer_item = new ListItem();
+            primer_item.Text = "";
+            primer_item.Value = "";
+            drop_requerimientos.Items.Add(primer_item);
+            if (tabla_requerimientos.Rows.Count == 0) resultado = false;
+            for (int i = 0; i < tabla_requerimientos.Rows.Count; ++i)
+            {
+                ListItem item_proyecto = new ListItem();
+                item_proyecto.Text = tabla_requerimientos.Rows[i]["nombre"].ToString();
+                item_proyecto.Value = Convert.ToString(tabla_requerimientos.Rows[i]["id_requerimiento"]);
+                drop_requerimientos.Items.Add(item_proyecto);
+            }
+            return resultado;
         }
 
         /** @brief Metodo que vacia por completo la tabla de los requerimientos disponibles.
@@ -207,24 +366,6 @@ namespace SAPS.Fronteras
             drop_requerimientos.Items.Clear();
         }
 
-        /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
-        */
-        private void llena_requerimientos_disponibles(int id_diseno)
-        {
-            DataTable tabla_requerimientos = m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
-            ListItem primer_item = new ListItem();
-            primer_item.Text = "";
-            primer_item.Value = "";
-            drop_requerimientos.Items.Add(primer_item);
-            for (int i = 0; i < tabla_requerimientos.Rows.Count; ++i)
-            {
-                ListItem item_proyecto = new ListItem();
-                item_proyecto.Text = tabla_requerimientos.Rows[i]["nombre"].ToString();
-                item_proyecto.Value = Convert.ToString(tabla_requerimientos.Rows[i]["id_requerimiento"]);
-                drop_requerimientos.Items.Add(item_proyecto);
-            }
-
-        }
 
 
         /** @brief Metodo que actualiza la tabla de proyectos disponibles con la información más reciente.
@@ -317,6 +458,8 @@ namespace SAPS.Fronteras
             tabla_casos_pruebas.Rows.Clear();
         }
 
+        /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
+        */
         private void llenar_caso_de_pruebas_disponibles() 
         {
             crea_encabezado_tabla_cdp();
