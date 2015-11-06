@@ -24,11 +24,11 @@ execute INSERTAR_PYP 9898, 1, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP
 execute INSERTAR_PYP 9898, 2, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'Proyecto 2', 'Asignado'
 execute INSERTAR_PYP 9898, 3, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'Proyecto 3', 'Asignado'
 select * from DisenoPrueba
-execute INSERTAR_DP 0, 1, 'Diseño 1', '09-12-2015', 'bla', 'bla', 'bla', 'root'
-execute INSERTAR_DP 0, 1, 'Diseño 2', '08-31-2015', 'bla', 'bla', 'bla', 'root'
-execute INSERTAR_DP 0, 1, 'Diseño 3', '11-28-2015', 'bla', 'bla', 'bla', 'root'
-execute INSERTAR_DP 0, 3, 'Diseño 4', '11-28-2015', 'bla', 'bla', 'bla', 'root'
-execute INSERTAR_DP 0, 2, 'Diseño 5', '11-28-2015', 'bla', 'bla', 'bla', 'root'
+execute INSERTAR_DP 0, 1, 'Diseño 1', '09-12-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
+execute INSERTAR_DP 0, 1, 'Diseño 2', '08-31-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
+execute INSERTAR_DP 0, 1, 'Diseño 3', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
+execute INSERTAR_DP 0, 3, 'Diseño 4', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
+execute INSERTAR_DP 0, 2, 'Diseño 5', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
 
 select * from Requerimientos
 execute INSERTAR_REQUERIMIENTO 0, 'Requerimiento 1', 'Criterio 1, Criterio 2'
