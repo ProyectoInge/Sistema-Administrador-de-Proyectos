@@ -58,6 +58,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <asp:TextBox runat="server" CssClass="form-control" ID="input_nombre_requerimiento"></asp:TextBox>
+                                    <asp:Label runat="server" ID="label_nombre_vacio" CssClass="text-danger"><small>Tiene que ingresar un nombre de requerimiento.</small></asp:Label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -66,6 +67,7 @@
                                 </div>
                                 <div class="col-md-5">
                                     <asp:TextBox runat="server" CssClass="form-control" ID="input_criterio_aceptacion" Rows="3" Style="resize: none" TextMode="multiline"></asp:TextBox>
+                                    <asp:Label runat="server" ID="label_criterio_vacio" CssClass="text-danger"><small>Tiene que ingresar criterios de aceptación.</small></asp:Label>
                                 </div>
                             </div>
                         </div>
@@ -112,4 +114,32 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#<%= label_criterio_vacio.ClientID%>").hide();
+            $("#<%= label_nombre_vacio.ClientID%>").hide();
+
+
+            // Validacion del nombre
+            $("#<%= input_nombre_requerimiento.ClientID %>").blur(function () {
+                var nombre_ingresado = $("#<%= input_nombre_requerimiento.ClientID %>").val();
+                if (nombre_ingresado == "") {
+                    $("#<%= label_nombre_vacio.ClientID %>").show();
+                } else {
+                    $("#<%= label_nombre_vacio.ClientID %>").hide();
+                }
+            });
+
+            // Validacion del creiterio
+            $("#<%= input_criterio_aceptacion.ClientID %>").blur(function () {
+                var criterio_ingresado = $("#<%= input_criterio_aceptacion.ClientID %>").val();
+                if (criterio_ingresado == "") {
+                    $("#<%= label_criterio_vacio.ClientID %>").show();
+                } else {
+                    $("#<%= label_criterio_vacio.ClientID %>").hide();
+                }
+            });
+        });
+    </script>
 </asp:Content>

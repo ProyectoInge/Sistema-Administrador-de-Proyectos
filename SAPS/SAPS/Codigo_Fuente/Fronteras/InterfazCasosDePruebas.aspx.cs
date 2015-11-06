@@ -166,18 +166,9 @@ namespace SAPS.Fronteras
         */
         private void activa_desactiva_botones_ime(bool estado)
         {
-            if (m_es_administrador)
-            {
                 btn_eliminar.Enabled = estado;
                 btn_modificar.Enabled = estado;
                 btn_crear.Enabled = true;
-            }
-            else
-            {
-                btn_eliminar.Enabled = false;
-                btn_modificar.Enabled = estado;
-                btn_crear.Enabled = false;
-            }
         }
         //Ya está
 
@@ -232,31 +223,35 @@ namespace SAPS.Fronteras
                                 //No son parte de entidad
 
                                 m_caso_actual = "" ; //Vuelve a invalidar el caso seleccionado
-
-                                int resultado = m_controladora_cdp.insertar_caso_pruebas(datos, null);
-                                if (resultado == 0)
+                                if('i' == m_opcion)
                                 {
-                                    if ('i' == m_opcion)
+                                    int resultado = m_controladora_cdp.insertar_caso_pruebas(datos, null);
+                                    if (resultado == 0)
                                     {
                                         cuerpo_alerta_exito.Text = " Se ingresó el caso de pruebas correctamente.";
 
                                     }
                                     else
                                     {
-                                        cuerpo_alerta_exito.Text = " Se modificó el caso de pruebas correctamente.";
+                                        cuerpo_alerta_error.Text = " Hubo un error al insertar el caso de pruebas, intentelo nuevamente.";
 
                                     }
-                                    //actualiza_tabla_casos_prueba
-                                    //Si es insertar o modificar: btn_modificar.Enabled = true;
-                                    actualiza_caso_de_pruebas_disponibles();
-                                    a_retornar = true;
                                 }
                                 else
                                 {
-                                    cuerpo_alerta_error.Text = " Hubo un error al modificar el recurso humano, intentelo nuevamente.";
-                                    //a_retornar = false;
-                                }// Despues de la insercion o la modificacion
-                                 //Insertar o modificar la madre
+                                    int resultado = m_controladora_cdp.modificar_caso_pruebas(datos, null); //TO DO 
+                                    if (resultado == 0)
+                                    {
+                                        cuerpo_alerta_exito.Text = " Se modificó el caso de pruebas correctamente.";
+                                    }
+                                    else
+                                    {
+                                        cuerpo_alerta_error.Text = " Hubo un error al modificar el caso de pruebas, intentelo nuevamente.";
+
+                                    }
+                                }
+                                actualiza_caso_de_pruebas_disponibles();
+                                a_retornar = true;
                             }
                             else
                             {
@@ -295,7 +290,23 @@ namespace SAPS.Fronteras
         private bool eliminar_caso_pruebas()
         {
             bool a_retornar = false;
-           
+            if (m_caso_actual != "")
+            {
+                int resultado = m_controladora_cdp.eliminar_caso_pruebas(m_caso_actual);
+                if (resultado == 0)
+                {
+                    a_retornar = true;
+                    cuerpo_alerta_exito.Text = " Se eliminó el caso de pruebas correctamente.";
+                    alerta_exito.Visible = true;
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Falló al eliminar el caso de pruebas.";
+                    alerta_error.Visible = true;
+                }
+                actualiza_caso_de_pruebas_disponibles();
+            }     
+            
             return a_retornar;
         }
 
@@ -310,7 +321,7 @@ namespace SAPS.Fronteras
             bool a_retornar = false;
             if (m_opcion == 'e')
             {
-                //a_retornar = eliminar_caso_pruebas();
+                a_retornar = eliminar_caso_pruebas();
             }
             else
             {
