@@ -38,7 +38,7 @@ namespace SAPS.Base_de_Datos
         {
             // Procedimiento almacenado
             SqlCommand comando = new SqlCommand("INSERTAR_CP");
-            rellena_parametros_caso_pruebas(ref comando, caso_pruebas);
+            rellena_parametros_caso_pruebas(ref comando, caso_pruebas, 'i');
             int resultado = m_data_base_adapter.ejecutar_consulta(comando);
 
             // Guardar entrada de datos
@@ -63,7 +63,7 @@ namespace SAPS.Base_de_Datos
 
             // Se actualizan los datos del caso de pruebas
             SqlCommand comando = new SqlCommand("MODIFICAR_CP");
-            rellena_parametros_caso_pruebas(ref comando, caso);
+            rellena_parametros_caso_pruebas(ref comando, caso, 'm');
             int result = m_data_base_adapter.ejecutar_consulta(comando);
 
             // Actualiza los datos asociados a un caso de pruebas (entrada_datos[])
@@ -158,13 +158,13 @@ namespace SAPS.Base_de_Datos
                   se va a modificar.
         *  @param caso de pruebas con la información necesaria para realizar el procedimiento.
         */
-        private void rellena_parametros_caso_pruebas(ref SqlCommand comando, CasoPruebas caso_pruebas)
+        private void rellena_parametros_caso_pruebas(ref SqlCommand comando, CasoPruebas caso_pruebas, char tipo)
         {
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = caso_pruebas.id;
-            comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = caso_pruebas.id_diseno;
-            comando.Parameters.Add("@id_proposito", SqlDbType.VarChar).Value = caso_pruebas.proposito;
-            comando.Parameters.Add("@id_flujo", SqlDbType.VarChar).Value = caso_pruebas.flujo_central;
+            if('i'!=tipo)comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = caso_pruebas.id;
+            comando.Parameters.Add("@id_diseno_asociado", SqlDbType.Int).Value = caso_pruebas.id_diseno;
+            comando.Parameters.Add("@proposito", SqlDbType.VarChar).Value = caso_pruebas.proposito;
+            comando.Parameters.Add("@flujo", SqlDbType.VarChar).Value = caso_pruebas.flujo_central;
         }
 
         private void borrar_entrada_de_datos_asociados(string id_caso_pruebas)

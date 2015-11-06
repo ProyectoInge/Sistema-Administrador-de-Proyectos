@@ -20,8 +20,6 @@ namespace SAPS.Fronteras
     public partial class InterfazRequerimientos : System.Web.UI.Page
     {
         private static ControladoraRequerimientos m_controladora_requerimientos;
-        private static char m_opcion = 'i';  // i = insertar, m = modificar, e = eliminar
-        private static int m_id_requerimeinto_seleccionado = -1;
 
         /** @brief Metodo que se llama al cargar la página.
          */
@@ -35,7 +33,8 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 activa_desactiva_botones_ime(false);
 
-                    actualiza_tabla_requerimientos();
+                if (!IsPostBack)
+                actualiza_tabla_requerimientos();
             }
             else
             {
@@ -45,55 +44,65 @@ namespace SAPS.Fronteras
 
         protected void btn_crear_Click(object sender, EventArgs e)
         {
-            m_opcion = 'i';
-            btn_crear.CssClass = "btn btn-default active";
-            btn_modificar.CssClass = "btn btn-default";
-            btn_eliminar.CssClass = "btn btn-default";
-            activa_desactiva_botones_ime(false);
+            /// @todo
         }
 
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
-            m_opcion = 'm';
-            input_criterio_aceptacion.Enabled = true;
-            input_nombre_requerimiento.Enabled = true;
-            btn_crear.CssClass = "btn btn-default";
-            btn_modificar.CssClass = "btn btn-default active";
-            btn_eliminar.CssClass = "btn btn-default";
-            activa_desactiva_botones_ime(true);
+            /// @todo
         }
 
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-            m_opcion = 'e';
-            btn_crear.CssClass = "btn btn-default";
-            btn_modificar.CssClass = "btn btn-default";
-            btn_eliminar.CssClass = "btn btn-default active";
-            input_criterio_aceptacion.Enabled = false;
-            input_nombre_requerimiento.Enabled = false;
-            activa_desactiva_botones_ime(true);
+            /// @todo
         }
 
         protected void btn_Aceptar_Click(object sender, EventArgs e)
         {
             switch (m_opcion)
             {
-                case 'e':
-                    if (!eliminar_requerimiento()) // false si no logro eliminar el requerimiento
-                    {
-
-        }
-                    break;
                 case 'i':
                     if (!insertar_requerimiento()) // false si no logro insertar el requerimiento
                     {
-
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
+                        activa_desactiva_botones_ime(true);
+                        //m_id_requerimeinto_seleccionado = Convert.ToInt32(tabla_requerimientos.Rows[tabla_requerimientos.Rows.Count - 1].Cells[0].ID);
                     }
                     break;
                 case 'm':
                     if (!modificar_requerimiento()) // false si no logro modificar el requerimiento
                     {
-
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
+                    }
+                    break;
+                case 'e':
+                    if (!eliminar_requerimiento()) // false si no logro eliminar el requerimiento
+                    {
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
+                        input_criterio_aceptacion.Enabled = true;
+                        input_nombre_requerimiento.Enabled = true;
+                        activa_desactiva_botones_ime(false);
+                        vaciar_campos();
+                        m_opcion = 'i';
+                        btn_crear.CssClass = "btn btn-default active";
+                        btn_modificar.CssClass = "btn btn-default";
+                        btn_eliminar.CssClass = "btn btn-default";
+                        activa_desactiva_botones_ime(false);
                     }
                     break;
 
@@ -127,14 +136,62 @@ namespace SAPS.Fronteras
 
         private bool eliminar_requerimiento()
         {
-            /// @todo
-            return true;
+            bool a_retornar = false;
+            if (m_id_requerimeinto_seleccionado != -1)
+            {
+                int resultado = m_controladora_requerimientos.eliminar_requerimiento(m_id_requerimeinto_seleccionado);
+                if (resultado == 0)
+                {
+                    cuerpo_alerta_exito.Text = " Se eliminó correctamente el requerimiento.";
+                    a_retornar = true;
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Se presentó un error al eleminar el requerimiento, intente nuevamente.";
+                    SetFocus(input_criterio_aceptacion);
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = " No se ha seleccionado ningún requerimiento.";
+                SetFocus(input_criterio_aceptacion);
+            }
+            return a_retornar;
         }
 
         private bool insertar_requerimiento()
         {
-            /// @todo
-            return true;
+            bool a_retornar = false;
+            if (input_nombre_requerimiento.Text != "")
+            {
+                if (input_criterio_aceptacion.Text != "")
+                {
+                    Object[] nuevo_requerimiento = { 0, input_nombre_requerimiento.Text, input_criterio_aceptacion.Text };
+                    int resultado = m_controladora_requerimientos.insertar_requerimiento(nuevo_requerimiento);
+                    if (resultado == 0)  //Se ingresó con éxito
+                    {
+                        cuerpo_alerta_exito.Text = " Se ingresó correctamente el nuevo requerimiento.";
+                        a_retornar = true;
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = " Se presentó un problema al agrega el requerimiento, intente nuevamente.";
+                    }
+
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Es necesario que ingrese un criterio de aceptación.";
+                    SetFocus(input_criterio_aceptacion);
+
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = " Es necesario que ingrese un nombre para el requerimiento.";
+                SetFocus(input_nombre_requerimiento);
+            }
+            return a_retornar;
         }
 
         private bool modificar_requerimiento()
@@ -151,6 +208,12 @@ namespace SAPS.Fronteras
             input_criterio_aceptacion.Text = "";
             input_nombre_requerimiento.Text = "";
             m_opcion = 'i';
+            alerta_error.Visible = false;
+            alerta_advertencia.Visible = false;
+            alerta_exito.Visible = false;
+            cuerpo_alerta_advertencia.Text = "";
+            cuerpo_alerta_error.Text = "";
+            cuerpo_alerta_exito.Text = "";
         }
 
         /** @brief Método que llena la información en pantalla correspondiente a un requerimiento que se consulta.
@@ -194,7 +257,7 @@ namespace SAPS.Fronteras
             tabla_requerimientos.Rows.Add(header);
 
             DataTable tabla_requerimientos_disponibles = m_controladora_requerimientos.solicitar_requerimientos_disponibles();
-            for (int i = 0; i < tabla_requerimientos_disponibles.Rows.Count; ++i)
+            for (int i = tabla_requerimientos_disponibles.Rows.Count - 1; i >= 0; --i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_nombre = new TableCell();

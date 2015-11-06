@@ -308,14 +308,5 @@ namespace SAPS.Fronteras {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tabla_casos_pruebas;
-        
-        /// <summary>
-        /// Control tabla_casos_pruebas_header.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderRow tabla_casos_pruebas_header;
     }
 }
