@@ -158,7 +158,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <div class="btn-group" role="group">
-                                        <asp:Button runat="server" ID="btn_agregar_entrada" CssClass="btn btn-link" Text="Agregar" OnClick="btn_agregar_entrada_Click" />
+                                        <asp:Button runat="server" ID="btn_agregar_entrada" CssClass="btn btn-link" Text="Agregar" />
                                         <asp:Button runat="server" CssClass="btn btn-link" ID="btn_entradas_eliminar" Text="Eliminar" />
                                     </div>
                                 </div>
