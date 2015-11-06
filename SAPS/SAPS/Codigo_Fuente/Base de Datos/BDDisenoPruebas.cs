@@ -89,6 +89,18 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        /** @brief Método que se encarga de buscar los requerimientos NO asociados a un diseño.
+         * @param El identificador del diseño al que se le quieren encontrar los requerimientos que NO tiene asociados.
+         * @return DataTable con todos los requerimientos que NO tiene asociados el diseño consultado.
+        */
+        public DataTable solicitar_requerimientos_no_asociados(int id_diseno)
+        {
+            SqlCommand comando = new SqlCommand("SOLICITAR_REQUERIMIENTOS_NO_ASOCIADOS");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = id_diseno;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
         /** @brief Método que se encarga de buscar los requerimientos asociados a un diseño.
          * @param El identificador del diseño al que se le quieren encontrar los requerimientos que tiene asociados.
          * @return DataTable con todos los requerimientos que tiene asociados el diseño consultado.

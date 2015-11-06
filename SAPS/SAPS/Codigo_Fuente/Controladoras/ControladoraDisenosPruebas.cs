@@ -110,6 +110,15 @@ namespace SAPS.Controladoras
             return m_base_datos.solicitar_requerimientos_asociados(id_diseno);
         }
 
+        /** @brief Método que se encarga de buscar los requerimientos NO asociados a un diseño.
+         * @param El identificador del diseño al que se le quieren encontrar los requerimientos que NO tiene asociados.
+         * @return DataTable con todos los requerimientos que NO tiene asociados el diseño consultado.
+        */
+        public DataTable solicitar_requerimientos_no_asociados(int id_diseno)
+        {
+            return m_base_datos.solicitar_requerimientos_no_asociados(id_diseno);
+        }
+
         /** @brief Método que se encarga de buscar los diseños asociados a un proyecto.
          * @param El identificador del proyecto al que se le quieren encontrar los diseños que tiene asociados.
          * @return DataTable con todos los diseños que tiene asociados el proyecto.
