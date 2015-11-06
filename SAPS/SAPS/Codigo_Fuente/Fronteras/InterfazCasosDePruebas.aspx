@@ -1,5 +1,11 @@
 ﻿<%@ Page Title="Casos de pruebas" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazCasosDePruebas.aspx.cs" Inherits="SAPS.Fronteras.InterfazCasosDePruebas" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
+    $(document).ready(function () {
+        $("#btn_cdp").addClass("active");
+    });
+    </script>
     <section id="page_header">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -207,7 +213,6 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_casos_pruebas" CssClass="table table-hover form-group">
-                   
                 </asp:Table>
             </div>
         </div>
