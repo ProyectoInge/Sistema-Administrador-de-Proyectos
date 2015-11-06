@@ -5,6 +5,7 @@ DROP PROCEDURE MODIFICAR_PYP
 DROP PROCEDURE ELIMINAR_PYP
 DROP PROCEDURE CONSULTAR_PYP
 DROP PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
+DROP PROCEDURE CONSULTAR_MI_PROYECTO
 DROP PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
 DROP PROCEDURE INSERTAR_OFICINA
 DROP PROCEDURE CONSULTAR_OFICINA
@@ -20,6 +21,7 @@ AS
 		(@id_oficina, @fecha_inicio, @fecha_asignacion, @fecha_final, @nombre_sistema, @obj_general, @nombre_proyecto, @estado, 0)
 
 GO
+
 
 GO
 CREATE PROCEDURE MODIFICAR_PYP
@@ -58,6 +60,7 @@ AS
 	WHERE	ProyectoPruebas.id_proyecto = @id_proyecto AND ProyectoPruebas.eliminado = 0
 GO 
 
+
 GO
 CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 	AS BEGIN
@@ -69,6 +72,7 @@ CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 	WHERE ProyectoPruebas.eliminado = 0
 	END
 GO
+
 
 GO
 CREATE PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
@@ -84,6 +88,22 @@ GO
 
 
 GO
+CREATE PROCEDURE CONSULTAR_MI_PROYECTO
+	@username varchar(64)
+AS BEGIN
+	SELECT  ProyectoPruebas.nombre_proyecto,
+			ProyectoPruebas.id_proyecto,
+			ProyectoPruebas.estado,
+			ProyectoPruebas.id_oficina
+	FROM ProyectoPruebas
+	WHERE ProyectoPruebas.id_proyecto = (SELECT RecursosHumanos.id_proyecto
+											FROM RecursosHumanos
+											WHERE RecursosHumanos.username = @username);
+END 
+GO
+
+
+GO
 CREATE PROCEDURE INSERTAR_OFICINA
 	@nombre_oficina varchar(64), @telefono varchar(16), @telefono2 varchar(16), @nom_representante varchar(64)
 AS
@@ -92,6 +112,7 @@ AS
 	VALUES
 		(@nombre_oficina, @telefono, @telefono2, @nom_representante) 
 GO
+
 
 GO
 CREATE PROCEDURE CONSULTAR_OFICINA

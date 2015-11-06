@@ -4,18 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SAPS.Controladoras;
 using System.Data;
+using SAPS.Controladoras;
+using SAPS.Entidades.Ayudantes;
 
 namespace SAPS.Fronteras
 {
     public partial class InterfazCasosDePruebas : System.Web.UI.Page
     {
+        //Variables de instacia
+        private static ControladoraRecursosHumanos m_controladora_rh;
         private static ControladoraProyectoPruebas m_controladora_pdp;
         private static ControladoraDisenosPruebas m_controladora_dp;
-        private static ControladoraRecursosHumanos m_controladora_rh;
+        private static ControladoraCasoPruebas m_controladora_cdp;
 
         private static TableHeaderRow m_fila_header; // Es global ya que se tiene que modificar en ciertas ocaciones
+
+        private static char m_opcion = 'i'; //i = insertar, m = modificar, e = eliminar
 
         private static bool m_es_administrador;
         protected void Page_Load(object sender, EventArgs e)
@@ -24,16 +29,16 @@ namespace SAPS.Fronteras
             alerta_exito.Visible = false;
             alerta_advertencia.Visible = false;
             m_controladora_dp = new ControladoraDisenosPruebas();
+            m_controladora_cdp = new ControladoraCasoPruebas();
             m_controladora_pdp = new ControladoraProyectoPruebas();
             m_controladora_rh = new ControladoraRecursosHumanos();
             m_fila_header = new TableHeaderRow();
 
             if (!IsPostBack)
             {
-                actualiza_proyectos();
                 m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
+                actualiza_proyectos();
             }
-            
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "cancelar".
@@ -41,15 +46,50 @@ namespace SAPS.Fronteras
         */
         protected void btn_cancelar_Click(object sender, EventArgs e)
         {
+            m_opcion = 'i';
+            //limpia_campos();
+            /*drop_proyecto_asociado.Enabled = false;
+            drop_rol.Enabled = false;
+            btn_reestablece_contrasena.Visible = false;
+            activa_desactiva_botones_ime(false);
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx");
+            */
+        }
+
+        /** @brief Se encarga de limpiar los strings que hay en los textbox y de deshabilitar los campos 
+        */
+        private void limpia_campos()
+        {
+
 
         }
+
+
+
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "aceptar".
         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_aceptar_Click(object sender, EventArgs e)
         {
-
+            if (valida_campos() == true)
+            {
+                if (m_opcion != 'e')
+                {
+                    alerta_exito.Visible = true;
+                    if (m_opcion == 'i')
+                    {
+                        //activa_desactiva_botones_ime(true);
+                    }
+                }
+            }
+            else
+            {
+                if (m_opcion != 'e')
+                {
+                    alerta_error.Visible = true;
+        }
+            }
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "crear".
@@ -57,8 +97,55 @@ namespace SAPS.Fronteras
         */
         protected void btn_crear_Click(object sender, EventArgs e)
         {
-
+            m_opcion = 'i';
         }
+
+        /** @brief Metodo que valida los campos que se ocupan para insertar o modificar un caso de pruebas, si no hay problema entonces lo inserta o lo modifica en la base.
+        */
+        private bool insertar_modificar_caso_pruebas()
+        {
+            bool resultado = false;
+            if (drop_proyecto_asociado.Text != "")
+            {
+                if (drop_diseno_asociado.Text != "")
+                {
+                    //Insertar o modificar la madre
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = "Es necesario escoger un diseño.";
+                    SetFocus(drop_diseno_asociado);
+                    //resultado = false;
+        }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = "Es necesario escoger un proyecto.";
+                SetFocus(drop_proyecto_asociado);
+                //resultado = false;
+            }
+            return resultado;
+        }
+
+        /** @brief Metodo que valida los campos que se ocupan para eliminar un caso de pruebas, si no hay problema entonces lo elimina de la base.
+       */
+
+        /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora y realiza la operación respectiva.
+         */
+        private bool valida_campos()
+        {
+            bool a_retornar = false;
+            if (m_opcion == 'e')
+            {
+                //a_retornar = eliminar_caso_pruebas();
+            }
+            else
+            {
+                a_retornar = insertar_modificar_caso_pruebas();
+            }
+            return a_retornar;
+        }
+
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "modificar".
         * @param Los parametros por default de un evento de C#.
@@ -76,14 +163,6 @@ namespace SAPS.Fronteras
 
         }
 
-        /** @brief Evento que se activa cuando el usuario selecciona el boton de "consultar".
-         * @param Los parametros por default de un evento de C#.
-        */
-        protected void btn_consultar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         /** @brief Metodo que se activa cuando el usuario selecciona un proyecto del dropdown, llena la informacion correspondiente a ese proyecto.
          * @param Los parametros por default de un evento de C#.
         */
@@ -91,9 +170,9 @@ namespace SAPS.Fronteras
         {
             if (drop_proyecto_asociado.SelectedItem.Value != "")
             {
-                int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
-                actualiza_disenos_asociados(id_proyecto_seleccionado);
-            }
+            int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
+            actualiza_disenos_asociados(id_proyecto_seleccionado);
+        }
         }
 
         /** @brief Metodo que se activa cuando el usuario selecciona un diseño del dropdown, llena la informacion correspondiente a ese diseño.
@@ -103,18 +182,21 @@ namespace SAPS.Fronteras
         {
             int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
             actualiza_requerimientos(id_diseno_seleccionado);
+            actualiza_caso_de_pruebas_disponibles();
         }
 
-
-        /** @brief Método que se activa cuando el usuario hace click en el botón de "agregar entrada"
-         * @param Los parametros por default de un evento de C#.
-        */
-        protected void btn_agregar_entrada_Click(object sender, EventArgs e)
+        /** @brief Evento cuando un botón del ID de caso de pruebas se presiona */
+        protected void btn_lista_Clicked(Object sender, EventArgs e)
         {
+            int id_caso_de_prueba = Convert.ToInt32(((Button)sender).ID);
+            DataTable caso_de_prueba = m_controladora_cdp.consultar_caso_pruebas(id_caso_de_prueba);
+
+            // Completa la información del caso de prueba en la interfaz
+            text_proposito.Text = caso_de_prueba.Rows[0]["proposito"].ToString();
+            text_flujo_central.Text = caso_de_prueba.Rows[0]["flujo_central"].ToString();
+
+            // @todo llenar los datos relacionados.
         }
-
-        // ---------------------------------------------------- Métodos auxiliares ----------------------------------------------------
-
 
         /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
         */
@@ -171,7 +253,16 @@ namespace SAPS.Fronteras
         */
         private void llena_proyectos_disponibles()
         {
-            DataTable tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
+            DataTable tabla_proyectos;
+            if (m_es_administrador)
+            {
+                tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
+            }
+            else
+            {
+                tabla_proyectos = m_controladora_pdp.consultar_mi_proyecto(Context.User.Identity.Name);
+            }
+
             ListItem primer_item = new ListItem();
             primer_item.Text = "";
             primer_item.Value = "";
@@ -183,7 +274,6 @@ namespace SAPS.Fronteras
                 item_proyecto.Value = Convert.ToString(tabla_proyectos.Rows[i]["id_proyecto"]);
                 drop_proyecto_asociado.Items.Add(item_proyecto);
             }
-
         }
 
         /** @brief Metodo que actualiza la tabla de disenos asociados a un proyecto de pruebas con la información más reciente.
@@ -220,6 +310,60 @@ namespace SAPS.Fronteras
                 drop_diseno_asociado.Items.Add(item_diseno);
             }
 
+        }
+
+        private void actualiza_caso_de_pruebas_disponibles()
+        {
+            vacia_caso_de_pruebas_disponibles();
+            llenar_caso_de_pruebas_disponibles();
+        }
+
+        private void vacia_caso_de_pruebas_disponibles()
+        {
+            tabla_casos_pruebas.Rows.Clear();
+        }
+
+        private void llenar_caso_de_pruebas_disponibles() 
+        {
+            crea_encabezado_tabla_cdp();
+
+            int diseno_asociado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
+            DataTable caso_de_pruebas_disponibles = m_controladora_cdp.solicitar_casos_pruebas_disponibles(diseno_asociado);
+
+            for (int i = 0; i < caso_de_pruebas_disponibles.Rows.Count; ++i) 
+            {
+                TableRow fila = new TableRow();
+                TableCell celda_id = new TableCell();
+                TableCell celda_proposito = new TableCell();
+                Button btn = new Button();
+                btn.ID = caso_de_pruebas_disponibles.Rows[i]["id_caso"].ToString();
+                btn.CssClass = "btn btn-link";
+                btn.Click += new EventHandler(btn_lista_Clicked);
+
+                // Se inserta la información a la tabla
+                btn.Text = caso_de_pruebas_disponibles.Rows[i]["id_caso"].ToString();
+                celda_proposito.Text = caso_de_pruebas_disponibles.Rows[i]["proposito"].ToString();
+
+                celda_id.Controls.AddAt(0, btn);
+                fila.Cells.AddAt(0, celda_id);
+                fila.Cells.AddAt(1, celda_proposito);
+
+                tabla_casos_pruebas.Rows.Add(fila);
+            }
+        }
+
+        /** @brief Metodo que crea el encabezado para la tabla de los recursos humanos.
+         */
+        private void crea_encabezado_tabla_cdp()
+        {
+            TableHeaderRow header = new TableHeaderRow();
+            TableHeaderCell celda_header_id_caso_prueba = new TableHeaderCell();
+            TableHeaderCell celda_header_proposito = new TableHeaderCell();
+            celda_header_id_caso_prueba.Text = "ID del caso de prueba";
+            header.Cells.AddAt(0, celda_header_id_caso_prueba);
+            celda_header_proposito.Text = "Propósito de el caso de prueba";
+            header.Cells.AddAt(1, celda_header_proposito);
+            tabla_casos_pruebas.Rows.Add(header);
         }
     }
 }
