@@ -35,7 +35,7 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 activa_desactiva_botones_ime(false);
 
-                    actualiza_tabla_requerimientos();
+                actualiza_tabla_requerimientos();
             }
             else
             {
@@ -81,19 +81,36 @@ namespace SAPS.Fronteras
                 case 'e':
                     if (!eliminar_requerimiento()) // false si no logro eliminar el requerimiento
                     {
-
-        }
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
+                    }
                     break;
                 case 'i':
                     if (!insertar_requerimiento()) // false si no logro insertar el requerimiento
                     {
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
+                        activa_desactiva_botones_ime(true);
 
                     }
                     break;
                 case 'm':
                     if (!modificar_requerimiento()) // false si no logro modificar el requerimiento
                     {
-
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
                     }
                     break;
 
@@ -133,8 +150,35 @@ namespace SAPS.Fronteras
 
         private bool insertar_requerimiento()
         {
-            /// @todo
-            return true;
+            bool a_retornar = false;
+            if (input_nombre_requerimiento.Text != "")
+            {
+                if (input_criterio_aceptacion.Text != "")
+                {
+                    Object[] nuevo_requerimiento = { 0, input_nombre_requerimiento.Text, input_criterio_aceptacion.Text };
+                    int resultado = m_controladora_requerimientos.insertar_requerimiento(nuevo_requerimiento);
+                    if(resultado == 0)  //Se ingresó con éxito
+                    {
+                        cuerpo_alerta_exito.Text = " Se ingresó correctamente el nuevo requerimiento.";
+                        a_retornar = true;
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = " Se presentó un problema al agrega el requerimiento, intente nuevamente.";
+                    }
+
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Es necesario que ingrese un criterio de aceptación.";
+
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = " Es necesario que ingrese un nombre para el requerimiento.";
+            }
+            return a_retornar;
         }
 
         private bool modificar_requerimiento()
@@ -151,6 +195,12 @@ namespace SAPS.Fronteras
             input_criterio_aceptacion.Text = "";
             input_nombre_requerimiento.Text = "";
             m_opcion = 'i';
+            alerta_error.Visible = false;
+            alerta_advertencia.Visible = false;
+            alerta_exito.Visible = false;
+            cuerpo_alerta_advertencia.Text = "";
+            cuerpo_alerta_error.Text = "";
+            cuerpo_alerta_exito.Text = "";
         }
 
         /** @brief Método que llena la información en pantalla correspondiente a un requerimiento que se consulta.
@@ -194,7 +244,7 @@ namespace SAPS.Fronteras
             tabla_requerimientos.Rows.Add(header);
 
             DataTable tabla_requerimientos_disponibles = m_controladora_requerimientos.solicitar_requerimientos_disponibles();
-            for (int i = 0; i < tabla_requerimientos_disponibles.Rows.Count; ++i)
+            for (int i = tabla_requerimientos_disponibles.Rows.Count-1; i >= 0; --i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_nombre = new TableCell();
