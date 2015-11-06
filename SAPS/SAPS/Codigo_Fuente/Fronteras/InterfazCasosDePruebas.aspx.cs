@@ -188,7 +188,7 @@ namespace SAPS.Fronteras
         /** @brief Evento cuando un botón del ID de caso de pruebas se presiona */
         protected void btn_lista_Clicked(Object sender, EventArgs e)
         {
-            int id_caso_de_prueba = Convert.ToInt32(((Button)sender).ID);
+            string id_caso_de_prueba = ((Button)sender).ID;
             DataTable caso_de_prueba = m_controladora_cdp.consultar_caso_pruebas(id_caso_de_prueba);
 
             // Completa la información del caso de prueba en la interfaz
