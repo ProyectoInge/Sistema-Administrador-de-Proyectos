@@ -42,6 +42,7 @@ namespace SAPS.Controladoras
             |    5   |    Tipo de prueba    |     string    |
             |    6   |    Nivel de prueba   |     string    |
             |    7   | Username responsable |     string    |
+            |    8   |      Ambiente        |     string    |
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         public int insertar_diseno_pruebas(Object[] datos)
@@ -65,6 +66,7 @@ namespace SAPS.Controladoras
             |    5   |    Tipo de prueba    |     string    |
             |    6   |    Nivel de prueba   |     string    |
             |    7   | Username responsable |     string    |
+            |    8   |      Ambiente        |     string    |
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         public int modificar_diseno_pruebas(Object[] datos)

@@ -21,6 +21,7 @@ namespace SAPS.Fronteras
     {
         private static ControladoraRequerimientos m_controladora_requerimientos;
         private static char m_opcion = 'i';  // i = insertar, m = modificar, e = eliminar
+        private static int m_id_requerimeinto_seleccionado = -1;
 
         /** @brief Metodo que se llama al cargar la página.
          */
@@ -44,27 +45,66 @@ namespace SAPS.Fronteras
 
         protected void btn_crear_Click(object sender, EventArgs e)
         {
-            /// @todo
+            m_opcion = 'i';
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default";
+            btn_eliminar.CssClass = "btn btn-default";
+            activa_desactiva_botones_ime(false);
         }
 
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
-            /// @todo
+            m_opcion = 'm';
+            input_criterio_aceptacion.Enabled = true;
+            input_nombre_requerimiento.Enabled = true;
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default active";
+            btn_eliminar.CssClass = "btn btn-default";
+            activa_desactiva_botones_ime(true);
         }
 
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-            /// @todo
+            m_opcion = 'e';
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default";
+            btn_eliminar.CssClass = "btn btn-default active";
+            input_criterio_aceptacion.Enabled = false;
+            input_nombre_requerimiento.Enabled = false;
+            activa_desactiva_botones_ime(true);
         }
 
         protected void btn_Aceptar_Click(object sender, EventArgs e)
         {
-            /// @todo
+            switch (m_opcion)
+            {
+                case 'e':
+                    if (!eliminar_requerimiento()) // false si no logro eliminar el requerimiento
+                    {
+
+                    }
+                    break;
+                case 'i':
+                    if (!insertar_requerimiento()) // false si no logro insertar el requerimiento
+                    {
+
+                    }
+                    break;
+                case 'm':
+                    if (!modificar_requerimiento()) // false si no logro modificar el requerimiento
+                    {
+
+                    }
+                    break;
+
+            }
         }
 
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
-            /// @todo
+            vaciar_campos();
+            input_nombre_requerimiento.Enabled = true;
+            input_criterio_aceptacion.Enabled = true;
         }
 
         protected void btn_Regresar_Click(object sender, EventArgs e)
@@ -75,17 +115,44 @@ namespace SAPS.Fronteras
 
         protected void btn_lista_requerimientos_Click(object sender, EventArgs e)
         {
-            /// @todo
             int id_requerimiento_seleccionado = Convert.ToInt32(((Button)sender).ID);
             llena_info_consulta(id_requerimiento_seleccionado);
             input_criterio_aceptacion.Enabled = false;
             input_nombre_requerimiento.Enabled = false;
             activa_desactiva_botones_ime(true);
+            m_id_requerimeinto_seleccionado = id_requerimiento_seleccionado;
         }
 
-        // ----------------------------------------- Métodos auxiliares -----------------------------------------
+        // ------------------------------------------------------ Métodos auxiliares ------------------------------------------------------
 
+        private bool eliminar_requerimiento()
+        {
+            /// @todo
+        }
 
+        private bool insertar_requerimiento()
+        {
+            /// @todo
+        }
+
+        private bool modificar_requerimiento()
+        {
+            ///@todo
+        }
+
+        /** @brief Método que se encarga de vaciar los campos de los datos de un requerimiento.
+        */
+        private void vaciar_campos()
+        {
+            m_id_requerimeinto_seleccionado = -1;
+            input_criterio_aceptacion.Text = "";
+            input_nombre_requerimiento.Text = "";
+            m_opcion = 'i';
+        }
+
+        /** @brief Método que llena la información en pantalla correspondiente a un requerimiento que se consulta.
+         * @param El identificador del requerimiento que se desea consultar.
+        */
         private void llena_info_consulta(int id_requerimiento)
         {
             DataTable info_requerimiento = m_controladora_requerimientos.consultar_requerimiento(id_requerimiento);

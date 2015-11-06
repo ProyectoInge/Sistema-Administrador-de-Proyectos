@@ -144,6 +144,7 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@tipo_prueba", SqlDbType.VarChar).Value = diseno_pruebas.tipo_prueba;
             comando.Parameters.Add("@nivel_prueba", SqlDbType.VarChar).Value = diseno_pruebas.nivel_prueba;
             comando.Parameters.Add("@username_responsable", SqlDbType.VarChar).Value = diseno_pruebas.username_responsable;
+            comando.Parameters.Add("@ambiente", SqlDbType.VarChar).Value = diseno_pruebas.ambiente;
         }
     }
 }
