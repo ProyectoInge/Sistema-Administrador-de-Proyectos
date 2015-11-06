@@ -17,8 +17,9 @@ CREATE PROCEDURE INSERTAR_CP
 	@id_diseno_asociado int, @proposito varchar(256), @flujo varchar(256)
 AS
 	DECLARE @id_caso varchar(24)
-	SET @id_caso = CONVERT(varchar(24), (SELECT COUNT(*)+1
-	FROM CasoPrueba))
+	SET @id_caso = 'D'+CONVERT(varchar(24),@id_diseno_asociado) +'CP'+CONVERT(varchar(24), (SELECT COUNT(*)+1
+	FROM CasoPrueba
+	WHERE CasoPrueba.id_diseno = @id_diseno_asociado))
 	INSERT INTO CasoPrueba
 		(id_caso, id_diseno, proposito, flujo_central)
 	VALUES

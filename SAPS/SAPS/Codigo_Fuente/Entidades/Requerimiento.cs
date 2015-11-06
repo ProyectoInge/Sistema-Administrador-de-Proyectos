@@ -20,18 +20,21 @@ namespace SAPS.Entidades
     {
         private int m_id;
         private string m_nombre;
+        private string m_criterio_aceptacion;
 
         /** @param datos Un vector tipo objeto que contiene toda la información necesaria
                    para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
-            | Índice |      Descripción     | Tipo de datos |
-            |:------:|:--------------------:|:-------------:|
-            |    0   | ID del requerimiento |       int     |
-            |    1   |        Nombre        |     String    |
+            | Índice |       Descripción       | Tipo de datos |
+            |:------:|:-----------------------:|:-------------:|
+            |    0   |   ID del requerimiento  |       int     |
+            |    1   |         Nombre          |     String    |
+            |    2   | Criterios de aceptación |     String    |
         */
         public Requerimiento(Object[] datos)
         {
             m_id = Convert.ToInt32(datos[0]);
             m_nombre = Convert.ToString(datos[1]);
+            m_criterio_aceptacion = Convert.ToString(datos[2]);
         }
 
         public int id
@@ -44,6 +47,12 @@ namespace SAPS.Entidades
         {
             get { return m_nombre; }
             set { m_nombre = value; }
+        }
+
+        public string criterio_aceptacion
+        {
+            get { return m_criterio_aceptacion; }
+            set { m_criterio_aceptacion = value; }
         }
     }
 }

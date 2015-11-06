@@ -32,10 +32,11 @@ namespace SAPS.Controladoras
         /** @brief Método que asigna las operaciones necesarias para poder insertar un requerimiento.
          * @param datos Un vector tipo objeto que contiene toda la información necesaria
                    para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
-            | Índice |      Descripción     | Tipo de datos |
-            |:------:|:--------------------:|:-------------:|
-            |    0   | ID del requerimiento |       int     |
-            |    1   |        Nombre        |     String    |
+            | Índice |       Descripción       | Tipo de datos |
+            |:------:|:-----------------------:|:-------------:|
+            |    0   |   ID del requerimiento  |       int     |
+            |    1   |         Nombre          |     String    |
+            |    2   | Criterios de aceptación |     String    |
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int insertar_requerimiento(Object[] datos)
@@ -49,10 +50,11 @@ namespace SAPS.Controladoras
         /** @brief Método que asigna las operaciones necesarias para poder modificar un requerimiento.
          * @param datos Un vector tipo objeto que contiene toda la información necesaria
                    para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
-            | Índice |      Descripción     | Tipo de datos |
-            |:------:|:--------------------:|:-------------:|
-            |    0   | ID del requerimiento |       int     |
-            |    1   |        Nombre        |     String    |
+            | Índice |       Descripción       | Tipo de datos |
+            |:------:|:-----------------------:|:-------------:|
+            |    0   |   ID del requerimiento  |       int     |
+            |    1   |         Nombre          |     String    |
+            |    2   | Criterios de aceptación |     String    |
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int modificar_requerimiento(Object[] datos)
@@ -98,9 +100,8 @@ namespace SAPS.Controladoras
             |:------:|:------------------------:|:-------------:|
             |   0    |     ID del diseño        |       int     |
             |   1    |  ID del requerimiento    |       int     |
-            |   2    |  Criterios de aceptación |     String    |
-            |   3    |        Propósito         |     String    |
-            |   4    |      Procedimiento       |     String    |
+            |   2    |        Propósito         |     String    |
+            |   3    |      Procedimiento       |     String    |
 
          * @return 0 si no hubo ningún problema, números negativos si hubo algún problema con la base de datos.
         */

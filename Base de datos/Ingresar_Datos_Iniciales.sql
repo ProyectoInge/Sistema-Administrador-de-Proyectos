@@ -49,3 +49,7 @@ execute INSERTAR_CP  1, 'Unitaria#3', 'A,B,C'
 execute INSERTAR_CP  2, 'Unitaria#1', 'A,B,C'
 execute INSERTAR_CP  2, 'Unitaria#2', 'A,B,C'
 execute INSERTAR_CP  2, 'Unitaria#3', 'A,B,C'
+
+
+
+delete from CasoPrueba

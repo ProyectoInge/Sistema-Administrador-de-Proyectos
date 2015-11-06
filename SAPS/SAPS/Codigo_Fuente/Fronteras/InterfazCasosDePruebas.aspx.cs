@@ -18,11 +18,16 @@ namespace SAPS.Fronteras
         private static ControladoraDisenosPruebas m_controladora_dp;
         private static ControladoraCasoPruebas m_controladora_cdp;
 
+        
+
         private static TableHeaderRow m_fila_header; // Es global ya que se tiene que modificar en ciertas ocaciones
 
         private static char m_opcion = 'i'; //i = insertar, m = modificar, e = eliminar
 
         private static bool m_es_administrador;
+
+        private static string m_caso_actual = "";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.IsAuthenticated)
@@ -38,14 +43,17 @@ namespace SAPS.Fronteras
                 m_controladora_pdp = new ControladoraProyectoPruebas();
                 m_controladora_rh = new ControladoraRecursosHumanos();
                 m_fila_header = new TableHeaderRow();
+                
 
                 if (!IsPostBack)
                 {
-                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
-                    actualiza_proyectos();
+                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);                    
                     drop_diseno_asociado.Enabled = false;
                     drop_requerimientos.Enabled = false;
+                    actualiza_proyectos();
                 }
+                actualiza_caso_de_pruebas_disponibles();
+
             }
             else
             {
@@ -144,7 +152,9 @@ namespace SAPS.Fronteras
             // Completa la información del caso de prueba en la interfaz
             text_proposito.Text = caso_de_prueba.Rows[0]["proposito"].ToString();
             text_flujo_central.Text = caso_de_prueba.Rows[0]["flujo_central"].ToString();
-
+            actualiza_caso_de_pruebas_disponibles();
+            m_caso_actual = id_caso_de_prueba;
+            activa_desactiva_botones_ime(true);
             // @todo llenar los datos relacionados.
         }
 
@@ -212,17 +222,18 @@ namespace SAPS.Fronteras
                         {
                             if (text_flujo_central.Text != "")
                             {
-                                Object[] datos = new Object[6];
-                                //datos[0] = TO DO 
-                                datos[1] = drop_proyecto_asociado.Text;
-                                datos[2] = drop_diseno_asociado.Text;
-                                datos[3] = drop_requerimientos.Text;
-                                datos[4] = text_proposito.Text;
-                                datos[5] = text_flujo_central.Text;
+                                //Parte de la entidad
+                                Object[] datos = new Object[4];
+                                datos[0] = m_caso_actual;
+                                datos[1] = drop_diseno_asociado.SelectedItem.Value;
+                                datos[2] = text_proposito.Text;
+                                datos[3] = text_flujo_central.Text;
 
+                                //No son parte de entidad
 
-                                //Validar entradas de datos
-                                int resultado = 0; //m_controladora_cdp.insertar_caso_pruebas(datos);
+                                m_caso_actual = "" ; //Vuelve a invalidar el caso seleccionado
+
+                                int resultado = m_controladora_cdp.insertar_caso_pruebas(datos, null);
                                 if (resultado == 0)
                                 {
                                     if ('i' == m_opcion)
@@ -237,6 +248,7 @@ namespace SAPS.Fronteras
                                     }
                                     //actualiza_tabla_casos_prueba
                                     //Si es insertar o modificar: btn_modificar.Enabled = true;
+                                    actualiza_caso_de_pruebas_disponibles();
                                     a_retornar = true;
                                 }
                                 else
@@ -283,20 +295,7 @@ namespace SAPS.Fronteras
         private bool eliminar_caso_pruebas()
         {
             bool a_retornar = false;
-            /*if (input_usuario.Text != "")
-            {
-                titulo_modal.Text = "¡Atención!";
-                cuerpo_modal.Text = " ¿Esta seguro que desea eliminar el Caso " + input_usuario.Text + " del sistema?";
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
-                upModal.Update();
-                a_retornar = true;
-            }
-            else
-            {
-                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
-                alerta_error.Visible = false;
-                SetFocus(input_usuario);
-            }*/
+           
             return a_retornar;
         }
 
@@ -319,8 +318,6 @@ namespace SAPS.Fronteras
             }
             return a_retornar;
         }
-
-
 
 
         /** @brief Metodo que se activa cuando el usuario selecciona un proyecto del dropdown, llena la informacion correspondiente a ese proyecto.
@@ -352,8 +349,6 @@ namespace SAPS.Fronteras
                 actualiza_caso_de_pruebas_disponibles();
             }
         }
-
-
 
         /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
         */
@@ -489,35 +484,39 @@ namespace SAPS.Fronteras
             tabla_casos_pruebas.Rows.Clear();
         }
 
-        /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
-        */
+
+        /** @brief Llena el área de consulta con los recursos humanos que hay en la base de datos.
+                   Para esto crea la tabla dinámicamente.
+         */
         private void llenar_caso_de_pruebas_disponibles()
         {
             crea_encabezado_tabla_cdp();
-
-            int diseno_asociado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
-            DataTable caso_de_pruebas_disponibles = m_controladora_cdp.solicitar_casos_pruebas_disponibles(diseno_asociado);
-
-            for (int i = 0; i < caso_de_pruebas_disponibles.Rows.Count; ++i)
+            if (0!=drop_diseno_asociado.Items.Count)
             {
-                TableRow fila = new TableRow();
-                TableCell celda_id = new TableCell();
-                TableCell celda_proposito = new TableCell();
-                Button btn = new Button();
-                btn.ID = caso_de_pruebas_disponibles.Rows[i]["id_caso"].ToString();
-                btn.CssClass = "btn btn-link";
-                btn.Click += new EventHandler(btn_lista_Clicked);
+                int diseno_asociado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
+                DataTable caso_de_pruebas_disponibles = m_controladora_cdp.solicitar_casos_pruebas_disponibles(diseno_asociado);
 
-                // Se inserta la información a la tabla
-                btn.Text = caso_de_pruebas_disponibles.Rows[i]["id_caso"].ToString();
-                celda_proposito.Text = caso_de_pruebas_disponibles.Rows[i]["proposito"].ToString();
+                for (int i = caso_de_pruebas_disponibles.Rows.Count-1; i>0; i--)
+                {
+                    TableRow fila = new TableRow();
+                    TableCell celda_id = new TableCell();
+                    TableCell celda_proposito = new TableCell();
+                    Button btn = new Button();
+                    btn.ID = caso_de_pruebas_disponibles.Rows[i]["id_caso"].ToString();
+                    btn.CssClass = "btn btn-link";
+                    btn.Click += new EventHandler(btn_lista_Clicked);
 
-                celda_id.Controls.AddAt(0, btn);
-                fila.Cells.AddAt(0, celda_id);
-                fila.Cells.AddAt(1, celda_proposito);
+                    // Se inserta la información a la tabla
+                    btn.Text = caso_de_pruebas_disponibles.Rows[i]["id_caso"].ToString();
+                    celda_proposito.Text = caso_de_pruebas_disponibles.Rows[i]["proposito"].ToString();
 
-                tabla_casos_pruebas.Rows.Add(fila);
-            }
+                    celda_id.Controls.AddAt(0, btn);
+                    fila.Cells.AddAt(0, celda_id);
+                    fila.Cells.AddAt(1, celda_proposito);
+
+                    tabla_casos_pruebas.Rows.Add(fila);
+                }
+            }            
         }
 
         /** @brief Metodo que crea el encabezado para la tabla de los recursos humanos.
@@ -533,5 +532,12 @@ namespace SAPS.Fronteras
             header.Cells.AddAt(1, celda_header_proposito);
             tabla_casos_pruebas.Rows.Add(header);
         }
+
+        #region Métodos relacionados a entradas de datos
+
+
+        #endregion
+
+
     }
 }
