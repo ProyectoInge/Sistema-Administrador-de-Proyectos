@@ -483,6 +483,7 @@ namespace SAPS.Fronteras
             DataTable tabla_dp = m_controladora_dp.consultar_diseno_pruebas(Convert.ToInt32(dp_id));
             DataTable tabla_req_asoc = m_controladora_dp.solicitar_requerimientos_asociados(Convert.ToInt32(dp_id));
             DataTable tabla_req_disp = m_controladora_dp.solicitar_requerimientos_no_asociados(Convert.ToInt32(dp_id));
+            actualiza_rh((tabla_dp.Rows[0]["id_proyecto"].ToString()));
             input_nombre.Text = tabla_dp.Rows[0]["nombre_diseno"].ToString();
             drop_proyecto.ClearSelection();
             drop_proyecto.Items.FindByValue(tabla_dp.Rows[0]["id_proyecto"].ToString()).Selected = true;

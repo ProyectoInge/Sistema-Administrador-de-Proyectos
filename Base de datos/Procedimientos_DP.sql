@@ -72,13 +72,20 @@ GO
 CREATE PROCEDURE SOLICITAR_REQUERIMIENTOS_ASOCIADOS
 	@id_diseno int
 AS
-	SELECT Requerimientos.nombre,
-			Requerimientos.id_requerimiento
-	FROM Requerimientos
-	WHERE id_requerimiento IN (
+	SELECT r.nombre,
+			r.id_requerimiento,
+			s.procedimiento
+	FROM Requerimientos r, SePrueba s
+	WHERE r.id_requerimiento = s.id_requerimiento AND
+		  r.id_diseno = @id_diseno
+		  /*
+		   AND
+		IN (
 		SELECT SePrueba.id_requerimiento
 		FROM SePrueba
-		WHERE id_diseno = @id_diseno)
+		WHERE id_diseno = @id_diseno) AND (
+			r.id_requerimiento = s.id_requerimiento
+		)*/
 GO
 
 GO
