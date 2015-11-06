@@ -290,7 +290,23 @@ namespace SAPS.Fronteras
         private bool eliminar_caso_pruebas()
         {
             bool a_retornar = false;
-           
+            if (m_caso_actual != "")
+            {
+                int resultado = m_controladora_cdp.eliminar_caso_pruebas(m_caso_actual);
+                if (resultado == 0)
+                {
+                    a_retornar = true;
+                    cuerpo_alerta_exito.Text = " Se eliminó el caso de pruebas correctamente.";
+                    alerta_exito.Visible = true;
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Falló al eliminar el caso de pruebas.";
+                    alerta_error.Visible = true;
+                }
+                actualiza_caso_de_pruebas_disponibles();
+            }     
+            
             return a_retornar;
         }
 
