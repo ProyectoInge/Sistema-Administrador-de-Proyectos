@@ -35,8 +35,6 @@ namespace SAPS.Fronteras
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 activa_desactiva_botones_ime(false);
-
-                if (!IsPostBack)
                 actualiza_tabla_requerimientos();
             }
             else
@@ -47,17 +45,33 @@ namespace SAPS.Fronteras
 
         protected void btn_crear_Click(object sender, EventArgs e)
         {
-            /// @todo
+            m_opcion = 'i';
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default";
+            btn_eliminar.CssClass = "btn btn-default";
+            activa_desactiva_botones_ime(false);
         }
 
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
-            /// @todo
+            m_opcion = 'm';
+            input_criterio_aceptacion.Enabled = true;
+            input_nombre_requerimiento.Enabled = true;
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default active";
+            btn_eliminar.CssClass = "btn btn-default";
+            activa_desactiva_botones_ime(true);
         }
 
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-            /// @todo
+            m_opcion = 'e';
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default";
+            btn_eliminar.CssClass = "btn btn-default active";
+            input_criterio_aceptacion.Enabled = false;
+            input_nombre_requerimiento.Enabled = false;
+            activa_desactiva_botones_ime(true);
         }
 
         protected void btn_Aceptar_Click(object sender, EventArgs e)
@@ -86,6 +100,12 @@ namespace SAPS.Fronteras
                     {
                         alerta_exito.Visible = true;
                         actualiza_tabla_requerimientos();
+                        input_criterio_aceptacion.Enabled = true;
+                        input_nombre_requerimiento.Enabled = true;
+                        btn_crear.CssClass = "btn btn-default";
+                        btn_modificar.CssClass = "btn btn-default active";
+                        btn_eliminar.CssClass = "btn btn-default";
+                        activa_desactiva_botones_ime(true);
                     }
                     break;
                 case 'e':
@@ -99,8 +119,8 @@ namespace SAPS.Fronteras
                         actualiza_tabla_requerimientos();
                         input_criterio_aceptacion.Enabled = true;
                         input_nombre_requerimiento.Enabled = true;
-                        activa_desactiva_botones_ime(false);
-                        vaciar_campos();
+                        input_criterio_aceptacion.Text = "";
+                        input_nombre_requerimiento.Text = "";
                         m_opcion = 'i';
                         btn_crear.CssClass = "btn btn-default active";
                         btn_modificar.CssClass = "btn btn-default";
@@ -199,8 +219,37 @@ namespace SAPS.Fronteras
 
         private bool modificar_requerimiento()
         {
-            /// @todo
-            return true;
+            bool a_retornar = false;
+            if (input_nombre_requerimiento.Text != "")
+            {
+                if (input_criterio_aceptacion.Text != "")
+                {
+                    Object[] nuevo_requerimiento = { m_id_requerimeinto_seleccionado, input_nombre_requerimiento.Text, input_criterio_aceptacion.Text };
+                    int resultado = m_controladora_requerimientos.modificar_requerimiento(nuevo_requerimiento);
+                    if (resultado == 0)  //Se ingresó con éxito
+                    {
+                        cuerpo_alerta_exito.Text = " Se modificó correctamente el requerimiento.";
+                        a_retornar = true;
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = " Se presentó un problema al modificar el requerimiento, intente nuevamente.";
+                    }
+
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Es necesario que ingrese un criterio de aceptación.";
+                    SetFocus(input_criterio_aceptacion);
+
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = " Es necesario que ingrese un nombre para el requerimiento.";
+                SetFocus(input_nombre_requerimiento);
+            }
+            return a_retornar;
         }
 
         /** @brief Método que se encarga de vaciar los campos de los datos de un requerimiento.
@@ -217,6 +266,10 @@ namespace SAPS.Fronteras
             cuerpo_alerta_advertencia.Text = "";
             cuerpo_alerta_error.Text = "";
             cuerpo_alerta_exito.Text = "";
+
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default ";
+            btn_eliminar.CssClass = "btn btn-default";
         }
 
         /** @brief Método que llena la información en pantalla correspondiente a un requerimiento que se consulta.

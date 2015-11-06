@@ -112,6 +112,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_nombre_requerimiento;
         
         /// <summary>
+        /// label_nombre_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_nombre_vacio;
+        
+        /// <summary>
         /// label_criterio_aceptacion control.
         /// </summary>
         /// <remarks>
@@ -128,6 +137,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox input_criterio_aceptacion;
+        
+        /// <summary>
+        /// label_criterio_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_criterio_vacio;
         
         /// <summary>
         /// btn_Regresar control.
