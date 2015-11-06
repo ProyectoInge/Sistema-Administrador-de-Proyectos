@@ -35,6 +35,8 @@ namespace SAPS.Fronteras
         private static List<Tuple<string, int>> m_tabla_requerimientos_seleccionados;
         private static int m_tamano_tabla_seleccionados;
 
+        private static string m_dp_seleccionado;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.IsAuthenticated)
@@ -427,7 +429,7 @@ namespace SAPS.Fronteras
                 Button btn = new Button();
                 m_tabla_dp[i, 0] = tabla_de_datos.Rows[i]["id_diseno"].ToString();
                 m_tabla_dp[i, 1] = tabla_de_datos.Rows[i]["nombre_diseno"].ToString();
-                btn.ID = "btn_lista_" + i.ToString();
+                btn.ID = tabla_de_datos.Rows[i]["id_diseno"].ToString();
                 btn.Text = m_tabla_dp[i, 1];
                 btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_dp_click);
@@ -448,6 +450,7 @@ namespace SAPS.Fronteras
         private void btn_lista_dp_click(object sender, EventArgs e)
         {
             string dp_nombre = ((Button)sender).Text;
+            m_dp_seleccionado = ((Button)sender).ID;
             string dp_id = "";
             for(int i = 0; i< m_tamano_tabla_dp; i++)
             {
@@ -490,6 +493,8 @@ namespace SAPS.Fronteras
             drop_tipo.ClearSelection();
             drop_tipo.Items.FindByValue(tabla_dp.Rows[0]["tipo_prueba"].ToString()).Selected = true;
             input_ambiente.Text = tabla_dp.Rows[0]["ambiente"].ToString();
+            drop_responsable.ClearSelection();
+            drop_responsable.Items.FindByValue(tabla_dp.Rows[0]["username_responsable"].ToString()).Selected = true;
             if (tabla_req_asoc.Rows.Count != 0)
             {
                 input_procedimiento.Text = tabla_req_asoc.Rows[0]["procedimiento"].ToString();
@@ -519,6 +524,28 @@ namespace SAPS.Fronteras
                 bool res = ingresar_diseno();
 
                 alerta_exito.Visible = res;
+            }
+            else if(m_opcion == 'e')
+            {
+                bool res = eliminar_diseno();
+                alerta_exito.Visible = res;
+                alerta_error.Visible = !res;
+            }
+        }
+
+        private bool eliminar_diseno()
+        {
+            if(m_controladora_dp.eliminar_diseno_pruebas(Convert.ToInt32(m_dp_seleccionado)) == 0)
+            {
+                cuerpo_alerta_exito.Text = "El diseño fue eliminado exitosamente.";
+                actualiza_grid_dp();
+                return true; //bien
+
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = "Ha ocurrido un error al eliminar el diseño.";
+                return false; //mal
             }
         }
 
@@ -554,23 +581,15 @@ namespace SAPS.Fronteras
         */
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-            /*
-            if (m_es_administrador)
-            {
+            
                 m_opcion = 'e';
-                btn_reestablece_contrasena.Visible = false;
                 activa_desactiva_inputs(false);
-                activa_desactiva_botones_ime(true);
                 btn_eliminar.CssClass = "btn btn-default active";
                 btn_crear.CssClass = "btn btn-default";
                 btn_modificar.CssClass = "btn btn-default";
-            }
-            else
-            {
-                cuerpo_alerta_advertencia.Text = " No está autorizado para eliminar recursos humanos.";
-                alerta_advertencia.Visible = true;
-            }
-            */
+            
+            
+            
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "insertar".
