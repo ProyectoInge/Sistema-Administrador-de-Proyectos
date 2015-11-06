@@ -78,17 +78,6 @@ namespace SAPS.Fronteras
         {
             switch (m_opcion)
             {
-                case 'e':
-                    if (!eliminar_requerimiento()) // false si no logro eliminar el requerimiento
-                    {
-                        alerta_error.Visible = true;
-                    }
-                    else
-                    {
-                        alerta_exito.Visible = true;
-                        actualiza_tabla_requerimientos();
-                    }
-                    break;
                 case 'i':
                     if (!insertar_requerimiento()) // false si no logro insertar el requerimiento
                     {
@@ -99,7 +88,7 @@ namespace SAPS.Fronteras
                         alerta_exito.Visible = true;
                         actualiza_tabla_requerimientos();
                         activa_desactiva_botones_ime(true);
-
+                        //m_id_requerimeinto_seleccionado = Convert.ToInt32(tabla_requerimientos.Rows[tabla_requerimientos.Rows.Count - 1].Cells[0].ID);
                     }
                     break;
                 case 'm':
@@ -111,6 +100,26 @@ namespace SAPS.Fronteras
                     {
                         alerta_exito.Visible = true;
                         actualiza_tabla_requerimientos();
+                    }
+                    break;
+                case 'e':
+                    if (!eliminar_requerimiento()) // false si no logro eliminar el requerimiento
+                    {
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
+                        input_criterio_aceptacion.Enabled = true;
+                        input_nombre_requerimiento.Enabled = true;
+                        activa_desactiva_botones_ime(false);
+                        vaciar_campos();
+                        m_opcion = 'i';
+                        btn_crear.CssClass = "btn btn-default active";
+                        btn_modificar.CssClass = "btn btn-default";
+                        btn_eliminar.CssClass = "btn btn-default";
+                        activa_desactiva_botones_ime(false);
                     }
                     break;
 
@@ -144,8 +153,27 @@ namespace SAPS.Fronteras
 
         private bool eliminar_requerimiento()
         {
-            /// @todo
-            return true;
+            bool a_retornar = false;
+            if (m_id_requerimeinto_seleccionado != -1)
+            {
+                int resultado = m_controladora_requerimientos.eliminar_requerimiento(m_id_requerimeinto_seleccionado);
+                if (resultado == 0)
+                {
+                    cuerpo_alerta_exito.Text = " Se eliminó correctamente el requerimiento.";
+                    a_retornar = true;
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Se presentó un error al eleminar el requerimiento, intente nuevamente.";
+                    SetFocus(input_criterio_aceptacion);
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = " No se ha seleccionado ningún requerimiento.";
+                SetFocus(input_criterio_aceptacion);
+            }
+            return a_retornar;
         }
 
         private bool insertar_requerimiento()
@@ -157,7 +185,7 @@ namespace SAPS.Fronteras
                 {
                     Object[] nuevo_requerimiento = { 0, input_nombre_requerimiento.Text, input_criterio_aceptacion.Text };
                     int resultado = m_controladora_requerimientos.insertar_requerimiento(nuevo_requerimiento);
-                    if(resultado == 0)  //Se ingresó con éxito
+                    if (resultado == 0)  //Se ingresó con éxito
                     {
                         cuerpo_alerta_exito.Text = " Se ingresó correctamente el nuevo requerimiento.";
                         a_retornar = true;
@@ -171,12 +199,14 @@ namespace SAPS.Fronteras
                 else
                 {
                     cuerpo_alerta_error.Text = " Es necesario que ingrese un criterio de aceptación.";
+                    SetFocus(input_criterio_aceptacion);
 
                 }
             }
             else
             {
                 cuerpo_alerta_error.Text = " Es necesario que ingrese un nombre para el requerimiento.";
+                SetFocus(input_nombre_requerimiento);
             }
             return a_retornar;
         }
@@ -244,7 +274,7 @@ namespace SAPS.Fronteras
             tabla_requerimientos.Rows.Add(header);
 
             DataTable tabla_requerimientos_disponibles = m_controladora_requerimientos.solicitar_requerimientos_disponibles();
-            for (int i = tabla_requerimientos_disponibles.Rows.Count-1; i >= 0; --i)
+            for (int i = tabla_requerimientos_disponibles.Rows.Count - 1; i >= 0; --i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_nombre = new TableCell();

@@ -47,7 +47,7 @@ namespace SAPS.Controladoras
         */
         public int insertar_diseno_pruebas(Object[] datos)
         {
-            if (datos.Length != 8)
+            if (datos.Length != 9)
                 return -1;
             DisenoPruebas diseno_pruebas = new DisenoPruebas(datos);
             return m_base_datos.insertar_diseno_pruebas(diseno_pruebas);
@@ -71,7 +71,7 @@ namespace SAPS.Controladoras
         */
         public int modificar_diseno_pruebas(Object[] datos)
         {
-            if (datos.Length != 8)
+            if (datos.Length != 9)
                 return -1;
             DisenoPruebas diseno_pruebas = new DisenoPruebas(datos);
             return m_base_datos.modificar_diseno_pruebas(diseno_pruebas);
