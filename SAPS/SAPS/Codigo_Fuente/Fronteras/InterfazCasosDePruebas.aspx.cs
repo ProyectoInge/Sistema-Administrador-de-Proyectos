@@ -15,6 +15,8 @@ namespace SAPS.Fronteras
         private static ControladoraDisenosPruebas m_controladora_dp;
         private static ControladoraRecursosHumanos m_controladora_rh;
 
+        private static TableHeaderRow m_fila_header; // Es global ya que se tiene que modificar en ciertas ocaciones
+
         private static bool m_es_administrador;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,12 +26,14 @@ namespace SAPS.Fronteras
             m_controladora_dp = new ControladoraDisenosPruebas();
             m_controladora_pdp = new ControladoraProyectoPruebas();
             m_controladora_rh = new ControladoraRecursosHumanos();
+            m_fila_header = new TableHeaderRow();
 
             if (!IsPostBack)
             {
                 actualiza_proyectos();
                 m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
             }
+            
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "cancelar".
@@ -85,8 +89,11 @@ namespace SAPS.Fronteras
         */
         protected void drop_proyecto_asociado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
-            actualiza_disenos_asociados(id_proyecto_seleccionado);
+            if (drop_proyecto_asociado.SelectedItem.Value != "")
+            {
+                int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
+                actualiza_disenos_asociados(id_proyecto_seleccionado);
+            }
         }
 
         /** @brief Metodo que se activa cuando el usuario selecciona un diseño del dropdown, llena la informacion correspondiente a ese diseño.
@@ -97,6 +104,17 @@ namespace SAPS.Fronteras
             int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
             actualiza_requerimientos(id_diseno_seleccionado);
         }
+
+
+        /** @brief Método que se activa cuando el usuario hace click en el botón de "agregar entrada"
+         * @param Los parametros por default de un evento de C#.
+        */
+        protected void btn_agregar_entrada_Click(object sender, EventArgs e)
+        {
+        }
+
+        // ---------------------------------------------------- Métodos auxiliares ----------------------------------------------------
+
 
         /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
         */
@@ -203,6 +221,5 @@ namespace SAPS.Fronteras
             }
 
         }
-
     }
 }

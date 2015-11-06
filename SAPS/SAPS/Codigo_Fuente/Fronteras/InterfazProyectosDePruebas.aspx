@@ -127,11 +127,12 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="Pendiente de asignación"></asp:ListItem>
-                                        <asp:ListItem Text="Asignado"></asp:ListItem>
-                                        <asp:ListItem Text="En ejecución"></asp:ListItem>
-                                        <asp:ListItem Text="Finalizado"></asp:ListItem>
-                                        <asp:ListItem Text="Cerrado"></asp:ListItem>
+                                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                                        <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
+                                        <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
+                                        <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>
+                                        <asp:ListItem Text="Finalizado" Value="Finalizado"></asp:ListItem>
+                                        <asp:ListItem Text="Cerrado" Value="Cerrado"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
