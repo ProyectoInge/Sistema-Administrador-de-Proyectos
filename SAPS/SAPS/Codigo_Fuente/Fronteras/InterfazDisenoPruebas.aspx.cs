@@ -26,10 +26,10 @@ namespace SAPS.Fronteras
         private static Object[,] m_tabla_rh;
         private static int m_tamano_tabla_rh;
 
-        private static List<string> m_tabla_requerimientos_disponibles;
+        private static List<Tuple<string, int>> m_tabla_requerimientos_disponibles;
         private static int m_tamano_tabla_req;
 
-        private static List<string> m_tabla_requerimientos_seleccionados;
+        private static List<Tuple<string, int>> m_tabla_requerimientos_seleccionados;
         private static int m_tamano_tabla_seleccionados;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -120,36 +120,36 @@ namespace SAPS.Fronteras
 
             //se inicializa la tabla interna de disponibles
             m_tamano_tabla_req = tabla_de_datos.Rows.Count;
-            m_tabla_requerimientos_disponibles = new List<string>();
+            m_tabla_requerimientos_disponibles = new List<Tuple<string, int>>();
 
             //se inicializa la tabla interna de agregados (es nueva por lo tanto: 0)
             m_tamano_tabla_seleccionados = 0;
-            m_tabla_requerimientos_seleccionados = new List<string>();
+            m_tabla_requerimientos_seleccionados = new List<Tuple<string, int>>();
 
 
 
             for (int i = (m_tamano_tabla_req - 1); i >= 0; --i)
             {
-               m_tabla_requerimientos_disponibles.Add(tabla_de_datos.Rows[i]["nombre"].ToString());
+               m_tabla_requerimientos_disponibles.Add(Tuple.Create(tabla_de_datos.Rows[i]["nombre"].ToString(), Convert.ToInt32(tabla_de_datos.Rows[i]["id_requerimiento"])));
             }
             refrescar_requerimientos();
         }
 
-        private void carga_requerimientos_transicion(string nombre_requerimiento, bool agregar) //agregar 1: se agrega, agregar 0: se desasocia
+        private void carga_requerimientos_transicion(string nombre_requerimiento, int id_req, bool agregar) //agregar 1: se agrega, agregar 0: se desasocia
         {
             if (agregar)
             {
-                m_tabla_requerimientos_disponibles.Remove(nombre_requerimiento);
+                m_tabla_requerimientos_disponibles.RemoveAll(item => item.Item1 == nombre_requerimiento);
                 m_tamano_tabla_req--;
                 m_tamano_tabla_seleccionados++;
-                m_tabla_requerimientos_seleccionados.Add(nombre_requerimiento);
+                m_tabla_requerimientos_seleccionados.Add(Tuple.Create(nombre_requerimiento, id_req));
             }
             else
             {
-                m_tabla_requerimientos_seleccionados.Remove(nombre_requerimiento);
+                m_tabla_requerimientos_seleccionados.RemoveAll(item => item.Item1 == nombre_requerimiento);
                 m_tamano_tabla_req++;
                 m_tamano_tabla_seleccionados--;
-                m_tabla_requerimientos_disponibles.Add(nombre_requerimiento);
+                m_tabla_requerimientos_disponibles.Add(Tuple.Create(nombre_requerimiento, id_req));
             }
 
             refrescar_requerimientos();
@@ -181,9 +181,38 @@ namespace SAPS.Fronteras
                                         {
                                             if(drop_responsable.Text != "")
                                             {
-                                                if(input_fecha.Text != "")
+                                                if (input_fecha.Text != "")
                                                 {
+                                                    Object[] datosDiseno = new Object[8];
+                                                    datosDiseno[0] = 0;
+                                                    datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
+                                                    datosDiseno[2] = input_nombre.Text;
+                                                    datosDiseno[3] = DateTime.Parse(input_fecha.Text);
+                                                    datosDiseno[4] = drop_tecnica.SelectedValue;
+                                                    datosDiseno[5] = drop_tipo.SelectedValue;
+                                                    datosDiseno[6] = drop_nivel.SelectedValue;
+                                                    datosDiseno[7] = drop_responsable.SelectedValue;
+                                                    
+                                                    int resultado = m_controladora_dp.insertar_diseno_pruebas(datosDiseno);
+                                                    DataTable diseños = m_controladora_dp.solicitar_disenos_disponibles();
+                                                    int id_agregado = Convert.ToInt32(diseños.Rows[diseños.Rows.Count - 1]["id_diseno"]);
 
+                                                    for (int i = 0; i < m_tabla_requerimientos_seleccionados.Count; i++)
+                                                    {
+                                                        Object[] datosAsoc = new Object[5];
+                                                    }
+
+
+                                                    if (resultado == 0)
+                                                    {
+                                                        cuerpo_alerta_exito.Text = " Se ha insertado un nuevo diseño correctamente.";
+                                                        //actualiza_grid();
+                                                    }
+                                                    else
+                                                    {
+                                                        cuerpo_alerta_error.Text = " No se logró insertar el diseño, intente nuevamente.";
+                                                        a_retornar = false;
+                                                    }
                                                 }
                                                 else
                                                 {
@@ -273,7 +302,7 @@ namespace SAPS.Fronteras
                 TableCell celda_boton = new TableCell();
                 Button btn = new Button();
                 btn.ID = "btn_lista_disponibles_" + i.ToString();
-                btn.Text = m_tabla_requerimientos_disponibles[i];
+                btn.Text = m_tabla_requerimientos_disponibles[i].Item1;
                 btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_req_click_asociar);
                 celda_boton.Text = Convert.ToString(m_tabla_requerimientos_disponibles[i]);
@@ -287,7 +316,7 @@ namespace SAPS.Fronteras
                 TableCell celda_boton = new TableCell();
                 Button btn = new Button();
                 btn.ID = "btn_lista_asociados_" + i.ToString();
-                btn.Text = m_tabla_requerimientos_seleccionados[i];
+                btn.Text = m_tabla_requerimientos_seleccionados[i].Item1;
                 btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_req_click_asociar);
                 celda_boton.Text = Convert.ToString(m_tabla_requerimientos_seleccionados[i]);
@@ -309,7 +338,23 @@ namespace SAPS.Fronteras
         {
             Button enviador = sender as Button;
             bool se_agrega = enviador.ID.StartsWith("btn_lista_disponibles");
-            carga_requerimientos_transicion(enviador.Text, se_agrega);
+            int id=0;
+            if(se_agrega)
+            {
+                foreach(var coso in m_tabla_requerimientos_disponibles)
+                {
+                    if (coso.Item1.Equals(enviador.Text))
+                        id = coso.Item2;
+                }
+            }else
+            {
+                foreach (var coso in m_tabla_requerimientos_seleccionados)
+                {
+                    if (coso.Item1.Equals(enviador.Text))
+                        id = coso.Item2;
+                }
+            }
+            carga_requerimientos_transicion(enviador.Text, id, se_agrega);
 
             
         }
@@ -320,7 +365,7 @@ namespace SAPS.Fronteras
         {
             DataTable tabla_rh= new DataTable();
             
-                tabla_rh = m_controladora_rh.solicitar_recursos_disponibles(); // cargo todos los recursos humanos, TODO cambiar a solo los de idproy
+                tabla_rh = m_controladora_rh.consultar_rh_asociados_proyecto(Convert.ToInt32(id_proyecto)); // cargo todos los recursos humanos, TODO cambiar a solo los de idproy
 
             m_tamano_tabla_rh = tabla_rh.Rows.Count;
             m_tabla_rh = new Object[m_tamano_tabla_rh, 2];

@@ -35,7 +35,7 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 activa_desactiva_botones_ime(false);
 
-                actualiza_tabla_requerimientos();
+                    actualiza_tabla_requerimientos();
             }
             else
             {
@@ -82,7 +82,7 @@ namespace SAPS.Fronteras
                     if (!eliminar_requerimiento()) // false si no logro eliminar el requerimiento
                     {
 
-                    }
+        }
                     break;
                 case 'i':
                     if (!insertar_requerimiento()) // false si no logro insertar el requerimiento
