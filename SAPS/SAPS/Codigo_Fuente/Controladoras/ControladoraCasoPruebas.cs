@@ -56,7 +56,7 @@ namespace SAPS.Controladoras
         * @param id_caso que se desea eliminar.
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
-        public int eliminar_caso_pruebas(int id_caso)
+        public int eliminar_caso_pruebas(string id_caso)
         {
             return m_base_datos.eliminar_caso_pruebas(id_caso);
         }
@@ -65,7 +65,7 @@ namespace SAPS.Controladoras
         * @param id_caso que se desea consultar.
         * @return DataTable con los datos del caso de pruebas que se consultó.
         */
-        public DataTable consultar_caso_pruebas(int id_caso)
+        public DataTable consultar_caso_pruebas(string id_caso)
         {
             return m_base_datos.consultar_caso_pruebas(id_caso);
         }

@@ -6,11 +6,8 @@
  * II Semestre 2015
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using SAPS.Entidades;
+using SAPS.Entidades.Ayudantes;
 using System.Data.SqlClient;
 using System.Data;
 
@@ -37,25 +34,23 @@ namespace SAPS.Base_de_Datos
          * @param caso de pruebas a guardar en la base de datos.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-
         public int insertar_caso_pruebas(CasoPruebas caso_pruebas)
         {
             // Procedimiento almacenado
             SqlCommand comando = new SqlCommand("INSERTAR_CP");
             rellena_parametros_caso_pruebas(ref comando, caso_pruebas);
-            return m_data_base_adapter.ejecutar_consulta(comando);
-        }
+            int resultado = m_data_base_adapter.ejecutar_consulta(comando);
 
-        /** @brief Método que realiza la setencia SQL para eliminar un caso de pruebas en específico.
-         * @param id del caso que se quiere eliminar.
-         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
-         */
-        public int eliminar_caso_pruebas(int id_caso)
+            // Guardar entrada de datos
+            if (caso_pruebas.entrada_de_datos != null)
         {
-            SqlCommand comando = new SqlCommand("ELIMINAR_CP");
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_caso", SqlDbType.Int).Value = id_caso;
-            return m_data_base_adapter.ejecutar_consulta(comando);
+                for (int i = 0; i < caso_pruebas.entrada_de_datos.Length; ++i)
+                {
+                    guardar_entrada_de_datos(caso_pruebas.entrada_de_datos[i], caso_pruebas.id);
+                    m_data_base_adapter.ejecutar_consulta(comando);
+        }
+            }
+            return resultado;
         }
 
         /** @brief Método que realiza la setencia SQL para modificar un caso de pruebas.
@@ -64,21 +59,54 @@ namespace SAPS.Base_de_Datos
              */
         public int modificar_caso_pruebas(CasoPruebas caso)
         {
+            borrar_entrada_de_datos_asociados(caso.id);
+
+            // Se actualizan los datos del caso de pruebas
             SqlCommand comando = new SqlCommand("MODIFICAR_CP");
             rellena_parametros_caso_pruebas(ref comando, caso);
+            int result = m_data_base_adapter.ejecutar_consulta(comando);
+
+            // Actualiza los datos asociados a un caso de pruebas (entrada_datos[])
+            if (caso.entrada_de_datos != null)
+            {
+                for (int i = 0; i < caso.entrada_de_datos.Length; ++i)
+                {
+                    guardar_entrada_de_datos(caso.entrada_de_datos[i], caso.id);
+                }
+            }
+            
+            return result;
+        }
+
+        /** @brief Método que realiza la setencia SQL para eliminar un caso de pruebas en específico.
+         * @param id del caso que se quiere eliminar.
+         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
+         */
+        public int eliminar_caso_pruebas(string id_caso)
+        {
+            borrar_entrada_de_datos_asociados(id_caso);
+
+            SqlCommand comando = new SqlCommand("ELIMINAR_CP");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso;
+
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
+
+
+
+
 
         /** @brief Método que realiza la setencia SQL para conultar un caso de pruebas en específico
             * @param id del caso que se desea consultar.
             * @return DataTable con los resultados de la consultas.
             */
 
-        public DataTable consultar_caso_pruebas(int id_caso)
+        public DataTable consultar_caso_pruebas(string id_caso)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_CP");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_caso", SqlDbType.Int).Value = id_caso;
+            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
@@ -107,12 +135,28 @@ namespace SAPS.Base_de_Datos
         private void rellena_parametros_caso_pruebas(ref SqlCommand comando, CasoPruebas caso_pruebas)
         {
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_caso", SqlDbType.Int).Value = caso_pruebas.id;
+            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = caso_pruebas.id;
             comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = caso_pruebas.id_diseno;
-            comando.Parameters.Add("@id_proposito", SqlDbType.Int).Value = caso_pruebas.proposito;
-            comando.Parameters.Add("@id_flujo", SqlDbType.Int).Value = caso_pruebas.flujo_central;
+            comando.Parameters.Add("@id_proposito", SqlDbType.VarChar).Value = caso_pruebas.proposito;
+            comando.Parameters.Add("@id_flujo", SqlDbType.VarChar).Value = caso_pruebas.flujo_central;
         }
 
+        private void borrar_entrada_de_datos_asociados(string id_caso_pruebas)
+        {
+            SqlCommand comando_limpieza = new SqlCommand("BORRAR_DATO_CASO");
+            comando_limpieza.CommandType = CommandType.StoredProcedure;
+            comando_limpieza.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso_pruebas;
+            m_data_base_adapter.ejecutar_consulta(comando_limpieza);
+        }
 
+        private void guardar_entrada_de_datos(Datos entrada_dato, string id_caso_prueba)
+        {
+            SqlCommand comando_dato = new SqlCommand("INSERTAR_DATO_CP");
+            comando_dato.CommandType = CommandType.StoredProcedure;
+            comando_dato.Parameters.Add("@id_caso_prueba", SqlDbType.VarChar).Value = id_caso_prueba;
+            comando_dato.Parameters.Add("@entrada_de_datos", SqlDbType.VarChar).Value = entrada_dato.valor;
+            comando_dato.Parameters.Add("@estado_datos", SqlDbType.VarChar).Value = entrada_dato.estado;
+            comando_dato.Parameters.Add("@resultado_esperado", SqlDbType.VarChar).Value = entrada_dato.resultado_esperado;
+        }
     }
 }
