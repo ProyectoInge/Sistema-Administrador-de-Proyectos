@@ -112,12 +112,12 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso_prueba;
             DataTable resultados = m_data_base_adapter.obtener_resultado_consulta(comando);
 
-            Datos[] resultado;
+            Datos[] resultado = new Datos[resultados.Rows.Count];
 
             // Se convierte a Objetos Datos y se insertan en el array
             for (int i = 0; i < resultados.Rows.Count; ++i)
             {
-                Datos dato = new Datos(resultados[i]["entrada_de_datos"], resultados[i]["estado_datos"], resultados[i]["resultado_esperado"]);
+                Datos dato = new Datos(resultados.Rows[i]["entrada_de_datos"].ToString(), resultados.Rows[i]["estado_datos"].ToString(), resultados.Rows[i]["resultado_esperado"].ToString());
                 resultado.SetValue(dato, i);
             }
             return resultado;
