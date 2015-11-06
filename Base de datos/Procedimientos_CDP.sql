@@ -63,7 +63,7 @@ AS
 		   CasoPrueba.proposito,
 		   CasoPrueba.datos_entrada,
 		   CasoPrueba.flujo_central
-	FROM 
+	FROM
 			CasoPrueba
 	WHERE
 			id_caso = @id_caso
@@ -78,4 +78,23 @@ AS
 			CasoPrueba.flujo_central
 	FROM CasoPrueba
 	WHERE CasoPrueba.id_diseno = @id_diseno;
+GO
+
+GO
+	CREATE PROCEDURE ASOCIAR_CASO_CON_REQUERIMIENTO
+		@id_caso_prueba varchar(24), @id_requerimiento int
+	AS
+	INSERT INTO NecesitaDe
+			(id_requerimiento, id_caso)
+	VALUES
+		(@id_requerimiento, @id_caso_prueba)
+GO
+
+GO
+	CREATE PROCEDURE CONSULTAR_ENTRADA_DATOS
+		@id_caso_prueba
+	AS
+		SELECT entrada_de_datos, estado_datos, resultado_esperado
+		FROM DatosCasoDePrueba
+		WHERE DatosCasoDePrueba.id_caso_prueba = @id_caso_prueba
 GO

@@ -7,9 +7,6 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using SAPS.Base_de_Datos;
 using SAPS.Entidades;
 using SAPS.Entidades.Ayudantes;
@@ -70,6 +67,16 @@ namespace SAPS.Controladoras
             return m_base_datos.consultar_caso_pruebas(id_caso);
         }
 
+        /** @brief Obtiene en un array las entradas disponibles para un caso de prueba.
+         *  @param id_caso id del caso de prueba al cual se quiere consultar las entradas de datos asociadas.
+         *  @return Array de la clase Datos con los resultados.
+         */
+        public Datos[] consultar_entrada_dato(string id_caso)
+        {
+            return m_base_datos.consultar_entrada_datos(id_caso);
+        }
+
+
         /** @brief Obtiene los casos de pruebas disponibles para un diseño en especìfico.
          * @param id_diseno Diseño del cual se quiere saber los caso de prueba asociados.
         * @return DataTable con los datos de todos los casos de pruebas que pertencen a id_diseno.
@@ -82,9 +89,9 @@ namespace SAPS.Controladoras
          * @param id_caso_prueba id del caso de prueba que se quiere relacionar.
          * @param id_requerimiento id del requerimiento que se quiere relacionar.
          */
-        public int asociar_caso_prueba_con_requerimiento(int id_caso_prueba, int id_requerimiento)
+        public int asociar_caso_prueba_con_requerimiento(string id_caso_prueba, int id_requerimiento)
         {
-            return 0;
+            return m_base_datos.asociar_caso_prueba_con_requerimiento(id_caso_prueba, id_requerimiento);
         } 
     }
 }
