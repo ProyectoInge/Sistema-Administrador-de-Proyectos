@@ -20,8 +20,6 @@ namespace SAPS.Fronteras
     public partial class InterfazRequerimientos : System.Web.UI.Page
     {
         private static ControladoraRequerimientos m_controladora_requerimientos;
-        private static char m_opcion = 'i';  // i = insertar, m = modificar, e = eliminar
-        private static int m_id_requerimeinto_seleccionado = -1;
 
         /** @brief Metodo que se llama al cargar la página.
          */
@@ -35,6 +33,7 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 activa_desactiva_botones_ime(false);
 
+                if (!IsPostBack)
                 actualiza_tabla_requerimientos();
             }
             else
@@ -45,33 +44,17 @@ namespace SAPS.Fronteras
 
         protected void btn_crear_Click(object sender, EventArgs e)
         {
-            m_opcion = 'i';
-            btn_crear.CssClass = "btn btn-default active";
-            btn_modificar.CssClass = "btn btn-default";
-            btn_eliminar.CssClass = "btn btn-default";
-            activa_desactiva_botones_ime(false);
+            /// @todo
         }
 
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
-            m_opcion = 'm';
-            input_criterio_aceptacion.Enabled = true;
-            input_nombre_requerimiento.Enabled = true;
-            btn_crear.CssClass = "btn btn-default";
-            btn_modificar.CssClass = "btn btn-default active";
-            btn_eliminar.CssClass = "btn btn-default";
-            activa_desactiva_botones_ime(true);
+            /// @todo
         }
 
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-            m_opcion = 'e';
-            btn_crear.CssClass = "btn btn-default";
-            btn_modificar.CssClass = "btn btn-default";
-            btn_eliminar.CssClass = "btn btn-default active";
-            input_criterio_aceptacion.Enabled = false;
-            input_nombre_requerimiento.Enabled = false;
-            activa_desactiva_botones_ime(true);
+            /// @todo
         }
 
         protected void btn_Aceptar_Click(object sender, EventArgs e)

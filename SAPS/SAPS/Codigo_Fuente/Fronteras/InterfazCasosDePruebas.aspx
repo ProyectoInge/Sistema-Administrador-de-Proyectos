@@ -207,8 +207,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_casos_pruebas" CssClass="table table-hover form-group">
-                    <asp:TableHeaderRow runat="server" ID="tabla_casos_pruebas_header">
-                    </asp:TableHeaderRow>
+                   
                 </asp:Table>
             </div>
         </div>

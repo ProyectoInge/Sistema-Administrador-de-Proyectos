@@ -65,7 +65,8 @@ create table DisenoPrueba(
 	tecnica_prueba		varchar(64),
 	tipo_prueba			varchar(64) NOT NULL,
 	nivel_prueba		varchar(64),
-	username_responsable		varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username)
+	username_responsable varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username),
+	ambiente			varchar(128)
 );
 
 create table Requerimientos(
@@ -104,12 +105,12 @@ create table NecesitaDe(
 	precondiciones		varchar(512),
 	variables			varchar(512),
 	restricciones		varchar(512),
-	PRIMARY KEY(id_requerimientos, id_caso)
+	PRIMARY KEY(id_requerimiento, id_caso)
 );
 
 create table Ejecucion(
 	num_ejecucion		int NOT NULL,
-	id_caso				int NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_caso				varchar(24) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
 	tipo_no_conformidad varchar(64),
 	desc_no_conformidad varchar(256),
 	justificacion		varchar(512),

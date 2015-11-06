@@ -14,8 +14,12 @@ DROP PROCEDURE CONSULTAR_ENTRADA_DATOS
 
 GO
 CREATE PROCEDURE INSERTAR_CP
-	@id_caso varchar(24), @id_diseno_asociado int, @proposito varchar(256), @flujo varchar(256)
+	@id_diseno_asociado int, @proposito varchar(256), @flujo varchar(256)
 AS
+	DECLARE @id_caso varchar(24)
+	SET @id_caso = 'D'+CONVERT(varchar(24),@id_diseno_asociado) +'CP'+CONVERT(varchar(24), (SELECT COUNT(*)+1
+	FROM CasoPrueba
+	WHERE CasoPrueba.id_diseno = @id_diseno_asociado))
 	INSERT INTO CasoPrueba
 		(id_caso, id_diseno, proposito, flujo_central)
 	VALUES
@@ -64,7 +68,6 @@ CREATE PROCEDURE CONSULTAR_CP
 AS
 	SELECT CasoPrueba.id_caso,
 		   CasoPrueba.proposito,
-		   CasoPrueba.datos_entrada,
 		   CasoPrueba.flujo_central
 	FROM
 			CasoPrueba
@@ -101,3 +104,20 @@ GO
 		FROM DatosCasoDePrueba
 		WHERE DatosCasoDePrueba.id_caso_prueba = @id_caso_prueba
 GO
+
+
+/* TO DO ARREGLAR SPRINT 2
+GO
+CREATE PROCEDURE INSERTAR_CP
+	@id_diseno_asociado int, @proposito varchar(256), @flujo varchar(256)
+AS
+	DECLARE @id_caso varchar(24)
+	SET @id_caso = CONVERT(varchar(24), (SELECT COUNT(*)+1
+	FROM CasoPrueba
+	WHERE CasoPrueba.id_diseno = @id_diseno_asociado))
+	INSERT INTO CasoPrueba
+		(id_caso, id_diseno, proposito, flujo_central)
+	VALUES
+		(@id_caso, @id_diseno_asociado, @proposito, @flujo)
+GO
+*/

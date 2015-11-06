@@ -48,7 +48,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">Información del requerimiento</div>
+                        <div class="panel-title">Información de los requerimientos</div>
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
