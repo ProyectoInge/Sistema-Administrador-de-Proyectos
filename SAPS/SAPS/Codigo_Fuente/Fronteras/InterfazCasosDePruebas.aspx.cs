@@ -31,8 +31,6 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
                 activa_desactiva_botones_ime(false);
-                drop_diseno_asociado.Enabled = false;
-                drop_requerimientos.Enabled = false;
                 m_controladora_rh = new ControladoraRecursosHumanos();
                 m_controladora_pdp = new ControladoraProyectoPruebas();
                 m_controladora_dp = new ControladoraDisenosPruebas();
@@ -45,7 +43,13 @@ namespace SAPS.Fronteras
                 {
                     m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
                     actualiza_proyectos();
+                    drop_diseno_asociado.Enabled = false;
+                    drop_requerimientos.Enabled = false;
                 }
+            }
+            else
+            {
+                Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
             }
         }
 
@@ -185,6 +189,8 @@ namespace SAPS.Fronteras
         private void activa_desactiva_inputs(bool estado)
         {
             drop_proyecto_asociado.Enabled = estado;
+            drop_diseno_asociado.Enabled = estado;
+            drop_requerimientos.Enabled = estado;
             text_proposito.Enabled = estado;
             text_flujo_central.Enabled = estado;
         }
@@ -206,12 +212,16 @@ namespace SAPS.Fronteras
                         {
                             if (text_flujo_central.Text != "")
                             {
-                                Object[] datos = new Object[5];
-                                datos[0] = drop_proyecto_asociado.Text;
-                                datos[1] = drop_diseno_asociado.Text;
-                                datos[2] = drop_requerimientos.Text;
-                                datos[3] = text_proposito.Text;
-                                datos[4] = text_flujo_central.Text;
+                                Object[] datos = new Object[6];
+                                //datos[0] = TO DO 
+                                datos[1] = drop_proyecto_asociado.Text;
+                                datos[2] = drop_diseno_asociado.Text;
+                                datos[3] = drop_requerimientos.Text;
+                                datos[4] = text_proposito.Text;
+                                datos[5] = text_flujo_central.Text;
+
+
+                                //Validar entradas de datos
                                 int resultado = 0; //m_controladora_cdp.insertar_caso_pruebas(datos);
                                 if (resultado == 0)
                                 {
@@ -272,8 +282,22 @@ namespace SAPS.Fronteras
        */
         private bool eliminar_caso_pruebas()
         {
-
-            return false;
+            bool a_retornar = false;
+            /*if (input_usuario.Text != "")
+            {
+                titulo_modal.Text = "¡Atención!";
+                cuerpo_modal.Text = " ¿Esta seguro que desea eliminar el Caso " + input_usuario.Text + " del sistema?";
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                upModal.Update();
+                a_retornar = true;
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
+                alerta_error.Visible = false;
+                SetFocus(input_usuario);
+            }*/
+            return a_retornar;
         }
 
         #endregion
