@@ -20,6 +20,7 @@ namespace SAPS.Fronteras
     public partial class InterfazRequerimientos : System.Web.UI.Page
     {
         private static ControladoraRequerimientos m_controladora_requerimientos;
+        private static char m_opcion = 'i';  // i = insertar, m = modificar, e = eliminar
 
         /** @brief Metodo que se llama al cargar la página.
          */
@@ -33,8 +34,7 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 activa_desactiva_botones_ime(false);
 
-                if (!IsPostBack)
-                    actualiza_tabla_requerimientos();
+                actualiza_tabla_requerimientos();
             }
             else
             {
@@ -76,10 +76,23 @@ namespace SAPS.Fronteras
         protected void btn_lista_requerimientos_Click(object sender, EventArgs e)
         {
             /// @todo
+            int id_requerimiento_seleccionado = Convert.ToInt32(((Button)sender).ID);
+            llena_info_consulta(id_requerimiento_seleccionado);
+            input_criterio_aceptacion.Enabled = false;
+            input_nombre_requerimiento.Enabled = false;
+            activa_desactiva_botones_ime(true);
         }
 
         // ----------------------------------------- Métodos auxiliares -----------------------------------------
 
+
+        private void llena_info_consulta(int id_requerimiento)
+        {
+            DataTable info_requerimiento = m_controladora_requerimientos.consultar_requerimiento(id_requerimiento);
+            input_nombre_requerimiento.Text = info_requerimiento.Rows[0]["nombre"].ToString();
+            input_criterio_aceptacion.Text = info_requerimiento.Rows[0]["criterio_aceptacion"].ToString();
+
+        }
         /** @brief Pone activos los botones de "Eliminar" y "Modificar"
          * @param Bool con el estado de activacion de los botones ime (true/false)
          */
@@ -111,7 +124,7 @@ namespace SAPS.Fronteras
             tabla_requerimientos.Rows.Add(header);
 
             DataTable tabla_requerimientos_disponibles = m_controladora_requerimientos.solicitar_requerimientos_disponibles();
-            for(int i=0; i< tabla_requerimientos_disponibles.Rows.Count; ++i)
+            for (int i = 0; i < tabla_requerimientos_disponibles.Rows.Count; ++i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_nombre = new TableCell();
