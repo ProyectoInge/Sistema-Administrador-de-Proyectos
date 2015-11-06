@@ -113,6 +113,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="row2.7" class="form-group">
+                                <div class="col-md-12">
+                                    <asp:Button runat="server" CssClass="btn btn-link btn-sm" Text="¿Desea administrar los requerimientos?" ID="btn_admi_requerimientos" OnClick="btn_admi_requerimientos_Click" />
+                                </div>
+                            </div>
                             <div id="row3" class="form-group">
                                 <div class="col-md-6">
                                     <div class="form-group">
