@@ -169,6 +169,18 @@ namespace SAPS.Base_de_Datos
             return (bool)m_data_base_adapter.obtener_resultado_consulta(comando).Rows[0]["es_administrador"];
         }
 
+        /** @brief Método que se encarga de buscar los recursos humanos que están asociados a un proyecto de pruebas.
+         * @param El identificador del proyecto al que se le quieren consultar los recursos humanos asociados.
+         * @return DataTable con todos los recursos humanos asociados a un proyecto.
+        */
+        public DataTable consultar_rh_asociados_proyecto(int id_proyecto)
+        {
+            SqlCommand comando = new SqlCommand("CONSULTAR_RH_ASOCIADOS_PROYECTO");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_proyecto", SqlDbType.Int).Value = id_proyecto;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
         // Métodos auxiliares
 
         /** @brief Método auxiliar que rellena los parámetros de un recurso humano para poder realizar un procedimiento almacenado.

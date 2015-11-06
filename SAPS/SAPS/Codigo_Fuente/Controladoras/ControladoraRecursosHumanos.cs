@@ -78,6 +78,15 @@ namespace SAPS.Controladoras
             return m_base_datos.solicitar_recursos_disponibles();
         }
 
+        /** @brief Método que se encarga de buscar los recursos humanos que están asociados a un proyecto de pruebas.
+         * @param El identificador del proyecto al que se le quieren consultar los recursos humanos asociados.
+         * @return DataTable con todos los recursos humanos asociados a un proyecto.
+        */
+        private DataTable consultar_rh_asociados_proyecto(int id_proyecto)
+        {
+            return m_base_datos.consultar_rh_asociados_proyecto(id_proyecto);
+        }
+
 
         // Módulo Seguridad
 

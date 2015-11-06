@@ -18,6 +18,8 @@ namespace SAPS.Fronteras
         private static ControladoraDisenosPruebas m_controladora_dp;
         private static ControladoraCasoPruebas m_controladora_cdp;
 
+        private static TableHeaderRow m_fila_header; // Es global ya que se tiene que modificar en ciertas ocaciones
+
         private static char m_opcion = 'i'; //i = insertar, m = modificar, e = eliminar
 
         private static bool m_es_administrador;
@@ -25,23 +27,26 @@ namespace SAPS.Fronteras
         {
             if (Request.IsAuthenticated)
             {
-                alerta_error.Visible = false;
-                alerta_exito.Visible = false;
-                alerta_advertencia.Visible = false;
+            alerta_error.Visible = false;
+            alerta_exito.Visible = false;
+            alerta_advertencia.Visible = false;
                 activa_desactiva_botones_ime(false);
                 drop_diseno_asociado.Enabled = false;
                 drop_requerimientos.Enabled = false;
                 m_controladora_rh = new ControladoraRecursosHumanos();
                 m_controladora_pdp = new ControladoraProyectoPruebas();
-                m_controladora_dp = new ControladoraDisenosPruebas();
-                m_controladora_cdp = new ControladoraCasoPruebas();
+            m_controladora_dp = new ControladoraDisenosPruebas();
+            m_controladora_cdp = new ControladoraCasoPruebas();
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            m_fila_header = new TableHeaderRow();
 
-                if (!IsPostBack)
-                {
-                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
-                    actualiza_proyectos();
-                }
-            }    
+            if (!IsPostBack)
+            {
+                m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
+                actualiza_proyectos();
+            }
+        }
         }
 
 
@@ -49,7 +54,7 @@ namespace SAPS.Fronteras
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "aceptar".
         * @param Los parametros por default de un evento de C#.
-    */
+        */
         protected void btn_aceptar_Click(object sender, EventArgs e)
         {
             if (valida_campos() == true)
@@ -89,7 +94,7 @@ namespace SAPS.Fronteras
         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_crear_Click(object sender, EventArgs e)
-        {        
+        {
             m_opcion = 'i';
             activa_desactiva_inputs(true);
             btn_eliminar.CssClass = "btn btn-default";
@@ -229,10 +234,10 @@ namespace SAPS.Fronteras
                                     cuerpo_alerta_error.Text = " Hubo un error al modificar el recurso humano, intentelo nuevamente.";
                                     //a_retornar = false;
                                 }// Despues de la insercion o la modificacion
-                                //Insertar o modificar la madre
-                            }
-                            else
-                            {
+                    //Insertar o modificar la madre
+                }
+                else
+                {
                                 cuerpo_alerta_error.Text = "Es necesario especificar el flujo central del caso de pruebas.";
                                 SetFocus(text_flujo_central);
                             }
@@ -252,7 +257,7 @@ namespace SAPS.Fronteras
                 else
                 {
                     cuerpo_alerta_error.Text = "Es necesario escoger un diseño.";
-                    SetFocus(drop_diseno_asociado);                   
+                    SetFocus(drop_diseno_asociado);
                 }
             }
             else
@@ -264,7 +269,7 @@ namespace SAPS.Fronteras
         }
 
         /** @brief Metodo que valida los campos que se ocupan para eliminar un caso de pruebas, si no hay problema entonces lo elimina de la base.
-          */
+       */
         private bool eliminar_caso_pruebas()
         {
 
@@ -292,7 +297,7 @@ namespace SAPS.Fronteras
         }
 
 
-    
+
 
         /** @brief Metodo que se activa cuando el usuario selecciona un proyecto del dropdown, llena la informacion correspondiente a ese proyecto.
          * @param Los parametros por default de un evento de C#.
@@ -301,11 +306,12 @@ namespace SAPS.Fronteras
         {
             if("" != drop_proyecto_asociado.SelectedItem.Value)
             {
-                int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
+            int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
                 drop_diseno_asociado.Enabled = true;
-                actualiza_disenos_asociados(id_proyecto_seleccionado);
+            actualiza_disenos_asociados(id_proyecto_seleccionado);
                 vacia_requerimientos();
             }
+        }
         }
 
         /** @brief Metodo que se activa cuando el usuario selecciona un diseño del dropdown, llena la informacion correspondiente a ese diseño.
@@ -315,15 +321,15 @@ namespace SAPS.Fronteras
         {
             if ("" != drop_diseno_asociado.SelectedItem.Value)
             {
-                int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
+            int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
                 drop_requerimientos.Enabled = true;
                 drop_diseno_asociado.Enabled = true;
-                actualiza_requerimientos(id_diseno_seleccionado);
-                actualiza_caso_de_pruebas_disponibles();
-            }           
+            actualiza_requerimientos(id_diseno_seleccionado);
+            actualiza_caso_de_pruebas_disponibles();
+        }
         }
 
-   
+
 
         /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
         */
@@ -334,12 +340,12 @@ namespace SAPS.Fronteras
                 cuerpo_alerta_error.Text = "Este diseño no tiene requerimientos asociados, no es posible asignarle un caso de pruebas.";
                 drop_requerimientos.Enabled = false;
                 alerta_error.Visible = true;
-            }
+        }
         }
         //Ya está
 
         /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
-       */
+        */
         private bool llena_requerimientos_disponibles(int id_diseno)
         {
             bool resultado = true;
