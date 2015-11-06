@@ -56,6 +56,7 @@
                         <li id="btn_rh"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx">Recursos Humanos</a></li>
                         <li id="btn_pdp"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx">Proyectos De Pruebas</a></li>
                         <li id="btn_dp"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazDisenoPruebas.aspx">Diseño De Pruebas</a></li>
+                        <li id="btn_req"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazRequerimientos.aspx">Requerimientos</a></li>
                         <li id="btn_cdp"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazCasosDePruebas.aspx">Casos de Pruebas</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
