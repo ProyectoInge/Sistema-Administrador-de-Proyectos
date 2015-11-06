@@ -128,16 +128,19 @@ namespace SAPS.Fronteras
         private bool eliminar_requerimiento()
         {
             /// @todo
+            return true;
         }
 
         private bool insertar_requerimiento()
         {
             /// @todo
+            return true;
         }
 
         private bool modificar_requerimiento()
         {
-            ///@todo
+            /// @todo
+            return true;
         }
 
         /** @brief Método que se encarga de vaciar los campos de los datos de un requerimiento.

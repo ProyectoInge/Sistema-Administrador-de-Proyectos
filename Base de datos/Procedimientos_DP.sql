@@ -44,6 +44,7 @@ AS
 			DisenoPrueba.nombre_diseno,
 			DisenoPrueba.fecha_inicio,
 			DisenoPrueba.tecnica_prueba,
+			DisenoPrueba.tipo_prueba,
 			DisenoPrueba.nivel_prueba,
 			DisenoPrueba.username_responsable,
 			DisenoPrueba.ambiente
@@ -54,11 +55,11 @@ GO
 GO
 CREATE PROCEDURE CONSULTAR_DISENOS_DISPONIBLES
 AS BEGIN
-	SELECT	DisenoPrueba.id_diseno,
-			DisenoPrueba.id_proyecto,
+	SELECT	DisenoPrueba.id_proyecto,
 			DisenoPrueba.nombre_diseno,
 			DisenoPrueba.fecha_inicio,
 			DisenoPrueba.tecnica_prueba,
+			DisenoPrueba.tipo_prueba,
 			DisenoPrueba.nivel_prueba,
 			DisenoPrueba.username_responsable,
 			DisenoPrueba.ambiente
