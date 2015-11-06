@@ -21,6 +21,9 @@ namespace SAPS.Fronteras
     {
         private static ControladoraRequerimientos m_controladora_requerimientos;
 
+        private static int m_id_requerimeinto_seleccionado = -1;
+        private static char m_opcion = 'i';
+
         /** @brief Metodo que se llama al cargar la página.
          */
         protected void Page_Load(object sender, EventArgs e)

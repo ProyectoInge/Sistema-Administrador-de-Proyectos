@@ -40,7 +40,7 @@ namespace SAPS.Fronteras
                 m_controladora_rh = new ControladoraRecursosHumanos();
                 m_controladora_pyp = new ControladoraProyectoPruebas();
                 m_controladora_req = new ControladoraRequerimientos();
-        alerta_error.Visible = false;
+                alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
 
@@ -93,7 +93,7 @@ namespace SAPS.Fronteras
             m_tamano_tabla_pyp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pyp, 2];
 
-            
+
             ListItem item_proyecto = new ListItem();
             item_proyecto.Text = "";
             item_proyecto.Value = "";
@@ -103,7 +103,7 @@ namespace SAPS.Fronteras
             {
                 item_proyecto = new ListItem();
                 m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_proyectos.Rows[i]["id_proyecto"]);
-                m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();                
+                m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();
                 item_proyecto.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
                 item_proyecto.Value = Convert.ToString(m_tabla_proyectos_disponibles[i, 0]);
                 drop_proyecto.Items.Add(item_proyecto);
@@ -130,7 +130,7 @@ namespace SAPS.Fronteras
 
             for (int i = (m_tamano_tabla_req - 1); i >= 0; --i)
             {
-               m_tabla_requerimientos_disponibles.Add(tabla_de_datos.Rows[i]["nombre"].ToString());
+                m_tabla_requerimientos_disponibles.Add(tabla_de_datos.Rows[i]["nombre"].ToString());
             }
             refrescar_requerimientos();
         }
@@ -165,53 +165,45 @@ namespace SAPS.Fronteras
             bool a_retornar = true;
             if (input_nombre.Text != "")
             {
-                if(drop_proyecto.Text != "")
+                if (drop_proyecto.Text != "")
                 {
-                    if(drop_nivel.Text != "")
+                    if (drop_nivel.Text != "")
                     {
-                        if(drop_tecnica.Text != "")
+                        if (drop_tecnica.Text != "")
                         {
-                            if(drop_tipo.Text != "")
+                            if (drop_tipo.Text != "")
                             {
-                                if(input_ambiente.Text != "")
+                                if (input_ambiente.Text != "")
                                 {
-                                    if(input_criterio.Text != "")
+                                    if (input_procedimiento.Text != "")
                                     {
-                                        if(input_procedimiento.Text != "")
+                                        if (drop_responsable.Text != "")
                                         {
-                                            if(drop_responsable.Text != "")
+                                            if (input_fecha.Text != "")
                                             {
-                                                if(input_fecha.Text != "")
-                                                {
 
-                                                }
-                                                else
-                                                {
-                                                    cuerpo_alerta_error.Text = "Es necesario seleccionar una fecha.";
-                                                    SetFocus(input_fecha);
-                                                    a_retornar = false;
-                                                }
                                             }
                                             else
                                             {
-                                                cuerpo_alerta_error.Text = "Es necesario seleccionar un responsable.";
-                                                SetFocus(drop_responsable);
+                                                cuerpo_alerta_error.Text = "Es necesario seleccionar una fecha.";
+                                                SetFocus(input_fecha);
                                                 a_retornar = false;
                                             }
                                         }
                                         else
                                         {
-                                            cuerpo_alerta_error.Text = "Es necesario ingresar el procedimiento de prueba.";
-                                            SetFocus(input_procedimiento);
+                                            cuerpo_alerta_error.Text = "Es necesario seleccionar un responsable.";
+                                            SetFocus(drop_responsable);
                                             a_retornar = false;
                                         }
                                     }
                                     else
                                     {
-                                        cuerpo_alerta_error.Text = "Es necesario ingresar un criterio de prueba.";
-                                        SetFocus(input_criterio);
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar el procedimiento de prueba.";
+                                        SetFocus(input_procedimiento);
                                         a_retornar = false;
                                     }
+
                                 }
                                 else
                                 {
@@ -266,7 +258,7 @@ namespace SAPS.Fronteras
         {
             tabla_disponibles.Rows.Clear();
             tabla_agregados.Rows.Clear();
-            
+
             for (int i = 0; i < m_tamano_tabla_req; i++)
             {
                 TableRow fila = new TableRow();
@@ -311,16 +303,16 @@ namespace SAPS.Fronteras
             bool se_agrega = enviador.ID.StartsWith("btn_lista_disponibles");
             carga_requerimientos_transicion(enviador.Text, se_agrega);
 
-            
+
         }
-        
-        
+
+
 
         private void actualiza_rh(string id_proyecto)
         {
-            DataTable tabla_rh= new DataTable();
-            
-                tabla_rh = m_controladora_rh.solicitar_recursos_disponibles(); // cargo todos los recursos humanos, TODO cambiar a solo los de idproy
+            DataTable tabla_rh = new DataTable();
+
+            tabla_rh = m_controladora_rh.solicitar_recursos_disponibles(); // cargo todos los recursos humanos, TODO cambiar a solo los de idproy
 
             m_tamano_tabla_rh = tabla_rh.Rows.Count;
             m_tabla_rh = new Object[m_tamano_tabla_rh, 2];
@@ -346,7 +338,7 @@ namespace SAPS.Fronteras
 
         protected void btn_Aceptar_Click(object sender, EventArgs e)
         {
-            if(m_opcion == 'i')
+            if (m_opcion == 'i')
             {
                 ingresar_diseno();
             }
