@@ -55,7 +55,8 @@ GO
 GO
 CREATE PROCEDURE CONSULTAR_DISENOS_DISPONIBLES
 AS BEGIN
-	SELECT	DisenoPrueba.id_proyecto,
+	SELECT	DisenoPrueba.id_diseno,
+			DisenoPrueba.id_proyecto,
 			DisenoPrueba.nombre_diseno,
 			DisenoPrueba.fecha_inicio,
 			DisenoPrueba.tecnica_prueba,
