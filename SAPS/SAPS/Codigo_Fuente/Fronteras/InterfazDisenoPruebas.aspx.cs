@@ -184,7 +184,7 @@ namespace SAPS.Fronteras
                                             {
                                                 if (input_fecha.Text != "")
                                                 {
-                                                    Object[] datosDiseno = new Object[8];
+                                                    Object[] datosDiseno = new Object[9];
                                                     datosDiseno[0] = 0;
                                                     datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
                                                     datosDiseno[2] = input_nombre.Text;
@@ -193,6 +193,7 @@ namespace SAPS.Fronteras
                                                     datosDiseno[5] = drop_tipo.SelectedValue;
                                                     datosDiseno[6] = drop_nivel.SelectedValue;
                                                     datosDiseno[7] = drop_responsable.SelectedValue;
+                                                    datosDiseno[8] = input_ambiente.Text;
                                                     
                                                     int resultado = m_controladora_dp.insertar_diseno_pruebas(datosDiseno);
                                                     DataTable diseños = m_controladora_dp.solicitar_disenos_disponibles();
@@ -327,12 +328,25 @@ namespace SAPS.Fronteras
             }
         }
 
-        /*
-        private void carga_requerimientos_existente()
+        
+        private void carga_requerimientos_existente(DataTable asociados, DataTable no_asociados)
         {
-            
+            m_tabla_requerimientos_seleccionados = new List<Tuple<string, int>>();
+            m_tabla_requerimientos_disponibles = new List<Tuple<string, int>>();
+
+            m_tamano_tabla_seleccionados = asociados.Rows.Count;
+            m_tamano_tabla_req = no_asociados.Rows.Count;
+            for(int i = 0; i < asociados.Rows.Count; i++)
+            {
+                m_tabla_requerimientos_seleccionados.Add(Tuple.Create(asociados.Rows[i]["nombre"].ToString(), Convert.ToInt32(asociados.Rows[i]["id_requerimiento"])));
+            }
+            for (int i = 0; i < no_asociados.Rows.Count; i++)
+            {
+                m_tabla_requerimientos_disponibles.Add(Tuple.Create(no_asociados.Rows[i]["nombre"].ToString(), Convert.ToInt32(no_asociados.Rows[i]["id_requerimiento"])));
+            }
+            refrescar_requerimientos();
         }
-        */
+        
 
 
         private void btn_lista_req_click_asociar(object sender, EventArgs e)
@@ -468,14 +482,19 @@ namespace SAPS.Fronteras
             DataTable tabla_req_disp = m_controladora_dp.solicitar_requerimientos_no_asociados(Convert.ToInt32(dp_id));
             input_nombre.Text = tabla_dp.Rows[0]["nombre_diseno"].ToString();
             drop_proyecto.ClearSelection();
-            drop_proyecto.Items.FindByValue(tabla_dp.Rows[0]["id_proyecto"].ToString());
+            drop_proyecto.Items.FindByValue(tabla_dp.Rows[0]["id_proyecto"].ToString()).Selected = true;
             drop_nivel.ClearSelection();
-            drop_nivel.Items.FindByValue(tabla_dp.Rows[0]["nivel_prueba"].ToString());
+            drop_nivel.Items.FindByValue(tabla_dp.Rows[0]["nivel_prueba"].ToString()).Selected = true;
             drop_tecnica.ClearSelection();
-            drop_tecnica.Items.FindByValue(tabla_dp.Rows[0]["nivel_prueba"].ToString());
+            drop_tecnica.Items.FindByValue(tabla_dp.Rows[0]["tecnica_prueba"].ToString()).Selected = true;
             drop_tipo.ClearSelection();
-            drop_tipo.Items.FindByValue(tabla_dp.Rows[0]["tipo_prueba"].ToString());
-            input_ambiente.Text = tabla_req_asoc.Rows[0]["ambiente"].ToString();
+            drop_tipo.Items.FindByValue(tabla_dp.Rows[0]["tipo_prueba"].ToString()).Selected = true;
+            input_ambiente.Text = tabla_dp.Rows[0]["ambiente"].ToString();
+            if (tabla_req_asoc.Rows.Count != 0)
+            {
+                input_procedimiento.Text = tabla_req_asoc.Rows[0]["procedimiento"].ToString();
+            }
+            carga_requerimientos_existente(tabla_req_asoc, tabla_req_disp);
 
         }
 
@@ -497,7 +516,9 @@ namespace SAPS.Fronteras
         {
             if(m_opcion == 'i')
             {
-                ingresar_diseno();
+                bool res = ingresar_diseno();
+
+                alerta_exito.Visible = res;
             }
         }
 
