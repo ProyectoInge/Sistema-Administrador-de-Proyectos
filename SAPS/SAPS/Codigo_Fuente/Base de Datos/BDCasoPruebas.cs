@@ -106,7 +106,11 @@ namespace SAPS.Base_de_Datos
         */
         private void rellena_parametros_caso_pruebas(ref SqlCommand comando, CasoPruebas caso_pruebas)
         {
-            // analizar metodo
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_caso", SqlDbType.Int).Value = caso_pruebas.id;
+            comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = caso_pruebas.id_diseno;
+            comando.Parameters.Add("@id_proposito", SqlDbType.Int).Value = caso_pruebas.proposito;
+            comando.Parameters.Add("@id_flujo", SqlDbType.Int).Value = caso_pruebas.flujo_central;
         }
 
 

@@ -37,9 +37,8 @@ namespace SAPS.Controladoras
         */
         public int insertar_caso_pruebas(Object[] datos, Datos[] entrada_de_datos)
         {
-            // CasoPruebas caso_pruebas = new CasoPruebas(datos);                   Consultar a Kevin y Carlos
-            // return m_base_datos.insertar_caso_pruebas(caso_pruebas);        
-            return 0;
+             CasoPruebas caso_pruebas = new CasoPruebas(datos, entrada_de_datos);              
+             return m_base_datos.insertar_caso_pruebas(caso_pruebas);                    
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para insertar un nuevo caso de pruebas en la base de datos.
@@ -49,9 +48,8 @@ namespace SAPS.Controladoras
         */
         public int modificar_caso_pruebas(Object[] datos, Datos[] entrada_de_datos)
         {
-            // CasoPruebas caso_pruebas = new CasoPruebas(datos);                    Consultar a Kevin y Carlos
-            // return m_base_datos.insertar_caso_pruebas(caso_pruebas);
-            return 0;
+            CasoPruebas caso_pruebas = new CasoPruebas(datos, entrada_de_datos);      
+            return m_base_datos.insertar_caso_pruebas(caso_pruebas);            
         }
 
         /** @brief Eliminar un caso de pruebas en la base de datos.
