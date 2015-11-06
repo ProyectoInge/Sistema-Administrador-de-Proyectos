@@ -43,12 +43,12 @@ namespace SAPS.Base_de_Datos
 
             // Guardar entrada de datos
             if (caso_pruebas.entrada_de_datos != null)
-            {
+        {
                 for (int i = 0; i < caso_pruebas.entrada_de_datos.Length; ++i)
                 {
                     guardar_entrada_de_datos(caso_pruebas.entrada_de_datos[i], caso_pruebas.id);
                     m_data_base_adapter.ejecutar_consulta(comando);
-                }
+        }
             }
             return resultado;
         }
@@ -92,7 +92,7 @@ namespace SAPS.Base_de_Datos
 
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
-        
+
 
 
 

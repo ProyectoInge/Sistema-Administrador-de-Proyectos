@@ -292,6 +292,7 @@ namespace SAPS.Fronteras
         }
 
         /** @brief Se activa cuando el usuario escoge la opcion de reestablecer la contrasena, lo envia a la pagina para cambiar de contraseña.
+         * @param Los parametros por default de un evento de C#.
          */
         protected void btn_reestablece_contrasena_Click(object sender, EventArgs e)
         {
@@ -328,6 +329,10 @@ namespace SAPS.Fronteras
             DataTable tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
             m_tamano_tabla_pdp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
+            ListItem primer_item = new ListItem();
+            primer_item.Text = "";
+            primer_item.Value = "";
+            drop_proyecto_asociado.Items.Add(primer_item);
             for (int i = 0; i < m_tamano_tabla_pdp; ++i)
             {
                 m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_proyectos.Rows[i]["id_proyecto"]);

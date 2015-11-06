@@ -362,6 +362,10 @@ namespace SAPS.Fronteras
             DataTable tabla_oficinas = m_controladora_pdp.solicitar_oficinas_disponibles();
             m_tamano_tabla_oficinas = tabla_oficinas.Rows.Count;
             m_tabla_oficinas_disponibles = new Object[m_tamano_tabla_oficinas, 3];
+            ListItem primer_item = new ListItem();
+            primer_item.Text = "";
+            primer_item.Value = "";
+            drop_oficina_asociada.Items.Add(primer_item);
             for (int i = 0; i < m_tamano_tabla_oficinas; ++i)
             {
                 m_tabla_oficinas_disponibles[i, 0] = Convert.ToInt32(tabla_oficinas.Rows[i]["id_oficina"]);

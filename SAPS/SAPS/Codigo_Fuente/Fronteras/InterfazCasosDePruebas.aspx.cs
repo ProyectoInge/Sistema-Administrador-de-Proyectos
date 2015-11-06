@@ -18,6 +18,8 @@ namespace SAPS.Fronteras
         private static ControladoraDisenosPruebas m_controladora_dp;
         private static ControladoraCasoPruebas m_controladora_cdp;
 
+        private static TableHeaderRow m_fila_header; // Es global ya que se tiene que modificar en ciertas ocaciones
+
         private static char m_opcion = 'i'; //i = insertar, m = modificar, e = eliminar
 
         private static bool m_es_administrador;
@@ -26,10 +28,11 @@ namespace SAPS.Fronteras
             alerta_error.Visible = false;
             alerta_exito.Visible = false;
             alerta_advertencia.Visible = false;
-            m_controladora_rh = new ControladoraRecursosHumanos();
-            m_controladora_pdp = new ControladoraProyectoPruebas();
             m_controladora_dp = new ControladoraDisenosPruebas();
             m_controladora_cdp = new ControladoraCasoPruebas();
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            m_fila_header = new TableHeaderRow();
 
             if (!IsPostBack)
             {
@@ -39,7 +42,7 @@ namespace SAPS.Fronteras
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "cancelar".
-        * @param Los parametros por default de un evento de C#.
+         * @param Los parametros por default de un evento de C#.
         */
         protected void btn_cancelar_Click(object sender, EventArgs e)
         {
@@ -85,7 +88,7 @@ namespace SAPS.Fronteras
                 if (m_opcion != 'e')
                 {
                     alerta_error.Visible = true;
-                }
+        }
             }
         }
 
@@ -113,7 +116,7 @@ namespace SAPS.Fronteras
                     cuerpo_alerta_error.Text = "Es necesario escoger un diseño.";
                     SetFocus(drop_diseno_asociado);
                     //resultado = false;
-                }
+        }
             }
             else
             {
@@ -165,8 +168,11 @@ namespace SAPS.Fronteras
         */
         protected void drop_proyecto_asociado_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (drop_proyecto_asociado.SelectedItem.Value != "")
+            {
             int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
             actualiza_disenos_asociados(id_proyecto_seleccionado);
+        }
         }
 
         /** @brief Metodo que se activa cuando el usuario selecciona un diseño del dropdown, llena la informacion correspondiente a ese diseño.

@@ -134,20 +134,40 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
-                            <div id="row1_der_2" class="form-group">
-                                <div class="col-md-3">
-                                    <!-- @todo label insertar entrada de datos -->
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <asp:Label runat="server" ID="label_valor_entradas" AssociatedControlID="input_entradas_valor" CssClass="control-label">Valor</asp:Label>
+                                    <asp:TextBox runat="server" ID="input_entradas_valor" CssClass="form-control"></asp:TextBox>
                                 </div>
-                                <div class="col-md-9">
-                                    <!-- @todo tabla para insertar entrada de datos -->
+                                <div class="col-md-6">
+                                    <asp:Label runat="server" ID="label_entradas_estado" AssociatedControlID="drop_entradas_estado" CssClass="control-label">Estado</asp:Label>
+                                    <asp:DropDownList runat="server" ID="drop_entradas_estado" CssClass="form-control">
+                                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                                        <asp:ListItem Text="Válido" Value="v"></asp:ListItem>
+                                        <asp:ListItem Text="Inválido" Value="i"></asp:ListItem>
+                                        <asp:ListItem Text="No aplica" Value="na"></asp:ListItem>
+                                    </asp:DropDownList>
                                 </div>
                             </div>
-                            <div id="row2_der_2" class="form-group">
-                                <div class="col-md-3">
-                                    <!-- @todo label resultado esperado -->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <asp:Label runat="server" ID="label_entradas_resultado" AssociatedControlID="input_entradas_resultado" CssClass="control-label">Resultado esperado</asp:Label>
+                                    <asp:TextBox runat="server" ID="input_entradas_resultado" CssClass="form-control" Rows="2" Style="resize: none" TextMode="multiline"></asp:TextBox>
                                 </div>
-                                <div class="col-md-9">
-                                    <!-- @todo insetar resultados esperados -->
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="btn-group" role="group">
+                                        <asp:Button runat="server" ID="btn_agregar_entrada" CssClass="btn btn-link" Text="Agregar" />
+                                        <asp:Button runat="server" CssClass="btn btn-link" ID="btn_entradas_eliminar" Text="Eliminar" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <asp:Label runat="server" ID="label_entradas_disponibles" CssClass="control-label" AssociatedControlID="drop_entradas_disponibles">Entradas disponibles</asp:Label>
+                                    <asp:DropDownList runat="server" ID="drop_entradas_disponibles" CssClass="form-control">
+                                    </asp:DropDownList>
                                 </div>
                             </div>
                         </div>
