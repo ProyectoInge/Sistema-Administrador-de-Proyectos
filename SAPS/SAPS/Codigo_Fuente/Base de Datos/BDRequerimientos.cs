@@ -44,6 +44,7 @@ namespace SAPS.Base_de_Datos
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = requerimiento.id;
             comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = requerimiento.nombre;
+            comando.Parameters.Add("@criterio_aceptacion", SqlDbType.VarChar).Value = requerimiento.criterio_aceptacion;
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
@@ -57,6 +58,7 @@ namespace SAPS.Base_de_Datos
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = requerimiento.id;
             comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = requerimiento.nombre;
+            comando.Parameters.Add("@criterio_aceptacion", SqlDbType.VarChar).Value = requerimiento.criterio_aceptacion;
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
 

@@ -26,6 +26,7 @@ namespace SAPS.Entidades
         private string m_tipo_prueba;
         private string m_nivel_prueba;
         private string m_username_responsable;
+        private string m_ambiente;
 
         /** @param datos Un vector tipo objeto que contiene toda la información necesaria
            para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
@@ -39,6 +40,7 @@ namespace SAPS.Entidades
             |    5   |    Tipo de prueba    |     string    |
             |    6   |    Nivel de prueba   |     string    |
             |    7   | Username responsable |     string    |
+            |    8   |      Ambiente        |     string    |
         */
         public DisenoPruebas(Object[] datos)
         {
@@ -50,9 +52,17 @@ namespace SAPS.Entidades
             m_tipo_prueba = Convert.ToString(datos[5]);
             m_nivel_prueba = Convert.ToString(datos[6]);
             m_username_responsable = Convert.ToString(datos[7]);
+            m_ambiente = Convert.ToString(datos[8]);
         }
 
         //Métodos de get y set
+
+        public string ambiente
+        {
+            get { return m_ambiente; }
+            set { m_ambiente = value; }
+        }
+
         public string username_responsable
         {
             get { return m_username_responsable; }

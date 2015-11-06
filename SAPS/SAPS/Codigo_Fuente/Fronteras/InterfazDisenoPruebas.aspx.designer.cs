@@ -472,33 +472,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label label_error_ambiente;
         
         /// <summary>
-        /// label_criterios control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_criterios;
-        
-        /// <summary>
-        /// input_criterio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_criterio;
-        
-        /// <summary>
-        /// label_error_criterio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_error_criterio;
-        
-        /// <summary>
         /// label_procedimiento control.
         /// </summary>
         /// <remarks>

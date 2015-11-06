@@ -42,7 +42,7 @@ AS
 	SELECT Requerimientos.nombre,
 		   Requerimientos.criterio_aceptacion
 	FROM Requerimientos
-	WHERE Requerimientos.id_requerimiento = id_requerimiento
+	WHERE @id_requerimiento = id_requerimiento
 GO
 
 GO

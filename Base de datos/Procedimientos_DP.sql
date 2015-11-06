@@ -11,20 +11,20 @@ DROP PROCEDURE SOLICITAR_DISENOS_ASOCIADOS_PROYECTO
 
 GO 
 CREATE PROCEDURE INSERTAR_DP
-	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @tipo_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64)
+	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @tipo_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64), @ambiente varchar(128)
 AS
 	INSERT INTO DisenoPrueba
-		(id_proyecto, nombre_diseno, fecha_inicio, tecnica_prueba, tipo_prueba, nivel_prueba, username_responsable)
+		(id_proyecto, nombre_diseno, fecha_inicio, tecnica_prueba, tipo_prueba, nivel_prueba, username_responsable, ambiente)
 	VALUES
-		(@id_proyecto, @nombre_diseno, @fecha_inicio, @tecnica_prueba, @tipo_prueba, @nivel_prueba, @username_responsable)
+		(@id_proyecto, @nombre_diseno, @fecha_inicio, @tecnica_prueba, @tipo_prueba, @nivel_prueba, @username_responsable, @ambiente)
 GO
 
 GO
 CREATE PROCEDURE MODIFICAR_DP
-	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64)
+	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64), @ambiente varchar(128)
 AS
 	UPDATE DisenoPrueba
-		SET id_proyecto = @id_proyecto, nombre_diseno = @nombre_diseno, fecha_inicio = @fecha_inicio, tecnica_prueba = @tecnica_prueba, nivel_prueba = @nivel_prueba, username_responsable = @username_responsable
+		SET id_proyecto = @id_proyecto, nombre_diseno = @nombre_diseno, fecha_inicio = @fecha_inicio, tecnica_prueba = @tecnica_prueba, nivel_prueba = @nivel_prueba, username_responsable = @username_responsable, ambiente = @ambiente
 		WHERE id_diseno = @id_diseno
 GO
 
@@ -44,8 +44,10 @@ AS
 			DisenoPrueba.nombre_diseno,
 			DisenoPrueba.fecha_inicio,
 			DisenoPrueba.tecnica_prueba,
+			DisenoPrueba.tipo_prueba,
 			DisenoPrueba.nivel_prueba,
-			DisenoPrueba.username_responsable
+			DisenoPrueba.username_responsable,
+			DisenoPrueba.ambiente
 	FROM DisenoPrueba
 	WHERE id_diseno = @id_diseno
 GO
@@ -58,8 +60,10 @@ AS BEGIN
 			DisenoPrueba.nombre_diseno,
 			DisenoPrueba.fecha_inicio,
 			DisenoPrueba.tecnica_prueba,
+			DisenoPrueba.tipo_prueba,
 			DisenoPrueba.nivel_prueba,
-			DisenoPrueba.username_responsable
+			DisenoPrueba.username_responsable,
+			DisenoPrueba.ambiente
 	FROM DisenoPrueba
 	END
 GO

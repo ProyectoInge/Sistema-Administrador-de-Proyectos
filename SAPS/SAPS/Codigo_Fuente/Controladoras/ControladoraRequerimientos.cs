@@ -37,11 +37,12 @@ namespace SAPS.Controladoras
             |    0   |   ID del requerimiento  |       int     |
             |    1   |         Nombre          |     String    |
             |    2   | Criterios de aceptación |     String    |
+
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int insertar_requerimiento(Object[] datos)
         {
-            if (datos.Length != 2)
+            if (datos.Length != 3)
                 return -1;
             Requerimiento requerimiento = new Requerimiento(datos);
             return m_base_datos.insertar_requerimiento(requerimiento);
@@ -55,11 +56,12 @@ namespace SAPS.Controladoras
             |    0   |   ID del requerimiento  |       int     |
             |    1   |         Nombre          |     String    |
             |    2   | Criterios de aceptación |     String    |
+
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
         public int modificar_requerimiento(Object[] datos)
         {
-            if (!existe_requerimiento(Convert.ToInt32(datos[0])) && datos.Length != 2) //Verifica que el requerimiento exista
+            if (!existe_requerimiento(Convert.ToInt32(datos[0])) && datos.Length != 3) //Verifica que el requerimiento exista
                 return -1;
             Requerimiento requerimiento = new Requerimiento(datos);
             return m_base_datos.modificar_requerimiento(requerimiento);
