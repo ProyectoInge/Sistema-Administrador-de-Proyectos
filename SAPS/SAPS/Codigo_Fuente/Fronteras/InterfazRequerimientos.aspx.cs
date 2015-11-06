@@ -21,6 +21,9 @@ namespace SAPS.Fronteras
     {
         private static ControladoraRequerimientos m_controladora_requerimientos;
 
+        private static int m_id_requerimeinto_seleccionado = -1;
+        private static char m_opcion = 'i';
+
         /** @brief Metodo que se llama al cargar la página.
          */
         protected void Page_Load(object sender, EventArgs e)
@@ -34,7 +37,7 @@ namespace SAPS.Fronteras
                 activa_desactiva_botones_ime(false);
 
                 if (!IsPostBack)
-                    actualiza_tabla_requerimientos();
+                actualiza_tabla_requerimientos();
             }
             else
             {
@@ -59,12 +62,61 @@ namespace SAPS.Fronteras
 
         protected void btn_Aceptar_Click(object sender, EventArgs e)
         {
-            /// @todo
+            switch (m_opcion)
+            {
+                case 'i':
+                    if (!insertar_requerimiento()) // false si no logro insertar el requerimiento
+                    {
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
+                        activa_desactiva_botones_ime(true);
+                        //m_id_requerimeinto_seleccionado = Convert.ToInt32(tabla_requerimientos.Rows[tabla_requerimientos.Rows.Count - 1].Cells[0].ID);
+                    }
+                    break;
+                case 'm':
+                    if (!modificar_requerimiento()) // false si no logro modificar el requerimiento
+                    {
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
+                    }
+                    break;
+                case 'e':
+                    if (!eliminar_requerimiento()) // false si no logro eliminar el requerimiento
+                    {
+                        alerta_error.Visible = true;
+                    }
+                    else
+                    {
+                        alerta_exito.Visible = true;
+                        actualiza_tabla_requerimientos();
+                        input_criterio_aceptacion.Enabled = true;
+                        input_nombre_requerimiento.Enabled = true;
+                        activa_desactiva_botones_ime(false);
+                        vaciar_campos();
+                        m_opcion = 'i';
+                        btn_crear.CssClass = "btn btn-default active";
+                        btn_modificar.CssClass = "btn btn-default";
+                        btn_eliminar.CssClass = "btn btn-default";
+                        activa_desactiva_botones_ime(false);
+                    }
+                    break;
+
+            }
         }
 
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
-            /// @todo
+            vaciar_campos();
+            input_nombre_requerimiento.Enabled = true;
+            input_criterio_aceptacion.Enabled = true;
         }
 
         protected void btn_Regresar_Click(object sender, EventArgs e)
@@ -75,11 +127,108 @@ namespace SAPS.Fronteras
 
         protected void btn_lista_requerimientos_Click(object sender, EventArgs e)
         {
-            /// @todo
+            int id_requerimiento_seleccionado = Convert.ToInt32(((Button)sender).ID);
+            llena_info_consulta(id_requerimiento_seleccionado);
+            input_criterio_aceptacion.Enabled = false;
+            input_nombre_requerimiento.Enabled = false;
+            activa_desactiva_botones_ime(true);
+            m_id_requerimeinto_seleccionado = id_requerimiento_seleccionado;
         }
 
-        // ----------------------------------------- Métodos auxiliares -----------------------------------------
+        // ------------------------------------------------------ Métodos auxiliares ------------------------------------------------------
 
+        private bool eliminar_requerimiento()
+        {
+            bool a_retornar = false;
+            if (m_id_requerimeinto_seleccionado != -1)
+            {
+                int resultado = m_controladora_requerimientos.eliminar_requerimiento(m_id_requerimeinto_seleccionado);
+                if (resultado == 0)
+                {
+                    cuerpo_alerta_exito.Text = " Se eliminó correctamente el requerimiento.";
+                    a_retornar = true;
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Se presentó un error al eleminar el requerimiento, intente nuevamente.";
+                    SetFocus(input_criterio_aceptacion);
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = " No se ha seleccionado ningún requerimiento.";
+                SetFocus(input_criterio_aceptacion);
+            }
+            return a_retornar;
+        }
+
+        private bool insertar_requerimiento()
+        {
+            bool a_retornar = false;
+            if (input_nombre_requerimiento.Text != "")
+            {
+                if (input_criterio_aceptacion.Text != "")
+                {
+                    Object[] nuevo_requerimiento = { 0, input_nombre_requerimiento.Text, input_criterio_aceptacion.Text };
+                    int resultado = m_controladora_requerimientos.insertar_requerimiento(nuevo_requerimiento);
+                    if (resultado == 0)  //Se ingresó con éxito
+                    {
+                        cuerpo_alerta_exito.Text = " Se ingresó correctamente el nuevo requerimiento.";
+                        a_retornar = true;
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = " Se presentó un problema al agrega el requerimiento, intente nuevamente.";
+                    }
+
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Es necesario que ingrese un criterio de aceptación.";
+                    SetFocus(input_criterio_aceptacion);
+
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = " Es necesario que ingrese un nombre para el requerimiento.";
+                SetFocus(input_nombre_requerimiento);
+            }
+            return a_retornar;
+        }
+
+        private bool modificar_requerimiento()
+        {
+            /// @todo
+            return true;
+        }
+
+        /** @brief Método que se encarga de vaciar los campos de los datos de un requerimiento.
+        */
+        private void vaciar_campos()
+        {
+            m_id_requerimeinto_seleccionado = -1;
+            input_criterio_aceptacion.Text = "";
+            input_nombre_requerimiento.Text = "";
+            m_opcion = 'i';
+            alerta_error.Visible = false;
+            alerta_advertencia.Visible = false;
+            alerta_exito.Visible = false;
+            cuerpo_alerta_advertencia.Text = "";
+            cuerpo_alerta_error.Text = "";
+            cuerpo_alerta_exito.Text = "";
+        }
+
+        /** @brief Método que llena la información en pantalla correspondiente a un requerimiento que se consulta.
+         * @param El identificador del requerimiento que se desea consultar.
+        */
+        private void llena_info_consulta(int id_requerimiento)
+        {
+            DataTable info_requerimiento = m_controladora_requerimientos.consultar_requerimiento(id_requerimiento);
+            input_nombre_requerimiento.Text = info_requerimiento.Rows[0]["nombre"].ToString();
+            input_criterio_aceptacion.Text = info_requerimiento.Rows[0]["criterio_aceptacion"].ToString();
+
+        }
         /** @brief Pone activos los botones de "Eliminar" y "Modificar"
          * @param Bool con el estado de activacion de los botones ime (true/false)
          */
@@ -111,7 +260,7 @@ namespace SAPS.Fronteras
             tabla_requerimientos.Rows.Add(header);
 
             DataTable tabla_requerimientos_disponibles = m_controladora_requerimientos.solicitar_requerimientos_disponibles();
-            for(int i=0; i< tabla_requerimientos_disponibles.Rows.Count; ++i)
+            for (int i = tabla_requerimientos_disponibles.Rows.Count - 1; i >= 0; --i)
             {
                 TableRow fila = new TableRow();
                 TableCell celda_nombre = new TableCell();
