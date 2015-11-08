@@ -115,6 +115,8 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief M'etodo que carga los requerimientos en el grid, en el caso en que el diseño se esté incluyendo.
+        */
         protected void carga_requerimientos_nuevo()
         {
             //crea_encabezado_tabla_rh();
@@ -140,6 +142,9 @@ namespace SAPS.Fronteras
             refrescar_requerimientos();
         }
 
+        /** @brief Método que pasa un requerimiento del grid de disponibles al de seleccionados.
+         * @param nombre del requerimiento a pasar, id del requerimiento a pasar y bool que indica si se agrega o se desasocia
+        */
         private void carga_requerimientos_transicion(string nombre_requerimiento, int id_req, bool agregar) //agregar 1: se agrega, agregar 0: se desasocia
         {
             if (agregar)
@@ -165,6 +170,8 @@ namespace SAPS.Fronteras
 
         }
 
+        /** @brief Método que toma los valores ingresados en los text boxes y combo boxes para incluirlo a la base de datos.
+        */
         private bool ingresar_diseno()
         {
             bool a_retornar = true;
@@ -295,6 +302,8 @@ namespace SAPS.Fronteras
             return a_retornar;
         }
 
+        /** @brief refresca los grids de requerimientos
+        */
         private void refrescar_requerimientos()
         {
             tabla_disponibles.Rows.Clear();
@@ -330,7 +339,9 @@ namespace SAPS.Fronteras
             }
         }
 
-        
+        /** @brief Carga los grids de requerimientos a partir de datatables con los mismos
+         * @param Los data tables de requerimientos asociados y los no asociados
+        */
         private void carga_requerimientos_existente(DataTable asociados, DataTable no_asociados)
         {
             m_tabla_requerimientos_seleccionados = new List<Tuple<string, int>>();
@@ -348,9 +359,11 @@ namespace SAPS.Fronteras
             }
             refrescar_requerimientos();
         }
-        
 
 
+        /** @brief Evento que se activa cuando el usuario presiona un requerimiento de la tabla de disponibles
+         * @param Los parametros por default de un evento de C#.
+        */
         private void btn_lista_req_click_asociar(object sender, EventArgs e)
         {
             Button enviador = sender as Button;
@@ -375,9 +388,11 @@ namespace SAPS.Fronteras
 
             
         }
-        
-        
 
+
+        /** @brief actualiza el combobox de los recursos humanos asociados a los proyectos autorizados.
+         * @param el id del proyecto.
+        */
         private void actualiza_rh(string id_proyecto)
         {
             DataTable tabla_rh= new DataTable();
@@ -403,11 +418,14 @@ namespace SAPS.Fronteras
                 drop_responsable.Items.Add(item_rh);
             }
         }
+
+        /** @brief Método que actualiza el grid de diseños de prueba
+        */
         private void actualiza_grid_dp()
         {
             int proy_id=-1;
             tabla_disenos_prueba.Rows.Clear();
-            crea_encabezado_tabla_rh();
+            crea_encabezado_tabla_dp();
             DataTable tabla_de_datos;
             if (m_es_administrador)
             {
@@ -447,6 +465,9 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Evento que se activa cuando el usuario selecciona un diseño del grid
+         * @param Los parametros por default de un evento de C#.
+        */
         private void btn_lista_dp_click(object sender, EventArgs e)
         {
             string dp_nombre = ((Button)sender).Text;
@@ -477,6 +498,9 @@ namespace SAPS.Fronteras
             drop_responsable.Enabled = false;
             input_fecha.Enabled = v;
         }
+        /** @brief Método que llena la información de un diseño de prueba en las cajas de la intefaz
+         * @param El ID del diseño de prueba.
+        */
 
         private void llena_informacion_consulta(string dp_id)
         {
@@ -504,7 +528,9 @@ namespace SAPS.Fronteras
 
         }
 
-        private void crea_encabezado_tabla_rh()
+        /** @brief Método que ingresa los encabezados en el grid de diseños de prueba
+        */
+        private void crea_encabezado_tabla_dp()
         {
             TableHeaderRow header = new TableHeaderRow();
             TableHeaderCell celda_header_nombre = new TableHeaderCell();
@@ -518,6 +544,9 @@ namespace SAPS.Fronteras
             tabla_disenos_prueba.Rows.Add(header);
         }
 
+        /** @brief Botón que se activa al seleccionar el botón Aceptar
+         * @param Los parametros por default de un evento de C#.
+        */
         protected void btn_Aceptar_Click(object sender, EventArgs e)
         {
             if(m_opcion == 'i')
@@ -534,6 +563,8 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Método que elimina el diseño de prueba consultado.
+        */
         private bool eliminar_diseno()
         {
             if(m_controladora_dp.eliminar_diseno_pruebas(Convert.ToInt32(m_dp_seleccionado)) == 0)
@@ -620,6 +651,9 @@ namespace SAPS.Fronteras
             */
         }
 
+        /** @brief Evento que se activa cuando se selecciona un Proyecto de prueba distinto en el combobox.
+         * @param Los parametros por default de un evento de C#.
+        */
         protected void drop_proyecto_SelectedIndexChanged(object sender, EventArgs e)
         {
             actualiza_rh(drop_proyecto.SelectedItem.Value);
