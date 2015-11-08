@@ -89,7 +89,7 @@ namespace SAPS.Fronteras
             DataTable tabla_proyectos;
             if (m_es_administrador)
             {
-                tabla_proyectos = m_controladora_pyp.solicitar_proyectos_disponibles(); // cargo todos los recursos humanos
+                tabla_proyectos = m_controladora_pyp.solicitar_proyectos_no_eliminados(); // cargo todos los recursos humanos
             }
             else
             {

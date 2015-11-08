@@ -207,6 +207,7 @@ namespace SAPS.Fronteras
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_agregar_oficina", "$('#modal_agregar_oficina').modal('hide');", true);
             upModalOficina.Update();
             actualiza_drop_oficinas();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx");
         }
 
         /** @brief Método que se activa cuando el usuario decide agregar una oficina nueva, realiza la inserción de la oficina a la base de datos.
@@ -226,6 +227,10 @@ namespace SAPS.Fronteras
                 if (resultado == 0)
                 {
                     alerta_exito_oficina.Visible = true;
+                    modal_input_nombre_oficina.Text = "";
+                    modal_input_representante_oficina.Text = "";
+                    modal_input_telefono1.Text = "";
+                    modal_input_telefono2.Text = "";
                 }
                 else
                 {
@@ -444,6 +449,10 @@ namespace SAPS.Fronteras
                 fila.Cells.AddAt(2, celda_oficina);
                 celda_encargado.Text = info_oficina[0, 1];
                 fila.Cells.AddAt(3, celda_encargado);
+                if (Convert.ToBoolean(tabla_de_datos.Rows[i]["eliminado"]) == true)
+                {
+                    fila.CssClass = "danger";
+                }
                 tabla_proyectos_de_pruebas.Rows.Add(fila);
             }
         }

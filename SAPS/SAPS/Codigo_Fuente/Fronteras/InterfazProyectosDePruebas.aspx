@@ -107,7 +107,7 @@
                             <div id="ro6_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo  <span class="text-danger">*</span></asp:Label>
-                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" style="resize:none" TextMode="multiline" />
+                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
                                 </div>
                             </div>
                         </div>
@@ -231,54 +231,49 @@
                     <ContentTemplate>
                         <div class="modal-content">
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <div class="form-horizontal">
-                                                    <div id="row1_modal" class="form-group">
-                                                        <div class="col-md-12">
-                                                            <h2>SAPS<small> Agregar oficina</small></h2>
-                                                        </div>
-                                                    </div>
-                                                    <hr />
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <div class="alert alert-success" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
-                                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                                <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
-                                                            </div>
-                                                            <div class="alert alert-danger" id="alerta_error_oficina_cuerpo" role="alert" aria-hidden="true" runat="server">
-                                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                                                <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-horizontal">
-                                                        <div class="form-group">
-                                                            <div class="col-md-6">
-                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_nombre_oficina">Nombre de la oficina</asp:Label>
-                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_nombre_oficina"></asp:TextBox>
-                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_representante_oficina">Representante</asp:Label>
-                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_representante_oficina"></asp:TextBox>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono1">Teléfono principal</asp:Label>
-                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono1"></asp:TextBox>
-                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono2">Teléfono secundario</asp:Label>
-                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono2"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                <div class="form-horizontal">
+                                    <div id="row1_modal" class="form-group">
+                                        <div class="col-md-12">
+                                            <h2>SAPS<small> Agregar oficina</small></h2>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-success" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
                                             </div>
+                                            <div class="alert alert-danger" id="alerta_error_oficina_cuerpo" role="alert" aria-hidden="true" runat="server">
+                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_nombre_oficina">Nombre de la oficina <span class="text-danger">*</span></asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_nombre_oficina"></asp:TextBox>
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_representante_oficina">Representante <span class="text-danger">*</span></asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_representante_oficina"></asp:TextBox>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono1">Teléfono principal <span class="text-danger">*</span></asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono1"></asp:TextBox>
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono2">Teléfono secundario</asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono2"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-4 col-md-offset-8">
+                                            <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-default" ID="btn_modal_cancelar_oficina" Text="Volver" runat="server" data-dismiss="modal" />
-                                <asp:Button OnClick="btn_modal_agregar_oficina_Click" CssClass="btn btn-primary" ID="btn_modal_agregar_oficina" Text="Agregar" runat="server" />
+                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-link" ID="btn_modal_cancelar_oficina" Text="Volver" runat="server" Style="color: darkgray" />
+                                <asp:Button OnClick="btn_modal_agregar_oficina_Click" CssClass="btn btn-success" ID="btn_modal_agregar_oficina" Text="Agregar" runat="server" />
                             </div>
                         </div>
                     </ContentTemplate>
@@ -356,7 +351,7 @@
 
                 var fecha_asignacion_ingresada = new Date($("#<%= input_asignment_date.ClientID %>").val());
 
-                if (isNaN(fecha_asignacion_ingresada.getTime())) {                      
+                if (isNaN(fecha_asignacion_ingresada.getTime())) {
                     $("#<%= label_fecha_asigna_ingresar.ClientID%>").show();
                     $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
                     $("#<%= input_asignment_date.ClientID %>").focus();
@@ -377,9 +372,9 @@
                 // Asignacion de las fechas a un objeto en Javascript tipo Date
                 var fecha_inicio_ingresada = new Date($("#<%= input_start_date.ClientID%>").val());
                 var fecha_asignacion_ingresada = new Date($("#<%= input_asignment_date.ClientID %>").val());
-                
-                if ( isNaN(fecha_asignacion_ingresada.getTime()) ) {                    // No puede ingresar una fecha de inicio sin ingresar una fecha de asignacion.
-                    $("#<%= label_fecha_asigna_vacia.ClientID%>").show();                   
+
+                if (isNaN(fecha_asignacion_ingresada.getTime())) {                    // No puede ingresar una fecha de inicio sin ingresar una fecha de asignacion.
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").show();
                     $("#<%= input_asignment_date.ClientID %>").focus();
                 } else {
                     $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
@@ -395,7 +390,7 @@
                             $("#<%= input_start_date.ClientID %>").focus();
                         } else {
                             $("#<%= label_fecha_inicio_pronta.ClientID%>").hide();
-                            $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();       
+                            $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
                             $("#<%= label_fecha_inicio_vacia.ClientID%>").hide();
                             $("#<%= label_fecha_final_pronta.ClientID%>").hide();
                             $("#<%= input_finish_date.ClientID %>").focus();
@@ -421,10 +416,10 @@
                     } else {
 
                         if (fecha_inicio > fecha_final) {
-                           $("#<%= label_fecha_final_pronta.ClientID%>").show();
+                            $("#<%= label_fecha_final_pronta.ClientID%>").show();
                             $("#<%= input_finish_date.ClientID %>").focus();
                         } else {
-                            $("#<%= label_fecha_final_pronta.ClientID%>").hide();                            
+                            $("#<%= label_fecha_final_pronta.ClientID%>").hide();
                         }
                     }
                 }

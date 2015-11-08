@@ -27,19 +27,19 @@
                                     </div>
                                 </section>
                                 <div id="row2" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12 col-lg-6 col-lg-offset-3">
+                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12 col-lg-8 col-lg-offset-2">
                                         <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" placeholder="Nombre de usuario"></asp:TextBox>
                                         <asp:Label runat="server" ID="label_usuario_vacio" CssClass="text-danger"><small>Tiene que ingresar un usuario.</small></asp:Label>
                                     </div>
                                 </div>
                                 <div id="row3" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12  col-lg-6 col-lg-offset-3">
+                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12  col-lg-8 col-lg-offset-2">
                                         <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" placeholder="Contraseña"></asp:TextBox>
                                         <asp:Label runat="server" ID="label_contrasena_vacia" CssClass="text-danger"><small>Tiene que ingresar una contraseña.</small></asp:Label>
                                     </div>
                                 </div>
                                 <div id="row4" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12  col-lg-6 col-lg-offset-3">
+                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12  col-lg-8 col-lg-offset-2">
                                         <div class="checkbox">
                                             <asp:CheckBox runat="server" ID="checkbox_recordarme" Text="Recordar mis datos" Checked="true" />
                                         </div>

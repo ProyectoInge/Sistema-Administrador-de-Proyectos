@@ -54,7 +54,6 @@ namespace SAPS.Fronteras
                     drop_proyecto_asociado.Enabled = false;
                     drop_rol.Enabled = false;
                 }
-                activa_desactiva_botones_ime(false);
                 mensaje_error_modal.Visible = false;
                 mensaje_exito_modal.Visible = false;
                 modal_reestablecer_input_usuario.Enabled = false;
@@ -68,7 +67,16 @@ namespace SAPS.Fronteras
                 {
                     btn_reestablece_contrasena.Visible = true;
                 }
-
+                if (m_opcion != 'i')
+                {
+                    activa_desactiva_botones_ime(true);
+                    if (m_opcion == 'm')
+                        btn_reestablece_contrasena.Visible = true;
+                }
+                else
+                {
+                    activa_desactiva_botones_ime(false);
+                }
                 if (!IsPostBack)
                 {
                     actualiza_proyectos();
@@ -462,11 +470,16 @@ namespace SAPS.Fronteras
                 TableCell celda_rol = new TableCell();
                 Button btn = new Button();
                 if (m_es_administrador)
+                {
                     m_tabla_recursos_disponibles[i, 0] = tabla_de_datos.Rows[i]["username"].ToString();
+                    btn.ID = tabla_de_datos.Rows[i]["username"].ToString();
+                }
                 else
+                {
                     m_tabla_recursos_disponibles[i, 0] = Context.User.Identity.Name;
+                    btn.ID = Context.User.Identity.Name;
+                }
                 m_tabla_recursos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
-                btn.ID = tabla_de_datos.Rows[i]["username"].ToString();
                 btn.Text = m_tabla_recursos_disponibles[i, 1];
                 btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_rh_click);

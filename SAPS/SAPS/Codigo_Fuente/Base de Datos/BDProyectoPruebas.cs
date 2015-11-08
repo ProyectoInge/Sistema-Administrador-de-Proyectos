@@ -143,6 +143,16 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        /** @brief Método que se encarga de realizar una sentencia SQL para obtener los proyectos que no han sido eliminados
+         * @return Información de todos los proyectos que no han sido eliminados.
+        */
+        public DataTable solicitar_proyectos_no_eliminados()
+        {
+            SqlCommand comando = new SqlCommand("SOLICITAR_PROYECTOS_NO_ELIMINADOS");
+            comando.CommandType = CommandType.StoredProcedure;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
 
         // Métodos auxiliares
 

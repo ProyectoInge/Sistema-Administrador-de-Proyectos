@@ -112,5 +112,13 @@ namespace SAPS.Controladoras
             return m_base_datos_pdp.insertar_oficina(nueva_oficina);
         }
 
+        /** @brief Método que se encarga de realizar una sentencia SQL para obtener los proyectos que no han sido eliminados
+         * @return Información de todos los proyectos que no han sido eliminados.
+        */
+        public DataTable solicitar_proyectos_no_eliminados()
+        {
+            return m_base_datos_pdp.solicitar_proyectos_no_eliminados();
+        }
+
     }
 }

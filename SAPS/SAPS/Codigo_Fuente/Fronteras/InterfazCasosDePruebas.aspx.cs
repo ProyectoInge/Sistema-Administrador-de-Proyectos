@@ -428,7 +428,7 @@ namespace SAPS.Fronteras
             DataTable tabla_proyectos;
             if (m_es_administrador)
             {
-                tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
+                tabla_proyectos = m_controladora_pdp.solicitar_proyectos_no_eliminados();
             }
             else
             {

@@ -9,6 +9,7 @@ DROP PROCEDURE CONSULTAR_MI_PROYECTO
 DROP PROCEDURE CONSULTAR_OFICINAS_DISPONIBLES
 DROP PROCEDURE INSERTAR_OFICINA
 DROP PROCEDURE CONSULTAR_OFICINA
+DROP PROCEDURE SOLICITAR_PROYECTOS_NO_ELIMINADOS
 
 
 GO
@@ -57,7 +58,7 @@ AS
 			ProyectoPruebas.estado,
 			ProyectoPruebas.eliminado
 	FROM	ProyectoPruebas
-	WHERE	ProyectoPruebas.id_proyecto = @id_proyecto AND ProyectoPruebas.eliminado = 0
+	WHERE	ProyectoPruebas.id_proyecto = @id_proyecto
 GO 
 
 
@@ -67,9 +68,9 @@ CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 	SELECT	ProyectoPruebas.nombre_proyecto,
 			ProyectoPruebas.id_proyecto,
 			ProyectoPruebas.estado,
-			ProyectoPruebas.id_oficina
+			ProyectoPruebas.id_oficina,
+			ProyectoPruebas.eliminado
 	FROM  ProyectoPruebas
-	WHERE ProyectoPruebas.eliminado = 0
 	END
 GO
 
@@ -94,7 +95,8 @@ AS BEGIN
 	SELECT  ProyectoPruebas.nombre_proyecto,
 			ProyectoPruebas.id_proyecto,
 			ProyectoPruebas.estado,
-			ProyectoPruebas.id_oficina
+			ProyectoPruebas.id_oficina,
+			ProyectoPruebas.eliminado
 	FROM ProyectoPruebas
 	WHERE ProyectoPruebas.id_proyecto = (SELECT RecursosHumanos.id_proyecto
 											FROM RecursosHumanos
@@ -124,4 +126,16 @@ AS
 			Oficina.nom_representante
 	FROM Oficina
 	WHERE Oficina.id_oficina = @id_oficina
+GO
+
+GO
+CREATE PROCEDURE SOLICITAR_PROYECTOS_NO_ELIMINADOS
+	AS BEGIN
+	SELECT	ProyectoPruebas.nombre_proyecto,
+			ProyectoPruebas.id_proyecto,
+			ProyectoPruebas.estado,
+			ProyectoPruebas.id_oficina
+	FROM  ProyectoPruebas
+	WHERE ProyectoPruebas.eliminado = 0
+	END
 GO
