@@ -48,7 +48,7 @@ namespace SAPS.Entidades
             m_nombre = datos[5].ToString();
             m_fecha_inicio = Convert.ToDateTime(datos[6]);
             m_fecha_asignacion = Convert.ToDateTime(datos[7]);
-            if (datos[8] == DBNull.Value)
+            if (datos[8] == "")
                 m_fecha_finalizacion = default(DateTime);
             else
                 m_fecha_finalizacion = Convert.ToDateTime(datos[8]);

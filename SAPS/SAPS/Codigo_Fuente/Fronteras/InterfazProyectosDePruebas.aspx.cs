@@ -280,7 +280,6 @@ namespace SAPS.Fronteras
             int id_oficina = Convert.ToInt32(datos_proyecto.Rows[0]["id_oficina"]);
             llena_campos_oficina(id_oficina);
             input_system.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_sistema"]);
-            // TO DO --> No esta desplegando correctamente la fecha en el TextBox
             input_start_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("yyyy-MM-dd");
             input_asignment_date.Text = Convert.ToDateTime(datos_proyecto.Rows[0]["fecha_asignacion"]).ToString("yyyy-MM-dd");
             try
@@ -293,6 +292,8 @@ namespace SAPS.Fronteras
             }
             input_objective.Text = Convert.ToString(datos_proyecto.Rows[0]["obj_general"]);
             input_process.Text = Convert.ToString(datos_proyecto.Rows[0]["nombre_proyecto"]);
+            drop_estado_proyecto.ClearSelection();
+            drop_estado_proyecto.Items.FindByText(Convert.ToString(datos_proyecto.Rows[0]["estado"])).Selected = true; // Selecciona el estado del proyecto
 
             input_asignment_date.DataBind();
             input_finish_date.DataBind();
@@ -798,19 +799,31 @@ namespace SAPS.Fronteras
         private bool eliminar_proyecto()
         {
             bool respuesta = true;                                      // Bandera especifica que indica el exito o fallo de la eliminacion
-            if (input_process.Text != "")
+            if (drop_estado_proyecto.SelectedItem.Value == "Finalizado")
             {
-                titulo_modal.Text = "¡Atención!";
-                cuerpo_modal.Text = " ¿Esta seguro que desea eliminar a " + input_process.Text + " del sistema?";
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
-                upModal.Update();
+                if (input_process.Text != "")
+                {
+                    titulo_modal.Text = "¡Atención!";
+                    cuerpo_modal.Text = " ¿Esta seguro que desea eliminar a " + input_process.Text + " del sistema?";
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                    upModal.Update();
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = " Ingrese un nombre de proyecto de pruebas válido.";
+                    SetFocus(input_process.Text);
+                    alerta_error.Visible = true;
+                    respuesta = false;
+                }
             }
             else
             {
-                cuerpo_alerta_error.Text = " Ingrese un nombre de proyecto de pruebas válido.";
-                SetFocus(input_process.Text);
+                cuerpo_alerta_error.Text = " Solo se pueden eliminar proyectos que han sido marcados como finalizados.";
+                alerta_error.Visible = true;
+                SetFocus(drop_estado_proyecto);
                 respuesta = false;
             }
+
             return respuesta;
         }
 
