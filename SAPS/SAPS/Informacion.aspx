@@ -5,7 +5,7 @@
     <div style="margin-top: -100px"><!-- Hace que el panel se "monte"sobre la barra celeste -->
         <section id="informacion">
             <div class="row">
-                <div id="panel_contacto" class="col-md-10 col-md-offset-1">
+                <div id="panel_contacto" class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-horizontal">

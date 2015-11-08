@@ -130,6 +130,7 @@
                                 <div class="col-md-8">
                                     <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
+                                    <asp:Label runat="server" ID="label_proyecto_vacio" CssClass="text-danger"><small>Tiene que seleccionar un proyecto.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row3_der" class="form-group">
@@ -138,10 +139,12 @@
                                 </div>
                                 <div class="col-md-8">
                                     <asp:DropDownList ID="drop_rol" runat="server" CssClass="form-control">
+                                        <asp:ListItem Text="Elija un rol" Value="" Selected="False"></asp:ListItem>
                                         <asp:ListItem Text="Lider" Value="Lider"></asp:ListItem>
                                         <asp:ListItem Text="Usuario" Value="Usuario"></asp:ListItem>
                                         <asp:ListItem Text="Tester" Value="Tester"></asp:ListItem>
                                     </asp:DropDownList>
+                                    <asp:Label runat="server" ID="label_rol_vacio" CssClass="text-danger"><small>Tiene que seleccionar un rol para el usuario.</small></asp:Label>
                                 </div>
                             </div>
                             <hr />
@@ -335,6 +338,8 @@
             $("#<%= label_error_telefono.ClientID%>").hide();
             $("#<%= label_telefono_vacio.ClientID%>").hide();
             $("#<%= label_usuario_vacio.ClientID%>").hide();
+            $("#<%= label_proyecto_vacio.ClientID%>").hide();
+            $("#<%= label_rol_vacio.ClientID%>").hide();
 
             // Validacion de la cedula:
             $("#<%= input_cedula.ClientID %>").blur(function () {
@@ -401,6 +406,29 @@
                     $("#<%= label_usuario_vacio.ClientID%>").hide();
                 }
             });
+
+            //Validacion de proyecto seleccionado
+            $("#<%= drop_proyecto_asociado.ClientID %>").blur(function () {
+                var proyecto_ingresado = new String();
+                proyecto_ingresado = $("#<%= drop_proyecto_asociado.ClientID%>").val();
+                if (proyecto_ingresado == "") {
+                    $("#<%= label_proyecto_vacio.ClientID%>").show();
+                } else {
+                    $("#<%= label_proyecto_vacio.ClientID%>").hide();
+                }
+            });
+
+            //Validacion de rol seleccionado
+            $("#<%= drop_rol.ClientID %>").blur(function () {
+                var rol_ingresado = new String();
+                rol_ingresado = $("#<%= drop_rol.ClientID%>").val();
+                if (rol_ingresado == "") {
+                    $("#<%= label_rol_vacio.ClientID%>").show();
+                } else {
+                    $("#<%= label_rol_vacio.ClientID%>").hide();
+                }
+            });
+            
         });
     </script>
 </asp:Content>

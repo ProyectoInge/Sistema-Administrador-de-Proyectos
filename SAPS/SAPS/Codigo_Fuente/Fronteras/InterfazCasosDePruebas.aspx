@@ -156,12 +156,6 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <asp:Label runat="server" ID="label_entradas_resultado" AssociatedControlID="input_entradas_resultado" CssClass="control-label">Resultado esperado</asp:Label>
-                                    <asp:TextBox runat="server" ID="input_entradas_resultado" CssClass="form-control" Rows="2" Style="resize: none" TextMode="multiline"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
                                     <div class="btn-group" role="group">
                                         <asp:Button runat="server" ID="btn_agregar_entrada" CssClass="btn btn-link" Text="Agregar" />
                                         <asp:Button runat="server" CssClass="btn btn-link" ID="btn_entradas_eliminar" Text="Eliminar" />
@@ -173,6 +167,13 @@
                                     <asp:Label runat="server" ID="label_entradas_disponibles" CssClass="control-label" AssociatedControlID="drop_entradas_disponibles">Entradas disponibles</asp:Label>
                                     <asp:DropDownList runat="server" ID="drop_entradas_disponibles" CssClass="form-control">
                                     </asp:DropDownList>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <asp:Label runat="server" ID="label_entradas_resultado" AssociatedControlID="input_entradas_resultado" CssClass="control-label">Resultado esperado</asp:Label>
+                                    <asp:TextBox runat="server" ID="input_entradas_resultado" CssClass="form-control" Rows="2" Style="resize: none" TextMode="multiline"></asp:TextBox>
                                 </div>
                             </div>
                         </div>

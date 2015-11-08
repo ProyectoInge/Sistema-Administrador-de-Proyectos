@@ -17,7 +17,7 @@
                                 <hr />
                                 <section id="alertas">
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-10 col-lg-offset-1">
                                             <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -27,19 +27,21 @@
                                     </div>
                                 </section>
                                 <div id="row2" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12">
+                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12 col-lg-6 col-lg-offset-3">
                                         <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" placeholder="Nombre de usuario"></asp:TextBox>
+                                        <asp:Label runat="server" ID="label_usuario_vacio" CssClass="text-danger"><small>Tiene que ingresar un usuario.</small></asp:Label>
                                     </div>
                                 </div>
                                 <div id="row3" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12">
+                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12  col-lg-6 col-lg-offset-3">
                                         <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" placeholder="Contraseña"></asp:TextBox>
+                                        <asp:Label runat="server" ID="label_contrasena_vacia" CssClass="text-danger"><small>Tiene que ingresar una contraseña.</small></asp:Label>
                                     </div>
                                 </div>
                                 <div id="row4" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12">
+                                    <div class="col-md-10 col-md-offset-1 col-sm-8 col-sm-offset-2 col-xs-12  col-lg-6 col-lg-offset-3">
                                         <div class="checkbox">
-                                            <asp:CheckBox runat="server" ID="checkbox_recordarme" Text="Recordar mis datos" Checked="true"/>
+                                            <asp:CheckBox runat="server" ID="checkbox_recordarme" Text="Recordar mis datos" Checked="true" />
                                         </div>
                                     </div>
                                 </div>
@@ -53,4 +55,51 @@
             </div>
         </section>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#<%= label_usuario_vacio.ClientID%>").hide();
+            $("#<%= label_contrasena_vacia.ClientID%>").hide();
+
+            //Validacion del usuario
+            $("#<%= input_usuario.ClientID%>").blur(function () {
+                var nombre_ingresado = $("#<%= input_usuario.ClientID %>").val();
+                if (nombre_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_usuario_vacio.ClientID %>").show();
+                } else {
+                    $("#<%= label_usuario_vacio.ClientID %>").hide();
+                }
+            });
+
+            //Validacion del nombre
+            $("#<%= input_contrasena.ClientID%>").blur(function () {
+                var nombre_ingresado = $("#<%= input_contrasena.ClientID %>").val();
+                if (nombre_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_contrasena_vacia.ClientID %>").show();
+                } else {
+                    $("#<%= label_contrasena_vacia.ClientID %>").hide();
+                }
+            });
+
+            $("#<%= btn_login.ClientID %>").click(function () {
+                var usuario_ingresado = $("#<%= input_usuario.ClientID %>").val();
+                var contrasena_ingresada = $("#<%= input_contrasena.ClientID %>").val();
+                if (usuario_ingresado != "") {
+                    $("#<%= label_usuario_vacio.ClientID %>").hide();
+                    if (contrasena_ingresada != "") {
+                        $("#<%= label_contrasena_vacia.ClientID %>").hide();
+                    } else {
+                        $("#<%= label_contrasena_vacia.ClientID %>").show();
+                        $("#<%= input_contrasena.ClientID %>").focus();
+                        return false; // Esto previene que realice el PostBack
+                    }
+                } else {
+                    $("#<%= label_usuario_vacio.ClientID %>").show();
+                    $("#<%= input_usuario.ClientID %>").focus();
+                    return false; // Esto previene que realice el PostBack
+                }
+            });
+
+
+        });
+    </script>
 </asp:Content>

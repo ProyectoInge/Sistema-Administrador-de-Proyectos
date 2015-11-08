@@ -1,11 +1,6 @@
 ﻿<%@ Page Title="Requerimientos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRequerimientos.aspx.cs" Inherits="SAPS.Fronteras.InterfazRequerimientos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
-    $(document).ready(function () {
-        $("#btn_req").addClass("active");
-    });
-    </script>
     <section id="page_header">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -72,7 +67,7 @@
                                 </div>
                                 <div class="col-md-5">
                                     <asp:TextBox runat="server" CssClass="form-control" ID="input_criterio_aceptacion" Rows="3" Style="resize: none" TextMode="multiline"></asp:TextBox>
-                                    <asp:Label runat="server" ID="label_criterio_vacio" CssClass="text-danger"><small>Tiene que ingresar criterios de aceptación.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_criterio_vacio" CssClass="text-danger"><small>Tiene que ingresar los criterios de aceptación.</small></asp:Label>
                                 </div>
                             </div>
                         </div>
@@ -89,10 +84,10 @@
     <br />
     <section id="botones_aceptar_cancelar">
         <div class="row">
-            <div class="col-md-2 col-md-offset-1">
-                <asp:Button runat="server" CssClass="btn btn-link" ID="btn_Regresar" Text="Regresar" OnClick="btn_Regresar_Click" />
+            <div class="col-md-3 col-md-offset-1">
+                <asp:Button runat="server" CssClass="btn btn-link" ID="btn_Regresar" Text="Ir a diseños" OnClick="btn_Regresar_Click" />
             </div>
-            <div class="col-md-3 col-md-offset-6">
+            <div class="col-md-3 col-md-offset-5">
                 <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
                 <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
             </div>
@@ -127,7 +122,7 @@
 
 
             // Validacion del nombre
-            $("#<%= input_nombre_requerimiento.ClientID %>").blur(function () {
+            $("#<%= input_nombre_requerimiento.ClientID %>").blur(function valida_nombre() {
                 var nombre_ingresado = $("#<%= input_nombre_requerimiento.ClientID %>").val();
                 if (nombre_ingresado == "") {
                     $("#<%= label_nombre_vacio.ClientID %>").show();
@@ -136,13 +131,32 @@
                 }
             });
 
-            // Validacion del creiterio
-            $("#<%= input_criterio_aceptacion.ClientID %>").blur(function () {
+            // Validacion del criterio
+            $("#<%= input_criterio_aceptacion.ClientID %>").blur(function valida_requerimiento() {
                 var criterio_ingresado = $("#<%= input_criterio_aceptacion.ClientID %>").val();
                 if (criterio_ingresado == "") {
                     $("#<%= label_criterio_vacio.ClientID %>").show();
                 } else {
                     $("#<%= label_criterio_vacio.ClientID %>").hide();
+                }
+            });
+
+            $("#<%= btn_Aceptar.ClientID %>").click(function () {
+                var criterio_ingresado = $("#<%= input_criterio_aceptacion.ClientID %>").val();
+                var nombre_ingresado = $("#<%= input_nombre_requerimiento.ClientID %>").val();
+                if (nombre_ingresado != "") {
+                    $("#<%= label_nombre_vacio.ClientID %>").hide();
+                    if (criterio_ingresado != "") {
+                        $("#<%= label_criterio_vacio.ClientID %>").hide();
+                    } else {
+                        $("#<%= label_criterio_vacio.ClientID %>").show();
+                        $("#<%= input_criterio_aceptacion.ClientID %>").focus();
+                        return false; // Esto previene que realice el PostBack
+                    }
+                } else {
+                    $("#<%= label_nombre_vacio.ClientID %>").show();
+                    $("#<%= input_nombre_requerimiento.ClientID %>").focus();
+                    return false; // Esto previene que realice el PostBack
                 }
             });
         });

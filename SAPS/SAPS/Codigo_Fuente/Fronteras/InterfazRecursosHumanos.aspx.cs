@@ -44,8 +44,16 @@ namespace SAPS.Fronteras
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
-                drop_proyecto_asociado.Enabled = false;
-                drop_rol.Enabled = false;
+                if (radio_btn_miembro.Checked)
+                {
+                    drop_proyecto_asociado.Enabled = true;
+                    drop_rol.Enabled = true;
+                }
+                else
+                {
+                    drop_proyecto_asociado.Enabled = false;
+                    drop_rol.Enabled = false;
+                }
                 activa_desactiva_botones_ime(false);
                 mensaje_error_modal.Visible = false;
                 mensaje_exito_modal.Visible = false;
@@ -330,7 +338,8 @@ namespace SAPS.Fronteras
             m_tamano_tabla_pdp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             ListItem primer_item = new ListItem();
-            primer_item.Text = "";
+            primer_item.Selected = false;
+            primer_item.Text = "Elija un proyecto";
             primer_item.Value = "";
             drop_proyecto_asociado.Items.Add(primer_item);
             for (int i = 0; i < m_tamano_tabla_pdp; ++i)
@@ -457,7 +466,7 @@ namespace SAPS.Fronteras
                 else
                     m_tabla_recursos_disponibles[i, 0] = Context.User.Identity.Name;
                 m_tabla_recursos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
-                btn.ID = "btn_lista_" + i.ToString();
+                btn.ID = tabla_de_datos.Rows[i]["username"].ToString();
                 btn.Text = m_tabla_recursos_disponibles[i, 1];
                 btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_rh_click);
@@ -645,8 +654,24 @@ namespace SAPS.Fronteras
                                                 if (radio_btn_miembro.Checked == true)
                                                 {
                                                     datos[6] = false; //no es admi
-                                                    datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
-                                                    datos[8] = drop_rol.SelectedItem.Text;
+                                                    if (drop_proyecto_asociado.SelectedItem.Value != "")
+                                                    {
+                                                        datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
+                                                    }
+                                                    else
+                                                    {
+                                                        cuerpo_alerta_error.Text = " Debe seleccionar un proyecto al que desea asociar un usuario.";
+                                                        return false;
+                                                    }// Validación del proyecto.
+                                                    if (drop_rol.SelectedItem.Value != "")
+                                                    {
+                                                        datos[8] = drop_rol.SelectedItem.Text;
+                                                    }
+                                                    else
+                                                    {
+                                                        cuerpo_alerta_error.Text = " No se seleccionó ningún rol para el usuario.";
+                                                        return false;
+                                                    }// Validacion del rol
                                                 }
                                                 else
                                                 {
@@ -683,8 +708,24 @@ namespace SAPS.Fronteras
                                                     if (radio_btn_miembro.Checked == true)
                                                     {
                                                         datos[6] = false; //no es admi
-                                                        datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
-                                                        datos[8] = drop_rol.SelectedItem.Text;
+                                                        if (drop_proyecto_asociado.SelectedItem.Value != "")
+                                                        {
+                                                            datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
+                                                        }
+                                                        else
+                                                        {
+                                                            cuerpo_alerta_error.Text = " Debe seleccionar un proyecto al que desea asociar un usuario.";
+                                                            return false;
+                                                        }// Validación del proyecto.
+                                                        if (drop_rol.SelectedItem.Value != "")
+                                                        {
+                                                            datos[8] = drop_rol.SelectedItem.Text;
+                                                        }
+                                                        else
+                                                        {
+                                                            cuerpo_alerta_error.Text = " No se seleccionó ningún rol para el usuario.";
+                                                            return false;
+                                                        }// Validacion del rol
                                                     }
                                                     else
                                                     {

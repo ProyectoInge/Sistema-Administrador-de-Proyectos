@@ -21,13 +21,15 @@ body {
 .barra-default {
     background-size: cover;
     background: #5682a3;
-    padding-top: 40px;
-    padding-bottom: 40px;
     margin-left: -15px;
     margin-right: -15px;
     height: 100vh; /*Para que tenga el alto de la pantalla.*/
 }
 
+.contenido-default{
+    height:70vh;
+    margin-bottom:-2vh;
+}
 .default-header {
     background-size: cover;
     background-color: #5682a3;
@@ -64,8 +66,8 @@ body {
 }
 
 .titulo-default {
-    margin-top: -500px;
-    margin-bottom: 400px;
+    margin-top: -75vh;
+    height:100vh;
     color: white;
 }
 

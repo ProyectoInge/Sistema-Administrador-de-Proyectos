@@ -17,7 +17,7 @@
                                 <hr />
                                 <section id="alertas">
                                     <div class="form-group">
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 col-lg-10 col-lg-offset-1">
                                             <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -32,22 +32,22 @@
                                     </div>
                                 </section>
                                 <div id="row2" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1">
+                                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                                         <p>Para poder cerrar su sesión activa, es necesario que se valide como usuario del sistema. Por favor ingrese sus datos de autenticación.</p>
                                     </div>
                                 </div>
                                 <div id="row3" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1">
+                                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                                         <asp:TextBox runat="server" ID="input_usuario" CssClass="form-control" placeholder="Nombre de usuario"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div id="row4" class="form-group">
-                                    <div class="col-md-10 col-md-offset-1">
+                                    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                                         <asp:TextBox runat="server" ID="input_contrasena" CssClass="form-control" TextMode="Password" placeholder="Contraseña"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div id="row5" class="form-group">
-                                    <div class="col-md-2 col-md-offset-8">
+                                    <div class="col-md-2 col-md-offset-8 col-lg-2 col-lg-offset-8">
                                         <asp:Button runat="server" ID="btn_regresar" CssClass="btn btn-link" Style="color:darkgray" Text="Regresar" OnClick="btn_regresar_Click" />
                                     </div>
                                 </div>

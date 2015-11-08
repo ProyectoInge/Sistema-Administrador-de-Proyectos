@@ -1,15 +1,22 @@
 ﻿<%@ Page Title="Home" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SAPS._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
+    $(document).ready(function () {
+        $("#btn_home").addClass("active");
+    });
+    </script>
     <div class="barra-default">
     </div>
     <div class="row titulo-default">
-        <div class="col-md-9 col-md-offset-1 col-sm-9 col-sm-offset-1 col-lg-7 col-lg-offset-1">
-            <h1 style="font-size:60px">SAPS es su herramienta para administrar proyectos de software.</h1>
+        <div class="col-md-9 col-md-offset-1 col-sm-9 col-sm-offset-1 col-lg-5 col-lg-offset-2">
+            <div class="hvr-grow">
+                <h1 style="font-size: 60px">SAPS es su herramienta para administrar proyectos de software.</h1>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-10 col-lg-offset-1">
+    <div class="row contenido-default">
+        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
             <div class="form-horizontal">
                 <div class="form-group ">
                     <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 hvr-float">
@@ -21,13 +28,13 @@
                         <a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx" class="btn btn-primary">Recursos humanos &raquo;</a>
                     </div>
                     <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 hvr-float">
-                        <h3>Proyectos de prueba</h3>
-                        <hr />
-                        <p>
-                            En esta sección podrá encontrar información a cerca de todos los proyectos que se encuentran en el sistema. Podrá consultar, modificar y eliminar los proyectos dependiendo de sus permisos. 
-                        </p>
-                        <a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx" class="btn btn-primary">Proyectos de prueba &raquo;</a>
-                    </div>
+                            <h3>Proyectos de prueba</h3>
+                            <hr />
+                            <p>
+                                En esta sección podrá encontrar información a cerca de todos los proyectos que se encuentran en el sistema. Podrá consultar, modificar y eliminar los proyectos dependiendo de sus permisos. 
+                            </p>
+                            <a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazProyectosDePruebas.aspx" class="btn btn-primary">Proyectos de prueba &raquo;</a>
+                        </div>
                     <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 hvr-float">
                         <h3>Diseños de prueba</h3>
                         <hr />

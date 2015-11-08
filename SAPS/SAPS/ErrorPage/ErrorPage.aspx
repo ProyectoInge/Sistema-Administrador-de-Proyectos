@@ -5,12 +5,12 @@
     <div style="margin-top: -100px">
         <section id="mensaje_error">
             <div class="row">
-                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12 col-sm-12 col-lg-12">
                                         <h2>Error :( <small>sentimos el inconveniente</small></h2>
                                     </div>
                                 </div>

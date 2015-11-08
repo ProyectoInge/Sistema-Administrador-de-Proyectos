@@ -238,6 +238,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.DropDownList drop_proyecto_asociado;
         
         /// <summary>
+        /// label_proyecto_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_proyecto_vacio;
+        
+        /// <summary>
         /// drop_rol control.
         /// </summary>
         /// <remarks>
@@ -245,6 +254,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drop_rol;
+        
+        /// <summary>
+        /// label_rol_vacio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_rol_vacio;
         
         /// <summary>
         /// input_usuario control.

@@ -229,24 +229,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.DropDownList drop_entradas_estado;
         
         /// <summary>
-        /// label_entradas_resultado control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_entradas_resultado;
-        
-        /// <summary>
-        /// input_entradas_resultado control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox input_entradas_resultado;
-        
-        /// <summary>
         /// btn_agregar_entrada control.
         /// </summary>
         /// <remarks>
@@ -281,6 +263,24 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drop_entradas_disponibles;
+        
+        /// <summary>
+        /// label_entradas_resultado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_entradas_resultado;
+        
+        /// <summary>
+        /// input_entradas_resultado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox input_entradas_resultado;
         
         /// <summary>
         /// btn_Aceptar control.
