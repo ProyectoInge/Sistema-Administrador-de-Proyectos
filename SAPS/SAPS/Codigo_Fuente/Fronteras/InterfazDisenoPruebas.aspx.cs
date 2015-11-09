@@ -316,7 +316,7 @@ namespace SAPS.Fronteras
                 Button btn = new Button();
                 btn.ID = "btn_lista_disponibles_" + i.ToString();
                 btn.Text = m_tabla_requerimientos_disponibles[i].Item1;
-                btn.CssClass = "btn btn-link";
+                btn.CssClass = "btn btn-link btn-block";
                 btn.Click += new EventHandler(btn_lista_req_click_asociar);
                 celda_boton.Text = Convert.ToString(m_tabla_requerimientos_disponibles[i]);
                 celda_boton.Controls.AddAt(0, btn);
@@ -330,7 +330,7 @@ namespace SAPS.Fronteras
                 Button btn = new Button();
                 btn.ID = "btn_lista_asociados_" + i.ToString();
                 btn.Text = m_tabla_requerimientos_seleccionados[i].Item1;
-                btn.CssClass = "btn btn-link";
+                btn.CssClass = "btn btn-link btn-block";
                 btn.Click += new EventHandler(btn_lista_req_click_asociar);
                 celda_boton.Text = Convert.ToString(m_tabla_requerimientos_seleccionados[i]);
                 celda_boton.Controls.AddAt(0, btn);

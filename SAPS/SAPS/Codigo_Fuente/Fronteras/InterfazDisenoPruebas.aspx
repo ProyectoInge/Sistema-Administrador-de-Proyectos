@@ -56,14 +56,14 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
-                            <div id="row1_izq" class="form-group">
+                            <div id="row1" class="form-group">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-5">
                                             <asp:Label runat="server" ID="label_proyecto" CssClass="control-label" AssociatedControlID="drop_proyecto">Proyecto de prueba <span class="text-danger">*</span></asp:Label>
                                         </div>
                                         <div class="col-md-7">
-                                            <asp:DropDownList runat="server" ID="drop_proyecto" CssClass="form-control" OnSelectedIndexChanged ="drop_proyecto_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                            <asp:DropDownList runat="server" ID="drop_proyecto" CssClass="form-control" OnSelectedIndexChanged="drop_proyecto_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_proyecto" CssClass="text-danger"><small>Debe seleccionar un proyecto.</small></asp:Label>
                                         </div>
                                     </div>
@@ -82,10 +82,17 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div id="row2.5" class="form-group">
+                            <div id="row3" class="form-group">
                                 <div class="col-md-5">
-                                    <div class="row">
+                                    <asp:Label runat="server" AssociatedControlID="tabla_disponibles" CssClass="control-label" Text="Requerimientos disponibles"></asp:Label>
+                                </div>
+                                <div class="col-md-5 col-md-offset-2">
+                                    <asp:Label runat="server" AssociatedControlID="tabla_agregados" CssClass="control-label" Text="Requerimientos seleccionados"></asp:Label>
+                                </div>
+                            </div>
+                            <div id="row4" class="form-group">
+                                <div class="col-md-5">
+                                    <div class="form-group">
                                         <div class="col-md-10 col-md-offset-1" style="height: 150px; overflow-y: scroll">
                                             <asp:Table runat="server" ID="tabla_disponibles" CssClass="table table-hover form-group">
                                                 <asp:TableHeaderRow runat="server" ID="tabla_disponibles_header">
@@ -103,7 +110,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <div class="row">
+                                    <div class="form-group">
                                         <div class="col-md-10 col-md-offset-1" style="height: 150px; overflow-y: scroll">
                                             <asp:Table runat="server" ID="tabla_agregados" CssClass="table table-hover form-group">
                                                 <asp:TableHeaderRow runat="server" ID="tabla_asociados_header">
@@ -113,12 +120,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="row2.7" class="form-group">
+                            <div id="row5" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Button runat="server" CssClass="btn btn-link btn-sm" Text="¿Desea administrar los requerimientos?" ID="btn_admi_requerimientos" OnClick="btn_admi_requerimientos_Click" />
                                 </div>
                             </div>
-                            <div id="row3" class="form-group">
+                            <div id="row6" class="form-group">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-5">
@@ -153,7 +160,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="row4" class="form-group">
+                            <div id="row7" class="form-group">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-5">
@@ -165,7 +172,7 @@
                                                 <asp:ListItem runat="server" ID="funcional" Text="Funcional"></asp:ListItem>
                                                 <asp:ListItem runat="server" ID="interfaz" Text="Interfaz de usuario"></asp:ListItem>
                                                 <asp:ListItem runat="server" ID="rendimiento" Text="Rendimiento"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="stress" Text="Stress"></asp:ListItem>                                                
+                                                <asp:ListItem runat="server" ID="stress" Text="Stress"></asp:ListItem>
                                                 <asp:ListItem runat="server" ID="volumen" Text="Volumen"></asp:ListItem>
                                                 <asp:ListItem runat="server" ID="configuracion" Text="Configuración"></asp:ListItem>
                                                 <asp:ListItem runat="server" ID="instalacion" Text="Instalación"></asp:ListItem>
@@ -185,15 +192,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                           
-                            <div id="row6" class="form-group">
+                            </div>
+                            <div id="row8" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="label_procedimiento" CssClass="control-label" AssociatedControlID="input_procedimiento">Procedimiento: <span class="text-danger">*</span></asp:Label>
                                     <asp:TextBox ID="input_procedimiento" runat="server" CssClass="form-control" Rows="3" TextMode="MultiLine" Style="resize: none"></asp:TextBox>
                                     <asp:Label runat="server" ID="label_error_procedimiento" CssClass="text-danger"><small>Debe ingresar un procedimiento de pruebas.</small></asp:Label>
                                 </div>
                             </div>
-                            <div id="row7" class="form-group">
+                            <div id="row9" class="form-group">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="col-md-5">
@@ -223,7 +230,7 @@
             </div>
         </div>
     </div>
-        <div class="row">
+    <div class="row">
         <div class="col-md-3 col-md-offset-9">
             <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
         </div>
@@ -232,8 +239,8 @@
     <section id="botones_aceptar_cancelar">
         <div class="row">
             <div class="col-md-3 col-md-offset-9">
-                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click"/>
-                <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar"/>
+                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
+                <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" />
             </div>
         </div>
     </section>
@@ -288,7 +295,7 @@
                 }
             });
 
-            
+
             //Validacion de la fecha
             $("#<%= input_fecha.ClientID %>").blur(function () {
                 var input_fecha = $("#<%= input_fecha.ClientID %>").val();
