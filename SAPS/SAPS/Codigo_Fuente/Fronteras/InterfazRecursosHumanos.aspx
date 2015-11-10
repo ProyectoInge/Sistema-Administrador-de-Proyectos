@@ -139,7 +139,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <asp:DropDownList ID="drop_rol" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="Elija un rol" Value="" Selected="False"></asp:ListItem>
+                                        <asp:ListItem Text="-Seleccione un rol-" Value="" Selected="False"></asp:ListItem>
                                         <asp:ListItem Text="Lider" Value="Lider"></asp:ListItem>
                                         <asp:ListItem Text="Usuario" Value="Usuario"></asp:ListItem>
                                         <asp:ListItem Text="Tester" Value="Tester"></asp:ListItem>

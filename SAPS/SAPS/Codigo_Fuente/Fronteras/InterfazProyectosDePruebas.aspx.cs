@@ -53,7 +53,7 @@ namespace SAPS.Fronteras
                 input_phone1.Enabled = false;
                 input_phone2.Enabled = false;
                 mensaje_error_modal.Visible = false;
-                mensaje_exito_modal.Visible = false;
+                mensaje_exito_modal.Visible = false;                
                 // Se llenan las tablas y comboBox
                 //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
                 if (!IsPostBack)
@@ -263,7 +263,7 @@ namespace SAPS.Fronteras
          * @param Los parametros por default de un evento de C#.
         */
         protected void drop_oficina_asociada_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {            
             int id_oficina_elegida = Convert.ToInt32(((DropDownList)sender).SelectedValue); // Agarra el item seleccionado del dropdown
             llena_campos_oficina(id_oficina_elegida);
         }
@@ -310,7 +310,7 @@ namespace SAPS.Fronteras
             input_phone1.Text = Convert.ToString(datos_oficina.Rows[0]["telefono"]);
             input_phone2.Text = Convert.ToString(datos_oficina.Rows[0]["telefono2"]);
             // Seleccionar el nombre de la oficina en el dropbox
-            string nombre_oficina = Convert.ToString(datos_oficina.Rows[0]["nombre_oficina"]);
+            string nombre_oficina = Convert.ToString(datos_oficina.Rows[0]["nombre_oficina"]);            
             drop_oficina_asociada.ClearSelection();
             drop_oficina_asociada.Items.FindByText(nombre_oficina).Selected = true; // Selecciona la oficina correspondiente
         }
@@ -369,7 +369,7 @@ namespace SAPS.Fronteras
             m_tamano_tabla_oficinas = tabla_oficinas.Rows.Count;
             m_tabla_oficinas_disponibles = new Object[m_tamano_tabla_oficinas, 3];
             ListItem primer_item = new ListItem();
-            primer_item.Text = "";
+            primer_item.Text = "-Seleccione una oficina-";
             primer_item.Value = "";
             drop_oficina_asociada.Items.Add(primer_item);
             for (int i = 0; i < m_tamano_tabla_oficinas; ++i)

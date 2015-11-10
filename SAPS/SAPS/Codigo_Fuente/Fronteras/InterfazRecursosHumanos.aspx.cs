@@ -347,7 +347,7 @@ namespace SAPS.Fronteras
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             ListItem primer_item = new ListItem();
             primer_item.Selected = false;
-            primer_item.Text = "Elija un proyecto";
+            primer_item.Text = "-Seleccione un proyecto-";
             primer_item.Value = "";
             drop_proyecto_asociado.Items.Add(primer_item);
             for (int i = 0; i < m_tamano_tabla_pdp; ++i)
