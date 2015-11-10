@@ -34,7 +34,7 @@ namespace SAPS.Controladoras
                    para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
             | Índice |       Descripción       | Tipo de datos |
             |:------:|:-----------------------:|:-------------:|
-            |    0   |   ID del requerimiento  |       int     |
+            |    0   |   ID del requerimiento  |     String    |
             |    1   |         Nombre          |     String    |
             |    2   | Criterios de aceptación |     String    |
 
@@ -53,7 +53,7 @@ namespace SAPS.Controladoras
                    para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
             | Índice |       Descripción       | Tipo de datos |
             |:------:|:-----------------------:|:-------------:|
-            |    0   |   ID del requerimiento  |       int     |
+            |    0   |   ID del requerimiento  |     String    |
             |    1   |         Nombre          |     String    |
             |    2   | Criterios de aceptación |     String    |
 
@@ -61,7 +61,7 @@ namespace SAPS.Controladoras
          */
         public int modificar_requerimiento(Object[] datos)
         {
-            if (!existe_requerimiento(Convert.ToInt32(datos[0])) && datos.Length != 3) //Verifica que el requerimiento exista
+            if (!existe_requerimiento(Convert.ToString(datos[0])) && datos.Length != 3) //Verifica que el requerimiento exista
                 return -1;
             Requerimiento requerimiento = new Requerimiento(datos);
             return m_base_datos.modificar_requerimiento(requerimiento);
@@ -71,7 +71,7 @@ namespace SAPS.Controladoras
          * @param id del requerimiento a eliminar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int eliminar_requerimiento(int id_requerimiento)
+        public int eliminar_requerimiento(string id_requerimiento)
         {
             if (!existe_requerimiento(id_requerimiento))
                 return -1;
@@ -82,7 +82,7 @@ namespace SAPS.Controladoras
          * @param id del requerimiento a consultar.
          * @return DataTable con los resultados de la consulta.
          */
-        public DataTable consultar_requerimiento(int id_requerimiento)
+        public DataTable consultar_requerimiento(string id_requerimiento)
         {
             return m_base_datos.consultar_requerimiento(id_requerimiento);
         }
@@ -101,7 +101,7 @@ namespace SAPS.Controladoras
             | Índice |        Descripción       | Tipo de datos |
             |:------:|:------------------------:|:-------------:|
             |   0    |     ID del diseño        |       int     |
-            |   1    |  ID del requerimiento    |       int     |
+            |   1    |  ID del requerimiento    |     String    |
             |   2    |        Propósito         |     String    |
             |   3    |      Procedimiento       |     String    |
 
@@ -109,7 +109,7 @@ namespace SAPS.Controladoras
         */
         public int asociar_requerimiento(Object[] datos)
         {
-            if (existe_requerimiento(Convert.ToInt32(datos[1])) && datos.Length != 5) //Verifica que el requerimiento exista
+            if (existe_requerimiento(Convert.ToString(datos[1])) && datos.Length != 5) //Verifica que el requerimiento exista
                 return m_base_datos.asociar_requerimiento(datos);
             return -1;
         }
@@ -118,13 +118,13 @@ namespace SAPS.Controladoras
          * @param El identificador del requerimiento que se quiere verificar si existe.
          * @return True si el requerimiento está en la base, False si no.
         */
-        private bool existe_requerimiento(int id_requerimiento)
+        public bool existe_requerimiento(string id_requerimiento)
         {
             DataTable resultado = solicitar_requerimientos_disponibles();
             int cant_filas = resultado.Rows.Count;
             for (int i = 0; i < cant_filas; ++i)
             {
-                if (Convert.ToInt32(resultado.Rows[i]["id_requerimiento"]) == id_requerimiento)
+                if (Convert.ToString(resultado.Rows[i]["id_requerimiento"]) == id_requerimiento)
                     return true;
             }
             return false;

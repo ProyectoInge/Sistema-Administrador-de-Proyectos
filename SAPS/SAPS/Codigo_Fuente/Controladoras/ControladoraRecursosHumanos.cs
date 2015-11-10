@@ -159,5 +159,23 @@ namespace SAPS.Controladoras
             return m_base_datos.es_administrador(nombre_usuario);
         }
 
+        /** @brief Metodo que revisa si el nombre de usuario ya esta siendo utilizado en el sistema.
+         * @param El nombre de usuario que se desea verificar.
+         * @return True si ya existe, False si no.
+        */
+        public bool existe_usuario(string nombre_usuario)
+        {
+            bool a_retornar = false;
+            DataTable usuarios_disponibles = m_base_datos.solicitar_recursos_disponibles();
+            int index = 0;
+            while (!a_retornar && index < usuarios_disponibles.Rows.Count)
+            {
+                if (Convert.ToString(usuarios_disponibles.Rows[index]["username"]) == nombre_usuario)
+                    a_retornar = true;
+                ++index;
+            }
+            return a_retornar;
+        }
+
     }
 }
