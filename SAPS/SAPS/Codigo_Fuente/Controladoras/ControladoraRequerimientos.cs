@@ -118,7 +118,7 @@ namespace SAPS.Controladoras
          * @param El identificador del requerimiento que se quiere verificar si existe.
          * @return True si el requerimiento está en la base, False si no.
         */
-        private bool existe_requerimiento(string id_requerimiento)
+        public bool existe_requerimiento(string id_requerimiento)
         {
             DataTable resultado = solicitar_requerimientos_disponibles();
             int cant_filas = resultado.Rows.Count;

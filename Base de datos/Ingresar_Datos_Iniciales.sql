@@ -10,8 +10,6 @@ execute INSERTAR_RH 'monical.94',	'1-1571-0088',	NULL,	'86793013',	'Monica Calde
 execute INSERTAR_RH 'ramon',		'1-1111-1111',	NULL,	'22602556',	'Don Ramon',		'o+QvU/qB+AAai7Xrv4gsL/lg4+9aWXDpH4R9Kjk+qdiQqiBU',	'ramon@vecindad.com',			NULL,	1
 execute INSERTAR_RH 'sabogol',		'3-2211-4455',	NULL,	'88771122',	'Alvaro Saborio',	'uBuAwDV6kMIg955nFxRx0xw7wkm9eTSWUK1fODqRTWmyVJ9+',	'sabo@sele.com',				NULL,	1
 execute INSERTAR_RH 'slyjose',		'1-1549-0003',	NULL,	'87107648',	'Jose Ureña',		'pm2Gz+4j7brvixNVxbuiA8dGJqRscqDXWPualhW551BNE4HV',	'jpurena14@hotmail.com',		NULL,	1
-execute INSERTAR_RH 'usuario',		'1-1111-1111',  2,		'22780989', 'Usuario',			'CZPDpurUqsbm0QLlCtDOxqCtgd5b+sUh0+X5R6DmxrK+eg9F', 'usuario@usuario.com',		'Usuario',	0
-execute INSERTAR_RH 'kefds',		'1-115580434',  1,		'77777777',	'Kevin Delgado',	'4/bVsJ4mkhdoK6vOu3M5dN60TnhFNGqBtu43Yt1P2co8lgGL',	'kremlin@urss.ru',				'Usuario',	0
 
 select * from Oficina
 INSERT INTO Oficina VALUES ('Oficina1', '25110000','25112355','Vladimir Rodríguez')
@@ -24,6 +22,9 @@ select * from ProyectoPruebas
 execute INSERTAR_PYP 9898, 1, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'Proyecto 1', 'Asignado'
 execute INSERTAR_PYP 9898, 2, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'Proyecto 2', 'Asignado'
 execute INSERTAR_PYP 9898, 3, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'Proyecto 3', 'Asignado'
+
+execute INSERTAR_RH 'usuario',		'1-1111-1111',  2,		'22780989', 'Usuario',			'CZPDpurUqsbm0QLlCtDOxqCtgd5b+sUh0+X5R6DmxrK+eg9F', 'usuario@usuario.com',		'Usuario',	0
+execute INSERTAR_RH 'kefds',		'1-115580434',  1,		'77777777',	'Kevin Delgado',	'4/bVsJ4mkhdoK6vOu3M5dN60TnhFNGqBtu43Yt1P2co8lgGL',	'kremlin@urss.ru',				'Usuario',	0
 
 select * from DisenoPrueba
 execute INSERTAR_DP 0, 1, 'Diseño 1', '09-12-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'

@@ -709,64 +709,74 @@ namespace SAPS.Fronteras
                                             }
                                             else
                                             {
-                                                if (input_contrasena.Text != "")
+                                                if (!m_controladora_rh.existe_usuario(input_usuario.Text))
                                                 {
-                                                    Object[] datos = new Object[9];
-                                                    datos[0] = input_usuario.Text;
-                                                    datos[1] = input_name.Text;
-                                                    datos[2] = input_correo.Text;
-                                                    datos[3] = input_telefono.Text;
-                                                    datos[5] = input_contrasena.Text;
-                                                    datos[7] = input_cedula.Text;
-                                                    if (radio_btn_miembro.Checked == true)
-                                                    {
-                                                        datos[6] = false; //no es admi
-                                                        if (drop_proyecto_asociado.SelectedItem.Value != "")
-                                                        {
-                                                            datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
-                                                        }
-                                                        else
-                                                        {
-                                                            cuerpo_alerta_error.Text = " Debe seleccionar un proyecto al que desea asociar un usuario.";
-                                                            return false;
-                                                        }// Validación del proyecto.
-                                                        if (drop_rol.SelectedItem.Value != "")
-                                                        {
-                                                            datos[8] = drop_rol.SelectedItem.Text;
-                                                        }
-                                                        else
-                                                        {
-                                                            cuerpo_alerta_error.Text = " No se seleccionó ningún rol para el usuario.";
-                                                            return false;
-                                                        }// Validacion del rol
-                                                    }
-                                                    else
-                                                    {
-                                                        datos[6] = true; //es admi
-                                                        datos[4] = "";  //es admi entonces no tiene proyecto asociado
-                                                        datos[8] = "";  //es admi entonces no tiene un rol asociado
-                                                    }
 
-                                                    int resultado = m_controladora_rh.insertar_recurso_humano(datos);
-                                                    if (resultado == 0)
+                                                    if (input_contrasena.Text != "")
                                                     {
-                                                        cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
-                                                        actualiza_tabla_recursos_humanos();
-                                                        btn_modificar.Enabled = true;
-                                                        a_retornar = true;
+                                                        Object[] datos = new Object[9];
+                                                        datos[0] = input_usuario.Text;
+                                                        datos[1] = input_name.Text;
+                                                        datos[2] = input_correo.Text;
+                                                        datos[3] = input_telefono.Text;
+                                                        datos[5] = input_contrasena.Text;
+                                                        datos[7] = input_cedula.Text;
+                                                        if (radio_btn_miembro.Checked == true)
+                                                        {
+                                                            datos[6] = false; //no es admi
+                                                            if (drop_proyecto_asociado.SelectedItem.Value != "")
+                                                            {
+                                                                datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
+                                                            }
+                                                            else
+                                                            {
+                                                                cuerpo_alerta_error.Text = " Debe seleccionar un proyecto al que desea asociar un usuario.";
+                                                                return false;
+                                                            }// Validación del proyecto.
+                                                            if (drop_rol.SelectedItem.Value != "")
+                                                            {
+                                                                datos[8] = drop_rol.SelectedItem.Text;
+                                                            }
+                                                            else
+                                                            {
+                                                                cuerpo_alerta_error.Text = " No se seleccionó ningún rol para el usuario.";
+                                                                return false;
+                                                            }// Validacion del rol
+                                                        }
+                                                        else
+                                                        {
+                                                            datos[6] = true; //es admi
+                                                            datos[4] = "";  //es admi entonces no tiene proyecto asociado
+                                                            datos[8] = "";  //es admi entonces no tiene un rol asociado
+                                                        }
+
+                                                        int resultado = m_controladora_rh.insertar_recurso_humano(datos);
+                                                        if (resultado == 0)
+                                                        {
+                                                            cuerpo_alerta_exito.Text = " Se ingresó el recurso humano correctamente.";
+                                                            actualiza_tabla_recursos_humanos();
+                                                            btn_modificar.Enabled = true;
+                                                            a_retornar = true;
+                                                        }
+                                                        else
+                                                        {
+                                                            cuerpo_alerta_error.Text = " Hubo un error al ingresar el recurso humano, intentelo nuevamente.";
+                                                            a_retornar = false;
+                                                        }// Despues de la insercion o la modificacion
                                                     }
                                                     else
                                                     {
-                                                        cuerpo_alerta_error.Text = " Hubo un error al ingresar el recurso humano, intentelo nuevamente.";
+                                                        cuerpo_alerta_error.Text = "Es necesario ingresar una contraseña.";
+                                                        SetFocus(input_contrasena);
                                                         a_retornar = false;
-                                                    }// Despues de la insercion o la modificacion
+                                                    } // Contraseña
                                                 }
                                                 else
                                                 {
-                                                    cuerpo_alerta_error.Text = "Es necesario ingresar una contraseña.";
-                                                    SetFocus(input_contrasena);
+                                                    cuerpo_alerta_error.Text = " El nombre de usuario ingresado ya existe, ingrese uno distinto.";
                                                     a_retornar = false;
-                                                } // Contraseña
+                                                    SetFocus(input_usuario);
+                                                }
                                             }
                                         }
                                         else

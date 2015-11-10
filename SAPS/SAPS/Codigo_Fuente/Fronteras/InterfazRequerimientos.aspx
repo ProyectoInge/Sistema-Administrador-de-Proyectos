@@ -24,7 +24,7 @@
     <br />
     <section id="alertas">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-3">
                 <div class="alert alert-danger alert-dismissible" id="alerta_error" role="alert" aria-hidden="true" runat="server">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -52,6 +52,15 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-4 col-md-offset-1">
+                                    <asp:Label runat="server" CssClass="control-label" ID="label_id" AssociatedControlID="input_id_requerimiento">ID del requerimiento <span class="text-danger">*</span></asp:Label>
+                                </div>
+                                <div class="col-md-6">
+                                    <asp:TextBox runat="server" CssClass="form-control" placeholder="Formato: RH_I" ID="input_id_requerimiento"></asp:TextBox>
+                                    <asp:Label runat="server" ID="label_id_vacio" CssClass="text-danger"><small>Tiene que ingresar un identificador para el requerimiento.</small></asp:Label>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-4 col-md-offset-1">
                                     <asp:Label runat="server" CssClass="control-label" ID="label_nombre" AssociatedControlID="input_nombre_requerimiento">Nombre del requerimiento <span class="text-danger">*</span></asp:Label>
@@ -114,12 +123,64 @@
             </div>
         </div>
     </section>
+    <!-- Modals eliminar -->
+    <section id="modal_eliminar">
+        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <asp:Label ID="titulo_modal" runat="server" Text="¡Atención!"></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="Se eliminó correctamente el requerimiento."></asp:Label>
+                                        </div>
+                                        <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente el requerimiento."></asp:Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-link" Style="color: darkgray" ID="btn_modal_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </section>
     <script type="text/javascript">
         $(document).ready(function () {
 
             $("#<%= label_criterio_vacio.ClientID%>").hide();
             $("#<%= label_nombre_vacio.ClientID%>").hide();
+            $("#<%= label_id_vacio.ClientID%>").hide();
 
+            // Validacion del identificador
+            $("#<%= input_id_requerimiento.ClientID%>").blur(function () {
+                var id_ingresado = $("#<%= input_id_requerimiento.ClientID%>").val();
+                if (id_ingresado == "") {
+                    $("#<%= label_id_vacio.ClientID%>").show();
+                } else {
+                    $("#<%= label_id_vacio.ClientID%>").hide();
+                }
+            });
 
             // Validacion del nombre
             $("#<%= input_nombre_requerimiento.ClientID %>").blur(function valida_nombre() {
@@ -141,22 +202,31 @@
                 }
             });
 
+            // Validacion de todos los campos al hacer click en el boton de "aceptar"
             $("#<%= btn_Aceptar.ClientID %>").click(function () {
                 var criterio_ingresado = $("#<%= input_criterio_aceptacion.ClientID %>").val();
                 var nombre_ingresado = $("#<%= input_nombre_requerimiento.ClientID %>").val();
-                if (nombre_ingresado != "") {
-                    $("#<%= label_nombre_vacio.ClientID %>").hide();
-                    if (criterio_ingresado != "") {
-                        $("#<%= label_criterio_vacio.ClientID %>").hide();
+                var id_ingresado = $("#<%= input_id_requerimiento.ClientID%>").val();
+                if (id_ingresado != "") {
+                    $("#<%= label_id_vacio.ClientID%>").hide();
+                    if (nombre_ingresado != "") {
+                        $("#<%= label_nombre_vacio.ClientID %>").hide();
+                        if (criterio_ingresado != "") {
+                            $("#<%= label_criterio_vacio.ClientID %>").hide();
+                        } else {
+                            $("#<%= label_criterio_vacio.ClientID %>").show();
+                            $("#<%= input_criterio_aceptacion.ClientID %>").focus();
+                            return false; // Esto previene que realice el PostBack
+                        }
                     } else {
-                        $("#<%= label_criterio_vacio.ClientID %>").show();
-                        $("#<%= input_criterio_aceptacion.ClientID %>").focus();
+                        $("#<%= label_nombre_vacio.ClientID %>").show();
+                        $("#<%= input_nombre_requerimiento.ClientID %>").focus();
                         return false; // Esto previene que realice el PostBack
                     }
                 } else {
-                    $("#<%= label_nombre_vacio.ClientID %>").show();
-                    $("#<%= input_nombre_requerimiento.ClientID %>").focus();
-                    return false; // Esto previene que realice el PostBack
+                    $("#<%= label_id_vacio.ClientID%>").show();
+                    $("#<%= input_id_requerimiento.ClientID%>").focus();
+                    return false;
                 }
             });
         });

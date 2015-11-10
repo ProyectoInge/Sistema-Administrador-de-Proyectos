@@ -36,6 +36,8 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 activa_desactiva_botones_ime(false);
                 actualiza_tabla_requerimientos();
+                mensaje_error_modal.Visible = false;
+                mensaje_exito_modal.Visible = false;
             }
             else
             {
@@ -50,6 +52,11 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default";
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_botones_ime(false);
+            vaciar_campos();
+            input_criterio_aceptacion.Enabled = true;
+            input_nombre_requerimiento.Enabled = true;
+            input_id_requerimiento.Enabled = true;
+            m_id_requerimeinto_seleccionado = "null";
         }
 
         protected void btn_modificar_Click(object sender, EventArgs e)
@@ -57,6 +64,7 @@ namespace SAPS.Fronteras
             m_opcion = 'm';
             input_criterio_aceptacion.Enabled = true;
             input_nombre_requerimiento.Enabled = true;
+            input_id_requerimiento.Enabled = false;
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default active";
             btn_eliminar.CssClass = "btn btn-default";
@@ -71,6 +79,7 @@ namespace SAPS.Fronteras
             btn_eliminar.CssClass = "btn btn-default active";
             input_criterio_aceptacion.Enabled = false;
             input_nombre_requerimiento.Enabled = false;
+            input_id_requerimiento.Enabled = false;
             activa_desactiva_botones_ime(true);
         }
 
@@ -109,24 +118,7 @@ namespace SAPS.Fronteras
                     }
                     break;
                 case 'e':
-                    if (!eliminar_requerimiento()) // false si no logro eliminar el requerimiento
-                    {
-                        alerta_error.Visible = true;
-                    }
-                    else
-                    {
-                        alerta_exito.Visible = true;
-                        actualiza_tabla_requerimientos();
-                        input_criterio_aceptacion.Enabled = true;
-                        input_nombre_requerimiento.Enabled = true;
-                        input_criterio_aceptacion.Text = "";
-                        input_nombre_requerimiento.Text = "";
-                        m_opcion = 'i';
-                        btn_crear.CssClass = "btn btn-default active";
-                        btn_modificar.CssClass = "btn btn-default";
-                        btn_eliminar.CssClass = "btn btn-default";
-                        activa_desactiva_botones_ime(false);
-                    }
+                    eliminar_requerimiento();
                     break;
 
             }
@@ -137,6 +129,7 @@ namespace SAPS.Fronteras
             vaciar_campos();
             input_nombre_requerimiento.Enabled = true;
             input_criterio_aceptacion.Enabled = true;
+            input_id_requerimiento.Enabled = true;
         }
 
         protected void btn_Regresar_Click(object sender, EventArgs e)
@@ -151,104 +144,132 @@ namespace SAPS.Fronteras
             llena_info_consulta(id_requerimiento_seleccionado);
             input_criterio_aceptacion.Enabled = false;
             input_nombre_requerimiento.Enabled = false;
+            input_id_requerimiento.Enabled = false;
             activa_desactiva_botones_ime(true);
             m_id_requerimeinto_seleccionado = id_requerimiento_seleccionado;
         }
 
         // ------------------------------------------------------ Métodos auxiliares ------------------------------------------------------
 
+        /** @brief Método que se encarga de eliminar un requerimiento de la base de datos.
+         * @return true si tuvo exito, false si no logro eliminar el requerimiento.
+        */
         private bool eliminar_requerimiento()
         {
             bool a_retornar = false;
             if (m_id_requerimeinto_seleccionado != "null")
             {
-                int resultado = m_controladora_requerimientos.eliminar_requerimiento(m_id_requerimeinto_seleccionado);
-                if (resultado == 0)
-                {
-                    cuerpo_alerta_exito.Text = " Se eliminó correctamente el requerimiento.";
-                    a_retornar = true;
-                }
-                else
-                {
-                    cuerpo_alerta_error.Text = " Se presentó un error al eleminar el requerimiento, intente nuevamente.";
-                    SetFocus(input_criterio_aceptacion);
-                }
+                cuerpo_modal.Text = " ¿Esta seguro que desea eliminar el requerimiento \"" + input_nombre_requerimiento.Text + "\" del sistema?";
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                upModal.Update();
+                a_retornar = true;
             }
             else
             {
                 cuerpo_alerta_error.Text = " No se ha seleccionado ningún requerimiento.";
-                SetFocus(input_criterio_aceptacion);
+                SetFocus(input_id_requerimiento);
             }
             return a_retornar;
         }
 
+        /** @brief Metodo que se encarga de insertar un requerimiento en el sistema.
+         * @return True si logro insertar bien, false si hubo algun problema.
+        */
         private bool insertar_requerimiento()
         {
             bool a_retornar = false;
-            if (input_nombre_requerimiento.Text != "")
+            if (input_id_requerimiento.Text != "")
             {
-                if (input_criterio_aceptacion.Text != "")
+                if (!m_controladora_requerimientos.existe_requerimiento(input_id_requerimiento.Text)) //Valida que el ID no se esté utilizando.
                 {
-                    Object[] nuevo_requerimiento = { 0, input_nombre_requerimiento.Text, input_criterio_aceptacion.Text };
-                    int resultado = m_controladora_requerimientos.insertar_requerimiento(nuevo_requerimiento);
-                    if (resultado == 0)  //Se ingresó con éxito
+                    if (input_nombre_requerimiento.Text != "")
                     {
-                        cuerpo_alerta_exito.Text = " Se ingresó correctamente el nuevo requerimiento.";
-                        a_retornar = true;
+                        if (input_criterio_aceptacion.Text != "")
+                        {
+                            Object[] nuevo_requerimiento = { input_id_requerimiento.Text, input_nombre_requerimiento.Text, input_criterio_aceptacion.Text };
+                            int resultado = m_controladora_requerimientos.insertar_requerimiento(nuevo_requerimiento);
+                            if (resultado == 0)  //Se ingresó con éxito
+                            {
+                                cuerpo_alerta_exito.Text = " Se ingresó correctamente el nuevo requerimiento.";
+                                a_retornar = true;
+                            }
+                            else
+                            {
+                                cuerpo_alerta_error.Text = " Se presentó un problema al agrega el requerimiento, intente nuevamente.";
+                            }
+
+                        }
+                        else
+                        {
+                            cuerpo_alerta_error.Text = " Es necesario que ingrese un criterio de aceptación.";
+                            SetFocus(input_criterio_aceptacion);
+
+                        }
                     }
                     else
                     {
-                        cuerpo_alerta_error.Text = " Se presentó un problema al agrega el requerimiento, intente nuevamente.";
+                        cuerpo_alerta_error.Text = " Es necesario que ingrese un nombre para el requerimiento.";
+                        SetFocus(input_nombre_requerimiento);
                     }
-
                 }
                 else
                 {
-                    cuerpo_alerta_error.Text = " Es necesario que ingrese un criterio de aceptación.";
-                    SetFocus(input_criterio_aceptacion);
-
+                    cuerpo_alerta_error.Text = " El ID ingresado ya se está utilizando.";
+                    SetFocus(input_id_requerimiento);
                 }
             }
             else
             {
-                cuerpo_alerta_error.Text = " Es necesario que ingrese un nombre para el requerimiento.";
-                SetFocus(input_nombre_requerimiento);
+                cuerpo_alerta_error.Text = " Es necesario que ingrese un identificador para el requerimiento.";
+                SetFocus(input_id_requerimiento);
             }
+
             return a_retornar;
         }
 
+        /** @brief Metodo que se encarga de 
+        */
         private bool modificar_requerimiento()
         {
             bool a_retornar = false;
-            if (input_nombre_requerimiento.Text != "")
+            if (input_id_requerimiento.Text != "")
             {
-                if (input_criterio_aceptacion.Text != "")
+                if (input_nombre_requerimiento.Text != "")
                 {
-                    Object[] nuevo_requerimiento = { m_id_requerimeinto_seleccionado, input_nombre_requerimiento.Text, input_criterio_aceptacion.Text };
-                    int resultado = m_controladora_requerimientos.modificar_requerimiento(nuevo_requerimiento);
-                    if (resultado == 0)  //Se ingresó con éxito
+                    if (input_criterio_aceptacion.Text != "")
                     {
-                        cuerpo_alerta_exito.Text = " Se modificó correctamente el requerimiento.";
-                        a_retornar = true;
+                        Object[] nuevo_requerimiento = { m_id_requerimeinto_seleccionado, input_nombre_requerimiento.Text, input_criterio_aceptacion.Text };
+                        int resultado = m_controladora_requerimientos.modificar_requerimiento(nuevo_requerimiento);
+                        if (resultado == 0)  //Se ingresó con éxito
+                        {
+                            cuerpo_alerta_exito.Text = " Se modificó correctamente el requerimiento.";
+                            a_retornar = true;
+                        }
+                        else
+                        {
+                            cuerpo_alerta_error.Text = " Se presentó un problema al modificar el requerimiento, intente nuevamente.";
+                        }
+
                     }
                     else
                     {
-                        cuerpo_alerta_error.Text = " Se presentó un problema al modificar el requerimiento, intente nuevamente.";
-                    }
+                        cuerpo_alerta_error.Text = " Es necesario que ingrese un criterio de aceptación.";
+                        SetFocus(input_criterio_aceptacion);
 
+                    }
                 }
                 else
                 {
-                    cuerpo_alerta_error.Text = " Es necesario que ingrese un criterio de aceptación.";
-                    SetFocus(input_criterio_aceptacion);
-
+                    cuerpo_alerta_error.Text = " Es necesario que ingrese un nombre para el requerimiento.";
+                    SetFocus(input_nombre_requerimiento);
                 }
             }
             else
             {
-                cuerpo_alerta_error.Text = " Es necesario que ingrese un nombre para el requerimiento.";
-                SetFocus(input_nombre_requerimiento);
+                cuerpo_alerta_error.Text = " Es necesario que ingrese el identificador para el requerimiento.";
+                SetFocus(input_id_requerimiento);
             }
+
             return a_retornar;
         }
 
@@ -259,6 +280,7 @@ namespace SAPS.Fronteras
             m_id_requerimeinto_seleccionado = "null";
             input_criterio_aceptacion.Text = "";
             input_nombre_requerimiento.Text = "";
+            input_id_requerimiento.Text = "";
             m_opcion = 'i';
             alerta_error.Visible = false;
             alerta_advertencia.Visible = false;
@@ -278,6 +300,7 @@ namespace SAPS.Fronteras
         private void llena_info_consulta(string id_requerimiento)
         {
             DataTable info_requerimiento = m_controladora_requerimientos.consultar_requerimiento(id_requerimiento);
+            input_id_requerimiento.Text = id_requerimiento;
             input_nombre_requerimiento.Text = info_requerimiento.Rows[0]["nombre"].ToString();
             input_criterio_aceptacion.Text = info_requerimiento.Rows[0]["criterio_aceptacion"].ToString();
 
@@ -308,7 +331,10 @@ namespace SAPS.Fronteras
         {
             TableHeaderRow header = new TableHeaderRow();
             TableHeaderCell celda_encabezado_nombre = new TableHeaderCell();
+            TableHeaderCell celda_encabezado_id = new TableHeaderCell();
+            celda_encabezado_id.Text = "Identificador del requerimiento";
             celda_encabezado_nombre.Text = "Nombre del requerimiento";
+            header.Cells.Add(celda_encabezado_id);
             header.Cells.Add(celda_encabezado_nombre);
             tabla_requerimientos.Rows.Add(header);
 
@@ -317,16 +343,51 @@ namespace SAPS.Fronteras
             {
                 TableRow fila = new TableRow();
                 TableCell celda_nombre = new TableCell();
+                TableCell celda_id = new TableCell();
                 Button btn = new Button();
                 btn.ID = tabla_requerimientos_disponibles.Rows[i]["id_requerimiento"].ToString();
-                btn.Text = tabla_requerimientos_disponibles.Rows[i]["nombre"].ToString();
-                btn.CssClass = "btn btn-link btn-block";
+                btn.Text = tabla_requerimientos_disponibles.Rows[i]["id_requerimiento"].ToString();
+                btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_requerimientos_Click);
-
-                celda_nombre.Controls.Add(btn);
+                celda_id.Controls.Add(btn);
+                celda_nombre.Text = tabla_requerimientos_disponibles.Rows[i]["nombre"].ToString();
+                fila.Cells.Add(celda_id);
                 fila.Cells.Add(celda_nombre);
                 tabla_requerimientos.Rows.Add(fila);
             }
+        }
+
+        protected void btn_modal_cancelar_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
+            upModal.Visible = false;
+            upModal.Update();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazRequerimientos.aspx");
+        }
+
+        protected void btn_modal_aceptar_Click(object sender, EventArgs e)
+        {
+            int resultado = m_controladora_requerimientos.eliminar_requerimiento(input_id_requerimiento.Text);
+            if (resultado == 0)
+            {
+                mensaje_exito_modal.Visible = true;
+                actualiza_tabla_requerimientos();
+                input_criterio_aceptacion.Enabled = true;
+                input_nombre_requerimiento.Enabled = true;
+                input_criterio_aceptacion.Text = "";
+                input_nombre_requerimiento.Text = "";
+                input_id_requerimiento.Text = "";
+                m_opcion = 'i';
+                btn_crear.CssClass = "btn btn-default active";
+                btn_modificar.CssClass = "btn btn-default";
+                btn_eliminar.CssClass = "btn btn-default";
+                activa_desactiva_botones_ime(false);
+            }
+            else
+            {
+                mensaje_error_modal.Visible = true;
+            }
+            upModal.Update();
         }
     }
 }
