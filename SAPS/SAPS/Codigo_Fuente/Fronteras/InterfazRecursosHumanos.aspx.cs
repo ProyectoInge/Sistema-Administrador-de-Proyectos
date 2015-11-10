@@ -293,7 +293,6 @@ namespace SAPS.Fronteras
             {
                 mensaje_error_modal.Visible = true;
             }
-            Response.Redirect(Request.RawUrl);
             upModal.Update();
         }
 
@@ -305,6 +304,7 @@ namespace SAPS.Fronteras
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
             upModal.Visible = false;
             upModal.Update();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx");
         }
 
         /** @brief Se activa cuando el usuario escoge la opcion de reestablecer la contrasena, lo envia a la pagina para cambiar de contraseña.

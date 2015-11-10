@@ -21,7 +21,7 @@ namespace SAPS.Fronteras
     {
         private static ControladoraRequerimientos m_controladora_requerimientos;
 
-        private static int m_id_requerimeinto_seleccionado = -1;
+        private static string m_id_requerimeinto_seleccionado = "null";
         private static char m_opcion = 'i';
 
         /** @brief Metodo que se llama al cargar la página.
@@ -147,7 +147,7 @@ namespace SAPS.Fronteras
 
         protected void btn_lista_requerimientos_Click(object sender, EventArgs e)
         {
-            int id_requerimiento_seleccionado = Convert.ToInt32(((Button)sender).ID);
+            string id_requerimiento_seleccionado = Convert.ToString(((Button)sender).ID);
             llena_info_consulta(id_requerimiento_seleccionado);
             input_criterio_aceptacion.Enabled = false;
             input_nombre_requerimiento.Enabled = false;
@@ -160,7 +160,7 @@ namespace SAPS.Fronteras
         private bool eliminar_requerimiento()
         {
             bool a_retornar = false;
-            if (m_id_requerimeinto_seleccionado != -1)
+            if (m_id_requerimeinto_seleccionado != "null")
             {
                 int resultado = m_controladora_requerimientos.eliminar_requerimiento(m_id_requerimeinto_seleccionado);
                 if (resultado == 0)
@@ -256,7 +256,7 @@ namespace SAPS.Fronteras
         */
         private void vaciar_campos()
         {
-            m_id_requerimeinto_seleccionado = -1;
+            m_id_requerimeinto_seleccionado = "null";
             input_criterio_aceptacion.Text = "";
             input_nombre_requerimiento.Text = "";
             m_opcion = 'i';
@@ -275,7 +275,7 @@ namespace SAPS.Fronteras
         /** @brief Método que llena la información en pantalla correspondiente a un requerimiento que se consulta.
          * @param El identificador del requerimiento que se desea consultar.
         */
-        private void llena_info_consulta(int id_requerimiento)
+        private void llena_info_consulta(string id_requerimiento)
         {
             DataTable info_requerimiento = m_controladora_requerimientos.consultar_requerimiento(id_requerimiento);
             input_nombre_requerimiento.Text = info_requerimiento.Rows[0]["nombre"].ToString();

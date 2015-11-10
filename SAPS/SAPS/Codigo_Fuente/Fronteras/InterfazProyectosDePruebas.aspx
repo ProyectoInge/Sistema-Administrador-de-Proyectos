@@ -315,7 +315,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_confirmar_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_confirmar_cancelar_Click" CssClass="btn btn-link" ID="btn_modal_cancelar" Text="Volver" runat="server" />
                                 <asp:Button OnClick="btn_modal_confirmar_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
                             </div>
                         </div>
