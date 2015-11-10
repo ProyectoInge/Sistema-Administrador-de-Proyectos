@@ -101,7 +101,7 @@ create table DatosCasoDePrueba(
 
 create table NecesitaDe(
 	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
-	id_caso				varchar(24) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
 	precondiciones		varchar(512),
 	variables			varchar(512),
 	restricciones		varchar(512),
@@ -110,7 +110,7 @@ create table NecesitaDe(
 
 create table Ejecucion(
 	num_ejecucion		int NOT NULL,
-	id_caso				varchar(24) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
 	tipo_no_conformidad varchar(64),
 	desc_no_conformidad varchar(256),
 	justificacion		varchar(512),
