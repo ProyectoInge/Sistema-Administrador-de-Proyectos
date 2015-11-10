@@ -20,25 +20,32 @@ namespace SAPS.Entidades
         private string m_id;
         private int m_id_diseno;
         private string m_proposito;
+        private string m_resultado_esperado;
         private string m_flujo_central;
-        private Datos[] m_entrda_de_datos;
+        private Dato[] m_entrda_de_datos;
 
         /* @param datos contiene los datos para poder crear un Caso de pruebas, el orden va de la siguiente manera:
            | Índice | Descripción             | Tipo de datos |
            |:------:|:-----------------------:|:-------------:|
-           |    0   |  Id del caso de prueba  |      int      |
+           |    0   |  Id del caso de prueba  |     string    |
            |    1   |  Id del diseño asociado |      int      |
            |    2   |  Propósito de la prueba |     String    |
-           |    3   |  Flujo central          |     String    |
+           |    3   |  Resultado esperado     |     String    |
+           |    4   |  Flujo central          |     String    |
          * 
          * @param entrada_datos array que contendrá todo las entradas de datos relacionados al caso de prueba. 
         */
-        public CasoPruebas(Object[] datos, Datos[] entrada_datos)
+        public CasoPruebas(Object[] datos, Dato[] entrada_datos)
         {
-            m_id = datos[0].ToString();
+            if (datos[0] != null)
+                m_id = datos[0].ToString();
+            else
+                m_id = null;
+
             m_id_diseno = Convert.ToInt32(datos[1]);
             m_proposito = datos[2].ToString();
-            m_flujo_central = datos[3].ToString();
+            m_resultado_esperado = datos[3].ToString();
+            m_flujo_central = datos[4].ToString();
             m_entrda_de_datos = entrada_datos;
         }
 
@@ -69,7 +76,13 @@ namespace SAPS.Entidades
             set { m_flujo_central = value; }
         }
 
-        public Datos[] entrada_de_datos
+        public string resultado_esperado
+        {
+            get { return m_resultado_esperado; }
+            set { m_resultado_esperado = value; }
+        }
+
+        public Dato[] entrada_de_datos
         {
             get { return m_entrda_de_datos; }
             set { m_entrda_de_datos = value; }

@@ -84,19 +84,19 @@ create table SePrueba(
 );
 
 create table CasoPrueba(
-	id_caso				varchar(24) NOT NULL PRIMARY KEY,
+	id_caso				varchar(64) NOT NULL PRIMARY KEY,
 	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
 	proposito			varchar(256),
+	resultado_esperado  varchar(256),
 	flujo_central		varchar(512)
 );
 
 
 create table DatosCasoDePrueba(
 	id_dato int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	id_caso_prueba varchar(24) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
-	entrada_de_datos varchar(256),
-	estado_datos varchar(24),
-	resultado_esperado varchar(256)
+	id_caso_prueba varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	valor varchar(256),
+	tipo varchar(24)
 );
 
 create table NecesitaDe(

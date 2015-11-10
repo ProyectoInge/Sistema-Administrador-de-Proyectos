@@ -32,7 +32,7 @@ namespace SAPS.Controladoras
         * @param entrada_de_datos asociados al caso de prueba.
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
-        public int insertar_caso_pruebas(Object[] datos, Datos[] entrada_de_datos)
+        public int insertar_caso_pruebas(Object[] datos, Dato[] entrada_de_datos)
         {
              CasoPruebas caso_pruebas = new CasoPruebas(datos, entrada_de_datos);              
              return m_base_datos.insertar_caso_pruebas(caso_pruebas);                    
@@ -43,7 +43,7 @@ namespace SAPS.Controladoras
         * @param entrada_de_datos asociados al caso de prueba.
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
-        public int modificar_caso_pruebas(Object[] datos, Datos[] entrada_de_datos)
+        public int modificar_caso_pruebas(Object[] datos, Dato[] entrada_de_datos)
         {
             CasoPruebas caso_pruebas = new CasoPruebas(datos, entrada_de_datos);      
             return m_base_datos.modificar_caso_pruebas(caso_pruebas);            
@@ -71,7 +71,7 @@ namespace SAPS.Controladoras
          *  @param id_caso id del caso de prueba al cual se quiere consultar las entradas de datos asociadas.
          *  @return Array de la clase Datos con los resultados.
          */
-        public Datos[] consultar_entrada_dato(string id_caso)
+        public Dato[] consultar_entrada_dato(string id_caso)
         {
             return m_base_datos.consultar_entrada_datos(id_caso);
         }
