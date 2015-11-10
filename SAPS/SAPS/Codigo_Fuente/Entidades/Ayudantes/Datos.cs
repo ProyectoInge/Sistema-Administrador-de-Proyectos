@@ -8,40 +8,32 @@
 
 namespace SAPS.Entidades.Ayudantes
 {
-    public class Datos
+    public class Dato
     {
         // Campos
-        private string m_valores;
-        private string m_estado_datos;
-        private string m_resultado_esperado;
+        private string m_valor;
+        private string m_tipo;
 
         /** @brief Constructor de un dato utilizado en caso de pruebas.
-         * @param valor ingresado  
-         * @param estado_dato contendrá el estado del dato (Válido, Inválido, No aplica)
+         * @param valor ingresado.
+         * @param estado_dato contendrá el tipo del dato (Válido, Inválido, No aplica).
          */
-        public Datos(string valores, string estado_datos, string resultado_esperado)
+        public Dato(string valor, string tipo)
         {
-            m_valores = valores;
-            m_estado_datos = estado_datos;
-            m_resultado_esperado = resultado_esperado;
+            m_valor = valor;
+            m_tipo = tipo;
         }
 
         public string valor
         {
-            get { return m_valores; }
-            set { m_valores = value; }
+            get { return m_valor; }
+            set { m_valor = value; }
         }
 
         public string estado
         {
-            get { return m_estado_datos; }
-            set { m_estado_datos = value; }
-        }
-
-        public string resultado_esperado
-        {
-            get { return m_resultado_esperado; }
-            set { m_resultado_esperado = value; }
+            get { return m_tipo; }
+            set { m_tipo = value; }
         }
     }
 }
