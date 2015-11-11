@@ -8,6 +8,7 @@ namespace PruebasUnitarias
     public class UnitTestDisenoPruebas
     {
         private ControladoraDisenosPruebas m_controladora_dp = new ControladoraDisenosPruebas();
+
         [TestMethod]
         public void test_insertar_diseno_1()
         {
