@@ -21,6 +21,8 @@ namespace SAPS.Controladoras
     {
         // Variables de instancia
         private BDRecursosHumanos m_base_datos;
+
+        // Para respetar la arquitectura de N capaz, solo las controladoras pueden hablar entre si
         private ControladoraProyectoPruebas m_controladora_pdp;
 
 
@@ -28,7 +30,6 @@ namespace SAPS.Controladoras
         public ControladoraRecursosHumanos()
         {
             m_base_datos = new BDRecursosHumanos();
-            m_controladora_pdp = new ControladoraProyectoPruebas();
         }
 
 
@@ -40,6 +41,8 @@ namespace SAPS.Controladoras
          */
         public DataTable solicitar_proyectos_disponibles()
         {
+
+            m_controladora_pdp = new ControladoraProyectoPruebas();
             return m_controladora_pdp.solicitar_proyectos_disponibles();
         }
 

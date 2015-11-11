@@ -21,23 +21,25 @@ namespace SAPS.Controladoras
     {
         //Variables de instancia
         private BDProyectoPruebas m_base_datos_pdp;
+
+        // Para respetar la arquitectura de N capaz, solo las controladoras pueden hablar entre si
         private ControladoraRecursosHumanos m_controladora_rh;
 
         //Constructor
         public ControladoraProyectoPruebas()
         {
             m_base_datos_pdp = new BDProyectoPruebas();
-            m_controladora_rh = new ControladoraRecursosHumanos();
         }
 
         // Métodos
 
         /** @brief Método que consulta el perfil de un usuario del sistema, permite que se mantenga la arquitectura N capas.
-        * @param nombre_usuario usuario cuyo perfil se desea consultar.
-        * @return false si es administrador, true si es miembro
+         * @param nombre_usuario usuario cuyo perfil se desea consultar.
+         * @return false si es administrador, true si es miembro
         */
         public bool es_administrador(string nombre_usuario)
         {
+            m_controladora_rh = new ControladoraRecursosHumanos();
             return m_controladora_rh.es_administrador(nombre_usuario);
         }
 
