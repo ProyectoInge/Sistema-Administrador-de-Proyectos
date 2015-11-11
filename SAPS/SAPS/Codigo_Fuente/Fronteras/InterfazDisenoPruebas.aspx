@@ -133,11 +133,11 @@
                                         </div>
                                         <div class="col-md-7">
                                             <asp:DropDownList ID="drop_nivel" runat="server" CssClass="form-control">
-                                                <asp:ListItem runat="server" ID="vacio" Text=""></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="unitaria" Text="Unitaria"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="de_integracion" Text="De integración"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="de_sistema" Text="Del sistema"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="de_aceptacion" Text="De aceptación"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="vacio" Text="-Seleccione un nivel de prueba-" Value=""></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="unitaria" Text="Unitaria" Value="Unitaria"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="de_integracion" Text="De integración" Value="De integración"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="de_sistema" Text="Del sistema" Value="Del sistema"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="de_aceptacion" Text="De aceptación" Value="De aceptación"></asp:ListItem>
                                             </asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_drop_nivel" CssClass="text-danger"><small>Debe seleccionar un nivel de prueba.</small></asp:Label>
                                         </div>
@@ -150,10 +150,10 @@
                                         </div>
                                         <div class="col-md-7">
                                             <asp:DropDownList ID="drop_tecnica" runat="server" CssClass="form-control">
-                                                <asp:ListItem runat="server" ID="vacio2" Text=""></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="caja_negra" Text="Caja negra"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="caja_blanca" Text="Caja blanca"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="exploratoria" Text="Exploratoria"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="vacio2" Text="-Seleccione una técnica-" Value=""></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="caja_negra" Text="Caja negra" Value="Caja negra"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="caja_blanca" Text="Caja blanca" Value="Caja blanca"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="exploratoria" Text="Exploratoria"  Value="Exploratoria"></asp:ListItem>
                                             </asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_drop_tecnica" CssClass="text-danger"><small>Debe seleccionar una técnica de prueba.</small></asp:Label>
                                         </div>
@@ -168,14 +168,14 @@
                                         </div>
                                         <div class="col-md-7">
                                             <asp:DropDownList ID="drop_tipo" runat="server" CssClass="form-control">
-                                                <asp:ListItem runat="server" ID="vacio3" Text=""></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="funcional" Text="Funcional"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="interfaz" Text="Interfaz de usuario"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="rendimiento" Text="Rendimiento"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="stress" Text="Stress"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="volumen" Text="Volumen"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="configuracion" Text="Configuración"></asp:ListItem>
-                                                <asp:ListItem runat="server" ID="instalacion" Text="Instalación"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="vacio3" Text="-Seleccione un tipo-" Value=""></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="funcional" Text="Funcional" Value="Funcional"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="interfaz" Text="Interfaz de usuario" Value="Interfaz de usuario"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="rendimiento" Text="Rendimiento" Value="Rendimiento"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="stress" Text="Stress" Value="Stress"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="volumen" Text="Volumen" Value="Volumen"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="configuracion" Text="Configuración" Value="Configuración"></asp:ListItem>
+                                                <asp:ListItem runat="server" ID="instalacion" Text="Instalación" Value="Instalación"></asp:ListItem>
                                             </asp:DropDownList>
                                             <asp:Label runat="server" ID="label_error_drop_tipo" CssClass="text-danger"><small>Debe seleccionar un tipo de prueba.</small></asp:Label>
                                         </div>

@@ -27,11 +27,11 @@ execute INSERTAR_RH 'usuario',		'1-1111-1111',  2,		'22780989', 'Usuario',			'CZ
 execute INSERTAR_RH 'kefds',		'1-115580434',  1,		'77777777',	'Kevin Delgado',	'4/bVsJ4mkhdoK6vOu3M5dN60TnhFNGqBtu43Yt1P2co8lgGL',	'kremlin@urss.ru',				'Usuario',	0
 
 select * from DisenoPrueba
-execute INSERTAR_DP 0, 1, 'Diseño 1', '09-12-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
-execute INSERTAR_DP 0, 1, 'Diseño 2', '08-31-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
-execute INSERTAR_DP 0, 1, 'Diseño 3', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
-execute INSERTAR_DP 0, 3, 'Diseño 4', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
-execute INSERTAR_DP 0, 2, 'Diseño 5', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba'
+execute INSERTAR_DP 0, 1, 'Diseño 1', '09-12-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
+execute INSERTAR_DP 0, 1, 'Diseño 2', '08-31-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
+execute INSERTAR_DP 0, 1, 'Diseño 3', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
+execute INSERTAR_DP 0, 3, 'Diseño 4', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
+execute INSERTAR_DP 0, 2, 'Diseño 5', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
 
 select * from Requerimientos
 execute INSERTAR_REQUERIMIENTO 'RH_I', 'Requerimiento 1', 'Criterio 1, Criterio 2'

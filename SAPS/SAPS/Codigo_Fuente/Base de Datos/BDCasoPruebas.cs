@@ -142,20 +142,6 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
-        /** @brief Asocia un caso de prueba con un requerimiento.
-         *  @param id_caso_prueba id con el caso de prueba que se desea asociar.
-         *  @param id_requerimiento id con el requerimiento que se desea asociar.
-         *  @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
-        */
-        public int asociar_caso_prueba_con_requerimiento(string id_caso_prueba, int id_requerimiento)
-        {
-            SqlCommand comando = new SqlCommand("ASOCIAR_CASO_CON_REQUERIMIENTO");
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_caso_prueba", SqlDbType.VarChar).Value = id_caso_prueba;
-            comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = id_requerimiento;
-            return m_data_base_adapter.ejecutar_consulta(comando);
-        }
-
 
         // Métodos auxiliares
 
@@ -172,6 +158,10 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@flujo", SqlDbType.VarChar).Value = caso_prueba.flujo_central;
         }
 
+        /** @brief Método auxiliar que guarda un dato el la base de datos.
+        *  @param entrada_dato dato a guardar en la base de datos.
+        *  @param id_caso_prueba id del caso de prueba.
+        */
         private void guardar_entrada_de_datos(Dato entrada_dato, string id_caso_prueba)
         {
             SqlCommand comando_dato = new SqlCommand("INSERTAR_DATO_CP");
@@ -181,6 +171,9 @@ namespace SAPS.Base_de_Datos
             comando_dato.Parameters.Add("@tipo", SqlDbType.VarChar).Value = entrada_dato.estado;
         }
 
+        /** @brief Método auxiliar que borra todos los datos asociados a un caso de prueba.
+        *  @param id_caso_prueba id del caso de prueba.
+        */
         private void borrar_entrada_de_datos_asociados(string id_caso_pruebas)
         {
             SqlCommand comando_limpieza = new SqlCommand("BORRAR_DATO_CASO");
