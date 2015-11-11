@@ -43,11 +43,12 @@ namespace SAPS.Controladoras
             |    6   |    Nivel de prueba   |     string    |
             |    7   | Username responsable |     string    |
             |    8   |      Ambiente        |     string    |
+            |    9   | Criterio aceptacion  |     string    |
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         public int insertar_diseno_pruebas(Object[] datos)
         {
-            if (datos.Length != 9)
+            if (datos.Length != 10)
                 return -1;
             DisenoPruebas diseno_pruebas = new DisenoPruebas(datos);
             return m_base_datos.insertar_diseno_pruebas(diseno_pruebas);
@@ -67,11 +68,12 @@ namespace SAPS.Controladoras
             |    6   |    Nivel de prueba   |     string    |
             |    7   | Username responsable |     string    |
             |    8   |      Ambiente        |     string    |
+            |    9   | Criterio aceptacion  |     string    |
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         public int modificar_diseno_pruebas(Object[] datos)
         {
-            if (datos.Length != 9)
+            if (datos.Length != 10)
                 return -1;
             DisenoPruebas diseno_pruebas = new DisenoPruebas(datos);
             return m_base_datos.modificar_diseno_pruebas(diseno_pruebas);
