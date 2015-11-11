@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                                         <asp:ListItem Text="-Elija un estado-" Value="-Elija un estado"></asp:ListItem> 
                                         <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
                                         <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
                                         <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>
@@ -143,6 +143,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_oficina_asociada_SelectedIndexChanged" AutoPostBack="true">
+                                        <%-- <asp:ListItem Text="-Elija una oficina-" Value="-Elija una oficina-"></asp:ListItem> --%>
                                     </asp:DropDownList>
                                     <asp:Button runat="server" CssClass="btn btn-link btn-sm" ID="btn_agregar_oficina" Text="¿Desea agregar una nueva oficina?" OnClick="btn_agregar_oficina_Click" />
                                 </div>
@@ -315,7 +316,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_confirmar_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_confirmar_cancelar_Click" CssClass="btn btn-link" ID="btn_modal_cancelar" Text="Volver" runat="server" />
                                 <asp:Button OnClick="btn_modal_confirmar_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
                             </div>
                         </div>

@@ -71,14 +71,14 @@ create table DisenoPrueba(
 );
 
 create table Requerimientos(
-	id_requerimiento	int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	id_requerimiento	varchar(32) NOT NULL PRIMARY KEY,
 	nombre				varchar(64) NOT NULL,
 	criterio_aceptacion varchar(256) NOT NULL,
 );
 
 create table SePrueba(
 	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
-	id_requerimiento	int NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
+	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
 	proposito			varchar(128) NOT NULL,
 	procedimiento		varchar(512) NOT NULL,
 	PRIMARY KEY(id_diseno, id_requerimiento)
@@ -101,8 +101,8 @@ create table DatosCasoDePrueba(
 );
 
 create table NecesitaDe(
-	id_requerimiento	int NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
-	id_caso				varchar(24) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
+	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
 	precondiciones		varchar(512),
 	variables			varchar(512),
 	restricciones		varchar(512),
@@ -111,7 +111,7 @@ create table NecesitaDe(
 
 create table Ejecucion(
 	num_ejecucion		int NOT NULL,
-	id_caso				varchar(24) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
 	tipo_no_conformidad varchar(64),
 	desc_no_conformidad varchar(256),
 	justificacion		varchar(512),

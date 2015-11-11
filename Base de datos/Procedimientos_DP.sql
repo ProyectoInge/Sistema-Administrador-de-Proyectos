@@ -77,7 +77,7 @@ AS
 			s.procedimiento
 	FROM Requerimientos r, SePrueba s
 	WHERE r.id_requerimiento = s.id_requerimiento AND
-		  r.id_diseno = @id_diseno
+		  s.id_diseno = @id_diseno
 		  /*
 		   AND
 		IN (
@@ -93,7 +93,8 @@ CREATE PROCEDURE SOLICITAR_DISENOS_ASOCIADOS_PROYECTO
 	@id_proyecto int
 AS
 	SELECT DisenoPrueba.id_diseno,
-		   DisenoPrueba.nombre_diseno
+		   DisenoPrueba.nombre_diseno,
+		   DisenoPrueba.id_proyecto
 	FROM DisenoPrueba
 	WHERE id_proyecto = @id_proyecto
 GO

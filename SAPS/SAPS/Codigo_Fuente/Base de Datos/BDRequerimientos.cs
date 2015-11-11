@@ -42,7 +42,7 @@ namespace SAPS.Base_de_Datos
         {
             SqlCommand comando = new SqlCommand("INSERTAR_REQUERIMIENTO");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = requerimiento.id;
+            comando.Parameters.Add("@id_requerimiento", SqlDbType.VarChar).Value = requerimiento.id;
             comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = requerimiento.nombre;
             comando.Parameters.Add("@criterio_aceptacion", SqlDbType.VarChar).Value = requerimiento.criterio_aceptacion;
             return m_data_base_adapter.ejecutar_consulta(comando);
@@ -56,7 +56,7 @@ namespace SAPS.Base_de_Datos
         {
             SqlCommand comando = new SqlCommand("MODIFICAR_REQUERIMIENTO");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = requerimiento.id;
+            comando.Parameters.Add("@id_requerimiento", SqlDbType.VarChar).Value = requerimiento.id;
             comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = requerimiento.nombre;
             comando.Parameters.Add("@criterio_aceptacion", SqlDbType.VarChar).Value = requerimiento.criterio_aceptacion;
             return m_data_base_adapter.ejecutar_consulta(comando);
@@ -66,11 +66,11 @@ namespace SAPS.Base_de_Datos
          * @param id del requerimiento que se desea eliminar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int eliminar_requerimiento(int id_requerimiento)
+        public int eliminar_requerimiento(string id_requerimiento)
         {
             SqlCommand comando = new SqlCommand("ELIMINAR_REQUERIMIENTO");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = id_requerimiento;
+            comando.Parameters.Add("@id_requerimiento", SqlDbType.VarChar).Value = id_requerimiento;
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
@@ -78,11 +78,11 @@ namespace SAPS.Base_de_Datos
          * @param id del requerimiento que se desea consultar.
          * @return DataTable con los resultados de la consultas.
          */
-        public DataTable consultar_requerimiento(int id_requerimiento)
+        public DataTable consultar_requerimiento(string id_requerimiento)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_REQUERIMIENTO");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = id_requerimiento;
+            comando.Parameters.Add("@id_requerimiento", SqlDbType.VarChar).Value = id_requerimiento;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
@@ -106,7 +106,7 @@ namespace SAPS.Base_de_Datos
             comando.CommandType = CommandType.StoredProcedure;
             // Se agarran los datos del vector de objects.
             comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = Convert.ToInt32(datos[0]);
-            comando.Parameters.Add("@id_requerimiento", SqlDbType.Int).Value = Convert.ToInt32(datos[1]);
+            comando.Parameters.Add("@id_requerimiento", SqlDbType.VarChar).Value = Convert.ToInt32(datos[1]);
             comando.Parameters.Add("@proposito", SqlDbType.VarChar).Value = Convert.ToString(datos[2]);
             comando.Parameters.Add("@procedimiento", SqlDbType.VarChar).Value = Convert.ToString(datos[3]);
             // Se ejecuta el procedimiento almacenado.

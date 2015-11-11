@@ -293,7 +293,6 @@ namespace SAPS.Fronteras
             {
                 mensaje_error_modal.Visible = true;
             }
-            Response.Redirect(Request.RawUrl);
             upModal.Update();
         }
 
@@ -305,6 +304,7 @@ namespace SAPS.Fronteras
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
             upModal.Visible = false;
             upModal.Update();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx");
         }
 
         /** @brief Se activa cuando el usuario escoge la opcion de reestablecer la contrasena, lo envia a la pagina para cambiar de contraseña.
@@ -347,7 +347,7 @@ namespace SAPS.Fronteras
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             ListItem primer_item = new ListItem();
             primer_item.Selected = false;
-            primer_item.Text = "Elija un proyecto";
+            primer_item.Text = "-Seleccione un proyecto-";
             primer_item.Value = "";
             drop_proyecto_asociado.Items.Add(primer_item);
             for (int i = 0; i < m_tamano_tabla_pdp; ++i)
@@ -709,6 +709,9 @@ namespace SAPS.Fronteras
                                             }
                                             else
                                             {
+                                                if (!m_controladora_rh.existe_usuario(input_usuario.Text))
+                                                {
+
                                                 if (input_contrasena.Text != "")
                                                 {
                                                     Object[] datos = new Object[9];
@@ -767,6 +770,13 @@ namespace SAPS.Fronteras
                                                     SetFocus(input_contrasena);
                                                     a_retornar = false;
                                                 } // Contraseña
+                                            }
+                                                else
+                                                {
+                                                    cuerpo_alerta_error.Text = " El nombre de usuario ingresado ya existe, ingrese uno distinto.";
+                                                    a_retornar = false;
+                                                    SetFocus(input_usuario);
+                                                }
                                             }
                                         }
                                         else

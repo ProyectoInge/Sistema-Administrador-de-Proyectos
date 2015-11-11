@@ -54,48 +54,57 @@ namespace SAPS.Fronteras
         {
             if (input_usuario.Text != "")
             {
-                if (input_contrasena.Text != "")
+                if (m_controladora_rh.existe_usuario(input_usuario.Text))
                 {
-                    if (!m_controladora_rh.consultar_sesion(input_usuario.Text))
+                    if (input_contrasena.Text != "")
                     {
-                        int resultado = m_controladora_rh.autenticar(input_usuario.Text, input_contrasena.Text);
-                        if (resultado == 0)
+                        if (!m_controladora_rh.consultar_sesion(input_usuario.Text))
                         {
-                            if (checkbox_recordarme.Checked)
+                            int resultado = m_controladora_rh.autenticar(input_usuario.Text, input_contrasena.Text);
+                            if (resultado == 0)
                             {
-                                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
-                                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+                                if (checkbox_recordarme.Checked)
+                                {
+                                    Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
+                                    Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+                                }
+                                else
+                                {
+                                    Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
+                                    Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
+                                }
+                                Response.Cookies["UserName"].Value = input_usuario.Text.Trim();
+                                Response.Cookies["Password"].Value = input_contrasena.Text.Trim();
+                                m_controladora_rh.iniciar_sesion(input_usuario.Text);
+                                FormsAuthentication.Authenticate(input_usuario.Text, input_contrasena.Text);
+                                FormsAuthentication.RedirectFromLoginPage(input_usuario.Text, true);
                             }
                             else
                             {
-                                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
-                                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
+                                alerta_error.Visible = true;
+                                cuerpo_alerta_error.Text = "Los datos ingresados no son válidos.";
                             }
-                            Response.Cookies["UserName"].Value = input_usuario.Text.Trim();
-                            Response.Cookies["Password"].Value = input_contrasena.Text.Trim();
-                            m_controladora_rh.iniciar_sesion(input_usuario.Text);
-                            FormsAuthentication.Authenticate(input_usuario.Text, input_contrasena.Text);
-                            FormsAuthentication.RedirectFromLoginPage(input_usuario.Text, true);
                         }
                         else
                         {
                             alerta_error.Visible = true;
-                            cuerpo_alerta_error.Text = "Los datos ingresados no son válidos.";
+                            cuerpo_alerta_error.Text = "Ya existe una sesión iniciada con éste nombre de usuario.";
+                            link_cerrar_sesion.Visible = true;
                         }
                     }
                     else
                     {
                         alerta_error.Visible = true;
-                        cuerpo_alerta_error.Text = "Ya existe una sesión iniciada con éste nombre de usuario.";
-                        link_cerrar_sesion.Visible = true;
+                        cuerpo_alerta_error.Text = "Es necesario que ingrese una contraseña.";
+                        SetFocus(input_contrasena);
+
                     }
                 }
                 else
                 {
+                    cuerpo_alerta_error.Text = " El usuario ingresado no existe en el sistema.";
                     alerta_error.Visible = true;
-                    cuerpo_alerta_error.Text = "Es necesario que ingrese una contraseña.";
-                    SetFocus(input_contrasena);
-
+                    SetFocus(input_usuario);
                 }
             }
             else

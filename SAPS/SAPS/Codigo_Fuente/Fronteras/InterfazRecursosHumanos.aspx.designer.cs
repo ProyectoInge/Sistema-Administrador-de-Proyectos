@@ -508,6 +508,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox modal_reestablecer_input_contrasena_2;
         
         /// <summary>
+        /// label_contrasenas_distintas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_contrasenas_distintas;
+        
+        /// <summary>
         /// btn_modal_reestablecer_cancelar control.
         /// </summary>
         /// <remarks>

@@ -18,7 +18,7 @@ namespace SAPS.Entidades
      */
     public class Requerimiento
     {
-        private int m_id;
+        private string m_id;
         private string m_nombre;
         private string m_criterio_aceptacion;
 
@@ -26,18 +26,18 @@ namespace SAPS.Entidades
                    para crear un requerimeinto, el orden de los parámetros va de la siguiente manera:
             | Índice |       Descripción       | Tipo de datos |
             |:------:|:-----------------------:|:-------------:|
-            |    0   |   ID del requerimiento  |       int     |
+            |    0   |   ID del requerimiento  |     String    |
             |    1   |         Nombre          |     String    |
             |    2   | Criterios de aceptación |     String    |
         */
         public Requerimiento(Object[] datos)
         {
-            m_id = Convert.ToInt32(datos[0]);
+            m_id = Convert.ToString(datos[0]);
             m_nombre = Convert.ToString(datos[1]);
             m_criterio_aceptacion = Convert.ToString(datos[2]);
         }
 
-        public int id
+        public string id
         {
             get { return m_id; }
             set { m_id = value; }

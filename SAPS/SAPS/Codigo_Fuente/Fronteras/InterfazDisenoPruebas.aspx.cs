@@ -29,10 +29,10 @@ namespace SAPS.Fronteras
         private static string[,] m_tabla_dp; //posicion: 0 --> username, 1 --> nombre
         private static int m_tamano_tabla_dp;
 
-        private static List<Tuple<string, int>> m_tabla_requerimientos_disponibles;
+        private static List<Tuple<string, string>> m_tabla_requerimientos_disponibles;
         private static int m_tamano_tabla_req;
 
-        private static List<Tuple<string, int>> m_tabla_requerimientos_seleccionados;
+        private static List<Tuple<string, string>> m_tabla_requerimientos_seleccionados;
         private static int m_tamano_tabla_seleccionados;
 
         private static string m_dp_seleccionado;
@@ -127,17 +127,17 @@ namespace SAPS.Fronteras
 
             //se inicializa la tabla interna de disponibles
             m_tamano_tabla_req = tabla_de_datos.Rows.Count;
-            m_tabla_requerimientos_disponibles = new List<Tuple<string, int>>();
+            m_tabla_requerimientos_disponibles = new List<Tuple<string, string>>();
 
             //se inicializa la tabla interna de agregados (es nueva por lo tanto: 0)
             m_tamano_tabla_seleccionados = 0;
-            m_tabla_requerimientos_seleccionados = new List<Tuple<string, int>>();
+            m_tabla_requerimientos_seleccionados = new List<Tuple<string, string>>();
 
 
 
             for (int i = (m_tamano_tabla_req - 1); i >= 0; --i)
             {
-               m_tabla_requerimientos_disponibles.Add(Tuple.Create(tabla_de_datos.Rows[i]["nombre"].ToString(), Convert.ToInt32(tabla_de_datos.Rows[i]["id_requerimiento"])));
+               m_tabla_requerimientos_disponibles.Add(Tuple.Create(tabla_de_datos.Rows[i]["nombre"].ToString(), Convert.ToString(tabla_de_datos.Rows[i]["id_requerimiento"])));
             }
             refrescar_requerimientos();
         }
@@ -145,7 +145,7 @@ namespace SAPS.Fronteras
         /** @brief Método que pasa un requerimiento del grid de disponibles al de seleccionados.
          * @param nombre del requerimiento a pasar, id del requerimiento a pasar y bool que indica si se agrega o se desasocia
         */
-        private void carga_requerimientos_transicion(string nombre_requerimiento, int id_req, bool agregar) //agregar 1: se agrega, agregar 0: se desasocia
+        private void carga_requerimientos_transicion(string nombre_requerimiento, string id_req, bool agregar) //agregar 1: se agrega, agregar 0: se desasocia
         {
             if (agregar)
             {
@@ -344,18 +344,18 @@ namespace SAPS.Fronteras
         */
         private void carga_requerimientos_existente(DataTable asociados, DataTable no_asociados)
         {
-            m_tabla_requerimientos_seleccionados = new List<Tuple<string, int>>();
-            m_tabla_requerimientos_disponibles = new List<Tuple<string, int>>();
+            m_tabla_requerimientos_seleccionados = new List<Tuple<string, string>>();
+            m_tabla_requerimientos_disponibles = new List<Tuple<string, string>>();
 
             m_tamano_tabla_seleccionados = asociados.Rows.Count;
             m_tamano_tabla_req = no_asociados.Rows.Count;
             for(int i = 0; i < asociados.Rows.Count; i++)
             {
-                m_tabla_requerimientos_seleccionados.Add(Tuple.Create(asociados.Rows[i]["nombre"].ToString(), Convert.ToInt32(asociados.Rows[i]["id_requerimiento"])));
+                m_tabla_requerimientos_seleccionados.Add(Tuple.Create(asociados.Rows[i]["nombre"].ToString(), Convert.ToString(asociados.Rows[i]["id_requerimiento"])));
             }
             for (int i = 0; i < no_asociados.Rows.Count; i++)
             {
-                m_tabla_requerimientos_disponibles.Add(Tuple.Create(no_asociados.Rows[i]["nombre"].ToString(), Convert.ToInt32(no_asociados.Rows[i]["id_requerimiento"])));
+                m_tabla_requerimientos_disponibles.Add(Tuple.Create(no_asociados.Rows[i]["nombre"].ToString(), Convert.ToString(no_asociados.Rows[i]["id_requerimiento"])));
             }
             refrescar_requerimientos();
         }
@@ -368,7 +368,7 @@ namespace SAPS.Fronteras
         {
             Button enviador = sender as Button;
             bool se_agrega = enviador.ID.StartsWith("btn_lista_disponibles");
-            int id=0;
+            string id="";
             if(se_agrega)
             {
                 foreach(var coso in m_tabla_requerimientos_disponibles)
