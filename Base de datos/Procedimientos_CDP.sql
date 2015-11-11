@@ -94,7 +94,7 @@ GO
 CREATE PROCEDURE CONSULTAR_ENTRADA_DATOS
 	@id_caso_prueba varchar(64)
 AS
-	SELECT valor, tipo
+	SELECT id_dato, valor, tipo
 	FROM DatosCasoDePrueba
 	WHERE DatosCasoDePrueba.id_caso_prueba = @id_caso_prueba
 GO

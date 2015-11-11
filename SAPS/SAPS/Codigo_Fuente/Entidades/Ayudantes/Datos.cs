@@ -30,7 +30,7 @@ namespace SAPS.Entidades.Ayudantes
             set { m_valor = value; }
         }
 
-        public string estado
+        public string tipo
         {
             get { return m_tipo; }
             set { m_tipo = value; }

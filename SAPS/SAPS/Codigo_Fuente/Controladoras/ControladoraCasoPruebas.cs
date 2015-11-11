@@ -71,7 +71,7 @@ namespace SAPS.Controladoras
          *  @param id_caso id del caso de prueba al cual se quiere consultar las entradas de datos asociadas.
          *  @return Array de la clase Datos con los resultados.
          */
-        public Dato[] consultar_entrada_dato(string id_caso)
+        public DataTable consultar_entrada_dato(string id_caso)
         {
             return m_base_datos.consultar_entrada_datos(id_caso);
         }

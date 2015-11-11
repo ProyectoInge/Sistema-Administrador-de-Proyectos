@@ -112,22 +112,22 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
-        public Dato[] consultar_entrada_datos(string id_caso_prueba)
+        public DataTable consultar_entrada_datos(string id_caso_prueba)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_ENTRADA_DATOS");
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso_prueba;
             DataTable resultados = m_data_base_adapter.obtener_resultado_consulta(comando);
 
-            Dato[] resultado = new Dato[resultados.Rows.Count];
+            //Dato[] resultado = new Dato[resultados.Rows.Count];
 
             // Se convierte a Objetos Datos y se insertan en el array
-            for (int i = 0; i < resultados.Rows.Count; ++i)
-            {
-                Dato dato = new Dato(resultados.Rows[i]["valor"].ToString(), resultados.Rows[i]["tipo"].ToString());
-                resultado.SetValue(dato, i);
-            }
-            return resultado;
+            //for (int i = 0; i < resultados.Rows.Count; ++i)
+            //{
+            //    Dato dato = new Dato(resultados.Rows[i]["valor"].ToString(), resultados.Rows[i]["tipo"].ToString());
+            //   resultado.SetValue(dato, i);
+            //}
+            return resultados;
         }
 
         /** @brief Método que realiza la setencia SQL para consultar todos los casos de pruebas que se encuentran en la base de datos.
