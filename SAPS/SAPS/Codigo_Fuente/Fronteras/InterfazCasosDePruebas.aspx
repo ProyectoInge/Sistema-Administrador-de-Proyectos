@@ -62,8 +62,9 @@
                                     <asp:Label runat="server" ID="label_proyecto" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto<span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
-                                    <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_proyecto_asociado_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_proyecto_asociado_SelectedIndexChanged" AutoPostBack="true">                                                                       
                                     </asp:DropDownList>
+                                    <asp:Label runat="server" ID="label_proyecto_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un proyecto.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row2_izq" class="form-group">
@@ -73,6 +74,7 @@
                                 <div class="col-md-9">
                                     <asp:DropDownList ID="drop_diseno_asociado" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_diseno_asociado_SelectedIndexChanged" AutoPostBack="true">
                                     </asp:DropDownList>
+                                    <asp:Label runat="server" ID="label_diseno_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un diseno.</small></asp:Label>
                                 </div>
                             </div>
                             <!-- Esto es necesario para pruebas de integracion, ahorita solo vamos a hacer unitarias
@@ -120,12 +122,14 @@
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="lebel_text_proposito" CssClass="control-label" AssociatedControlID="text_proposito">Propósito<span class="text-danger">*</span></asp:Label>
                                     <asp:TextBox runat="server" ID="text_proposito" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
+                                    <asp:Label runat="server" ID="label_proposito_vacio" CssClass="text-danger"><small>Debe ingresar un propósito.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row2_izq_2" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="lebel_text_flujo_central" CssClass="control-label" AssociatedControlID="text_flujo_central">Flujo Central<span class="text-danger">*</span></asp:Label>
                                     <asp:TextBox runat="server" ID="text_flujo_central" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
+                                    <asp:Label runat="server" ID="label_flujo_central_vacio" CssClass="text-danger"><small>Debe ingresar un propósito.</small></asp:Label>
                                 </div>
                             </div>
                         </div>
@@ -218,4 +222,64 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn_cdp").addClass("active");// Para activar el elemento en el navbar
+            /* Los metodos de aca son para realizar las validacion de datos de lado del cliente. */
+
+            //Escondo los labels de errores
+            // TO DO --> hay que poner esto en el header para que cargue bien.
+            $("#<%= label_proposito_vacio.ClientID%>").hide();
+            $("#<%= label_flujo_central_vacio.ClientID%>").hide();
+            $("#<%= label_flujo_central_vacio.ClientID%>").hide();
+            $("#<%= label_proyecto_asociado_vacio.ClientID%>").hide();
+            $("#<%= label_diseno_asociado_vacio.ClientID%>").hide();
+
+             // Validacion del proyecto seleccionado":
+            $("#<%= drop_proyecto_asociado.ClientID%>").blur(function () {
+                var texto_ingresado = $("#<%= text_proposito.ClientID %>").val();
+                if (texto_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_proyecto_asociado_vacio.ClientID %>").show();
+                } else {
+                    $("#<%= label_proyecto_asociado_vacio.ClientID %>").hide();
+                }
+            });
+
+             // Validacion del diseno seleccionado":
+            $("#<%= drop_diseno_asociado.ClientID%>").blur(function () {
+                var texto_ingresado = $("#<%= text_proposito.ClientID %>").val();
+                if (texto_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_diseno_asociado_vacio.ClientID %>").show();
+                } else {
+                    $("#<%= label_diseno_asociado_vacio.ClientID %>").hide();
+                }
+            });
+
+
+            // Validacion del proposito:
+            $("#<%= text_proposito.ClientID%>").blur(function () {
+                var texto_ingresado = $("#<%= text_proposito.ClientID %>").val();
+                if (texto_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_proposito_vacio.ClientID %>").show();
+                } else {
+                    $("#<%= label_proposito_vacio.ClientID %>").hide();
+                }
+            });
+
+            // Validacion del flujo central:
+            $("#<%= text_flujo_central.ClientID%>").blur(function () {
+                var texto_ingresado = $("#<%= text_proposito.ClientID %>").val();
+                if (texto_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_flujo_central_vacio.ClientID %>").show();
+                } else {
+                    $("#<%= label_flujo_central_vacio.ClientID %>").hide();
+                }
+            });
+
+           
+
+
+
+        });
+    </script>
 </asp:Content>
