@@ -19,33 +19,32 @@ namespace SAPS.Entidades
         // Campos
         private string m_id;
         private int m_id_diseno;
+        private string m_id_requerimiento;
         private string m_proposito;
         private string m_resultado_esperado;
         private string m_flujo_central;
         private Dato[] m_entrda_de_datos;
 
         /* @param datos contiene los datos para poder crear un Caso de pruebas, el orden va de la siguiente manera:
-           | Índice | Descripción             | Tipo de datos |
-           |:------:|:-----------------------:|:-------------:|
-           |    0   |  Id del caso de prueba  |     string    |
-           |    1   |  Id del diseño asociado |      int      |
-           |    2   |  Propósito de la prueba |     String    |
-           |    3   |  Resultado esperado     |     String    |
-           |    4   |  Flujo central          |     String    |
+         * | Índice | Descripción             | Tipo de datos |
+         * |:------:|:-----------------------:|:-------------:|
+         * |    0   |  Id del caso de prueba  |     string    |
+         * |    1   |  Id del diseño asociado |      int      |
+         * |    2   |  Id del requrimiento    |     String    |
+         * |    3   |  Propósito de la prueba |     String    |
+         * |    4   |  Resultado esperado     |     String    |
+         * |    5   |  Flujo central          |     String    |
          * 
          * @param entrada_datos array que contendrá todo las entradas de datos relacionados al caso de prueba. 
         */
         public CasoPruebas(Object[] datos, Dato[] entrada_datos)
         {
-            if (datos[0] != null)
-                m_id = datos[0].ToString();
-            else
-                m_id = null;
-
+            m_id = datos[0].ToString();
             m_id_diseno = Convert.ToInt32(datos[1]);
-            m_proposito = datos[2].ToString();
-            m_resultado_esperado = datos[3].ToString();
-            m_flujo_central = datos[4].ToString();
+            m_id_requerimiento = datos[2].ToString();
+            m_proposito = datos[3].ToString();
+            m_resultado_esperado = datos[4].ToString();
+            m_flujo_central = datos[5].ToString();
             m_entrda_de_datos = entrada_datos;
         }
 
@@ -68,6 +67,12 @@ namespace SAPS.Entidades
         {
             get { return m_proposito; }
             set { m_proposito = value; }
+        }
+
+        public string requerimiento
+        {
+            get { return m_id_requerimiento; }
+            set { m_id_requerimiento = value; }
         }
 
         public string flujo_central
