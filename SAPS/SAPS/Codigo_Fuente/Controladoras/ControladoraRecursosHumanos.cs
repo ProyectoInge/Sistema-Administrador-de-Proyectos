@@ -21,16 +21,27 @@ namespace SAPS.Controladoras
     {
         // Variables de instancia
         private BDRecursosHumanos m_base_datos;
+        private ControladoraProyectoPruebas m_controladora_pdp;
 
 
         // Constructor
         public ControladoraRecursosHumanos()
         {
             m_base_datos = new BDRecursosHumanos();
+            m_controladora_pdp = new ControladoraProyectoPruebas();
         }
 
 
         // Métodos
+
+        /** @brief Método que asigna las operaciones necesarias para poder consultar los proyectos de pruebas disponibles,
+                    hace posible la arquitectura de N capas.
+             * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable solicitar_proyectos_disponibles()
+        {
+            return m_controladora_pdp.solicitar_proyectos_disponibles();
+        }
 
         /** @brief Método que asigna las operaciones necesarias para poder insertar un recurso humano.
          * @param datos vector que contiene los datos para poder crear un recurso humano.

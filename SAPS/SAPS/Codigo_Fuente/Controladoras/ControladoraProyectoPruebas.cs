@@ -21,10 +21,13 @@ namespace SAPS.Controladoras
     {
         //Variables de instancia
         private BDProyectoPruebas m_base_datos_pdp;
+        private ControladoraRecursosHumanos m_controladora_rh;
+
         //Constructor
         public ControladoraProyectoPruebas()
         {
             m_base_datos_pdp = new BDProyectoPruebas();
+            m_controladora_rh = new ControladoraRecursosHumanos();
         }
 
         // Métodos
