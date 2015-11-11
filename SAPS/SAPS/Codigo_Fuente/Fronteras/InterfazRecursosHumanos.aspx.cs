@@ -23,7 +23,7 @@ namespace SAPS.Fronteras
     {
         // Variables de instancia
         private ControladoraRecursosHumanos m_controladora_rh;
-        private ControladoraProyectoPruebas m_controladora_pdp;
+
         private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
 
         private static string[,] m_tabla_recursos_disponibles; //posicion: 0 --> username, 1 --> nombre
@@ -40,7 +40,6 @@ namespace SAPS.Fronteras
             if (Request.IsAuthenticated)
             {
                 m_controladora_rh = new ControladoraRecursosHumanos();
-                m_controladora_pdp = new ControladoraProyectoPruebas();
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
@@ -342,7 +341,7 @@ namespace SAPS.Fronteras
         */
         private void llena_proyectos_disponibles()
         {
-            DataTable tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
+            DataTable tabla_proyectos = m_controladora_rh.solicitar_proyectos_disponibles();
             m_tamano_tabla_pdp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
             ListItem primer_item = new ListItem();

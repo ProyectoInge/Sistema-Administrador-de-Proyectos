@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
-                                         <asp:ListItem Text="-Elija un estado-" Value="-Elija un estado"></asp:ListItem> 
+                                         <asp:ListItem Text="-Seleccione un estado-" Value="-Elija un estado"></asp:ListItem> 
                                         <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
                                         <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
                                         <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>

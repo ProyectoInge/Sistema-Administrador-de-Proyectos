@@ -22,6 +22,9 @@ namespace SAPS.Controladoras
         // Variables de instancia
         private BDRecursosHumanos m_base_datos;
 
+        // Para respetar la arquitectura de N capaz, solo las controladoras pueden hablar entre si
+        private ControladoraProyectoPruebas m_controladora_pdp;
+
 
         // Constructor
         public ControladoraRecursosHumanos()
@@ -31,6 +34,17 @@ namespace SAPS.Controladoras
 
 
         // Métodos
+
+        /** @brief Método que asigna las operaciones necesarias para poder consultar los proyectos de pruebas disponibles,
+                    hace posible la arquitectura de N capas.
+             * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable solicitar_proyectos_disponibles()
+        {
+
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.solicitar_proyectos_disponibles();
+        }
 
         /** @brief Método que asigna las operaciones necesarias para poder insertar un recurso humano.
          * @param datos vector que contiene los datos para poder crear un recurso humano.
