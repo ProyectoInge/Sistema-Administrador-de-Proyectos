@@ -100,7 +100,7 @@ namespace SAPS.Fronteras
 
             
             ListItem item_proyecto = new ListItem();
-            item_proyecto.Text = "";
+            item_proyecto.Text = "-Seleccione un proyecto-";
             item_proyecto.Value = "";
             drop_proyecto.Items.Add(item_proyecto);
 
@@ -404,7 +404,7 @@ namespace SAPS.Fronteras
 
 
             ListItem item_rh = new ListItem();
-            item_rh.Text = "";
+            item_rh.Text = "-Seleccione un responsable-";
             item_rh.Value = "";
             drop_responsable.Items.Add(item_rh);
 
