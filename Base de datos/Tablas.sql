@@ -1,4 +1,5 @@
-use proyectoDB;
+--use proyectoDB;
+use g1inge
 
 	drop table DatosCasoDePrueba;
 	drop table Ejecucion;

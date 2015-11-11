@@ -34,19 +34,23 @@ namespace SAPS.Base_de_Datos
          * @param caso de pruebas a guardar en la base de datos.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int insertar_caso_pruebas(CasoPruebas caso_pruebas)
+        public int insertar_caso_pruebas(CasoPruebas caso_prueba)
         {
             // Procedimiento almacenado
             SqlCommand comando = new SqlCommand("INSERTAR_CP");
-            rellena_parametros_caso_pruebas(ref comando, caso_pruebas);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_diseno_asociado", SqlDbType.Int).Value = caso_prueba.id_diseno;
+            comando.Parameters.Add("@id_req_asociado", SqlDbType.VarChar).Value = caso_prueba.requerimiento;
+
+            rellena_parametros_caso_pruebas(ref comando, caso_prueba);
             int resultado = m_data_base_adapter.ejecutar_consulta(comando);
 
             // Guardar entrada de datos
-            if (caso_pruebas.entrada_de_datos != null)
+            if (caso_prueba.entrada_de_datos != null)
             {
-                for (int i = 0; i < caso_pruebas.entrada_de_datos.Length; ++i)
+                for (int i = 0; i < caso_prueba.entrada_de_datos.Length; ++i)
                 {
-                    guardar_entrada_de_datos(caso_pruebas.entrada_de_datos[i], caso_pruebas.id);
+                    guardar_entrada_de_datos(caso_prueba.entrada_de_datos[i], caso_prueba.id);
                     m_data_base_adapter.ejecutar_consulta(comando);
                 }
             }
@@ -57,21 +61,24 @@ namespace SAPS.Base_de_Datos
          * @param caso a guardar en la base de datos.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int modificar_caso_pruebas(CasoPruebas caso)
+        public int modificar_caso_pruebas(CasoPruebas caso_prueba)
         {
-            borrar_entrada_de_datos_asociados(caso.id);
+            borrar_entrada_de_datos_asociados(caso_prueba.id);
 
             // Se actualizan los datos del caso de pruebas
             SqlCommand comando = new SqlCommand("MODIFICAR_CP");
-            rellena_parametros_caso_pruebas(ref comando, caso);
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = caso_prueba.id;
+
+            rellena_parametros_caso_pruebas(ref comando, caso_prueba);
             int result = m_data_base_adapter.ejecutar_consulta(comando);
 
             // Actualiza los datos asociados a un caso de pruebas (entrada_datos[])
-            if (caso.entrada_de_datos != null)
+            if (caso_prueba.entrada_de_datos != null)
             {
-                for (int i = 0; i < caso.entrada_de_datos.Length; ++i)
+                for (int i = 0; i < caso_prueba.entrada_de_datos.Length; ++i)
                 {
-                    guardar_entrada_de_datos(caso.entrada_de_datos[i], caso.id);
+                    guardar_entrada_de_datos(caso_prueba.entrada_de_datos[i], caso_prueba.id);
                 }
             }
 
@@ -82,13 +89,13 @@ namespace SAPS.Base_de_Datos
          * @param id del caso que se quiere eliminar.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        public int eliminar_caso_pruebas(string id_caso)
+        public int eliminar_caso_pruebas(string id_caso_prueba)
         {
-            borrar_entrada_de_datos_asociados(id_caso);
+            borrar_entrada_de_datos_asociados(id_caso_prueba);
 
             SqlCommand comando = new SqlCommand("ELIMINAR_CP");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso;
+            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso_prueba;
 
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
@@ -97,11 +104,11 @@ namespace SAPS.Base_de_Datos
          * @param id del caso que se desea consultar.
          * @return DataTable con los resultados de la consultas.
          */
-        public DataTable consultar_caso_pruebas(string id_caso)
+        public DataTable consultar_caso_pruebas(string id_caso_prueba)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_CP");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso;
+            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso_prueba;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
@@ -158,14 +165,11 @@ namespace SAPS.Base_de_Datos
                   se va a modificar.
         *  @param caso de pruebas con la información necesaria para realizar el procedimiento.
         */
-        private void rellena_parametros_caso_pruebas(ref SqlCommand comando, CasoPruebas caso_pruebas)
+        private void rellena_parametros_caso_pruebas(ref SqlCommand comando, CasoPruebas caso_prueba)
         {
-            comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = caso_pruebas.id;
-            comando.Parameters.Add("@id_diseno_asociado", SqlDbType.Int).Value = caso_pruebas.id_diseno;
-            comando.Parameters.Add("@proposito", SqlDbType.VarChar).Value = caso_pruebas.proposito;
-            comando.Parameters.Add("@resultado_esperado", SqlDbType.VarChar).Value = caso_pruebas.resultado_esperado;
-            comando.Parameters.Add("@flujo", SqlDbType.VarChar).Value = caso_pruebas.flujo_central;
+            comando.Parameters.Add("@proposito", SqlDbType.VarChar).Value = caso_prueba.proposito;
+            comando.Parameters.Add("@resultado_esperado", SqlDbType.VarChar).Value = caso_prueba.resultado_esperado;
+            comando.Parameters.Add("@flujo", SqlDbType.VarChar).Value = caso_prueba.flujo_central;
         }
 
         private void guardar_entrada_de_datos(Dato entrada_dato, string id_caso_prueba)
@@ -184,6 +188,5 @@ namespace SAPS.Base_de_Datos
             comando_limpieza.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso_pruebas;
             m_data_base_adapter.ejecutar_consulta(comando_limpieza);
         }
-
     }
 }

@@ -81,17 +81,10 @@ namespace SAPS.Controladoras
          * @param id_diseno Diseño del cual se quiere saber los caso de prueba asociados.
         * @return DataTable con los datos de todos los casos de pruebas que pertencen a id_diseno.
         */
-        public DataTable solicitar_casos_pruebas_disponibles(int id_diseno) {
+        public DataTable solicitar_casos_pruebas_disponibles(int id_diseno) 
+        {
             return m_base_datos.solicitar_casos_disponibles(id_diseno);
         }
 
-        /** @brief Asocia un caso de prueba con un requerimiento
-         * @param id_caso_prueba id del caso de prueba que se quiere relacionar.
-         * @param id_requerimiento id del requerimiento que se quiere relacionar.
-         */
-        public int asociar_caso_prueba_con_requerimiento(string id_caso_prueba, int id_requerimiento)
-        {
-            return m_base_datos.asociar_caso_prueba_con_requerimiento(id_caso_prueba, id_requerimiento);
-        } 
     }
 }
