@@ -381,15 +381,19 @@ namespace SAPS.Fronteras
         {
             bool resultado = true;
             DataTable tabla_requerimientos = m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
-            ListItem primer_item = new ListItem();
-            primer_item.Text = "";
-            primer_item.Value = "";
-            drop_requerimientos.Items.Add(primer_item);
-            if (tabla_requerimientos.Rows.Count == 0) resultado = false;
+            ListItem primer_elemento = new ListItem();
+            primer_elemento.Text = "-Seleccione un requerimiento -";
+            primer_elemento.Value = "";
+            drop_requerimientos.Items.Add(primer_elemento);
+
+            if (tabla_requerimientos.Rows.Count == 0) {
+                resultado = false;
+                primer_elemento.Text = "-No hay requerimientos asociados-";
+            } 
             for (int i = 0; i < tabla_requerimientos.Rows.Count; ++i)
             {
                 ListItem item_proyecto = new ListItem();
-                item_proyecto.Text = tabla_requerimientos.Rows[i]["nombre"].ToString();
+                item_proyecto.Text = tabla_requerimientos.Rows[i]["id_requerimiento"].ToString();
                 item_proyecto.Value = Convert.ToString(tabla_requerimientos.Rows[i]["id_requerimiento"]);
                 drop_requerimientos.Items.Add(item_proyecto);
             }
@@ -426,6 +430,10 @@ namespace SAPS.Fronteras
         private void llena_proyectos_disponibles()
         {
             DataTable tabla_proyectos;
+            ListItem primer_elemento = new ListItem();
+            primer_elemento.Text = "-Seleccione un proyecto-";
+            primer_elemento.Value = "";
+            drop_proyecto_asociado.Items.Add(primer_elemento);
             if (m_es_administrador)
             {
                 tabla_proyectos = m_controladora_pdp.solicitar_proyectos_no_eliminados();
@@ -434,11 +442,6 @@ namespace SAPS.Fronteras
             {
                 tabla_proyectos = m_controladora_pdp.consultar_mi_proyecto(Context.User.Identity.Name);
             }
-
-            ListItem primer_item = new ListItem();
-            primer_item.Text = "";
-            primer_item.Value = "";
-            drop_proyecto_asociado.Items.Add(primer_item);
             for (int i = 0; i < tabla_proyectos.Rows.Count; ++i)
             {
                 ListItem item_proyecto = new ListItem();
@@ -470,10 +473,10 @@ namespace SAPS.Fronteras
         private void llenar_disenos_asociados(int id_proyecto)
         {
             DataTable tabla_disenos_asociados = m_controladora_dp.solicitar_disenos_asociados_proyecto(id_proyecto);
-            ListItem primer_item = new ListItem();
-            primer_item.Text = "";
-            primer_item.Value = "";
-            drop_diseno_asociado.Items.Add(primer_item);
+            ListItem primer_elemento = new ListItem();
+            primer_elemento.Text = "-Seleccione un diseño-";
+            primer_elemento.Value = "";
+            drop_diseno_asociado.Items.Add(primer_elemento);
             for (int i = 0; i < tabla_disenos_asociados.Rows.Count; ++i)
             {
                 ListItem item_diseno = new ListItem();
@@ -502,7 +505,7 @@ namespace SAPS.Fronteras
         private void llenar_caso_de_pruebas_disponibles()
         {
             crea_encabezado_tabla_cdp();
-            if (0!=drop_diseno_asociado.Items.Count)
+            if (0!=drop_diseno_asociado.Items.Count && "" != drop_diseno_asociado.SelectedItem.Value)
             {
                 int diseno_asociado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
                 DataTable caso_de_pruebas_disponibles = m_controladora_cdp.solicitar_casos_pruebas_disponibles(diseno_asociado);
