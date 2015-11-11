@@ -33,14 +33,12 @@ namespace SAPS.Fronteras
         private static Object[,] m_tabla_proyectos_disponibles; //posicion: 0 --> id_proyecto (int), 1 --> nombre_proyecto (string)
         private static int m_tamano_tabla_pdp;
         private static int m_id_proyecto_mostrado = 0;
-
         /** @brief Constructor inicial de la pagina, se encarga de cargar los elementos basicos iniciales de cada seccion.
         */
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.IsAuthenticated)
             {
-                ControladoraRecursosHumanos controladora_rh = new ControladoraRecursosHumanos();
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
@@ -53,13 +51,13 @@ namespace SAPS.Fronteras
                 input_phone1.Enabled = false;
                 input_phone2.Enabled = false;
                 mensaje_error_modal.Visible = false;
-                mensaje_exito_modal.Visible = false;                
+                mensaje_exito_modal.Visible = false;
                 // Se llenan las tablas y comboBox
                 //llena_disenos_prueba();   // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
                 if (!IsPostBack)
                 {
                     actualiza_drop_oficinas();  // ** OJO, actualiza_drop_oficinas se tiene que llamar ANTES que llena_proyectos_de_pruebas SIEMPRE!!
-                    m_es_administrador = controladora_rh.es_administrador(Context.User.Identity.Name);
+                    m_es_administrador = m_controladora_pdp.es_administrador(Context.User.Identity.Name);
                 }
                 llena_proyectos_de_pruebas();
 
@@ -263,7 +261,7 @@ namespace SAPS.Fronteras
          * @param Los parametros por default de un evento de C#.
         */
         protected void drop_oficina_asociada_SelectedIndexChanged(object sender, EventArgs e)
-        {            
+        {
             int id_oficina_elegida = Convert.ToInt32(((DropDownList)sender).SelectedValue); // Agarra el item seleccionado del dropdown
             llena_campos_oficina(id_oficina_elegida);
         }
@@ -310,7 +308,7 @@ namespace SAPS.Fronteras
             input_phone1.Text = Convert.ToString(datos_oficina.Rows[0]["telefono"]);
             input_phone2.Text = Convert.ToString(datos_oficina.Rows[0]["telefono2"]);
             // Seleccionar el nombre de la oficina en el dropbox
-            string nombre_oficina = Convert.ToString(datos_oficina.Rows[0]["nombre_oficina"]);            
+            string nombre_oficina = Convert.ToString(datos_oficina.Rows[0]["nombre_oficina"]);
             drop_oficina_asociada.ClearSelection();
             drop_oficina_asociada.Items.FindByText(nombre_oficina).Selected = true; // Selecciona la oficina correspondiente
         }

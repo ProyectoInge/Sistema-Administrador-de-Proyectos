@@ -32,6 +32,15 @@ namespace SAPS.Controladoras
 
         // Métodos
 
+        /** @brief Método que consulta el perfil de un usuario del sistema, permite que se mantenga la arquitectura N capas.
+        * @param nombre_usuario usuario cuyo perfil se desea consultar.
+        * @return false si es administrador, true si es miembro
+        */
+        public bool es_administrador(string nombre_usuario)
+        {
+            return m_controladora_rh.es_administrador(nombre_usuario);
+        }
+
         /** @brief Método que asigna las operaciones necesarias para poder insertar un proyecto de pruebas.
          * @param datos array que contiene los datos para poder insertar un proyecto de pruebas.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
