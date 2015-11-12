@@ -49,7 +49,7 @@ namespace SAPS.Fronteras
                 {
                     m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);                    
                     drop_diseno_asociado.Enabled = false;
-                    drop_requerimientos.Enabled = false;
+                    drop_id_requerimientos.Enabled = false;
                     actualiza_proyectos();
                 }
                 actualiza_caso_de_pruebas_disponibles();
@@ -178,7 +178,7 @@ namespace SAPS.Fronteras
         {
             drop_proyecto_asociado.Text = "";
             drop_diseno_asociado.Text = "";
-            drop_requerimientos.Text = "";
+            drop_id_requerimientos.Text = "";
             text_proposito.Text = "";
             text_flujo_central.Text = "";
             m_opcion = 'i';
@@ -191,7 +191,7 @@ namespace SAPS.Fronteras
         {
             drop_proyecto_asociado.Enabled = estado;
             drop_diseno_asociado.Enabled = estado;
-            drop_requerimientos.Enabled = estado;
+            drop_id_requerimientos.Enabled = estado;
             text_proposito.Enabled = estado;
             text_flujo_central.Enabled = estado;
         }
@@ -207,7 +207,7 @@ namespace SAPS.Fronteras
             {
                 if (drop_diseno_asociado.Text != "")
                 {
-                    if (drop_requerimientos.Text != "")
+                    if (drop_id_requerimientos.Text != "")
                     {
                         if (text_proposito.Text != "")
                         {
@@ -268,7 +268,7 @@ namespace SAPS.Fronteras
                     else
                     {
                         cuerpo_alerta_error.Text = "Es necesario escoger al menos un requerimiento.";
-                        SetFocus(drop_requerimientos);
+                        SetFocus(drop_id_requerimientos);
                     }
                 }
                 else
@@ -340,9 +340,12 @@ namespace SAPS.Fronteras
             {
                 int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
                 drop_diseno_asociado.Enabled = true;
+                drop_id_requerimientos.Enabled = false;
                 actualiza_disenos_asociados(id_proyecto_seleccionado);
                 vacia_requerimientos();
             }
+                label_id_diseno.Text = "ID diseño";
+                label_id_diseno.Font.Italic = true;
         }
 
 
@@ -354,11 +357,19 @@ namespace SAPS.Fronteras
             if ("" != drop_diseno_asociado.SelectedItem.Value)
             {
                 int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
-                drop_requerimientos.Enabled = true;
+                drop_id_requerimientos.Enabled = true;
                 drop_diseno_asociado.Enabled = true;
                 actualiza_requerimientos(id_diseno_seleccionado);
                 actualiza_caso_de_pruebas_disponibles();
+                label_id_diseno.Text = drop_diseno_asociado.SelectedItem.Value;
             }
+            else {
+                label_id_diseno.Text = "ID diseño";
+                drop_id_requerimientos.Items.Clear();
+                label_id_diseno.Font.Italic = true;
+                drop_id_requerimientos.Enabled = false;
+            }
+            
         }
 
         /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
@@ -369,7 +380,7 @@ namespace SAPS.Fronteras
             if (!llena_requerimientos_disponibles(id_diseno))
             {
                 cuerpo_alerta_error.Text = "Este diseño no tiene requerimientos asociados, no es posible asignarle un caso de pruebas.";
-                drop_requerimientos.Enabled = false;
+                drop_id_requerimientos.Enabled = false;
                 alerta_error.Visible = true;
             }
         }
@@ -382,20 +393,20 @@ namespace SAPS.Fronteras
             bool resultado = true;
             DataTable tabla_requerimientos = m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
             ListItem primer_elemento = new ListItem();
-            primer_elemento.Text = "-Seleccione un requerimiento -";
+            primer_elemento.Text = "-Asociar requerimiento -";
             primer_elemento.Value = "";
-            drop_requerimientos.Items.Add(primer_elemento);
+            drop_id_requerimientos.Items.Add(primer_elemento);
 
             if (tabla_requerimientos.Rows.Count == 0) {
                 resultado = false;
-                primer_elemento.Text = "-No hay requerimientos asociados-";
+                primer_elemento.Text = "-No hay requerimientos-";
             } 
             for (int i = 0; i < tabla_requerimientos.Rows.Count; ++i)
             {
                 ListItem item_proyecto = new ListItem();
                 item_proyecto.Text = tabla_requerimientos.Rows[i]["id_requerimiento"].ToString();
                 item_proyecto.Value = Convert.ToString(tabla_requerimientos.Rows[i]["id_requerimiento"]);
-                drop_requerimientos.Items.Add(item_proyecto);
+                drop_id_requerimientos.Items.Add(item_proyecto);
             }
             return resultado;
         }
@@ -404,7 +415,7 @@ namespace SAPS.Fronteras
         */
         private void vacia_requerimientos()
         {
-            drop_requerimientos.Items.Clear();
+            drop_id_requerimientos.Items.Clear();
         }
 
 

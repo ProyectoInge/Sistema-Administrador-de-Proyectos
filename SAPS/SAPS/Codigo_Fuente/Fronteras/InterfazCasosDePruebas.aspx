@@ -56,8 +56,8 @@
                         <div class="panel-title">Resumen</div>
                     </div>
                     <div class="panel-body">
-                        <div class="form-horizontal">
-                            <div id="row1_izq" class="form-group">
+                        <div class="form-horizontal">                            
+                            <div id="row0_izq" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_proyecto" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto<span class="text-danger">*</span></asp:Label>
                                 </div>
@@ -67,7 +67,7 @@
                                     <asp:Label runat="server" ID="label_proyecto_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un proyecto.</small></asp:Label>
                                 </div>
                             </div>
-                            <div id="row2_izq" class="form-group">
+                            <div id="row1_izq" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_diseno" CssClass="control-label" AssociatedControlID="drop_diseno_asociado">Diseño<span class="text-danger">*</span></asp:Label>
                                 </div>
@@ -75,6 +75,19 @@
                                     <asp:DropDownList ID="drop_diseno_asociado" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_diseno_asociado_SelectedIndexChanged" AutoPostBack="true">
                                     </asp:DropDownList>
                                     <asp:Label runat="server" ID="label_diseno_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un diseno.</small></asp:Label>
+                                </div>
+                            </div>
+                            <div id="row2_izq" class="form-group">
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID ="label_id_diseno">ID de Caso<span class="text-danger">*</span></asp:Label>
+                                </div>
+                                <div class="col-md-3">
+                                    <asp:Label runat="server" CssClass="form-control" ID="label_id_diseno"><i>ID diseño</i><span></span></asp:Label>                                
+                                </div>                   
+                                <div class="col-md-6">                                    
+                                    <asp:DropDownList ID="drop_id_requerimientos" runat="server" CssClass="form-control">
+                                    </asp:DropDownList>
+                                    <asp:Label runat="server" ID="label_id_requerimiento_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un requerimiento.</small></asp:Label>
                                 </div>
                             </div>
                             <!-- Esto es necesario para pruebas de integracion, ahorita solo vamos a hacer unitarias
@@ -99,10 +112,7 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_der" class="form-group">
-                                <div class="col-md-12">
-                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_requerimientos">Requerimientos disponibles<span class="text-danger">*</span></asp:Label>
-                                    <asp:DropDownList ID="drop_requerimientos" runat="server" CssClass="form-control">
-                                    </asp:DropDownList>
+                                <div class="col-md-6">                                    
                                 </div>
                             </div>
                         </div>
@@ -128,8 +138,8 @@
                             <div id="row2_izq_2" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="lebel_text_flujo_central" CssClass="control-label" AssociatedControlID="text_flujo_central">Flujo Central<span class="text-danger">*</span></asp:Label>
-                                    <asp:TextBox runat="server" ID="text_flujo_central" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
-                                    <asp:Label runat="server" ID="label_flujo_central_vacio" CssClass="text-danger"><small>Debe ingresar un propósito.</small></asp:Label>
+                                    <asp:TextBox runat="server" ID="text_flujo_central" CssClass="form-control" Rows="8" Style="resize: none" TextMode="multiline" />
+                                    <asp:Label runat="server" ID="label_flujo_central_vacio" CssClass="text-danger"><small>Debe ingresar un flujo central.</small></asp:Label>
                                 </div>
                             </div>
                         </div>
@@ -142,14 +152,14 @@
                         <div class="panel-title">Entrada de datos</div>
                     </div>
                     <div class="panel-body">
-                        <div class="form-horizontal">
+                        <div class="form-horizontal">                            
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <asp:Label runat="server" ID="label_valor_entradas" AssociatedControlID="input_entradas_valor" CssClass="control-label">Valor</asp:Label>
                                     <asp:TextBox runat="server" ID="input_entradas_valor" CssClass="form-control"></asp:TextBox>
                                 </div>
                                 <div class="col-md-6">
-                                    <asp:Label runat="server" ID="label_entradas_estado" AssociatedControlID="drop_entradas_estado" CssClass="control-label">Estado</asp:Label>
+                                    <asp:Label runat="server" ID="label_entradas_estado" AssociatedControlID="drop_entradas_estado" CssClass="control-label">Tipo</asp:Label>
                                     <asp:DropDownList runat="server" ID="drop_entradas_estado" CssClass="form-control">
                                         <asp:ListItem Text="" Value=""></asp:ListItem>
                                         <asp:ListItem Text="Válido" Value="v"></asp:ListItem>
@@ -157,29 +167,29 @@
                                         <asp:ListItem Text="No aplica" Value="na"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="btn-group" role="group">
-                                        <asp:Button runat="server" ID="btn_agregar_entrada" CssClass="btn btn-link" Text="Agregar" />
-                                        <asp:Button runat="server" CssClass="btn btn-link" ID="btn_entradas_eliminar" Text="Eliminar" />
-                                    </div>
-                                </div>
-                            </div>
+                            </div>    
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="label_entradas_disponibles" CssClass="control-label" AssociatedControlID="drop_entradas_disponibles">Entradas disponibles</asp:Label>
                                     <asp:DropDownList runat="server" ID="drop_entradas_disponibles" CssClass="form-control">
                                     </asp:DropDownList>
                                 </div>
+                            </div>                       
+                            <div class="form-group">
+                                <div class="col-md-5 col-md-offset-7">
+                                    <div class="btn-group" role="group">
+                                        <asp:Button runat="server" ID="btn_agregar_entrada" CssClass="btn btn-link" Text="Agregar" />
+                                        <asp:Button runat="server" CssClass="btn btn-link" ID="btn_entradas_eliminar" Text="Eliminar" />
+                                    </div>
+                                </div>
                             </div>
-                            <hr />
+                            <hr/>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="label_entradas_resultado" AssociatedControlID="input_entradas_resultado" CssClass="control-label">Resultado esperado</asp:Label>
                                     <asp:TextBox runat="server" ID="input_entradas_resultado" CssClass="form-control" Rows="2" Style="resize: none" TextMode="multiline"></asp:TextBox>
                                 </div>
-                            </div>
+                            </div>            
                         </div>
                     </div>
                 </div>
@@ -234,10 +244,12 @@
             $("#<%= label_flujo_central_vacio.ClientID%>").hide();
             $("#<%= label_proyecto_asociado_vacio.ClientID%>").hide();
             $("#<%= label_diseno_asociado_vacio.ClientID%>").hide();
+            $("#<%= label_id_requerimiento_asociado_vacio.ClientID%>").hide();
 
              // Validacion del proyecto seleccionado":
             $("#<%= drop_proyecto_asociado.ClientID%>").blur(function () {
-                var texto_ingresado = $("#<%= text_proposito.ClientID %>").val();
+                var texto_ingresado = new String();
+                texto_ingresado = $("#<%= drop_proyecto_asociado.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
                     $("#<%= label_proyecto_asociado_vacio.ClientID %>").show();
                 } else {
@@ -247,11 +259,24 @@
 
              // Validacion del diseno seleccionado":
             $("#<%= drop_diseno_asociado.ClientID%>").blur(function () {
-                var texto_ingresado = $("#<%= text_proposito.ClientID %>").val();
+                var texto_ingresado = new String();
+                texto_ingresado = $("#<%= drop_diseno_asociado.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
                     $("#<%= label_diseno_asociado_vacio.ClientID %>").show();
                 } else {
                     $("#<%= label_diseno_asociado_vacio.ClientID %>").hide();
+                }
+            });
+
+
+            // Validacion del requerimiento seleccionado":
+            $("#<%= drop_id_requerimientos.ClientID%>").blur(function () {
+                var texto_ingresado = new String();
+                texto_ingresado = $("#<%= drop_id_requerimientos.ClientID %>").val();
+                if (texto_ingresado == "") { //Verifica que no este vacia
+                    $("#<%= label_id_requerimiento_asociado_vacio.ClientID %>").show();
+                } else {
+                    $("#<%= label_id_requerimiento_asociado_vacio.ClientID %>").hide();
                 }
             });
 
@@ -268,18 +293,13 @@
 
             // Validacion del flujo central:
             $("#<%= text_flujo_central.ClientID%>").blur(function () {
-                var texto_ingresado = $("#<%= text_proposito.ClientID %>").val();
+                var texto_ingresado = $("#<%= text_flujo_central.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
                     $("#<%= label_flujo_central_vacio.ClientID %>").show();
                 } else {
                     $("#<%= label_flujo_central_vacio.ClientID %>").hide();
                 }
-            });
-
-           
-
-
-
+            });      
         });
     </script>
 </asp:Content>

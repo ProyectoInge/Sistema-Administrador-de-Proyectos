@@ -148,6 +148,33 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label label_diseno_asociado_vacio;
         
         /// <summary>
+        /// Control label_id_diseno.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_id_diseno;
+        
+        /// <summary>
+        /// Control drop_id_requerimientos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drop_id_requerimientos;
+        
+        /// <summary>
+        /// Control label_id_requerimiento_asociado_vacio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_id_requerimiento_asociado_vacio;
+        
+        /// <summary>
         /// Control label_caracteristicas_diseno.
         /// </summary>
         /// <remarks>
@@ -164,15 +191,6 @@ namespace SAPS.Fronteras {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drop_caracteristicas_diseno;
-        
-        /// <summary>
-        /// Control drop_requerimientos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_requerimientos;
         
         /// <summary>
         /// Control lebel_text_proposito.
@@ -265,24 +283,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.DropDownList drop_entradas_estado;
         
         /// <summary>
-        /// Control btn_agregar_entrada.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_agregar_entrada;
-        
-        /// <summary>
-        /// Control btn_entradas_eliminar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_entradas_eliminar;
-        
-        /// <summary>
         /// Control label_entradas_disponibles.
         /// </summary>
         /// <remarks>
@@ -299,6 +299,24 @@ namespace SAPS.Fronteras {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drop_entradas_disponibles;
+        
+        /// <summary>
+        /// Control btn_agregar_entrada.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_agregar_entrada;
+        
+        /// <summary>
+        /// Control btn_entradas_eliminar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_entradas_eliminar;
         
         /// <summary>
         /// Control label_entradas_resultado.
