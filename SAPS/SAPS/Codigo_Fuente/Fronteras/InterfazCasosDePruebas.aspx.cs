@@ -411,13 +411,12 @@ namespace SAPS.Fronteras
             bool resultado = true;
             DataTable tabla_requerimientos = m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
             ListItem primer_elemento = new ListItem();
-            primer_elemento.Text = "-Asociar requerimiento -";
+            primer_elemento.Text = "-Requerimientos-";
             primer_elemento.Value = "";
             drop_id_requerimientos.Items.Add(primer_elemento);
 
             if (tabla_requerimientos.Rows.Count == 0) {
                 resultado = false;
-                primer_elemento.Text = "-No hay requerimientos-";
             } 
             for (int i = 0; i < tabla_requerimientos.Rows.Count; ++i)
             {

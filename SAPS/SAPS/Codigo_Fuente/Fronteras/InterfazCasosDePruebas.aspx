@@ -81,13 +81,13 @@
                                 <div class="col-md-3">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID ="label_id_diseno">ID de Caso<span class="text-danger">*</span></asp:Label>
                                 </div>
-                                <div class="col-md-3">
-                                    <asp:Label runat="server" CssClass="form-control" ID="label_id_diseno"><i>ID diseño</i><span></span></asp:Label>                                
+                                <div class="col-md-4">
+                                    <asp:Label runat="server" CssClass="form-control" ID="label_id_diseno"><span><i>ID diseño</i></span></asp:Label>                                
                                 </div>                   
-                                <div class="col-md-6">                                    
+                                <div class="col-md-5">                                    
                                     <asp:DropDownList ID="drop_id_requerimientos" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:Label runat="server" ID="label_id_requerimiento_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un requerimiento.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_id_requerimiento_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un requerimiento.</small></asp:Label>                                    
                                 </div>
                             </div>
                             <!-- Esto es necesario para pruebas de integracion, ahorita solo vamos a hacer unitarias
@@ -107,7 +107,11 @@
             <div id="panel_derecha" class="col-md-5">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">Requerimientos</div>
+                        <div class="panel-title">Requerimientos asociados al diseño</div>
+                        <div class="col-md-12" style="height: 300px; overflow-y: scroll">
+                            <asp:Table runat="server" ID="Table1" CssClass="table table-hover form-group">
+                            </asp:Table>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
