@@ -28,6 +28,8 @@ namespace SAPS.Fronteras
 
         private static string m_caso_actual = "";
 
+        private static DataTable m_entrada_de_datos = null;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.IsAuthenticated)
@@ -155,7 +157,15 @@ namespace SAPS.Fronteras
             actualiza_caso_de_pruebas_disponibles();
             m_caso_actual = id_caso_de_prueba;
             activa_desactiva_botones_ime(true);
-            // @todo llenar los datos relacionados.
+            
+            // Llena el dropdown con los estados de datos
+            DataTable m_entrada_de_datos = m_controladora_cdp.consultar_entrada_dato(id_caso_de_prueba);
+            for (int i = 0; i < m_entrada_de_datos.Rows.Count; ++i)
+            {
+                ListItem tmp = new ListItem();
+                tmp.Text = m_entrada_de_datos.Rows[i]["valor"] + " : " + m_entrada_de_datos.Rows[i]["tipo"];
+                drop_entradas_disponibles.Items.Add(tmp);
+            }
         }
 
         #endregion
@@ -220,12 +230,20 @@ namespace SAPS.Fronteras
                                 datos[2] = text_proposito.Text;
                                 datos[3] = text_flujo_central.Text;
 
-                                //No son parte de entidad
+                                // Entrada de datos
+                                Dato[] entradas_de_datos_a_guardar = new Dato[drop_entradas_disponibles.Items.Count];
+                                int i = 0;
+                                foreach (ListItem entrada_dato in drop_entradas_disponibles.Items)
+                                {
+                                    int posicion_dos_puntos = entrada_dato.Text.IndexOf(":");
+                                    entradas_de_datos_a_guardar[i] = new Dato(entrada_dato.Text.Substring(0, posicion_dos_puntos - 1), entrada_dato.Text.Substring(posicion_dos_puntos));
+                                    ++i;
+                                }
 
                                 m_caso_actual = "" ; //Vuelve a invalidar el caso seleccionado
                                 if('i' == m_opcion)
                                 {
-                                    int resultado = m_controladora_cdp.insertar_caso_pruebas(datos, null);
+                                    int resultado = m_controladora_cdp.insertar_caso_pruebas(datos, entradas_de_datos_a_guardar);
                                     if (resultado == 0)
                                     {
                                         cuerpo_alerta_exito.Text = " Se ingresó el caso de pruebas correctamente.";
@@ -509,7 +527,6 @@ namespace SAPS.Fronteras
             tabla_casos_pruebas.Rows.Clear();
         }
 
-
         /** @brief Llena el área de consulta con los recursos humanos que hay en la base de datos.
                    Para esto crea la tabla dinámicamente.
          */
@@ -556,6 +573,28 @@ namespace SAPS.Fronteras
             celda_header_proposito.Text = "Propósito de el caso de prueba";
             header.Cells.AddAt(1, celda_header_proposito);
             tabla_casos_pruebas.Rows.Add(header);
+        }
+
+
+        // Métodos relacionados a la entrada de datos
+
+        protected void drop_entradas_disponibles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int posicion_dos_puntos = drop_entradas_disponibles.SelectedItem.Text.IndexOf(":");
+            input_entradas_valor.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(0, posicion_dos_puntos-1);
+            drop_entradas_estado.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(posicion_dos_puntos+1);
+        }
+
+        protected void btn_agregar_entrada_Click(object sender, EventArgs e)
+        {
+            ListItem tmp = new ListItem();
+            tmp.Text = input_entradas_valor.Text + " : " + drop_entradas_estado.SelectedItem.Text;
+            drop_entradas_disponibles.Items.Add(tmp);
+        }
+
+        protected void btn_entradas_eliminar_Click(object sender, EventArgs e)
+        {
+            drop_entradas_disponibles.Items.Remove(drop_entradas_disponibles.SelectedItem);
         }
 
         #region Métodos relacionados a entradas de datos
