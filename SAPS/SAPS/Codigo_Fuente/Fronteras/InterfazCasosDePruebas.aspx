@@ -56,13 +56,13 @@
                         <div class="panel-title">Resumen</div>
                     </div>
                     <div class="panel-body">
-                        <div class="form-horizontal">                            
+                        <div class="form-horizontal">
                             <div id="row0_izq" class="form-group">
                                 <div class="col-md-3">
                                     <asp:Label runat="server" ID="label_proyecto" CssClass="control-label" AssociatedControlID="drop_proyecto_asociado">Proyecto<span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-9">
-                                    <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_proyecto_asociado_SelectedIndexChanged" AutoPostBack="true">                                                                       
+                                    <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_proyecto_asociado_SelectedIndexChanged" AutoPostBack="true">
                                     </asp:DropDownList>
                                     <asp:Label runat="server" ID="label_proyecto_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un proyecto.</small></asp:Label>
                                 </div>
@@ -79,15 +79,15 @@
                             </div>
                             <div id="row2_izq" class="form-group">
                                 <div class="col-md-3">
-                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID ="label_id_diseno">ID de Caso<span class="text-danger">*</span></asp:Label>
+                                    <asp:Label runat="server" CssClass="control-label" AssociatedControlID="label_id_diseno">ID de Caso<span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-4">
-                                    <asp:Label runat="server" CssClass="form-control" ID="label_id_diseno"><span><i>ID diseño</i></span></asp:Label>                                
-                                </div>                   
-                                <div class="col-md-5">                                    
+                                    <asp:Label runat="server" CssClass="form-control" ID="label_id_diseno"><span><i>ID diseño</i></span></asp:Label>
+                                </div>
+                                <div class="col-md-5">
                                     <asp:DropDownList ID="drop_id_requerimientos" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:Label runat="server" ID="label_id_requerimiento_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un requerimiento.</small></asp:Label>                                    
+                                    <asp:Label runat="server" ID="label_id_requerimiento_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un requerimiento.</small></asp:Label>
                                 </div>
                             </div>
                             <!-- Esto es necesario para pruebas de integracion, ahorita solo vamos a hacer unitarias
@@ -108,15 +108,13 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Requerimientos asociados al diseño</div>
-                        <div class="col-md-12" style="height: 300px; overflow-y: scroll">
-                            <asp:Table runat="server" ID="Table1" CssClass="table table-hover form-group">
-                            </asp:Table>
-                        </div>
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
-                            <div id="row1_der" class="form-group">
-                                <div class="col-md-6">                                    
+                            <div class="form-group">
+                                <div class="col-md-12 col-lg-12" style="height: 130px; overflow-y: scroll">
+                                    <asp:Table runat="server" ID="tabla_requerimientos_asociados" CssClass="table table-hover">
+                                    </asp:Table>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +154,7 @@
                         <div class="panel-title">Entrada de datos</div>
                     </div>
                     <div class="panel-body">
-                        <div class="form-horizontal">                            
+                        <div class="form-horizontal">
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <asp:Label runat="server" ID="label_valor_entradas" AssociatedControlID="input_entradas_valor" CssClass="control-label">Valor</asp:Label>
@@ -171,14 +169,14 @@
                                         <asp:ListItem Text="No aplica" Value="na"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
-                            </div>    
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="label_entradas_disponibles" CssClass="control-label" AssociatedControlID="drop_entradas_disponibles">Entradas disponibles</asp:Label>
                                     <asp:DropDownList runat="server" ID="drop_entradas_disponibles" CssClass="form-control">
                                     </asp:DropDownList>
                                 </div>
-                            </div>                       
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-5 col-md-offset-7">
                                     <div class="btn-group" role="group">
@@ -187,13 +185,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr/>
+                            <hr />
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="label_entradas_resultado" AssociatedControlID="input_entradas_resultado" CssClass="control-label">Resultado esperado</asp:Label>
                                     <asp:TextBox runat="server" ID="input_entradas_resultado" CssClass="form-control" Rows="2" Style="resize: none" TextMode="multiline"></asp:TextBox>
                                 </div>
-                            </div>            
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,7 +248,7 @@
             $("#<%= label_diseno_asociado_vacio.ClientID%>").hide();
             $("#<%= label_id_requerimiento_asociado_vacio.ClientID%>").hide();
 
-             // Validacion del proyecto seleccionado":
+            // Validacion del proyecto seleccionado":
             $("#<%= drop_proyecto_asociado.ClientID%>").blur(function () {
                 var texto_ingresado = new String();
                 texto_ingresado = $("#<%= drop_proyecto_asociado.ClientID %>").val();
@@ -261,7 +259,7 @@
                 }
             });
 
-             // Validacion del diseno seleccionado":
+            // Validacion del diseno seleccionado":
             $("#<%= drop_diseno_asociado.ClientID%>").blur(function () {
                 var texto_ingresado = new String();
                 texto_ingresado = $("#<%= drop_diseno_asociado.ClientID %>").val();
@@ -303,7 +301,7 @@
                 } else {
                     $("#<%= label_flujo_central_vacio.ClientID %>").hide();
                 }
-            });      
+            });
         });
     </script>
 </asp:Content>

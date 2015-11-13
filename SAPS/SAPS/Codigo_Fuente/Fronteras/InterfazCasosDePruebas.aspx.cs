@@ -224,11 +224,13 @@ namespace SAPS.Fronteras
                             if (text_flujo_central.Text != "")
                             {
                                 //Parte de la entidad
-                                Object[] datos = new Object[4];
-                                datos[0] = m_caso_actual;
+                                Object[] datos = new Object[6];
+                                datos[0] = m_caso_actual;  
                                 datos[1] = drop_diseno_asociado.SelectedItem.Value;
-                                datos[2] = text_proposito.Text;
-                                datos[3] = text_flujo_central.Text;
+                                datos[2] = drop_id_requerimientos.SelectedItem.Value;
+                                datos[3] = text_proposito.Text;
+                                datos[4] = input_entradas_resultado.Text;
+                                datos[5] = text_flujo_central.Text;
 
                                 // Entrada de datos
                                 Dato[] entradas_de_datos_a_guardar = new Dato[drop_entradas_disponibles.Items.Count];
