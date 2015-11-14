@@ -55,7 +55,7 @@ namespace SAPS.Base_de_Datos
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error de ejecucion: " + ex.ToString());
+                System.Diagnostics.Debug.WriteLine("Error de ejecucion: " + ex.ToString());
                 return -1;
             }
 

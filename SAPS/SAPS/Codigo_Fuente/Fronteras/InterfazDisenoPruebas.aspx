@@ -200,6 +200,13 @@
                                     <asp:Label runat="server" ID="label_error_procedimiento" CssClass="text-danger"><small>Debe ingresar un procedimiento de pruebas.</small></asp:Label>
                                 </div>
                             </div>
+                            <div id="row8.5" class="form-group">
+                                <div class="col-md-12">
+                                    <asp:Label runat="server" ID="label_criterios" CssClass="control-label" AssociatedControlID="input_criterio">Criterios de aceptación: <span class="text-danger">*</span></asp:Label>
+                                    <asp:TextBox ID="input_criterio" runat="server" CssClass="form-control" Rows="3" TextMode="MultiLine" Style="resize: none"></asp:TextBox>
+                                    <asp:Label runat="server" ID="label_error_criterio" CssClass="text-danger"><small>Debe ingresar un criterio de aceptación.</small></asp:Label>
+                                </div>
+                            </div>
                             <div id="row9" class="form-group">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -326,7 +333,8 @@
             $("#<%= label_nombre_vacio.ClientID%>").hide();
             $("#<%= label_error_procedimiento.ClientID%>").hide();
             $("#<%= label_error_proyecto.ClientID%>").hide();
-            $("#<%= label_error_rh.ClientID%>").hide();
+            $("#<%= label_error_rh.ClientID%>").hide();            
+            $("#<%= label_error_criterio.ClientID%>").hide();
 
             // Validacion del ambiente:
             $("#<%= input_ambiente.ClientID %>").blur(function () {
@@ -419,6 +427,16 @@
                     $("#<%= label_error_rh.ClientID%>").show();
                 } else {
                     $("#<%= label_error_rh.ClientID%>").hide();
+                }
+            });
+
+            //Validación de criterios
+            $("#<%= input_criterio.ClientID %>").blur(function () {
+                var input_criterio = $(this).val();
+                if (input_criterio == "") {
+                    $("#<%= label_error_criterio.ClientID%>").show();
+                } else {
+                    $("#<%= label_error_criterio.ClientID%>").hide();
                 }
             });
 

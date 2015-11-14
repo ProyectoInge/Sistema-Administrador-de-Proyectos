@@ -106,7 +106,7 @@ namespace SAPS.Base_de_Datos
             comando.CommandType = CommandType.StoredProcedure;
             // Se agarran los datos del vector de objects.
             comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = Convert.ToInt32(datos[0]);
-            comando.Parameters.Add("@id_requerimiento", SqlDbType.VarChar).Value = Convert.ToInt32(datos[1]);
+            comando.Parameters.Add("@id_requerimiento", SqlDbType.VarChar).Value = Convert.ToString(datos[1]);
             comando.Parameters.Add("@proposito", SqlDbType.VarChar).Value = Convert.ToString(datos[2]);
             comando.Parameters.Add("@procedimiento", SqlDbType.VarChar).Value = Convert.ToString(datos[3]);
             // Se ejecuta el procedimiento almacenado.

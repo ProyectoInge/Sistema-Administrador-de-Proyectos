@@ -197,7 +197,7 @@ namespace SAPS.Fronteras
                                             {
                                                 if (input_fecha.Text != "")
                                                 {
-                                                    Object[] datosDiseno = new Object[9];
+                                                    Object[] datosDiseno = new Object[10];
                                                     datosDiseno[0] = 0;
                                                     datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
                                                     datosDiseno[2] = input_nombre.Text;
@@ -207,6 +207,7 @@ namespace SAPS.Fronteras
                                                     datosDiseno[6] = drop_nivel.SelectedValue;
                                                     datosDiseno[7] = drop_responsable.SelectedValue;
                                                     datosDiseno[8] = input_ambiente.Text;
+                                                    datosDiseno[9] = input_criterio.Text;
                                                     
                                                     int resultado = m_controladora_dp.insertar_diseno_pruebas(datosDiseno);
                                                     DataTable diseños = m_controladora_dp.solicitar_disenos_disponibles();
@@ -489,9 +490,9 @@ namespace SAPS.Fronteras
             btn_eliminar.Enabled = true;
             btn_modificar.Enabled = true;
             llena_informacion_consulta(dp_id);
-           
-           
-            activa_desactiva_inputs(false);
+
+            btn_modificar_Click(null, null);
+            activa_desactiva_inputs(true);
         }
 
         private void activa_desactiva_inputs(bool v)
@@ -505,6 +506,15 @@ namespace SAPS.Fronteras
             input_procedimiento.Enabled = v;
             drop_responsable.Enabled = false;
             input_fecha.Enabled = v;
+            input_criterio.Enabled = v;
+            for(int i = 0; i < m_tamano_tabla_req; i++)
+            {
+                tabla_disponibles.Rows[i].Enabled = v;
+            }
+            for (int i = 0; i < m_tamano_tabla_seleccionados; i++)
+            {
+                tabla_agregados.Rows[i].Enabled = v;
+            }
         }
         /** @brief Método que llena la información de un diseño de prueba en las cajas de la intefaz
          * @param El ID del diseño de prueba.
@@ -528,6 +538,7 @@ namespace SAPS.Fronteras
             input_ambiente.Text = tabla_dp.Rows[0]["ambiente"].ToString();
             drop_responsable.ClearSelection();
             drop_responsable.Items.FindByValue(tabla_dp.Rows[0]["username_responsable"].ToString()).Selected = true;
+            input_criterio.Text = tabla_dp.Rows[0]["criterio_aceptacion"].ToString();
             if (tabla_req_asoc.Rows.Count != 0)
             {
                 input_procedimiento.Text = tabla_req_asoc.Rows[0]["procedimiento"].ToString();
@@ -562,6 +573,7 @@ namespace SAPS.Fronteras
                 bool res = ingresar_diseno();
 
                 alerta_exito.Visible = res;
+                alerta_error.Visible = !res;
             }
             else if(m_opcion == 'e')
             {
@@ -569,8 +581,146 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = res;
                 alerta_error.Visible = !res;
             }
+            else if(m_opcion == 'm')
+            {
+                bool res = modificar_diseno();
+                alerta_exito.Visible = res;
+                alerta_error.Visible = !res;
+            }
         }
 
+        private bool modificar_diseno()
+        {
+            bool a_retornar = true;
+            if (input_nombre.Text != "")
+            {
+                if (drop_proyecto.Text != "")
+                {
+                    if (drop_nivel.Text != "")
+                    {
+                        if (drop_tecnica.Text != "")
+                        {
+                            if (drop_tipo.Text != "")
+                            {
+                                if (input_ambiente.Text != "")
+                                {
+                                    if (input_procedimiento.Text != "")
+                                    {
+                                        if (drop_responsable.Text != "")
+                                        {
+                                            if (input_fecha.Text != "")
+                                            {
+                                                Object[] datosDiseno = new Object[10];
+                                                datosDiseno[0] = 0;
+                                                datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
+                                                datosDiseno[2] = input_nombre.Text;
+                                                datosDiseno[3] = DateTime.Parse(input_fecha.Text);
+                                                datosDiseno[4] = drop_tecnica.SelectedValue;
+                                                datosDiseno[5] = drop_tipo.SelectedValue;
+                                                datosDiseno[6] = drop_nivel.SelectedValue;
+                                                datosDiseno[7] = drop_responsable.SelectedValue;
+                                                datosDiseno[8] = input_ambiente.Text;
+                                                datosDiseno[9] = input_criterio.Text;
+
+                                                int resultado = m_controladora_dp.modificar_diseno_pruebas(datosDiseno);
+                                                DataTable diseños = m_controladora_dp.solicitar_disenos_disponibles();
+                                                int id_agregado = Convert.ToInt32(diseños.Rows[diseños.Rows.Count - 1]["id_diseno"]);
+
+                                                for (int i = 0; i < m_tabla_requerimientos_seleccionados.Count; i++)
+                                                {
+                                                    Object[] datosAsoc = new Object[4];
+                                                    datosAsoc[0] = id_agregado;
+                                                    datosAsoc[1] = m_tabla_requerimientos_seleccionados[i].Item2;
+                                                    datosAsoc[2] = "";
+                                                    datosAsoc[3] = input_procedimiento.Text;
+
+                                                    m_controladora_req.modificar_requerimiento(datosAsoc);
+                                                }
+
+
+                                                if (resultado == 0)
+                                                {
+                                                    cuerpo_alerta_exito.Text = " Se ha modificado un nuevo diseño correctamente.";
+                                                    actualiza_grid_dp();
+                                                    btn_eliminar.Enabled = true;
+                                                    btn_modificar.Enabled = true;
+                                                }
+                                                else
+                                                {
+                                                    cuerpo_alerta_error.Text = " No se logró modificar el diseño, intente nuevamente.";
+                                                    a_retornar = false;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                cuerpo_alerta_error.Text = "Es necesario seleccionar una fecha.";
+                                                SetFocus(input_fecha);
+                                                a_retornar = false;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            cuerpo_alerta_error.Text = "Es necesario seleccionar un responsable.";
+                                            SetFocus(drop_responsable);
+                                            a_retornar = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        cuerpo_alerta_error.Text = "Es necesario ingresar el procedimiento de prueba.";
+                                        SetFocus(input_procedimiento);
+                                        a_retornar = false;
+                                    }
+
+                                }
+                                else
+                                {
+                                    cuerpo_alerta_error.Text = "Es necesario ingresar un ambiente de prueba..";
+                                    SetFocus(input_ambiente);
+                                    a_retornar = false;
+                                }
+                            }
+                            else
+                            {
+                                cuerpo_alerta_error.Text = "Es necesario seleccionar un tipo de prueba.";
+                                SetFocus(drop_tipo);
+                                a_retornar = false;
+                            }
+                        }
+                        else
+                        {
+                            cuerpo_alerta_error.Text = "Es necesario seleccionar una técnica de prueba.";
+                            SetFocus(drop_tecnica);
+                            a_retornar = false;
+                        }
+                    }
+                    else
+                    {
+                        cuerpo_alerta_error.Text = "Es necesario seleccionar un nivel de prueba.";
+                        SetFocus(drop_nivel);
+                        a_retornar = false;
+                    }
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = "Es necesario seleccionar un proyecto.";
+                    SetFocus(drop_proyecto);
+                    a_retornar = false;
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de diseño.";
+                SetFocus(input_nombre);
+                a_retornar = false;
+            }
+            if (a_retornar == false)
+            {
+                alerta_error.Visible = true;
+            }
+
+            return a_retornar;
+        }
         /** @brief Método que elimina el diseño de prueba consultado.
         */
         private bool eliminar_diseno()
@@ -597,12 +747,13 @@ namespace SAPS.Fronteras
             {
                 mensaje_exito_modal.Visible = true;
                 actualiza_grid_dp();
-                Page_Load(null, null);
+                Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazDisenoPruebas.aspx");
             }
             else
             {
                 mensaje_error_modal.Visible = true;
             }
+            upModal.Update();
         }
 
 
@@ -612,25 +763,12 @@ namespace SAPS.Fronteras
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
             m_opcion = 'm';
-            /*
-            //btn_reestablece_contrasena.Visible = true;
-            //activa_desactiva_inputs(true);
-            //if (radio_btn_administrador.Checked == true)
-            //{
-                drop_rol.Enabled = false;
-                drop_proyecto_asociado.Enabled = false;
-            }
-            activa_desactiva_botones_ime(true);
-            input_contrasena.Enabled = false;
-            input_usuario.Enabled = false;
+            activa_desactiva_inputs(true);
+            drop_responsable.Enabled = true;
             btn_eliminar.CssClass = "btn btn-default";
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default active";
-            if (!m_es_administrador)
-            {
-                radio_btn_administrador.Enabled = false;
-            }
-            */
+           
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "eliminar".
@@ -644,9 +782,7 @@ namespace SAPS.Fronteras
                 btn_eliminar.CssClass = "btn btn-default active";
                 btn_crear.CssClass = "btn btn-default";
                 btn_modificar.CssClass = "btn btn-default";
-            
-            
-            
+                        
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "insertar".
@@ -654,26 +790,16 @@ namespace SAPS.Fronteras
         */
         protected void btn_crear_Click(object sender, EventArgs e)
         {
-            /*
-            if (m_es_administrador)
-            {
-                m_opcion = 'i';
-                activa_desactiva_inputs(true);
-                btn_reestablece_contrasena.Visible = false;
-                limpia_campos();
-                activa_desactiva_botones_ime(false);
-                drop_rol.Enabled = false;
-                drop_proyecto_asociado.Enabled = false;
-                btn_eliminar.CssClass = "btn btn-default";
-                btn_crear.CssClass = "btn btn-default active";
-                btn_modificar.CssClass = "btn btn-default ";
-            }
-            else
-            {
-                cuerpo_alerta_advertencia.Text = " No está autorizado para agregar recursos humanos.";
-                alerta_advertencia.Visible = true;
-            }
-            */
+            m_opcion = 'i';
+            activa_desactiva_inputs(true);
+
+            btn_eliminar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default";
+            btn_eliminar.Enabled = false;
+            btn_modificar.Enabled = false;
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazDisenoPruebas.aspx");
+
         }
 
         /** @brief Evento que se activa cuando se selecciona un Proyecto de prueba distinto en el combobox.
