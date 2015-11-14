@@ -19,7 +19,12 @@ namespace SAPS.Controladoras
      */
     public class ControladoraCasoPruebas
     {
+        // Variables de instancia
         private BDCasoPruebas m_base_datos;
+
+        private ControladoraRecursosHumanos m_controladora_rh;
+        private ControladoraProyectoPruebas m_controladora_pdp;
+        private ControladoraDisenosPruebas m_controladora_dp;
 
         // Constructor de la clase
         public ControladoraCasoPruebas()
@@ -34,8 +39,8 @@ namespace SAPS.Controladoras
         */
         public int insertar_caso_pruebas(Object[] datos, Dato[] entrada_de_datos)
         {
-             CasoPruebas caso_pruebas = new CasoPruebas(datos, entrada_de_datos);              
-             return m_base_datos.insertar_caso_pruebas(caso_pruebas);                    
+            CasoPruebas caso_pruebas = new CasoPruebas(datos, entrada_de_datos);
+            return m_base_datos.insertar_caso_pruebas(caso_pruebas);
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para insertar un nuevo caso de pruebas en la base de datos.
@@ -45,8 +50,8 @@ namespace SAPS.Controladoras
         */
         public int modificar_caso_pruebas(Object[] datos, Dato[] entrada_de_datos)
         {
-            CasoPruebas caso_pruebas = new CasoPruebas(datos, entrada_de_datos);      
-            return m_base_datos.modificar_caso_pruebas(caso_pruebas);            
+            CasoPruebas caso_pruebas = new CasoPruebas(datos, entrada_de_datos);
+            return m_base_datos.modificar_caso_pruebas(caso_pruebas);
         }
 
         /** @brief Eliminar un caso de pruebas en la base de datos.
@@ -81,9 +86,42 @@ namespace SAPS.Controladoras
          * @param id_diseno Diseño del cual se quiere saber los caso de prueba asociados.
         * @return DataTable con los datos de todos los casos de pruebas que pertencen a id_diseno.
         */
-        public DataTable solicitar_casos_pruebas_disponibles(int id_diseno) 
+        public DataTable solicitar_casos_pruebas_disponibles(int id_diseno)
         {
             return m_base_datos.solicitar_casos_disponibles(id_diseno);
+        }
+
+
+        // Métodos que llaman a otras controladoras
+
+        public bool es_administrador(string nombre_usuario)
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.es_administrador(nombre_usuario);
+        }
+
+        public DataTable consultar_mi_proyecto(string nombre_usuario)
+        {
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.consultar_mi_proyecto(nombre_usuario);
+        } 
+
+        public DataTable solicitar_proyectos_no_eliminados()
+        {
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.solicitar_proyectos_no_eliminados();
+        }
+
+        public DataTable solicitar_disenos_asociados_proyecto(int id_proyecto)
+        {
+            m_controladora_dp = new ControladoraDisenosPruebas();
+            return m_controladora_dp.solicitar_disenos_asociados_proyecto(id_proyecto);
+        }
+
+        public DataTable solicitar_requerimientos_asociados(int id_diseno)
+        {
+            m_controladora_dp = new ControladoraDisenosPruebas();
+            return m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
         }
 
     }

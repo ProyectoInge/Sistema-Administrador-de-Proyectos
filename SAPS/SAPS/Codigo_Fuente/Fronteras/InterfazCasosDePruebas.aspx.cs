@@ -11,17 +11,12 @@ using SAPS.Entidades.Ayudantes;
 namespace SAPS.Fronteras
 {
 
-    /*TO DO Líneas 565 y 582 @KEV
-    TODO Hacer que cuando se pase sobre un requerimiento en el grid aparezca el procedimiento.     
-    */
+    /* TODO Hacer que cuando se pase sobre un requerimiento en el grid aparezca el procedimiento. */
 
     public partial class InterfazCasosDePruebas : System.Web.UI.Page
     {
 
         #region  Variables de instacia
-        private static ControladoraRecursosHumanos m_controladora_rh;
-        private static ControladoraProyectoPruebas m_controladora_pdp;
-        private static ControladoraDisenosPruebas m_controladora_dp;
         private static ControladoraCasoPruebas m_controladora_cdp;
 
         private static TableHeaderRow m_fila_header; // Es global ya que se tiene que modificar en ciertas ocaciones
@@ -43,18 +38,13 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
                 activa_desactiva_botones_ime(false);
-                m_controladora_rh = new ControladoraRecursosHumanos();
-                m_controladora_pdp = new ControladoraProyectoPruebas();
-                m_controladora_dp = new ControladoraDisenosPruebas();
                 m_controladora_cdp = new ControladoraCasoPruebas();
-                m_controladora_pdp = new ControladoraProyectoPruebas();
-                m_controladora_rh = new ControladoraRecursosHumanos();
                 m_fila_header = new TableHeaderRow();
 
 
                 if (!IsPostBack)
                 {
-                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
+                    m_es_administrador = m_controladora_cdp.es_administrador(Context.User.Identity.Name);
                     drop_diseno_asociado.Enabled = false;
                     drop_id_requerimientos.Enabled = false;
                     actualiza_proyectos();
@@ -396,11 +386,11 @@ namespace SAPS.Fronteras
             drop_proyecto_asociado.Items.Add(primer_elemento);
             if (m_es_administrador)
             {
-                tabla_proyectos = m_controladora_pdp.solicitar_proyectos_no_eliminados();
+                tabla_proyectos = m_controladora_cdp.solicitar_proyectos_no_eliminados();
             }
             else
             {
-                tabla_proyectos = m_controladora_pdp.consultar_mi_proyecto(Context.User.Identity.Name);
+                tabla_proyectos = m_controladora_cdp.consultar_mi_proyecto(Context.User.Identity.Name);
             }
             for (int i = 0; i < tabla_proyectos.Rows.Count; ++i)
             {
@@ -460,7 +450,7 @@ namespace SAPS.Fronteras
          */
         private void llenar_disenos_asociados(int id_proyecto)
         {
-            DataTable tabla_disenos_asociados = m_controladora_dp.solicitar_disenos_asociados_proyecto(id_proyecto);
+            DataTable tabla_disenos_asociados = m_controladora_cdp.solicitar_disenos_asociados_proyecto(id_proyecto);
             ListItem primer_elemento = new ListItem();
             primer_elemento.Text = "-Seleccione un diseño-";
             primer_elemento.Value = "";
@@ -504,7 +494,7 @@ namespace SAPS.Fronteras
         private bool llena_requerimientos_disponibles(int id_diseno)
         {
             bool resultado = false;
-            DataTable tabla_requerimientos = m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
+            DataTable tabla_requerimientos = m_controladora_cdp.solicitar_requerimientos_asociados(id_diseno);
             ListItem primer_elemento = new ListItem();
             primer_elemento.Text = "-Requerimientos-";
             primer_elemento.Value = "";
@@ -564,7 +554,7 @@ namespace SAPS.Fronteras
                     tmp.Text = input_entradas_valor.Text + " : " + drop_entradas_estado.SelectedItem.Text;
                     drop_entradas_disponibles.Items.Add(tmp);
                     input_entradas_valor.Text = "";
-                    // @todo poner en opción por default al combobox que contiene los Tipo de dato.
+                    drop_entradas_estado.SelectedValue = "";
                 }
                 else
                 {
@@ -587,7 +577,7 @@ namespace SAPS.Fronteras
             {
                 drop_entradas_disponibles.Items.Remove(drop_entradas_disponibles.SelectedItem);
                 input_entradas_valor.Text = "";
-                // @todo poner en opción por default al combobox que contiene los Tipo de dato.
+                drop_entradas_estado.SelectedValue = "";
             }
             else
             {
