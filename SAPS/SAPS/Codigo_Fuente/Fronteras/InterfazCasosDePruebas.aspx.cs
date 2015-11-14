@@ -63,12 +63,17 @@ namespace SAPS.Fronteras
         */
         private void activa_desactiva_inputs(bool estado)
         {
-            drop_proyecto_asociado.Enabled = estado;
-            drop_diseno_asociado.Enabled = estado;
-            drop_id_requerimientos.Enabled = estado;
             text_proposito.Enabled = estado;
             text_flujo_central.Enabled = estado;
         }
+
+        private void activa_desactiva_input_resumen(bool estado)
+        {
+            drop_proyecto_asociado.Enabled = estado;
+            drop_diseno_asociado.Enabled = estado;
+            drop_id_requerimientos.Enabled = estado;
+        }
+
 
         /** @brief Se encarga de limpiar los strings que hay en los textbox y de deshabilitar los campos 
        */
@@ -149,6 +154,7 @@ namespace SAPS.Fronteras
         {
             m_opcion = 'i';
             activa_desactiva_inputs(true);
+            activa_desactiva_input_resumen(true);
             btn_eliminar.CssClass = "btn btn-default";
             btn_crear.CssClass = "btn btn-default active";
             btn_modificar.CssClass = "btn btn-default ";
@@ -162,6 +168,7 @@ namespace SAPS.Fronteras
         {
             m_opcion = 'm';
             activa_desactiva_inputs(true);
+            activa_desactiva_input_resumen(false);
             activa_desactiva_botones_ime(true);
             btn_eliminar.CssClass = "btn btn-default";
             btn_crear.CssClass = "btn btn-default";
@@ -175,6 +182,7 @@ namespace SAPS.Fronteras
         {
             m_opcion = 'e';
             activa_desactiva_inputs(false);
+            activa_desactiva_input_resumen(false);
             activa_desactiva_botones_ime(true);
             btn_eliminar.CssClass = "btn btn-default active";
             btn_crear.CssClass = "btn btn-default";
@@ -205,6 +213,8 @@ namespace SAPS.Fronteras
                 tmp.Text = entrada_de_datos.Rows[i]["valor"] + " : " + entrada_de_datos.Rows[i]["tipo"];
                 drop_entradas_disponibles.Items.Add(tmp);
             }
+            activa_desactiva_input_resumen(false);
+
         }
 
         /** @brief Pone activos los botones de "Eliminar" y "Modificar"
@@ -371,8 +381,15 @@ namespace SAPS.Fronteras
                 actualiza_disenos_asociados(id_proyecto_seleccionado);
                 vacia_requerimientos();
             }
+            else
+            {
+                drop_diseno_asociado.Items.Clear();
+                drop_diseno_asociado.Enabled = false;
+                vacia_caso_de_pruebas_disponibles();              
+            }
             label_id_diseno.Text = "ID diseño";
             label_id_diseno.Font.Italic = true;
+           
         }
 
         /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
