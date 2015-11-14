@@ -107,14 +107,19 @@
             <div id="panel_derecha" class="col-md-5">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">Requerimientos asociados al diseño</div>
+                        <div class="panel-title">Requerimientos disponibles</div>
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <div class="col-md-12 col-lg-12" style="height: 130px; overflow-y: scroll">
+                                <div class="col-md-6 col-lg-6" style="height: 130px; overflow-y: scroll">
                                     <asp:Table runat="server" ID="tabla_requerimientos_asociados" CssClass="table table-hover">
                                     </asp:Table>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-lg-5">
+                                        <asp:TextBox ID="output_procedimiento_requerimiento" runat="server" CssClass="form-control" Rows="6" TextMode="MultiLine" Style="resize: none" ReadOnly="true"></asp:TextBox>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -297,11 +302,18 @@
             $("#<%= text_flujo_central.ClientID%>").blur(function () {
                 var texto_ingresado = $("#<%= text_flujo_central.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_flujo_central_vacio.ClientID %>").show();
+                    $("#<%= label_flujo_central_vacio.ClientID %>").show();                   
                 } else {
                     $("#<%= label_flujo_central_vacio.ClientID %>").hide();
                 }
             });
+
+            //TO DO Mostrar procedimiento cuando se acerca el mouse
+            $("#<%= tabla_requerimientos_asociados. ClientID%>").hover(function () {
+            $("#<%= output_procedimiento_requerimiento.ClientID %>").text("La idea esq se muestre el procedimiento cuando se pasa sobre un requerimiento");
+            });
+
+
         });
     </script>
 </asp:Content>

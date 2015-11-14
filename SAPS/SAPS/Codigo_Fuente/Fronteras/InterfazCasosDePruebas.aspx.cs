@@ -10,9 +10,15 @@ using SAPS.Entidades.Ayudantes;
 
 namespace SAPS.Fronteras
 {
+
+    /*TO DO Líneas 565 y 582 @KEV
+    TODO Hacer que cuando se pase sobre un requerimiento en el grid aparezca el procedimiento.     
+    */
+
     public partial class InterfazCasosDePruebas : System.Web.UI.Page
     {
-        //Variables de instacia
+
+        #region  Variables de instacia
         private static ControladoraRecursosHumanos m_controladora_rh;
         private static ControladoraProyectoPruebas m_controladora_pdp;
         private static ControladoraDisenosPruebas m_controladora_dp;
@@ -25,6 +31,9 @@ namespace SAPS.Fronteras
         private static bool m_es_administrador;
 
         private static string m_caso_actual = "";
+        #endregion
+
+        #region Métodos de manejo de datos en pantalla
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -41,11 +50,11 @@ namespace SAPS.Fronteras
                 m_controladora_pdp = new ControladoraProyectoPruebas();
                 m_controladora_rh = new ControladoraRecursosHumanos();
                 m_fila_header = new TableHeaderRow();
-                
+
 
                 if (!IsPostBack)
                 {
-                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);                    
+                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
                     drop_diseno_asociado.Enabled = false;
                     drop_id_requerimientos.Enabled = false;
                     actualiza_proyectos();
@@ -59,8 +68,52 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Activa o desactiva los campos de ingresar texto.
+        * @param Bool "estado" que indica si activa o desactiva los campos.
+        */
+        private void activa_desactiva_inputs(bool estado)
+        {
+            drop_proyecto_asociado.Enabled = estado;
+            drop_diseno_asociado.Enabled = estado;
+            drop_id_requerimientos.Enabled = estado;
+            text_proposito.Enabled = estado;
+            text_flujo_central.Enabled = estado;
+        }
 
-        #region Métodos Botones
+        /** @brief Se encarga de limpiar los strings que hay en los textbox y de deshabilitar los campos 
+       */
+        private void limpia_campos()
+        {
+            drop_proyecto_asociado.Text = "";
+            drop_diseno_asociado.Text = "";
+            drop_id_requerimientos.Text = "";
+            text_proposito.Text = "";
+            text_flujo_central.Text = "";
+            input_entradas_valor.Text = "";
+            input_entradas_resultado.Text = "";
+            drop_entradas_estado.SelectedIndex = 0;
+            m_opcion = 'i';
+        }
+
+        /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora y realiza la operación respectiva.
+        */
+        private bool valida_campos()
+        {
+            bool a_retornar = false;
+            if (m_opcion == 'e')
+            {
+                a_retornar = eliminar_caso_pruebas();
+            }
+            else
+            {
+                a_retornar = insertar_modificar_caso_pruebas();
+            }
+            return a_retornar;
+        }
+
+        #endregion
+
+        #region Métodos relacionados con botones
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "aceptar".
         * @param Los parametros por default de un evento de C#.
@@ -97,7 +150,6 @@ namespace SAPS.Fronteras
             activa_desactiva_botones_ime(false);
             Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazCasosDePruebas.aspx");
         }
-        //Ya está
 
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "crear".
@@ -110,8 +162,8 @@ namespace SAPS.Fronteras
             btn_eliminar.CssClass = "btn btn-default";
             btn_crear.CssClass = "btn btn-default active";
             btn_modificar.CssClass = "btn btn-default ";
+            limpia_campos();
         }
-        //Ya está
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "modificar".
         * @param Los parametros por default de un evento de C#.
@@ -125,7 +177,6 @@ namespace SAPS.Fronteras
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default active";
         }
-        //Ya está
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "eliminar".
         * @param Los parametros por default de un evento de C#.
@@ -139,7 +190,6 @@ namespace SAPS.Fronteras
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default";
         }
-        //Ya está
 
         /** @brief Evento cuando un botón del ID de caso de pruebas se presiona */
         protected void btn_lista_Clicked(object sender, EventArgs e)
@@ -167,44 +217,17 @@ namespace SAPS.Fronteras
             }
         }
 
-        #endregion
-
-
         /** @brief Pone activos los botones de "Eliminar" y "Modificar"
-        * @param Bool con el estado de activacion de los botones ime (true/false)
-        */
+       * @param Bool con el estado de activacion de los botones ime (true/false)
+       */
         private void activa_desactiva_botones_ime(bool estado)
         {
-                btn_eliminar.Enabled = estado;
-                btn_modificar.Enabled = estado;
-                btn_crear.Enabled = true;
-        }
-        //Ya está
-
-        /** @brief Se encarga de limpiar los strings que hay en los textbox y de deshabilitar los campos 
-        */
-        private void limpia_campos()
-        {
-            drop_proyecto_asociado.Text = "";
-            drop_diseno_asociado.Text = "";
-            drop_id_requerimientos.Text = "";
-            text_proposito.Text = "";
-            text_flujo_central.Text = "";
-            m_opcion = 'i';
+            btn_eliminar.Enabled = estado;
+            btn_modificar.Enabled = estado;
+            btn_crear.Enabled = true;
         }
 
-        /** @brief Activa o desactiva los campos de ingresar texto.
-       * @param Bool "estado" que indica si activa o desactiva los campos.
-       */
-        private void activa_desactiva_inputs(bool estado)
-        {
-            drop_proyecto_asociado.Enabled = estado;
-            drop_diseno_asociado.Enabled = estado;
-            drop_id_requerimientos.Enabled = estado;
-            text_proposito.Enabled = estado;
-            text_flujo_central.Enabled = estado;
-        }
-
+        #endregion
 
         #region Métodos IMEC
         /** @brief Metodo que valida los campos que se ocupan para insertar o modificar un caso de pruebas, si no hay problema entonces lo inserta o lo modifica en la base.
@@ -224,7 +247,7 @@ namespace SAPS.Fronteras
                             {
                                 //Parte de la entidad
                                 Object[] datos = new Object[6];
-                                datos[0] = m_caso_actual;  
+                                datos[0] = m_caso_actual;
                                 datos[1] = drop_diseno_asociado.SelectedItem.Value;
                                 datos[2] = drop_id_requerimientos.SelectedItem.Value;
                                 datos[3] = text_proposito.Text;
@@ -237,12 +260,12 @@ namespace SAPS.Fronteras
                                 foreach (ListItem entrada_dato in drop_entradas_disponibles.Items)
                                 {
                                     int posicion_dos_puntos = entrada_dato.Text.IndexOf(":");
-                                    entradas_de_datos_a_guardar[i] = new Dato(entrada_dato.Text.Substring(0, posicion_dos_puntos - 1), entrada_dato.Text.Substring(posicion_dos_puntos+1));
+                                    entradas_de_datos_a_guardar[i] = new Dato(entrada_dato.Text.Substring(0, posicion_dos_puntos - 1), entrada_dato.Text.Substring(posicion_dos_puntos + 1));
                                     ++i;
                                 }
 
-                                m_caso_actual = "" ; //Vuelve a invalidar el caso seleccionado
-                                if('i' == m_opcion)
+                                m_caso_actual = ""; //Vuelve a invalidar el caso seleccionado
+                                if ('i' == m_opcion)
                                 {
                                     int resultado = m_controladora_cdp.insertar_caso_pruebas(datos, entradas_de_datos_a_guardar);
                                     if (resultado == 0)
@@ -258,7 +281,7 @@ namespace SAPS.Fronteras
                                 }
                                 else
                                 {
-                                    // Modoficar
+                                    // Modificar
                                     int resultado = m_controladora_cdp.modificar_caso_pruebas(datos, entradas_de_datos_a_guardar); //TO DO 
                                     if (resultado == 0)
                                     {
@@ -325,119 +348,16 @@ namespace SAPS.Fronteras
                     alerta_error.Visible = true;
                 }
                 actualiza_caso_de_pruebas_disponibles();
-            }     
-            
+            }
+
             return a_retornar;
         }
 
         #endregion
 
+        #region Métodos relacionados a resumen y requerimientos
 
-
-        /** @brief Verifica todos los campos que llena el usuario para comprobar que los datos ingresados son válidos, si no hay problema entonces envía los datos a la controladora y realiza la operación respectiva.
-         */
-        private bool valida_campos()
-        {
-            bool a_retornar = false;
-            if (m_opcion == 'e')
-            {
-                a_retornar = eliminar_caso_pruebas();
-            }
-            else
-            {
-                a_retornar = insertar_modificar_caso_pruebas();
-            }
-            return a_retornar;
-        }
-
-
-        /** @brief Metodo que se activa cuando el usuario selecciona un proyecto del dropdown, llena la informacion correspondiente a ese proyecto.
-         * @param Los parametros por default de un evento de C#.
-        */
-        protected void drop_proyecto_asociado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if ("" != drop_proyecto_asociado.SelectedItem.Value)
-            {
-                int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
-                drop_diseno_asociado.Enabled = true;
-                drop_id_requerimientos.Enabled = false;
-                actualiza_disenos_asociados(id_proyecto_seleccionado);
-                vacia_requerimientos();
-            }
-                label_id_diseno.Text = "ID diseño";
-                label_id_diseno.Font.Italic = true;
-        }
-
-
-        /** @brief Metodo que se activa cuando el usuario selecciona un diseño del dropdown, llena la informacion correspondiente a ese diseño.
-         * @param Los parametros por default de un evento de C#.
-        */
-        protected void drop_diseno_asociado_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if ("" != drop_diseno_asociado.SelectedItem.Value)
-            {
-                int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
-                drop_id_requerimientos.Enabled = true;
-                drop_diseno_asociado.Enabled = true;
-                actualiza_requerimientos(id_diseno_seleccionado);
-                actualiza_caso_de_pruebas_disponibles();
-                label_id_diseno.Text = drop_diseno_asociado.SelectedItem.Value;
-            }
-            else {
-                label_id_diseno.Text = "ID diseño";
-                drop_id_requerimientos.Items.Clear();
-                label_id_diseno.Font.Italic = true;
-                drop_id_requerimientos.Enabled = false;
-            }
-            
-        }
-
-        /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
-        */
-        private void actualiza_requerimientos(int id_diseno)
-        {
-            vacia_requerimientos();
-            if (!llena_requerimientos_disponibles(id_diseno))
-            {
-                cuerpo_alerta_error.Text = "Este diseño no tiene requerimientos asociados, no es posible asignarle un caso de pruebas.";
-                drop_id_requerimientos.Enabled = false;
-                alerta_error.Visible = true;
-            }
-        }
-        //Ya está
-
-        /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
-        */
-        private bool llena_requerimientos_disponibles(int id_diseno)
-        {
-            bool resultado = true;
-            DataTable tabla_requerimientos = m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
-            ListItem primer_elemento = new ListItem();
-            primer_elemento.Text = "-Requerimientos-";
-            primer_elemento.Value = "";
-            drop_id_requerimientos.Items.Add(primer_elemento);
-
-            if (tabla_requerimientos.Rows.Count == 0) {
-                resultado = false;
-            } 
-            for (int i = 0; i < tabla_requerimientos.Rows.Count; ++i)
-            {
-                ListItem item_proyecto = new ListItem();
-                item_proyecto.Text = tabla_requerimientos.Rows[i]["id_requerimiento"].ToString();
-                item_proyecto.Value = Convert.ToString(tabla_requerimientos.Rows[i]["id_requerimiento"]);
-                drop_id_requerimientos.Items.Add(item_proyecto);
-            }
-            return resultado;
-        }
-
-        /** @brief Metodo que vacia por completo la tabla de los requerimientos disponibles.
-        */
-        private void vacia_requerimientos()
-        {
-            drop_id_requerimientos.Items.Clear();
-        }
-
-
+        #region Métodos relacionados a proyectos de pruebas
 
         /** @brief Metodo que actualiza la tabla de proyectos disponibles con la información más reciente.
         */
@@ -448,11 +368,21 @@ namespace SAPS.Fronteras
 
         }
 
-        /** @brief Metodo que vacia por completo la tabla de los proyectos disponibles.
-        */
-        private void vacia_proyectos()
+        /** @brief Metodo que se activa cuando el usuario selecciona un proyecto del dropdown, llena la informacion correspondiente a ese proyecto.
+       * @param Los parametros por default de un evento de C#.
+      */
+        protected void drop_proyecto_asociado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            drop_proyecto_asociado.Items.Clear();
+            if ("" != drop_proyecto_asociado.SelectedItem.Value)
+            {
+                int id_proyecto_seleccionado = Convert.ToInt32(drop_proyecto_asociado.SelectedItem.Value);
+                drop_diseno_asociado.Enabled = true;
+                drop_id_requerimientos.Enabled = false;
+                actualiza_disenos_asociados(id_proyecto_seleccionado);
+                vacia_requerimientos();
+            }
+            label_id_diseno.Text = "ID diseño";
+            label_id_diseno.Font.Italic = true;
         }
 
         /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
@@ -481,6 +411,17 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Metodo que vacia por completo la tabla de los proyectos disponibles.
+        */
+        private void vacia_proyectos()
+        {
+            drop_proyecto_asociado.Items.Clear();
+        }
+
+        #endregion
+
+        #region Métodos relacionados a diseño de pruebas
+
         /** @brief Metodo que actualiza la tabla de disenos asociados a un proyecto de pruebas con la información más reciente.
          * @param El identificador del proyecto
         */
@@ -490,16 +431,33 @@ namespace SAPS.Fronteras
             llenar_disenos_asociados(id_proyecto);
         }
 
-        /** @brief Metodo que vacia por completo la tabla de los disenos disponibles.
+        /** @brief Metodo que se activa cuando el usuario selecciona un diseño del dropdown, llena la informacion correspondiente a ese diseño.
+         * @param Los parametros por default de un evento de C#.
         */
-        private void vaciar_disenos()
+        protected void drop_diseno_asociado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            drop_diseno_asociado.Items.Clear();
+            if ("" != drop_diseno_asociado.SelectedItem.Value)
+            {
+                int id_diseno_seleccionado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
+                drop_id_requerimientos.Enabled = true;
+                drop_diseno_asociado.Enabled = true;
+                actualiza_requerimientos(id_diseno_seleccionado);
+                actualiza_caso_de_pruebas_disponibles();
+                label_id_diseno.Text = drop_diseno_asociado.SelectedItem.Value;
+            }
+            else
+            {
+                label_id_diseno.Text = "ID diseño";
+                drop_id_requerimientos.Items.Clear();
+                label_id_diseno.Font.Italic = true;
+                drop_id_requerimientos.Enabled = false;
+            }
+
         }
 
         /** @brief Metodo que se encarga de llenar el DropBox con los disenos asociados de un proyecto que hay en la base de datos.
-         * @param El identificador del proyecto.
-        */
+        * @param El identificador del proyecto.
+         */
         private void llenar_disenos_asociados(int id_proyecto)
         {
             DataTable tabla_disenos_asociados = m_controladora_dp.solicitar_disenos_asociados_proyecto(id_proyecto);
@@ -516,6 +474,132 @@ namespace SAPS.Fronteras
             }
 
         }
+
+        /** @brief Metodo que vacia por completo la tabla de los disenos disponibles.
+       */
+        private void vaciar_disenos()
+        {
+            drop_diseno_asociado.Items.Clear();
+        }
+
+        #endregion
+
+        #region Métodos relacionados a requerimientos disponibles
+
+        /** @brief Metodo que actualiza la tabla de requerimientos disponibles con la información más reciente.
+        */
+        private void actualiza_requerimientos(int id_diseno)
+        {
+            vacia_requerimientos();
+            if (!llena_requerimientos_disponibles(id_diseno))
+            {
+                cuerpo_alerta_error.Text = "Este diseño no tiene requerimientos asociados, no es posible asignarle un caso de pruebas.";
+                drop_id_requerimientos.Enabled = false;
+                alerta_error.Visible = true;
+            }
+        }
+
+        /** @brief Metodo que se encarga de llenar el comboBox con los requerimientos asociados a un diseño.
+        */
+        private bool llena_requerimientos_disponibles(int id_diseno)
+        {
+            bool resultado = false;
+            DataTable tabla_requerimientos = m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
+            ListItem primer_elemento = new ListItem();
+            primer_elemento.Text = "-Requerimientos-";
+            primer_elemento.Value = "";
+            drop_id_requerimientos.Items.Add(primer_elemento);
+
+            if (0 != tabla_requerimientos.Rows.Count)
+            {
+
+                for (int i = 0; i < tabla_requerimientos.Rows.Count; ++i)
+                {
+                    ListItem item_proyecto = new ListItem();
+                    item_proyecto.Text = tabla_requerimientos.Rows[i]["id_requerimiento"].ToString();
+                    item_proyecto.Value = Convert.ToString(tabla_requerimientos.Rows[i]["id_requerimiento"]);
+                    drop_id_requerimientos.Items.Add(item_proyecto);
+
+                    //Se llena el grid de requerimientos.
+                    TableRow fila = new TableRow();
+                    TableCell celda_id = new TableCell();
+                    TableCell celda_requerimiento = new TableCell();
+                    celda_id.Text = tabla_requerimientos.Rows[i]["id_requerimiento"].ToString();
+                    celda_requerimiento.Text = tabla_requerimientos.Rows[i]["nombre"].ToString();
+                    fila.Cells.AddAt(0, celda_id);
+                    fila.Cells.AddAt(1, celda_requerimiento);
+                    tabla_requerimientos_asociados.Rows.Add(fila);
+                }
+                resultado = true;
+            }
+            return resultado;
+        }
+
+        /** @brief Metodo que vacia por completo la tabla de los requerimientos disponibles.
+        */
+        private void vacia_requerimientos()
+        {
+            drop_id_requerimientos.Items.Clear();
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Métodos relacionados a entradas de datos
+
+        protected void drop_entradas_disponibles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int posicion_dos_puntos = drop_entradas_disponibles.SelectedItem.Text.IndexOf(":");
+            input_entradas_valor.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(0, posicion_dos_puntos - 1);
+            drop_entradas_estado.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(posicion_dos_puntos + 1);
+        }
+
+        protected void btn_agregar_entrada_Click(object sender, EventArgs e)
+        {
+            if("" != input_entradas_valor.Text){
+                if ("" != drop_entradas_estado.SelectedItem.Value)
+                {
+                    ListItem tmp = new ListItem();
+                    tmp.Text = input_entradas_valor.Text + " : " + drop_entradas_estado.SelectedItem.Text;
+                    drop_entradas_disponibles.Items.Add(tmp);
+                    input_entradas_valor.Text = "";
+                    // @todo poner en opción por default al combobox que contiene los Tipo de dato.
+                }
+                else
+                {
+                    cuerpo_alerta_error.Text = "Debe elegir un tipo de entrada de datos.";
+                    SetFocus(drop_entradas_estado);
+                    alerta_error.Visible = true;
+                }
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = "Debe especificar una entrada de datos.";
+                SetFocus(input_entradas_valor);
+                alerta_error.Visible = true;
+            }
+        }
+
+        protected void btn_entradas_eliminar_Click(object sender, EventArgs e)
+        {
+            if (0 != drop_entradas_disponibles.Items.Count && "" != drop_entradas_disponibles.SelectedItem.Value)
+            {
+                drop_entradas_disponibles.Items.Remove(drop_entradas_disponibles.SelectedItem);
+                input_entradas_valor.Text = "";
+                // @todo poner en opción por default al combobox que contiene los Tipo de dato.
+            }
+            else
+            {
+                cuerpo_alerta_error.Text = "Debe seleccionar una entrada de datos existente.";
+                SetFocus(drop_entradas_disponibles);
+                alerta_error.Visible = true;
+            }
+        }
+
+        #endregion
+
+        #region Métodos relacionados a casos de pruebas disponibles
 
         private void actualiza_caso_de_pruebas_disponibles()
         {
@@ -562,7 +646,7 @@ namespace SAPS.Fronteras
             }            
         }
 
-        /** @brief Metodo que crea el encabezado para la tabla de los recursos humanos.
+        /** @brief Metodo que crea el encabezado para la tabla de casos de prueba 
          */
         private void crea_encabezado_tabla_cdp()
         {
@@ -576,33 +660,7 @@ namespace SAPS.Fronteras
             tabla_casos_pruebas.Rows.Add(header);
         }
 
-        #region Métodos relacionados a entradas de datos
-
-        protected void drop_entradas_disponibles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int posicion_dos_puntos = drop_entradas_disponibles.SelectedItem.Text.IndexOf(":");
-            input_entradas_valor.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(0, posicion_dos_puntos - 1);
-            drop_entradas_estado.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(posicion_dos_puntos + 1);
-        }
-
-        protected void btn_agregar_entrada_Click(object sender, EventArgs e)
-        {
-            ListItem tmp = new ListItem();
-            tmp.Text = input_entradas_valor.Text + " : " + drop_entradas_estado.SelectedItem.Text;
-            drop_entradas_disponibles.Items.Add(tmp);
-            input_entradas_valor.Text = "";
-            // @todo poner en opción por default al combobox que contiene los Tipo de dato.
-        }
-
-        protected void btn_entradas_eliminar_Click(object sender, EventArgs e)
-        {
-            drop_entradas_disponibles.Items.Remove(drop_entradas_disponibles.SelectedItem);
-            input_entradas_valor.Text = "";
-            // @todo poner en opción por default al combobox que contiene los Tipo de dato.
-        }
-
         #endregion
-
 
     }
 }
