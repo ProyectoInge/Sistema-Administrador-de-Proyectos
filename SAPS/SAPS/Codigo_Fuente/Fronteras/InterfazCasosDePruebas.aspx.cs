@@ -154,11 +154,14 @@ namespace SAPS.Fronteras
             // Completa la información del caso de prueba en la interfaz
             text_proposito.Text = caso_de_prueba.Rows[0]["proposito"].ToString();
             text_flujo_central.Text = caso_de_prueba.Rows[0]["flujo_central"].ToString();
+            input_entradas_resultado.Text = caso_de_prueba.Rows[0]["resultado_esperado"].ToString();
+            
             actualiza_caso_de_pruebas_disponibles();
             m_caso_actual = id_caso_de_prueba;
             activa_desactiva_botones_ime(true);
-            
+
             // Llena el dropdown con los estados de datos
+            drop_entradas_disponibles.Items.Clear();
             DataTable m_entrada_de_datos = m_controladora_cdp.consultar_entrada_dato(id_caso_de_prueba);
             for (int i = 0; i < m_entrada_de_datos.Rows.Count; ++i)
             {
@@ -238,7 +241,7 @@ namespace SAPS.Fronteras
                                 foreach (ListItem entrada_dato in drop_entradas_disponibles.Items)
                                 {
                                     int posicion_dos_puntos = entrada_dato.Text.IndexOf(":");
-                                    entradas_de_datos_a_guardar[i] = new Dato(entrada_dato.Text.Substring(0, posicion_dos_puntos - 1), entrada_dato.Text.Substring(posicion_dos_puntos));
+                                    entradas_de_datos_a_guardar[i] = new Dato(entrada_dato.Text.Substring(0, posicion_dos_puntos - 1), entrada_dato.Text.Substring(posicion_dos_puntos+1));
                                     ++i;
                                 }
 
@@ -591,6 +594,7 @@ namespace SAPS.Fronteras
             ListItem tmp = new ListItem();
             tmp.Text = input_entradas_valor.Text + " : " + drop_entradas_estado.SelectedItem.Text;
             drop_entradas_disponibles.Items.Add(tmp);
+            input_entradas_valor.Text = "";
         }
 
         protected void btn_entradas_eliminar_Click(object sender, EventArgs e)

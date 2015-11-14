@@ -43,15 +43,17 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@id_req_asociado", SqlDbType.VarChar).Value = caso_prueba.requerimiento;
 
             rellena_parametros_caso_pruebas(ref comando, caso_prueba);
-            int resultado = m_data_base_adapter.ejecutar_consulta(comando);
+            DataTable id = m_data_base_adapter.obtener_resultado_consulta(comando);
 
+            string caso_id = id.Rows[0]["id_caso"].ToString();
+
+            int resultado = 0;
             // Guardar entrada de datos
             if (caso_prueba.entrada_de_datos != null)
             {
                 for (int i = 0; i < caso_prueba.entrada_de_datos.Length; ++i)
                 {
-                    guardar_entrada_de_datos(caso_prueba.entrada_de_datos[i], caso_prueba.id);
-                    m_data_base_adapter.ejecutar_consulta(comando);
+                    guardar_entrada_de_datos(caso_prueba.entrada_de_datos[i], caso_id);
                 }
             }
             return resultado;
@@ -116,17 +118,8 @@ namespace SAPS.Base_de_Datos
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_ENTRADA_DATOS");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = id_caso_prueba;
+            comando.Parameters.Add("@id_caso_prueba", SqlDbType.VarChar).Value = id_caso_prueba;
             DataTable resultados = m_data_base_adapter.obtener_resultado_consulta(comando);
-
-            //Dato[] resultado = new Dato[resultados.Rows.Count];
-
-            // Se convierte a Objetos Datos y se insertan en el array
-            //for (int i = 0; i < resultados.Rows.Count; ++i)
-            //{
-            //    Dato dato = new Dato(resultados.Rows[i]["valor"].ToString(), resultados.Rows[i]["tipo"].ToString());
-            //   resultado.SetValue(dato, i);
-            //}
             return resultados;
         }
 
@@ -169,6 +162,7 @@ namespace SAPS.Base_de_Datos
             comando_dato.Parameters.Add("@id_caso_prueba", SqlDbType.VarChar).Value = id_caso_prueba;
             comando_dato.Parameters.Add("@valor", SqlDbType.VarChar).Value = entrada_dato.valor;
             comando_dato.Parameters.Add("@tipo", SqlDbType.VarChar).Value = entrada_dato.tipo;
+            m_data_base_adapter.ejecutar_consulta(comando_dato);
         }
 
         /** @brief Método auxiliar que borra todos los datos asociados a un caso de prueba.

@@ -1,5 +1,4 @@
---use proyectoDB
-use g1inge
+use proyectoDB
 
 DROP PROCEDURE INSERTAR_CP
 DROP PROCEDURE INSERTAR_DATO_CP
@@ -8,7 +7,6 @@ DROP PROCEDURE BORRAR_DATO_CASO
 DROP PROCEDURE MODIFICAR_CP
 DROP PROCEDURE CONSULTAR_CP
 DROP PROCEDURE CONSULTAR_CASOS_DISPONIBLES
-DROP PROCEDURE ASOCIAR_CASO_CON_REQUERIMIENTO
 DROP PROCEDURE CONSULTAR_ENTRADA_DATOS
 
 
@@ -25,6 +23,7 @@ AS
 		(id_caso, id_diseno, proposito, resultado_esperado, flujo_central)
 	VALUES
 		(@id_caso, @id_diseno_asociado, @proposito, @resultado_esperado, @flujo)
+	SELECT id_caso FROM CasoPrueba WHERE id_caso = @id_caso;
 GO
 
 GO
