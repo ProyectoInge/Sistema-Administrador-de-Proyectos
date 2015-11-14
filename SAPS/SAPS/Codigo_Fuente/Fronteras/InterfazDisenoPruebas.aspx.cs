@@ -45,9 +45,12 @@ namespace SAPS.Fronteras
                 m_controladora_rh = new ControladoraRecursosHumanos();
                 m_controladora_pyp = new ControladoraProyectoPruebas();
                 m_controladora_req = new ControladoraRequerimientos();
-        alerta_error.Visible = false;
+                alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
+                mensaje_error_modal.Visible = false;
+                mensaje_exito_modal.Visible = false;
+
 
                 if (!IsPostBack)
                 {
@@ -55,7 +58,8 @@ namespace SAPS.Fronteras
                     actualiza_proyectos();
 
                     carga_requerimientos_nuevo();
-
+                    btn_eliminar.Enabled = false;
+                    btn_modificar.Enabled = false;
                     //actualiza_rh();
                 }
                 actualiza_grid_dp();
@@ -224,6 +228,8 @@ namespace SAPS.Fronteras
                                                     {
                                                         cuerpo_alerta_exito.Text = " Se ha insertado un nuevo diseño correctamente.";
                                                         actualiza_grid_dp();
+                                                        btn_eliminar.Enabled = true;
+                                                        btn_modificar.Enabled = true;
                                                     }
                                                     else
                                                     {
@@ -480,6 +486,8 @@ namespace SAPS.Fronteras
                 }
 
             }
+            btn_eliminar.Enabled = true;
+            btn_modificar.Enabled = true;
             llena_informacion_consulta(dp_id);
            
            
@@ -567,19 +575,36 @@ namespace SAPS.Fronteras
         */
         private bool eliminar_diseno()
         {
-            if(m_controladora_dp.eliminar_diseno_pruebas(Convert.ToInt32(m_dp_seleccionado)) == 0)
-            {
-                cuerpo_alerta_exito.Text = "El diseño fue eliminado exitosamente.";
-                actualiza_grid_dp();
-                return true; //bien
+                cuerpo_modal.Text = " ¿Esta seguro que desea eliminar el diseño del sistema?";
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                upModal.Update();
 
+                return true;
+            
+        }
+
+        protected void btn_modal_cancelar_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
+            upModal.Visible = false;
+            upModal.Update();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazDisenoPruebas.aspx");
+        }
+
+        protected void btn_modal_aceptar_Click(object sender, EventArgs e)
+        {
+            if (m_controladora_dp.eliminar_diseno_pruebas(Convert.ToInt32(m_dp_seleccionado)) == 0)
+            {
+                mensaje_exito_modal.Visible = true;
+                actualiza_grid_dp();
+                Page_Load(null, null);
             }
             else
             {
-                cuerpo_alerta_error.Text = "Ha ocurrido un error al eliminar el diseño.";
-                return false; //mal
+                mensaje_error_modal.Visible = true;
             }
         }
+
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "modificar".
         * @param Los parametros por default de un evento de C#.
