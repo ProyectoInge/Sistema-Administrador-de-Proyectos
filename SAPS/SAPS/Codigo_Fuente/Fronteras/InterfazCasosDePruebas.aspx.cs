@@ -18,8 +18,6 @@ namespace SAPS.Fronteras
         private static ControladoraDisenosPruebas m_controladora_dp;
         private static ControladoraCasoPruebas m_controladora_cdp;
 
-        
-
         private static TableHeaderRow m_fila_header; // Es global ya que se tiene que modificar en ciertas ocaciones
 
         private static char m_opcion = 'i'; //i = insertar, m = modificar, e = eliminar
@@ -27,8 +25,6 @@ namespace SAPS.Fronteras
         private static bool m_es_administrador;
 
         private static string m_caso_actual = "";
-
-        private static DataTable m_entrada_de_datos = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -146,7 +142,7 @@ namespace SAPS.Fronteras
         //Ya está
 
         /** @brief Evento cuando un botón del ID de caso de pruebas se presiona */
-        protected void btn_lista_Clicked(Object sender, EventArgs e)
+        protected void btn_lista_Clicked(object sender, EventArgs e)
         {
             string id_caso_de_prueba = ((Button)sender).ID;
             DataTable caso_de_prueba = m_controladora_cdp.consultar_caso_pruebas(id_caso_de_prueba);
@@ -162,11 +158,11 @@ namespace SAPS.Fronteras
 
             // Llena el dropdown con los estados de datos
             drop_entradas_disponibles.Items.Clear();
-            DataTable m_entrada_de_datos = m_controladora_cdp.consultar_entrada_dato(id_caso_de_prueba);
-            for (int i = 0; i < m_entrada_de_datos.Rows.Count; ++i)
+            DataTable entrada_de_datos = m_controladora_cdp.consultar_entrada_dato(id_caso_de_prueba);
+            for (int i = 0; i < entrada_de_datos.Rows.Count; ++i)
             {
                 ListItem tmp = new ListItem();
-                tmp.Text = m_entrada_de_datos.Rows[i]["valor"] + " : " + m_entrada_de_datos.Rows[i]["tipo"];
+                tmp.Text = entrada_de_datos.Rows[i]["valor"] + " : " + entrada_de_datos.Rows[i]["tipo"];
                 drop_entradas_disponibles.Items.Add(tmp);
             }
         }
