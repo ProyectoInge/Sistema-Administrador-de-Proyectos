@@ -26,7 +26,7 @@ create table Oficina(
 
 create table ProyectoPruebas(
 	id_proyecto			int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	id_oficina			int NOT NULL FOREIGN KEY REFERENCES Oficina(id_oficina),
+	id_oficina			int NOT NULL FOREIGN KEY REFERENCES Oficina(id_oficina) ON DELETE CASCADE,
 	fecha_inicio		datetime,
 	fecha_asignacion	datetime,
 	fecha_final			datetime,
@@ -41,7 +41,7 @@ create table RecursosHumanos(
 	id_rh				int IDENTITY(1,1) NOT NULL,
 	username			varchar(64) NOT NULL PRIMARY KEY,
 	cedula				varchar(16)  NOT NULL,
-	id_proyecto			int FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
+	id_proyecto			int FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto) ON DELETE SET NULL,
 	telefono			varchar(16),
 	nombre				varchar(64) NOT NULL,
 	contrasena			varchar(256) NOT NULL,
@@ -52,21 +52,21 @@ create table RecursosHumanos(
 );
 
 create table MiembroPertenece(
-	username			varchar(64) NOT NULL FOREIGN KEY REFERENCES RecursosHumanos(username),
-	id_proyecto			int NOT NULL FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
+	username			varchar(64) NOT NULL FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE CASCADE,
+	id_proyecto			int NOT NULL FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto) ON DELETE CASCADE,
 	rol					varchar(64) NOT NULL,
 	PRIMARY KEY(username, id_proyecto)
 );
 
 create table DisenoPrueba(
 	id_diseno			int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	id_proyecto			int NOT NULL FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto),
+	id_proyecto			int NOT NULL FOREIGN KEY REFERENCES ProyectoPruebas(id_proyecto) ON DELETE CASCADE,
 	nombre_diseno		varchar(64) NOT NULL,
 	fecha_inicio		date		NOT NULL,
 	tecnica_prueba		varchar(64),
 	tipo_prueba			varchar(64) NOT NULL,
 	nivel_prueba		varchar(64),
-	username_responsable varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username),
+	username_responsable varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE SET NULL,
 	ambiente			varchar(128),
 	criterio_aceptacion varchar(256)
 );
@@ -78,8 +78,8 @@ create table Requerimientos(
 );
 
 create table SePrueba(
-	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
-	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno) ON DELETE CASCADE,
+	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento) ON DELETE CASCADE,
 	proposito			varchar(128) NOT NULL,
 	procedimiento		varchar(512) NOT NULL,
 	PRIMARY KEY(id_diseno, id_requerimiento)
@@ -87,7 +87,7 @@ create table SePrueba(
 
 create table CasoPrueba(
 	id_caso				varchar(64) NOT NULL PRIMARY KEY,
-	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno) ON DELETE CASCADE,
 	proposito			varchar(256),
 	resultado_esperado  varchar(256),
 	flujo_central		varchar(512)
@@ -96,14 +96,14 @@ create table CasoPrueba(
 
 create table DatosCasoDePrueba(
 	id_dato int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	id_caso_prueba varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
-	valor varchar(256),
+	id_caso_prueba varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso) ON DELETE CASCADE,
+	valor varchar(256), 
 	tipo varchar(24)
 );
 
 create table NecesitaDe(
-	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento),
-	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento) ON DELETE CASCADE,
+	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso) ON DELETE CASCADE,
 	precondiciones		varchar(512),
 	variables			varchar(512),
 	restricciones		varchar(512),
@@ -112,7 +112,7 @@ create table NecesitaDe(
 
 create table Ejecucion(
 	num_ejecucion		int NOT NULL,
-	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso),
+	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso) ON DELETE CASCADE,
 	tipo_no_conformidad varchar(64),
 	desc_no_conformidad varchar(256),
 	justificacion		varchar(512),
