@@ -83,7 +83,6 @@ namespace SAPS.Base_de_Datos
                     guardar_entrada_de_datos(caso_prueba.entrada_de_datos[i], caso_prueba.id);
                 }
             }
-
             return result;
         }
 

@@ -262,7 +262,8 @@ namespace SAPS.Fronteras
                                 }
                                 else
                                 {
-                                    int resultado = m_controladora_cdp.modificar_caso_pruebas(datos, null); //TO DO 
+                                    // Modoficar
+                                    int resultado = m_controladora_cdp.modificar_caso_pruebas(datos, entradas_de_datos_a_guardar); //TO DO 
                                     if (resultado == 0)
                                     {
                                         cuerpo_alerta_exito.Text = " Se modificó el caso de pruebas correctamente.";
@@ -579,14 +580,13 @@ namespace SAPS.Fronteras
             tabla_casos_pruebas.Rows.Add(header);
         }
 
-
-        // Métodos relacionados a la entrada de datos
+        #region Métodos relacionados a entradas de datos
 
         protected void drop_entradas_disponibles_SelectedIndexChanged(object sender, EventArgs e)
         {
             int posicion_dos_puntos = drop_entradas_disponibles.SelectedItem.Text.IndexOf(":");
-            input_entradas_valor.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(0, posicion_dos_puntos-1);
-            drop_entradas_estado.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(posicion_dos_puntos+1);
+            input_entradas_valor.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(0, posicion_dos_puntos - 1);
+            drop_entradas_estado.Text = drop_entradas_disponibles.SelectedItem.Text.Substring(posicion_dos_puntos + 1);
         }
 
         protected void btn_agregar_entrada_Click(object sender, EventArgs e)
@@ -595,15 +595,15 @@ namespace SAPS.Fronteras
             tmp.Text = input_entradas_valor.Text + " : " + drop_entradas_estado.SelectedItem.Text;
             drop_entradas_disponibles.Items.Add(tmp);
             input_entradas_valor.Text = "";
+            // @todo poner en opción por default al combobox que contiene los Tipo de dato.
         }
 
         protected void btn_entradas_eliminar_Click(object sender, EventArgs e)
         {
             drop_entradas_disponibles.Items.Remove(drop_entradas_disponibles.SelectedItem);
+            input_entradas_valor.Text = "";
+            // @todo poner en opción por default al combobox que contiene los Tipo de dato.
         }
-
-        #region Métodos relacionados a entradas de datos
-
 
         #endregion
 

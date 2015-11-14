@@ -173,7 +173,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" ID="label_entradas_disponibles" CssClass="control-label" AssociatedControlID="drop_entradas_disponibles">Entradas disponibles</asp:Label>
-                                    <asp:DropDownList runat="server" ID="drop_entradas_disponibles" CssClass="form-control">
+                                    <asp:DropDownList runat="server" ID="drop_entradas_disponibles" CssClass="form-control" OnSelectedIndexChanged="drop_entradas_disponibles_SelectedIndexChanged" AutoPostBack="true">
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
                                 <div class="col-md-5 col-md-offset-7">
                                     <div class="btn-group" role="group">
                                         <asp:Button runat="server" ID="btn_agregar_entrada" CssClass="btn btn-link" Text="Agregar" OnClick="btn_agregar_entrada_Click" />
-                                        <asp:Button runat="server" CssClass="btn btn-link" ID="btn_entradas_eliminar" Text="Eliminar" />
+                                        <asp:Button runat="server" CssClass="btn btn-link" ID="btn_entradas_eliminar" Text="Eliminar" OnClick="btn_entradas_eliminar_Click" />
                                     </div>
                                 </div>
                             </div>
