@@ -543,6 +543,8 @@ namespace SAPS.Fronteras
             {
                 input_procedimiento.Text = tabla_req_asoc.Rows[0]["procedimiento"].ToString();
             }
+            input_fecha.Text = Convert.ToDateTime(tabla_dp.Rows[0]["fecha_inicio"]).ToString("yyy-MM-dd");
+            input_fecha.DataBind();
             carga_requerimientos_existente(tabla_req_asoc, tabla_req_disp);
 
         }
