@@ -24,7 +24,7 @@ CREATE PROCEDURE MODIFICAR_DP
 	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @tipo_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64), @ambiente varchar(128), @criterio_aceptacion varchar(256)
 AS
 	UPDATE DisenoPrueba
-		SET id_proyecto = @id_proyecto, nombre_diseno = @nombre_diseno, fecha_inicio = @fecha_inicio, tecnica_prueba = @tecnica_prueba, nivel_prueba = @nivel_prueba, username_responsable = @username_responsable, ambiente = @ambiente, criterio_aceptacion = @criterio_aceptacion, tipo_prueba = @tipo_prueba
+		SET id_proyecto = @id_proyecto, nombre_diseno = @nombre_diseno, fecha_inicio = @fecha_inicio, tecnica_prueba = @tecnica_prueba, tipo_prueba = @tipo_prueba, nivel_prueba = @nivel_prueba, username_responsable = @username_responsable, ambiente = @ambiente, criterio_aceptacion = @criterio_aceptacion
 		WHERE id_diseno = @id_diseno
 GO
 

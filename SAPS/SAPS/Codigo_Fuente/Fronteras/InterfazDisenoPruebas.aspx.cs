@@ -613,7 +613,7 @@ namespace SAPS.Fronteras
                                             if (input_fecha.Text != "")
                                             {
                                                 Object[] datosDiseno = new Object[10];
-                                                datosDiseno[0] = 0;
+                                                datosDiseno[0] = 0; // @todo Pasarle el id del diseño seleccionado
                                                 datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
                                                 datosDiseno[2] = input_nombre.Text;
                                                 datosDiseno[3] = DateTime.Parse(input_fecha.Text);
