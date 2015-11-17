@@ -10,7 +10,6 @@ using SAPS.Entidades.Ayudantes;
 
 namespace SAPS.Fronteras
 {
-
     /* TODO Hacer que cuando se pase sobre un requerimiento en el grid aparezca el procedimiento. */
 
     public partial class InterfazCasosDePruebas : System.Web.UI.Page
@@ -41,13 +40,24 @@ namespace SAPS.Fronteras
                 m_controladora_cdp = new ControladoraCasoPruebas();
                 m_fila_header = new TableHeaderRow();
 
-
                 if (!IsPostBack)
                 {
                     m_es_administrador = m_controladora_cdp.es_administrador(Context.User.Identity.Name);
                     drop_diseno_asociado.Enabled = false;
                     drop_id_requerimientos.Enabled = false;
                     actualiza_proyectos();
+                    // Se envía el id del proyecto por medio de la URL
+                    if (Request.QueryString["id_proyecto"] != null)
+                    {
+                        int id_proyecto = Convert.ToInt32(Request.QueryString["id_proyecto"]);
+                        int id_diseno = Convert.ToInt32(Request.QueryString["id_diseno"]);
+
+                        actualiza_proyectos();
+                        actualiza_disenos_asociados(id_proyecto);
+
+                        drop_proyecto_asociado.SelectedItem.Value = id_proyecto.ToString();
+                        drop_diseno_asociado.SelectedItem.Value = id_diseno.ToString();
+                    }
                 }
                 actualiza_caso_de_pruebas_disponibles();
 
