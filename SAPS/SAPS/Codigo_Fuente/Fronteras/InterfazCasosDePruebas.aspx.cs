@@ -244,7 +244,7 @@ namespace SAPS.Fronteras
             text_proposito.Text = caso_de_prueba.Rows[0]["proposito"].ToString();
             text_flujo_central.Text = caso_de_prueba.Rows[0]["flujo_central"].ToString();
             input_entradas_resultado.Text = caso_de_prueba.Rows[0]["resultado_esperado"].ToString();
-
+            
             actualiza_caso_de_pruebas_disponibles();
             m_caso_actual = id_caso_de_prueba;
             activa_desactiva_botones_ime(true);
@@ -384,10 +384,10 @@ namespace SAPS.Fronteras
                 cuerpo_modal.Text = "¿Esta seguro que desea eliminar a " + m_caso_actual + " del sistema?";
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
                 upModal.Update();
-                a_retornar = true;
-            }
-            else
-            {
+                    a_retornar = true;
+                }
+                else
+                {
                 cuerpo_alerta_error.Text = " Tiene que seleccionar el caso de prueba que desea eliminar.";
             }
 
@@ -426,11 +426,11 @@ namespace SAPS.Fronteras
             {
                 drop_diseno_asociado.Items.Clear();
                 drop_diseno_asociado.Enabled = false;
-                vacia_caso_de_pruebas_disponibles();
+                vacia_caso_de_pruebas_disponibles();              
             }
             label_id_diseno.Text = "ID diseño";
             label_id_diseno.Font.Italic = true;
-
+           
         }
 
         /** @brief Metodo que se encarga de llenar el comboBox con los proyectos que hay en la base de datos.
@@ -692,7 +692,7 @@ namespace SAPS.Fronteras
 
                     tabla_casos_pruebas.Rows.Add(fila);
                 }
-            }
+            }            
         }
 
         /** @brief Metodo que crea el encabezado para la tabla de casos de prueba 
