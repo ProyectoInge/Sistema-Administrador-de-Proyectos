@@ -245,9 +245,12 @@
     <br />
     <section id="botones_aceptar_cancelar">
         <div class="row">
-            <div class="col-md-3 col-md-offset-9">
+            <div class="col-md-3 col-md-offset-1">
+                <asp:Button runat="server" CssClass="btn btn-primary" ID="btn_Casos" Text="Consultar casos" OnClick="btn_Casos_Click" />
+            </div>
+            <div class="col-md-3 col-md-offset-5">
                 <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
-                <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" />
+                <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click"/>
             </div>
         </div>
     </section>
