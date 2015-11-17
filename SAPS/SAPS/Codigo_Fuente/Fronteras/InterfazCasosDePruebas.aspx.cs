@@ -54,9 +54,10 @@ namespace SAPS.Fronteras
 
                         actualiza_proyectos();
                         actualiza_disenos_asociados(id_proyecto);
+                        drop_diseno_asociado.Enabled = true;
 
-                        drop_proyecto_asociado.SelectedItem.Value = id_proyecto.ToString();
-                        drop_diseno_asociado.SelectedItem.Value = id_diseno.ToString();
+                        drop_proyecto_asociado.SelectedValue = id_proyecto.ToString();
+                        drop_diseno_asociado.SelectedValue = id_diseno.ToString();
                     }
                 }
                 actualiza_caso_de_pruebas_disponibles();
