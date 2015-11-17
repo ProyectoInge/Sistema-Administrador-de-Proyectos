@@ -397,27 +397,35 @@ namespace SAPS.Fronteras
         */
         private void actualiza_rh(string id_proyecto)
         {
-            DataTable tabla_rh= new DataTable();
-            
+            int n;
+            if (int.TryParse(id_proyecto, out n))
+            {
+                DataTable tabla_rh = new DataTable();
+
                 tabla_rh = m_controladora_dp.consultar_rh_asociados_proyecto(Convert.ToInt32(id_proyecto)); // cargo todos los recursos humanos, TODO cambiar a solo los de idproy
 
-            m_tamano_tabla_rh = tabla_rh.Rows.Count;
-            m_tabla_rh = new Object[m_tamano_tabla_rh, 2];
+                m_tamano_tabla_rh = tabla_rh.Rows.Count;
+                m_tabla_rh = new Object[m_tamano_tabla_rh, 2];
 
 
-            ListItem item_rh = new ListItem();
-            item_rh.Text = "-Seleccione un responsable-";
-            item_rh.Value = "";
-            drop_responsable.Items.Add(item_rh);
-
-            for (int i = 0; i < m_tamano_tabla_rh; ++i)
-            {
-                item_rh = new ListItem();
-                m_tabla_rh[i, 0] = tabla_rh.Rows[i]["username"].ToString();
-                m_tabla_rh[i, 1] = tabla_rh.Rows[i]["nombre"].ToString();
-                item_rh.Text = Convert.ToString(m_tabla_rh[i, 1]);
-                item_rh.Value = Convert.ToString(m_tabla_rh[i, 0]);
+                ListItem item_rh = new ListItem();
+                item_rh.Text = "-Seleccione un responsable-";
+                item_rh.Value = "";
                 drop_responsable.Items.Add(item_rh);
+
+                for (int i = 0; i < m_tamano_tabla_rh; ++i)
+                {
+                    item_rh = new ListItem();
+                    m_tabla_rh[i, 0] = tabla_rh.Rows[i]["username"].ToString();
+                    m_tabla_rh[i, 1] = tabla_rh.Rows[i]["nombre"].ToString();
+                    item_rh.Text = Convert.ToString(m_tabla_rh[i, 1]);
+                    item_rh.Value = Convert.ToString(m_tabla_rh[i, 0]);
+                    drop_responsable.Items.Add(item_rh);
+                }
+            }
+            else
+            {
+                drop_responsable.Enabled = false;
             }
         }
 
@@ -501,6 +509,7 @@ namespace SAPS.Fronteras
 
             btn_modificar_Click(null, null);
             activa_desactiva_inputs(true);
+            drop_responsable.Enabled = true;
         }
 
         private void activa_desactiva_inputs(bool v)
@@ -582,9 +591,12 @@ namespace SAPS.Fronteras
             if(m_opcion == 'i')
             {
                 bool res = ingresar_diseno();
-
                 alerta_exito.Visible = res;
                 alerta_error.Visible = !res;
+                DataTable diseños = m_controladora_dp.solicitar_disenos_asociados_proyecto(Convert.ToInt32(drop_proyecto.SelectedValue));
+                m_dp_seleccionado = diseños.Rows[diseños.Rows.Count - 1]["id_diseno"].ToString();
+                btn_modificar_Click(this, null);
+                btn_Aceptar_Click(this,null);
             }
             else if(m_opcion == 'e')
             {
