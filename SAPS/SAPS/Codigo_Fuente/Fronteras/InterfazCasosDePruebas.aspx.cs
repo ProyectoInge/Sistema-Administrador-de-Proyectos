@@ -641,7 +641,7 @@ namespace SAPS.Fronteras
                 int diseno_asociado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
                 DataTable caso_de_pruebas_disponibles = m_controladora_cdp.solicitar_casos_pruebas_disponibles(diseno_asociado);
 
-                for (int i = caso_de_pruebas_disponibles.Rows.Count-1; i>0; i--)
+                for (int i = caso_de_pruebas_disponibles.Rows.Count-1; i>=0; i--)
                 {
                     TableRow fila = new TableRow();
                     TableCell celda_id = new TableCell();
