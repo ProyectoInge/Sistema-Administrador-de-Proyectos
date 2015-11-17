@@ -580,6 +580,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label label_error_fecha;
         
         /// <summary>
+        /// btn_Casos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Casos;
+        
+        /// <summary>
         /// btn_Aceptar control.
         /// </summary>
         /// <remarks>

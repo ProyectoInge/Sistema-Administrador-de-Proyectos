@@ -22,11 +22,22 @@ namespace SAPS.Controladoras
     public class ControladoraDisenosPruebas
     {
         private BDDisenoPruebas m_base_datos;
+        private ControladoraRecursosHumanos m_controladora_rh;
+        private ControladoraProyectoPruebas m_controladora_pyp;
+        private ControladoraRequerimientos m_controladora_req;
 
         //Constructor
         public ControladoraDisenosPruebas()
         {
             m_base_datos = new BDDisenoPruebas();
+            m_controladora_req = new ControladoraRequerimientos();
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            m_controladora_pyp = new ControladoraProyectoPruebas();
+        }
+
+        internal bool es_administrador(string name)
+        {
+            return m_controladora_rh.es_administrador(name);
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para insertar un nuevo diseño de pruebas en la base de datos.
@@ -52,6 +63,16 @@ namespace SAPS.Controladoras
                 return -1;
             DisenoPruebas diseno_pruebas = new DisenoPruebas(datos);
             return m_base_datos.insertar_diseno_pruebas(diseno_pruebas);
+        }
+
+        internal DataTable solicitar_proyectos_no_eliminados()
+        {
+            return m_controladora_pyp.solicitar_proyectos_no_eliminados();
+        }
+
+        internal DataTable consultar_mi_proyecto(string name)
+        {
+            return m_controladora_pyp.consultar_mi_proyecto(name);
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para modificar un diseño de pruebas en la base de datos.
@@ -86,6 +107,11 @@ namespace SAPS.Controladoras
         public int eliminar_diseno_pruebas(int id_diseno)
         {
             return m_base_datos.eliminar_diseno_pruebas(id_diseno);
+        }
+
+        internal DataTable solicitar_requerimientos_disponibles()
+        {
+            return m_controladora_req.solicitar_requerimientos_disponibles();
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para consultar un nuevo diseño de pruebas en específico.
@@ -130,6 +156,26 @@ namespace SAPS.Controladoras
         public DataTable solicitar_disenos_asociados_proyecto(int id_proyecto)
         {
             return m_base_datos.solicitar_disenos_asociados_proyecto(id_proyecto);
+        }
+
+        internal void asociar_requerimiento(object[] datosAsoc)
+        {
+            m_controladora_req.asociar_requerimiento(datosAsoc);
+        }
+
+        internal DataTable consultar_rh_asociados_proyecto(int v)
+        {
+            return m_controladora_rh.consultar_rh_asociados_proyecto(v);
+        }
+
+        internal DataTable consultar_proyecto(int id_proyecto_asociado)
+        {
+            return m_controladora_pyp.consultar_proyecto(id_proyecto_asociado);
+        }
+
+        internal void modificar_requerimiento(object[] datosAsoc)
+        {
+            m_controladora_req.modificar_requerimiento(datosAsoc);
         }
     }
 }

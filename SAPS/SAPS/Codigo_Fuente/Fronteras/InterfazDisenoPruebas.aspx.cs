@@ -13,9 +13,6 @@ namespace SAPS.Fronteras
     {
 
         private static ControladoraDisenosPruebas m_controladora_dp;
-        private static ControladoraRecursosHumanos m_controladora_rh;
-        private static ControladoraProyectoPruebas m_controladora_pyp;
-        private static ControladoraRequerimientos m_controladora_req;
 
         private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
         private static bool m_es_administrador;   // true si el usuario de la sesion es administrador, false si no.
@@ -42,9 +39,6 @@ namespace SAPS.Fronteras
             if (Request.IsAuthenticated)
             {
                 m_controladora_dp = new ControladoraDisenosPruebas();
-                m_controladora_rh = new ControladoraRecursosHumanos();
-                m_controladora_pyp = new ControladoraProyectoPruebas();
-                m_controladora_req = new ControladoraRequerimientos();
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
@@ -54,12 +48,13 @@ namespace SAPS.Fronteras
 
                 if (!IsPostBack)
                 {
-                    m_es_administrador = m_controladora_rh.es_administrador(Context.User.Identity.Name);
+                    m_es_administrador = m_controladora_dp.es_administrador(Context.User.Identity.Name);
                     actualiza_proyectos();
 
                     carga_requerimientos_nuevo();
                     btn_eliminar.Enabled = false;
                     btn_modificar.Enabled = false;
+                    btn_Casos.Enabled = false;
                     //actualiza_rh();
                 }
                 actualiza_grid_dp();
@@ -93,11 +88,11 @@ namespace SAPS.Fronteras
             DataTable tabla_proyectos;
             if (m_es_administrador)
             {
-                tabla_proyectos = m_controladora_pyp.solicitar_proyectos_no_eliminados(); // cargo todos los recursos humanos
+                tabla_proyectos = m_controladora_dp.solicitar_proyectos_no_eliminados(); // cargo todos los recursos humanos
             }
             else
             {
-                tabla_proyectos = m_controladora_pyp.consultar_mi_proyecto(Context.User.Identity.Name);   // cargo solo mi informacion
+                tabla_proyectos = m_controladora_dp.consultar_mi_proyecto(Context.User.Identity.Name);   // cargo solo mi informacion
             }
             m_tamano_tabla_pyp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pyp, 2];
@@ -126,7 +121,7 @@ namespace SAPS.Fronteras
             //crea_encabezado_tabla_rh();
             DataTable tabla_de_datos;
 
-            tabla_de_datos = m_controladora_req.solicitar_requerimientos_disponibles(); // cargo todos los requerimientos
+            tabla_de_datos = m_controladora_dp.solicitar_requerimientos_disponibles(); // cargo todos los requerimientos
 
 
             //se inicializa la tabla interna de disponibles
@@ -221,7 +216,7 @@ namespace SAPS.Fronteras
                                                         datosAsoc[2] = "";
                                                         datosAsoc[3] = input_procedimiento.Text;
 
-                                                        m_controladora_req.asociar_requerimiento(datosAsoc);
+                                                        m_controladora_dp.asociar_requerimiento(datosAsoc);
                                                     }
 
 
@@ -404,7 +399,7 @@ namespace SAPS.Fronteras
         {
             DataTable tabla_rh= new DataTable();
             
-                tabla_rh = m_controladora_rh.consultar_rh_asociados_proyecto(Convert.ToInt32(id_proyecto)); // cargo todos los recursos humanos, TODO cambiar a solo los de idproy
+                tabla_rh = m_controladora_dp.consultar_rh_asociados_proyecto(Convert.ToInt32(id_proyecto)); // cargo todos los recursos humanos, TODO cambiar a solo los de idproy
 
             m_tamano_tabla_rh = tabla_rh.Rows.Count;
             m_tabla_rh = new Object[m_tamano_tabla_rh, 2];
@@ -440,7 +435,7 @@ namespace SAPS.Fronteras
             }
             else
             {
-                proy_id = Convert.ToInt32(m_controladora_pyp.consultar_mi_proyecto(Context.User.Identity.Name).Rows[0]["id_proyecto"]);
+                proy_id = Convert.ToInt32(m_controladora_dp.consultar_mi_proyecto(Context.User.Identity.Name).Rows[0]["id_proyecto"]);
                 tabla_de_datos = m_controladora_dp.solicitar_disenos_asociados_proyecto(proy_id);   // cargo solo mi informacion
             }
             m_tamano_tabla_dp = tabla_de_datos.Rows.Count;
@@ -461,7 +456,7 @@ namespace SAPS.Fronteras
                 
 
                 int id_proyecto_asociado = Convert.ToInt32(tabla_de_datos.Rows[i]["id_proyecto"]);
-                celda_proyecto.Text = m_controladora_pyp.consultar_proyecto(id_proyecto_asociado).Rows[0]["nombre_proyecto"].ToString();
+                celda_proyecto.Text = m_controladora_dp.consultar_proyecto(id_proyecto_asociado).Rows[0]["nombre_proyecto"].ToString();
                 
 
                
@@ -471,6 +466,19 @@ namespace SAPS.Fronteras
                 tabla_disenos_prueba.Rows.Add(fila);
             }
         }
+
+        protected void btn_Casos_Click(object sender, EventArgs e)
+        {
+            string url = "~/Codigo_Fuente/Fronteras/InterfazCasosDePruebas.aspx?id_diseno=" + m_dp_seleccionado + "&id_proyecto="+drop_proyecto.SelectedValue;
+            Response.Redirect(url);
+        }
+
+        protected void btn_Cancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazDisenoPruebas.aspx");
+        }
+
+
 
         /** @brief Evento que se activa cuando el usuario selecciona un diseño del grid
          * @param Los parametros por default de un evento de C#.
@@ -498,6 +506,7 @@ namespace SAPS.Fronteras
         private void activa_desactiva_inputs(bool v)
         {
             input_nombre.Enabled = v;
+            btn_Casos.Enabled = v;
             drop_proyecto.Enabled = v;
             drop_nivel.Enabled = v;
             drop_tecnica.Enabled = v;
@@ -613,7 +622,7 @@ namespace SAPS.Fronteras
                                             if (input_fecha.Text != "")
                                             {
                                                 Object[] datosDiseno = new Object[10];
-                                                datosDiseno[0] = 0; // @todo Pasarle el id del diseño seleccionado
+                                                datosDiseno[0] = m_dp_seleccionado; 
                                                 datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
                                                 datosDiseno[2] = input_nombre.Text;
                                                 datosDiseno[3] = DateTime.Parse(input_fecha.Text);
@@ -636,7 +645,7 @@ namespace SAPS.Fronteras
                                                     datosAsoc[2] = "";
                                                     datosAsoc[3] = input_procedimiento.Text;
 
-                                                    m_controladora_req.modificar_requerimiento(datosAsoc);
+                                                    m_controladora_dp.modificar_requerimiento(datosAsoc);
                                                 }
 
 
