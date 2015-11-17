@@ -623,7 +623,7 @@ namespace SAPS.Fronteras
             else
             {
                 cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
-                alerta_error.Visible = false;
+                alerta_error.Visible = true;
                 SetFocus(input_usuario);
             }
             return a_retornar;
