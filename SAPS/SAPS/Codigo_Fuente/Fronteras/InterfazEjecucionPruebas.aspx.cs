@@ -28,17 +28,37 @@ namespace SAPS.Fronteras
 
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
-
+            ///@todo
         }
 
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-
+            ///@todo
         }
 
         protected void btn_crear_Click(object sender, EventArgs e)
         {
+            ///@todo
+        }
 
+        protected void btn_Aceptar_Click(object sender, EventArgs e)
+        {
+            ///@todo
+        }
+
+        protected void btn_Cancelar_Click(object sender, EventArgs e)
+        {
+            ///@todo
+        }
+
+        protected void btn_agregar_resultado_Click(object sender, EventArgs e)
+        {
+            ///@todo
+        }
+
+        protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
+        {
+            ///@todo
         }
     }
 }
