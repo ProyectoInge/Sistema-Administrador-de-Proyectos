@@ -172,6 +172,7 @@
     <Content Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazDisenoPruebas.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazEjecucionPruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazRequerimientos.aspx" />
@@ -393,6 +394,13 @@
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazDisenoPruebas.aspx.designer.cs">
       <DependentUpon>InterfazDisenoPruebas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazEjecucionPruebas.aspx.cs">
+      <DependentUpon>InterfazEjecucionPruebas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazEjecucionPruebas.aspx.designer.cs">
+      <DependentUpon>InterfazEjecucionPruebas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx.cs">
       <DependentUpon>InterfazLogin.aspx</DependentUpon>

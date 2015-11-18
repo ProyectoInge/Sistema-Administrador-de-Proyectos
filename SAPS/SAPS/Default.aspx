@@ -58,9 +58,10 @@
                         <h3>Ejecución de pruebas</h3>
                         <hr />
                         <p>
+                            <!-- @todo -->
                             Esta sección se incluirá próximamente en el sistema.
                         </p>
-                        <a runat="server" href="~/" class="btn btn-primary">Ejecución de pruebas &raquo;</a>
+                        <a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazEjecucionPruebas.aspx" class="btn btn-primary">Ejecución de pruebas &raquo;</a>
                     </div>
                     <div class="col-md-4 col-sm-4 col-lg-4 col-xs-12 hvr-float">
                         <h3>Generación de reportes</h3>
