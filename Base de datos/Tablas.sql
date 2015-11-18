@@ -1,9 +1,10 @@
 use proyectoDB;
 --use g1inge
 
-	drop table DatosCasoDePrueba;
+	drop table Resultados;
 	drop table Ejecucion;
 	drop table NecesitaDe;
+	drop table DatosCasoDePrueba;
 	drop table CasoPrueba;
 	drop table SePrueba;
 	drop table Requerimientos;
@@ -112,12 +113,24 @@ create table NecesitaDe(
 
 create table Ejecucion(
 	num_ejecucion		int NOT NULL,
-	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso) ON DELETE CASCADE,
+	responsable			varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE SET NULL,
+	id_diseno			int NOT NULL,
+	fecha_ultima_ejec	date,
+	incidencias			varchar(512),
+	PRIMARY KEY(id_diseno, num_ejecucion)
+);
+
+create table Resultados(
+	num_resultado		int NOT NULL,
+	id_diseno			int NOT NULL,
+	num_ejecucion		int NOT NULL,
+	estado				varchar(32),
 	tipo_no_conformidad varchar(64),
+	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso) ON DELETE CASCADE,
 	desc_no_conformidad varchar(256),
 	justificacion		varchar(512),
-	resultados			varchar(512),
-	estado				bit NOT NULL,
-	fecha_ultima_ejec	date,
-	incidencias			varchar(512)
+	imagen				image,
+	CONSTRAINT			fk_ejecucion	
+	FOREIGN KEY(id_diseno, num_ejecucion) REFERENCES Ejecucion(id_diseno, num_ejecucion) ON DELETE CASCADE,
+	PRIMARY KEY			(num_resultado, id_diseno, num_ejecucion)
 );
