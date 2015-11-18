@@ -29,20 +29,67 @@ namespace SAPS.Codigo_Fuente.Entidades
                              * |    5   |  Id del Caso            |     String    |
                              * |    6   |  Descripcion No Conf.   |     String    |
                              * |    7   |  Justificacion          |     String    |
-                             * |    8   |  Imagen                 |     Averiguar |
+                             * |    8   |  Imagen                 |    Averiguar  |
         * **/
+        public Resultados_EP(Object[ ] datos)
+        {
+            numero_resultado = Convert.ToInt32(datos[0]);
+            id_diseno = Convert.ToInt32(datos[1]);
+            numero_ejecucion = Convert.ToInt32(datos[2]);
+            estado = datos[3].ToString();
+            tipo_no_conformidad = datos[4].ToString();
+            id_caso = datos[5].ToString();
+            desc_no_conformidad = datos[6].ToString();
+            justificacion = datos[7].ToString();
+            //imagen = datos[8]. analizar
+        }
 
-    }
+        public int num_resultado
+        {
+            get { return numero_resultado; }
+            set { numero_resultado = value; }
+        }
 
+        public int identificador_diseno
+        {
+            get { return id_diseno; }
+            set { id_diseno = value; }
+        }
 
+        public int num_ejecucion
+        {
+            get { return num_ejecucion; }
+            set { num_ejecucion = value; }
+        }
 
+        public string estado_rep
+        {
+            get { return estado; }
+            set { estado = value; }
+        }
 
+        public string tipo_no_conf
+        {
+            get { return tipo_no_conformidad; }
+            set { tipo_no_conformidad = value; }
+        }
 
+        public string identificador_caso
+        {
+            get { return identificador_caso; }
+            set { identificador_caso = value; }
+        }
 
+        public string descripcion_no_conformidad
+        {
+            get { return desc_no_conformidad; }
+            set { desc_no_conformidad = value; }
+        }
 
-
-
-
-
-
+        public string justificacion_rep
+        {
+            get { return justificacion; }
+            set { justificacion = value; }
+        }
+    }    
 }
