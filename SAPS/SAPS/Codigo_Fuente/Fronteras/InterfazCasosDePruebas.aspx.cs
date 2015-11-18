@@ -35,6 +35,8 @@ namespace SAPS.Fronteras
             {
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
+                mensaje_exito_modal.Visible = false;
+                mensaje_error_modal.Visible = false;
                 alerta_advertencia.Visible = false;
                 activa_desactiva_botones_ime(false);
                 m_controladora_cdp = new ControladoraCasoPruebas();
@@ -120,6 +122,38 @@ namespace SAPS.Fronteras
         #endregion
 
         #region Métodos relacionados con botones
+
+        /** @brief Evento que se activa cuando el usuario selecciona el botón de "volver" del modal.
+         * @param Los parametros por default de un evento de C#.
+        */
+        protected void btn_modal_cancelar_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
+            upModal.Visible = false;
+            upModal.Update();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazCasosDePruebas.aspx");
+        }
+        /** @brief Evento que se activa cuando el usuario selecciona el botón de "eliminar" del modal.
+         * @param Los parametros por default de un evento de C#.
+        */
+        protected void btn_modal_aceptar_Click(object sender, EventArgs e)
+        {
+            if (m_caso_actual != "")
+            {
+                int resultado = m_controladora_cdp.eliminar_caso_pruebas(m_caso_actual);
+                if (resultado == 0)
+                {
+                    actualiza_caso_de_pruebas_disponibles();
+                    mensaje_exito_modal.Visible = true;
+                    m_caso_actual = "";
+                }
+                else
+                {
+                    mensaje_error_modal.Visible = true;
+                }
+            }
+            upModal.Update();
+        }
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "aceptar".
         * @param Los parametros por default de un evento de C#.
@@ -346,19 +380,15 @@ namespace SAPS.Fronteras
             bool a_retornar = false;
             if (m_caso_actual != "")
             {
-                int resultado = m_controladora_cdp.eliminar_caso_pruebas(m_caso_actual);
-                if (resultado == 0)
-                {
+                titulo_modal.Text = "¡Atención!";
+                cuerpo_modal.Text = "¿Esta seguro que desea eliminar a " + m_caso_actual + " del sistema?";
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                upModal.Update();
                     a_retornar = true;
-                    cuerpo_alerta_exito.Text = " Se eliminó el caso de pruebas correctamente.";
-                    alerta_exito.Visible = true;
                 }
                 else
                 {
-                    cuerpo_alerta_error.Text = " Falló al eliminar el caso de pruebas.";
-                    alerta_error.Visible = true;
-                }
-                actualiza_caso_de_pruebas_disponibles();
+                cuerpo_alerta_error.Text = " Tiene que seleccionar el caso de prueba que desea eliminar.";
             }
 
             return a_retornar;
@@ -575,7 +605,8 @@ namespace SAPS.Fronteras
 
         protected void btn_agregar_entrada_Click(object sender, EventArgs e)
         {
-            if("" != input_entradas_valor.Text){
+            if ("" != input_entradas_valor.Text)
+            {
                 if ("" != drop_entradas_estado.SelectedItem.Value)
                 {
                     ListItem tmp = new ListItem();
@@ -636,12 +667,12 @@ namespace SAPS.Fronteras
         private void llenar_caso_de_pruebas_disponibles()
         {
             crea_encabezado_tabla_cdp();
-            if (0!=drop_diseno_asociado.Items.Count && "" != drop_diseno_asociado.SelectedItem.Value)
+            if (0 != drop_diseno_asociado.Items.Count && "" != drop_diseno_asociado.SelectedItem.Value)
             {
                 int diseno_asociado = Convert.ToInt32(drop_diseno_asociado.SelectedItem.Value);
                 DataTable caso_de_pruebas_disponibles = m_controladora_cdp.solicitar_casos_pruebas_disponibles(diseno_asociado);
 
-                for (int i = caso_de_pruebas_disponibles.Rows.Count-1; i>0; i--)
+                for (int i = caso_de_pruebas_disponibles.Rows.Count - 1; i >= 0; i--)
                 {
                     TableRow fila = new TableRow();
                     TableCell celda_id = new TableCell();

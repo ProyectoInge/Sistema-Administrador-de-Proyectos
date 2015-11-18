@@ -90,16 +90,6 @@
                                     <asp:Label runat="server" ID="label_id_requerimiento_asociado_vacio" CssClass="text-danger"><small>Debe seleccionar un requerimiento.</small></asp:Label>
                                 </div>
                             </div>
-                            <!-- Esto es necesario para pruebas de integracion, ahorita solo vamos a hacer unitarias
-                            <div id="row3_izq" class="form-group">
-                                <div class="col-md-3">
-                                    <asp:Label runat="server" ID="label_caracteristicas_diseno" CssClass="control-label" AssociatedControlID="drop_caracteristicas_diseno">Características<span class="text-danger">*</span></asp:Label>
-                                </div>
-                                <div class="col-md-9">
-                                    <asp:DropDownList ID="drop_caracteristicas_diseno" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_diseno_asociado_SelectedIndexChanged" AutoPostBack="true">
-                                    </asp:DropDownList>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -176,18 +166,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-12">
-                                    <asp:Label runat="server" ID="label_entradas_disponibles" CssClass="control-label" AssociatedControlID="drop_entradas_disponibles">Entradas disponibles</asp:Label>
-                                    <asp:DropDownList runat="server" ID="drop_entradas_disponibles" CssClass="form-control" OnSelectedIndexChanged="drop_entradas_disponibles_SelectedIndexChanged" AutoPostBack="true">
-                                    </asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <div class="col-md-5 col-md-offset-7">
                                     <div class="btn-group" role="group">
                                         <asp:Button runat="server" ID="btn_agregar_entrada" CssClass="btn btn-link" Text="Agregar" OnClick="btn_agregar_entrada_Click" />
                                         <asp:Button runat="server" CssClass="btn btn-link" ID="btn_entradas_eliminar" Text="Eliminar" OnClick="btn_entradas_eliminar_Click" />
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <asp:Label runat="server" ID="label_entradas_disponibles" CssClass="control-label" AssociatedControlID="drop_entradas_disponibles">Entradas disponibles</asp:Label>
+                                    <asp:DropDownList runat="server" ID="drop_entradas_disponibles" CssClass="form-control" OnSelectedIndexChanged="drop_entradas_disponibles_SelectedIndexChanged" AutoPostBack="true">
+                                    </asp:DropDownList>
                                 </div>
                             </div>
                             <hr />
@@ -236,6 +226,48 @@
             <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_casos_pruebas" CssClass="table table-hover form-group">
                 </asp:Table>
+            </div>
+        </div>
+    </section>
+    <!-- Modals eliminar -->
+    <section id="modal_eliminar">
+        <div class="modal fade bs-example-sm" id="modal_alerta" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <asp:Label ID="titulo_modal" runat="server" Text=""></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Label ID="cuerpo_modal" runat="server" Text=""></asp:Label>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-10 col-md-offset-1">
+                                        <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="Se eliminó correctamente el diseño de preuba."></asp:Label>
+                                        </div>
+                                        <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            <asp:Label runat="server" ID="label3" Text="Se presentó un error, intente eliminar nuevamente el diseño de prueba."></asp:Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-link" Style="color: darkgray" ID="btn_modal_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
     </section>
@@ -302,7 +334,7 @@
             $("#<%= text_flujo_central.ClientID%>").blur(function () {
                 var texto_ingresado = $("#<%= text_flujo_central.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_flujo_central_vacio.ClientID %>").show();                   
+                    $("#<%= label_flujo_central_vacio.ClientID %>").show();
                 } else {
                     $("#<%= label_flujo_central_vacio.ClientID %>").hide();
                 }
@@ -310,7 +342,7 @@
 
             //TO DO Mostrar procedimiento cuando se acerca el mouse
             $("#<%= tabla_requerimientos_asociados. ClientID%>").hover(function () {
-            $("#<%= output_procedimiento_requerimiento.ClientID %>").text("La idea esq se muestre el procedimiento cuando se pasa sobre un requerimiento");
+                $("#<%= output_procedimiento_requerimiento.ClientID %>").text("La idea esq se muestre el procedimiento cuando se pasa sobre un requerimiento");
             });
 
 
