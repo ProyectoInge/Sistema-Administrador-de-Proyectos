@@ -370,9 +370,11 @@
     <Compile Include="Codigo_Fuente\Entidades\Ayudantes\Datos.cs" />
     <Compile Include="Codigo_Fuente\Entidades\CasoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\DisenoPruebas.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\EjecucionPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Oficina.cs" />
     <Compile Include="Codigo_Fuente\Entidades\ProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Requerimiento.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\Resultados_EP.cs" />
     <Compile Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx.cs">
       <DependentUpon>InterfazCasosDePruebas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
