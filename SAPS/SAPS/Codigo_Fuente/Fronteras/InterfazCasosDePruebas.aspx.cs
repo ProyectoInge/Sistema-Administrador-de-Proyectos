@@ -42,8 +42,10 @@ namespace SAPS.Fronteras
                 m_controladora_cdp = new ControladoraCasoPruebas();
                 m_fila_header = new TableHeaderRow();
 
+
                 if (!IsPostBack)
                 {
+                    m_caso_actual = "";
                     m_es_administrador = m_controladora_cdp.es_administrador(Context.User.Identity.Name);
                     drop_diseno_asociado.Enabled = false;
                     drop_id_requerimientos.Enabled = false;
@@ -204,6 +206,7 @@ namespace SAPS.Fronteras
             btn_crear.CssClass = "btn btn-default active";
             btn_modificar.CssClass = "btn btn-default ";
             limpia_campos();
+            actualiza_caso_de_pruebas_disponibles();
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona el boton de "modificar".
@@ -308,19 +311,19 @@ namespace SAPS.Fronteras
                                     entradas_de_datos_a_guardar[i] = new Dato(entrada_dato.Text.Substring(0, posicion_dos_puntos - 1), entrada_dato.Text.Substring(posicion_dos_puntos + 1));
                                     ++i;
                                 }
-
-                                m_caso_actual = ""; //Vuelve a invalidar el caso seleccionado
                                 if ('i' == m_opcion)
                                 {
                                     int resultado = m_controladora_cdp.insertar_caso_pruebas(datos, entradas_de_datos_a_guardar);
                                     if (resultado == 0)
                                     {
                                         cuerpo_alerta_exito.Text = " Se ingresó el caso de pruebas correctamente.";
+                                        a_retornar = true;
 
                                     }
                                     else
                                     {
                                         cuerpo_alerta_error.Text = " Hubo un error al insertar el caso de pruebas, intentelo nuevamente.";
+                                        a_retornar = false;
 
                                     }
                                 }
@@ -331,15 +334,15 @@ namespace SAPS.Fronteras
                                     if (resultado == 0)
                                     {
                                         cuerpo_alerta_exito.Text = " Se modificó el caso de pruebas correctamente.";
+                                        a_retornar = true;
                                     }
                                     else
                                     {
                                         cuerpo_alerta_error.Text = " Hubo un error al modificar el caso de pruebas, intentelo nuevamente.";
-
+                                        a_retornar = false;
                                     }
                                 }
-                                actualiza_caso_de_pruebas_disponibles();
-                                a_retornar = true;
+                                actualiza_caso_de_pruebas_disponibles();                                
                             }
                             else
                             {
@@ -692,6 +695,15 @@ namespace SAPS.Fronteras
 
                     tabla_casos_pruebas.Rows.Add(fila);
                 }
+                if (caso_de_pruebas_disponibles.Rows.Count>0 && (m_opcion == 'i' || m_opcion == 'm') )
+                {
+                    m_caso_actual = caso_de_pruebas_disponibles.Rows[caso_de_pruebas_disponibles.Rows.Count-1]["id_caso"].ToString();
+                }
+                else
+                {
+                    m_caso_actual = "";
+                }
+
             }            
         }
 
