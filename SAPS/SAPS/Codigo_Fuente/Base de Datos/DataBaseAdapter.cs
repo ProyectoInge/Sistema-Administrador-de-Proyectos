@@ -10,16 +10,20 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
+
 namespace SAPS.Base_de_Datos
 {
     public class DataBaseAdapter
     {
         // Variables de instancia
+
         // Contiene la dirección del servidor donde se encuentra la base de datos
-        const string conexion = "Data Source=proyectopruebas.cph3bzyte6rr.us-west-2.rds.amazonaws.com,1433;" +
-            "Initial Catalog=proyectoDB;" +
-            "User id=masterwizard;" +
-            "Password=urenaselacome;";
+
+        // Amazon
+        const string conexion = "Data Source=proyectopruebas.cph3bzyte6rr.us-west-2.rds.amazonaws.com,1433;" + "Initial Catalog=proyectoDB;" + "User id=masterwizard;" + "Password=urenaselacome;";
+
+        // ECCI
+        //const string conexion = "Server=eccibdisw;" +  "Initial Catalog= g1inge;" + "Integrated Security=SSPI";
 
         public DataTable obtener_resultado_consulta(SqlCommand comando_sql)
         {
@@ -51,7 +55,7 @@ namespace SAPS.Base_de_Datos
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error de ejecucion: " + ex.ToString());
+                System.Diagnostics.Debug.WriteLine("Error de ejecucion: " + ex.ToString());
                 return -1;
             }
 

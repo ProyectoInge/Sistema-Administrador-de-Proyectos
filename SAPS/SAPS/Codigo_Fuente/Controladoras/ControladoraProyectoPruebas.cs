@@ -14,10 +14,17 @@ using SAPS.Ayudantes;
 
 namespace SAPS.Controladoras
 {
+    /** @brief efectuar las comunicaciones relacionadas con proyectos de pruebas con la capa de
+               interfaz, la capa de base de datos y las controladoras de otros módulos.
+     */
     public class ControladoraProyectoPruebas
     {
         //Variables de instancia
-        BDProyectoPruebas m_base_datos_pdp;
+        private BDProyectoPruebas m_base_datos_pdp;
+
+        // Para respetar la arquitectura de N capaz, solo las controladoras pueden hablar entre si
+        private ControladoraRecursosHumanos m_controladora_rh;
+
         //Constructor
         public ControladoraProyectoPruebas()
         {
@@ -25,6 +32,16 @@ namespace SAPS.Controladoras
         }
 
         // Métodos
+
+        /** @brief Método que consulta el perfil de un usuario del sistema, permite que se mantenga la arquitectura N capas.
+         * @param nombre_usuario usuario cuyo perfil se desea consultar.
+         * @return false si es administrador, true si es miembro
+        */
+        public bool es_administrador(string nombre_usuario)
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.es_administrador(nombre_usuario);
+        }
 
         /** @brief Método que asigna las operaciones necesarias para poder insertar un proyecto de pruebas.
          * @param datos array que contiene los datos para poder insertar un proyecto de pruebas.
@@ -107,6 +124,14 @@ namespace SAPS.Controladoras
         {
             Oficina nueva_oficina = new Oficina(datos);
             return m_base_datos_pdp.insertar_oficina(nueva_oficina);
+        }
+
+        /** @brief Método que se encarga de realizar una sentencia SQL para obtener los proyectos que no han sido eliminados
+         * @return Información de todos los proyectos que no han sido eliminados.
+        */
+        public DataTable solicitar_proyectos_no_eliminados()
+        {
+            return m_base_datos_pdp.solicitar_proyectos_no_eliminados();
         }
 
     }

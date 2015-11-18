@@ -1,6 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" EnableEventValidation="false" %>
+﻿<%@ Page Title="Recursos Humanos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="InterfazRecursosHumanos.aspx.cs" Inherits="SAPS.Fronteras.Recursos_Humanos" EnableEventValidation="false" %>
 
 <asp:Content ID="content_hr" ContentPlaceHolderID="MainContent" runat="server">
+    <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
+    $(document).ready(function () {
+        $("#btn_rh").addClass("active");
+    });
+    </script>
     <section id="page_header">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -125,6 +130,7 @@
                                 <div class="col-md-8">
                                     <asp:DropDownList ID="drop_proyecto_asociado" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
+                                    <asp:Label runat="server" ID="label_proyecto_vacio" CssClass="text-danger"><small>Tiene que seleccionar un proyecto.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row3_der" class="form-group">
@@ -133,10 +139,12 @@
                                 </div>
                                 <div class="col-md-8">
                                     <asp:DropDownList ID="drop_rol" runat="server" CssClass="form-control">
+                                        <asp:ListItem Text="-Seleccione un rol-" Value="" Selected="False"></asp:ListItem>
                                         <asp:ListItem Text="Lider" Value="Lider"></asp:ListItem>
                                         <asp:ListItem Text="Usuario" Value="Usuario"></asp:ListItem>
                                         <asp:ListItem Text="Tester" Value="Tester"></asp:ListItem>
                                     </asp:DropDownList>
+                                    <asp:Label runat="server" ID="label_rol_vacio" CssClass="text-danger"><small>Tiene que seleccionar un rol para el usuario.</small></asp:Label>
                                 </div>
                             </div>
                             <hr />
@@ -173,7 +181,7 @@
     <section id="botones_aceptar_cancelar">
         <div class="row">
             <div class="col-md-3 col-md-offset-9">
-                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click"/>
+                <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
                 <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
             </div>
         </div>
@@ -209,7 +217,6 @@
                     <ContentTemplate>
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title">
                                     <asp:Label ID="titulo_modal" runat="server" Text=""></asp:Label>
                                 </h4>
@@ -235,7 +242,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-link" Style="color:darkgray" ID="btn_modal_cancelar" Text="Volver" runat="server" />
                                 <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
                             </div>
                         </div>
@@ -254,49 +261,46 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <div class="form-horizontal">
-                                                    <div id="row1_modal" class="form-group">
-                                                        <div class="col-md-12">
-                                                            <h2>SAPS<small> Reestablecer contraseña</small></h2>
+                                        <div class="form-horizontal">
+                                            <div id="row1_modal" class="form-group">
+                                                <div class="col-md-12">
+                                                    <h2>SAPS<small> Reestablecer contraseña</small></h2>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                            <section id="alertas_modal_reestablecer">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="alert alert-danger alert-dismissible" id="alerta_error_reestablecer" role="alert" aria-hidden="true" runat="server">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                            <asp:Label runat="server" ID="label_modal_error_reestablecer"></asp:Label>
+                                                        </div>
+                                                        <div class="alert alert-success alert-dismissible" id="alerta_exito_reestablecer" role="alert" aria-hidden="true" runat="server">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                            <asp:Label runat="server" ID="label_modal_exito">Se reestableció correctamente la contraseña.</asp:Label>
                                                         </div>
                                                     </div>
-                                                    <hr />
-                                                    <section id="alertas_modal_reestablecer">
-                                                        <div class="form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="alert alert-danger alert-dismissible" id="alerta_error_reestablecer" role="alert" aria-hidden="true" runat="server">
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                                                    <asp:Label runat="server" ID="label_modal_error_reestablecer"></asp:Label>
-                                                                </div>
-                                                                <div class="alert alert-success alert-dismissible" id="alerta_exito_reestablecer" role="alert" aria-hidden="true" runat="server">
-                                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                                    <asp:Label runat="server" ID="label_modal_exito">Se reestableció correctamente la contraseña.</asp:Label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </section>
-                                                    <div id="row2_modal" class="form-group">
-                                                        <div class="col-md-4">
-                                                            <asp:Label runat="server" ID="label_modal_reestablecer_usuario" AssociatedControlID="modal_reestablecer_input_usuario">Nombre de usuario</asp:Label>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <asp:TextBox runat="server" ID="modal_reestablecer_input_usuario" CssClass="form-control"></asp:TextBox>
-                                                        </div>
-                                                    </div>
-                                                    <div id="row3_modal" class="form-group">
-                                                        <div class="col-md-8 col-md-offset-4">
-                                                            <asp:TextBox runat="server" ID="modal_reestablecer_input_contrasena_1" CssClass="form-control" TextMode="Password" placeholder="Ingrese la nueva contraseña"></asp:TextBox>
-                                                        </div>
-                                                    </div>
-                                                    <div id="row4_modal" class="form-group">
-                                                        <div class="col-md-8 col-md-offset-4">
-                                                            <asp:TextBox runat="server" ID="modal_reestablecer_input_contrasena_2" CssClass="form-control" TextMode="Password" placeholder="Digite nuevamente la contraseña"></asp:TextBox>
-                                                        </div>
-                                                    </div>
+                                                </div>
+                                            </section>
+                                            <div id="row2_modal" class="form-group">
+                                                <div class="col-md-4">
+                                                    <asp:Label runat="server" ID="label_modal_reestablecer_usuario" AssociatedControlID="modal_reestablecer_input_usuario">Nombre de usuario</asp:Label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <asp:TextBox runat="server" ID="modal_reestablecer_input_usuario" CssClass="form-control"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <div id="row3_modal" class="form-group">
+                                                <div class="col-md-8 col-md-offset-4">
+                                                    <asp:TextBox runat="server" ID="modal_reestablecer_input_contrasena_1" CssClass="form-control" TextMode="Password" placeholder="Ingrese la nueva contraseña"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <div id="row4_modal" class="form-group">
+                                                <div class="col-md-8 col-md-offset-4">
+                                                    <asp:TextBox runat="server" ID="modal_reestablecer_input_contrasena_2" CssClass="form-control" TextMode="Password" placeholder="Digite nuevamente la contraseña"></asp:TextBox>
+                                                    <asp:Label runat="server" ID="label_contrasenas_distintas" CssClass="text-danger"><small>Las contraseñas ingresadas no coinciden.</small></asp:Label>
                                                 </div>
                                             </div>
                                         </div>
@@ -304,7 +308,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_reestablecer_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_reestablecer_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_reestablecer_cancelar_Click" CssClass="btn btn-link" ID="btn_modal_reestablecer_cancelar" Text="Volver" runat="server" Style="color: darkgray"  />
                                 <asp:Button OnClick="btn_modal_reestablecer_aceptar_Click" CssClass="btn btn-warning" ID="btn_modal_reestablecer_aceptar" Text="Confirmar" runat="server" />
                             </div>
                         </div>
@@ -330,6 +334,10 @@
             $("#<%= label_error_telefono.ClientID%>").hide();
             $("#<%= label_telefono_vacio.ClientID%>").hide();
             $("#<%= label_usuario_vacio.ClientID%>").hide();
+            $("#<%= label_proyecto_vacio.ClientID%>").hide();
+            $("#<%= label_rol_vacio.ClientID%>").hide();
+            $("#<%= label_contrasenas_distintas.ClientID%>").hide();
+
 
             // Validacion de la cedula:
             $("#<%= input_cedula.ClientID %>").blur(function () {
@@ -396,6 +404,41 @@
                     $("#<%= label_usuario_vacio.ClientID%>").hide();
                 }
             });
+
+            //Validacion de proyecto seleccionado
+            $("#<%= drop_proyecto_asociado.ClientID %>").blur(function () {
+                var proyecto_ingresado = new String();
+                proyecto_ingresado = $("#<%= drop_proyecto_asociado.ClientID%>").val();
+                if (proyecto_ingresado == "") {
+                    $("#<%= label_proyecto_vacio.ClientID%>").show();
+                } else {
+                    $("#<%= label_proyecto_vacio.ClientID%>").hide();
+                }
+            });
+
+            //Validacion de rol seleccionado
+            $("#<%= drop_rol.ClientID %>").blur(function () {
+                var rol_ingresado = new String();
+                rol_ingresado = $("#<%= drop_rol.ClientID%>").val();
+                if (rol_ingresado == "") {
+                    $("#<%= label_rol_vacio.ClientID%>").show();
+                } else {
+                    $("#<%= label_rol_vacio.ClientID%>").hide();
+                }
+            });
+
+            //Validacion de las contraseñas nuevas
+            $("#<%= modal_reestablecer_input_contrasena_2.ClientID %>").blur(function () {
+                var contrasena1 = $("#<%= modal_reestablecer_input_contrasena_1.ClientID %>").val();
+                var contrasena2 = $("#<%= modal_reestablecer_input_contrasena_2.ClientID %>").val();
+                if (contrasena1 != contrasena2) {
+                    $("#<%= label_contrasenas_distintas.ClientID%>").show();
+                    $("#<%= modal_reestablecer_input_contrasena_1.ClientID %>").focus();
+                } else {
+                    $("#<%= label_contrasenas_distintas.ClientID%>").hide();
+                }
+            });
+
         });
     </script>
 </asp:Content>

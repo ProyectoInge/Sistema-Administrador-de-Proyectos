@@ -19,4 +19,36 @@ INSERT INTO Oficina VALUES ('Oficina4', '26895000','22610075','Felipe González')
 INSERT INTO Oficina VALUES ('Oficina5', '22491220','22910005','Sanders Jiménez')
 
 select * from ProyectoPruebas
-execute INSERTAR_PYP 9898, 1, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Pelarnos la picha', 'MPLP', 'Asignado'
+execute INSERTAR_PYP 9898, 1, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'Proyecto 1', 'Asignado'
+execute INSERTAR_PYP 9898, 2, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'Proyecto 2', 'Asignado'
+execute INSERTAR_PYP 9898, 3, '08-31-2015', '08-31-2015', '12-31-2015', 'HIP HOP', 'Bla', 'Proyecto 3', 'Asignado'
+
+execute INSERTAR_RH 'usuario',		'1-1111-1111',  2,		'22780989', 'Usuario',			'CZPDpurUqsbm0QLlCtDOxqCtgd5b+sUh0+X5R6DmxrK+eg9F', 'usuario@usuario.com',		'Usuario',	0
+execute INSERTAR_RH 'kefds',		'1-115580434',  1,		'77777777',	'Kevin Delgado',	'4/bVsJ4mkhdoK6vOu3M5dN60TnhFNGqBtu43Yt1P2co8lgGL',	'kremlin@urss.ru',				'Usuario',	0
+
+select * from DisenoPrueba
+execute INSERTAR_DP 0, 1, 'Diseño 1', '09-12-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
+execute INSERTAR_DP 0, 1, 'Diseño 2', '08-31-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
+execute INSERTAR_DP 0, 1, 'Diseño 3', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
+execute INSERTAR_DP 0, 3, 'Diseño 4', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
+execute INSERTAR_DP 0, 2, 'Diseño 5', '11-28-2015', 'bla', 'bla', 'bla', 'root', 'ambiente de prueba', 'criterio 1, criterio 2...'
+
+select * from Requerimientos
+execute INSERTAR_REQUERIMIENTO 'RH_I', 'Requerimiento 1', 'Criterio 1, Criterio 2'
+execute INSERTAR_REQUERIMIENTO 'RH_M', 'Requerimiento 2', 'Criterio 1, Criterio 2'
+execute INSERTAR_REQUERIMIENTO 'DP_I', 'Requerimiento 3', 'Criterio 1, Criterio 2'
+execute INSERTAR_REQUERIMIENTO 'DP_E', 'Requerimiento 4', 'Criterio 1, Criterio 2'
+
+select * from SePrueba
+execute ASOCIAR_REQUERIMIENTO 1, 'RH_I', 'Proposito', 'Procedimiento'
+execute ASOCIAR_REQUERIMIENTO 2, 'DP_E', 'Proposito', 'Procedimiento'
+
+select * from CasoPrueba
+execute INSERTAR_CP  1, 'Unitaria#1', 'A,B,C'
+execute INSERTAR_CP  1, 'Unitaria#2', 'A,B,C'
+execute INSERTAR_CP  1, 'Unitaria#3', 'A,B,C'
+execute INSERTAR_CP  2, 'Unitaria#1', 'A,B,C'
+execute INSERTAR_CP  2, 'Unitaria#2', 'A,B,C'
+execute INSERTAR_CP  2, 'Unitaria#3', 'A,B,C'
+
+

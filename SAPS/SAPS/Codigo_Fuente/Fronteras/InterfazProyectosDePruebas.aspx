@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
+﻿<%@ Page Title="Proyectos de Pruebas" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="SAPS.Fronteras.InterfazProyectosDePruebas" CodeBehind="InterfazProyectosDePruebas.aspx.cs" %>
 
 <asp:Content ID="content_pdp" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript"> <!-- Para activar el elemento en el navbar -->
@@ -80,6 +80,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_asignment_date" CssClass="form-control" TextMode="Date" />
+                                    <asp:Label runat="server" ID="label_fecha_asigna_ingresar" CssClass="text-danger"><small>Debe ingresar una fecha de asignación.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row4_izq" class="form-group">
@@ -88,6 +89,8 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_start_date" CssClass="form-control" TextMode="Date" />
+                                    <asp:Label runat="server" ID="label_fecha_asigna_vacia" CssClass="text-danger"><small>Debe ingresar una fecha de asignación.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_fecha_inicio_pronta" CssClass="text-danger"><small>Esta fecha debe ser posterior a la fecha de asignación.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row5_izq" class="form-group">
@@ -96,12 +99,15 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:TextBox runat="server" ID="input_finish_date" CssClass="form-control" TextMode="Date" />
+
+                                    <asp:Label runat="server" ID="label_fecha_inicio_vacia" CssClass="text-danger"><small>Debe ingresar una fecha de inicio.</small></asp:Label>
+                                    <asp:Label runat="server" ID="label_fecha_final_pronta" CssClass="text-danger"><small>Esta fecha debe ser posterior a la fecha de inicio.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="ro6_izq" class="form-group">
                                 <div class="col-md-12">
                                     <asp:Label runat="server" AssociatedControlID="input_objective" CssClass="control-label">Objetivo  <span class="text-danger">*</span></asp:Label>
-                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" TextMode="multiline" />
+                                    <asp:TextBox runat="server" ID="input_objective" CssClass="form-control" Rows="3" Style="resize: none" TextMode="multiline" />
                                 </div>
                             </div>
                         </div>
@@ -121,11 +127,12 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_estado_proyecto" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="Pendiente de asignación"></asp:ListItem>
-                                        <asp:ListItem Text="Asignado"></asp:ListItem>
-                                        <asp:ListItem Text="En ejecución"></asp:ListItem>
-                                        <asp:ListItem Text="Finalizado"></asp:ListItem>
-                                        <asp:ListItem Text="Cerrado"></asp:ListItem>
+                                         <asp:ListItem Text="-Seleccione un estado-" Value="-Elija un estado"></asp:ListItem> 
+                                        <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
+                                        <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
+                                        <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>
+                                        <asp:ListItem Text="Finalizado" Value="Finalizado"></asp:ListItem>
+                                        <asp:ListItem Text="Cerrado" Value="Cerrado"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                             </div>
@@ -136,6 +143,7 @@
                                 </div>
                                 <div class="col-md-7">
                                     <asp:DropDownList ID="drop_oficina_asociada" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_oficina_asociada_SelectedIndexChanged" AutoPostBack="true">
+                                        <%-- <asp:ListItem Text="-Elija una oficina-" Value="-Elija una oficina-"></asp:ListItem> --%>
                                     </asp:DropDownList>
                                     <asp:Button runat="server" CssClass="btn btn-link btn-sm" ID="btn_agregar_oficina" Text="¿Desea agregar una nueva oficina?" OnClick="btn_agregar_oficina_Click" />
                                 </div>
@@ -224,54 +232,49 @@
                     <ContentTemplate>
                         <div class="modal-content">
                             <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-                                                <div class="form-horizontal">
-                                                    <div id="row1_modal" class="form-group">
-                                                        <div class="col-md-12">
-                                                            <h2>SAPS<small> Agregar oficina</small></h2>
-                                                        </div>
-                                                    </div>
-                                                    <hr />
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <div class="alert alert-success" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
-                                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                                <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
-                                                            </div>
-                                                            <div class="alert alert-danger" id="alerta_error_oficina_cuerpo" role="alert" aria-hidden="true" runat="server">
-                                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                                                <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-horizontal">
-                                                        <div class="form-group">
-                                                            <div class="col-md-6">
-                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_nombre_oficina">Nombre de la oficina</asp:Label>
-                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_nombre_oficina"></asp:TextBox>
-                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_representante_oficina">Representante</asp:Label>
-                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_representante_oficina"></asp:TextBox>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono1">Teléfono principal</asp:Label>
-                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono1"></asp:TextBox>
-                                                                <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono2">Teléfono secundario</asp:Label>
-                                                                <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono2"></asp:TextBox>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                <div class="form-horizontal">
+                                    <div id="row1_modal" class="form-group">
+                                        <div class="col-md-12">
+                                            <h2>SAPS<small> Agregar oficina</small></h2>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-success" id="alerta_exito_oficina" role="alert" aria-hidden="true" runat="server">
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="No hubo problema al ingresar la oficina."></asp:Label>
                                             </div>
+                                            <div class="alert alert-danger" id="alerta_error_oficina_cuerpo" role="alert" aria-hidden="true" runat="server">
+                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                <asp:Label runat="server" ID="alerta_error_oficina" Text=""></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_nombre_oficina">Nombre de la oficina <span class="text-danger">*</span></asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_nombre_oficina"></asp:TextBox>
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_representante_oficina">Representante <span class="text-danger">*</span></asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_representante_oficina"></asp:TextBox>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono1">Teléfono principal <span class="text-danger">*</span></asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono1"></asp:TextBox>
+                                            <asp:Label runat="server" CssClass="control-label" AssociatedControlID="modal_input_telefono2">Teléfono secundario</asp:Label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="modal_input_telefono2"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-4 col-md-offset-8">
+                                            <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-default" ID="btn_modal_cancelar_oficina" Text="Volver" runat="server" data-dismiss="modal" />
-                                <asp:Button OnClick="btn_modal_agregar_oficina_Click" CssClass="btn btn-primary" ID="btn_modal_agregar_oficina" Text="Agregar" runat="server" />
+                                <asp:Button OnClick="btn_modal_cancelar_oficina_Click" CssClass="btn btn-link" ID="btn_modal_cancelar_oficina" Text="Volver" runat="server" Style="color: darkgray" />
+                                <asp:Button OnClick="btn_modal_agregar_oficina_Click" CssClass="btn btn-success" ID="btn_modal_agregar_oficina" Text="Agregar" runat="server" />
                             </div>
                         </div>
                     </ContentTemplate>
@@ -313,7 +316,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button OnClick="btn_modal_confirmar_cancelar_Click" CssClass="btn btn-defalt" ID="btn_modal_cancelar" Text="Volver" runat="server" />
+                                <asp:Button OnClick="btn_modal_confirmar_cancelar_Click" CssClass="btn btn-link" ID="btn_modal_cancelar" Text="Volver" runat="server" />
                                 <asp:Button OnClick="btn_modal_confirmar_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
                             </div>
                         </div>
@@ -323,6 +326,108 @@
         </div>
     </section>
     <!-- Modal confirmacion -->
+
+    <!-- Script para validacion de fechas ingresadas por el usuario -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn_pdp").addClass("active");// Para activar el elemento en el navbar
+
+            /* Los metodos de aca son para realizar las validacion de datos de lado del cliente. */
+
+            //Se esconden los labels de errores
+            // TO DO --> hay que poner esto en el header para que cargue bien.
+            $("#<%= label_fecha_inicio_pronta.ClientID%>").hide();
+            $("#<%= label_fecha_final_pronta.ClientID%>").hide();
+            $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+            $("#<%= label_fecha_asigna_ingresar.ClientID%>").hide();
+            $("#<%= label_fecha_inicio_vacia.ClientID%>").hide();
+
+
+            // Validacion de la fecha de asignacion:
+
+            $("#<%= input_asignment_date.ClientID %>").blur(function () {
+
+                $("#<%= label_fecha_inicio_pronta.ClientID%>").hide();
+
+                var fecha_asignacion_ingresada = new Date($("#<%= input_asignment_date.ClientID %>").val());
+
+                if (isNaN(fecha_asignacion_ingresada.getTime())) {
+                    $("#<%= label_fecha_asigna_ingresar.ClientID%>").show();
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+                    $("#<%= input_asignment_date.ClientID %>").focus();
+                } else {
+                    $("#<%= label_fecha_asigna_ingresar.ClientID%>").hide();
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+                    $("#<%= input_start_date.ClientID %>").focus();
+                }
+
+            });
+
+            // Validacion de la fecha de inicio:
+
+            $("#<%= input_start_date.ClientID %>").blur(function () {
+
+                $("#<%= label_fecha_inicio_vacia.ClientID%>").hide();
+
+                // Asignacion de las fechas a un objeto en Javascript tipo Date
+                var fecha_inicio_ingresada = new Date($("#<%= input_start_date.ClientID%>").val());
+                var fecha_asignacion_ingresada = new Date($("#<%= input_asignment_date.ClientID %>").val());
+
+                if (isNaN(fecha_asignacion_ingresada.getTime())) {                    // No puede ingresar una fecha de inicio sin ingresar una fecha de asignacion.
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").show();
+                    $("#<%= input_asignment_date.ClientID %>").focus();
+                } else {
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+
+                    if (isNaN(fecha_inicio_ingresada.getTime())) {
+
+                        $("#<%= input_start_date.ClientID %>").focus();
+
+                    } else {
+
+                        if (fecha_inicio_ingresada < fecha_asignacion_ingresada) {        // La fecha de inicio no puede ser menor a la fecha de asignacion                        
+                            $("#<%= label_fecha_inicio_pronta.ClientID%>").show();
+                            $("#<%= input_start_date.ClientID %>").focus();
+                        } else {
+                            $("#<%= label_fecha_inicio_pronta.ClientID%>").hide();
+                            $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+                            $("#<%= label_fecha_inicio_vacia.ClientID%>").hide();
+                            $("#<%= label_fecha_final_pronta.ClientID%>").hide();
+                            $("#<%= input_finish_date.ClientID %>").focus();
+                        }
+                    }
+                }
+            });
+
+            // Validacion de la fecha de finalizacion
+
+            $("#<%= input_finish_date.ClientID %>").blur(function () {
+
+                var fecha_inicio = new Date($("#<%= input_start_date.ClientID%>").val());
+                var fecha_final = new Date($("#<%= input_finish_date.ClientID%>").val());
+
+                if (isNaN(fecha_inicio.getTime())) {
+                    $("#<%= label_fecha_inicio_vacia.ClientID%>").show();
+                    $("#<%= input_start_date.ClientID %>").focus();
+                } else {
+
+                    if (isNaN(fecha_final.getTime())) {
+                        $("#<%= input_finish_date.ClientID %>").focus();
+                    } else {
+
+                        if (fecha_inicio > fecha_final) {
+                            $("#<%= label_fecha_final_pronta.ClientID%>").show();
+                            $("#<%= input_finish_date.ClientID %>").focus();
+                        } else {
+                            $("#<%= label_fecha_final_pronta.ClientID%>").hide();
+                        }
+                    }
+                }
+
+            });
+        });
+    </script>
 </asp:Content>
 
 

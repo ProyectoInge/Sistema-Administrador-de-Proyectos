@@ -169,11 +169,17 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazDisenoPruebas.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazEjecucionPruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazRequerimientos.aspx" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\hover.css" />
     <Content Include="Content\rotating-card.css" />
+    <Content Include="ErrorPage\Error404.aspx" />
     <Content Include="ErrorPage\ErrorPage.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Informacion.aspx" />
@@ -225,7 +231,9 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
@@ -349,19 +357,50 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Codigo_Fuente\Ayudantes\Seguridad.cs" />
+    <Compile Include="Codigo_Fuente\Base de Datos\BDCasoPruebas.cs" />
+    <Compile Include="Codigo_Fuente\Base de Datos\BDDisenoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\BDRecursosHumanos.cs" />
+    <Compile Include="Codigo_Fuente\Base de Datos\BDRequerimientos.cs" />
     <Compile Include="Codigo_Fuente\Base de Datos\DataBaseAdapter.cs" />
+    <Compile Include="Codigo_Fuente\Controladoras\ControladoraCasoPruebas.cs" />
+    <Compile Include="Codigo_Fuente\Controladoras\ControladoraDisenosPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
+    <Compile Include="Codigo_Fuente\Controladoras\ControladoraRequerimientos.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\Ayudantes\Datos.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\CasoPruebas.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\DisenoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Oficina.cs" />
     <Compile Include="Codigo_Fuente\Entidades\ProyectoPruebas.cs" />
+    <Compile Include="Codigo_Fuente\Entidades\Requerimiento.cs" />
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx.cs">
+      <DependentUpon>InterfazCasosDePruebas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazCasosDePruebas.aspx.designer.cs">
+      <DependentUpon>InterfazCasosDePruebas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx.cs">
       <DependentUpon>InterfazCerrarSesionRemota.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazCerrarSesionRemota.aspx.designer.cs">
       <DependentUpon>InterfazCerrarSesionRemota.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazDisenoPruebas.aspx.cs">
+      <DependentUpon>InterfazDisenoPruebas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazDisenoPruebas.aspx.designer.cs">
+      <DependentUpon>InterfazDisenoPruebas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazEjecucionPruebas.aspx.cs">
+      <DependentUpon>InterfazEjecucionPruebas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazEjecucionPruebas.aspx.designer.cs">
+      <DependentUpon>InterfazEjecucionPruebas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx.cs">
       <DependentUpon>InterfazLogin.aspx</DependentUpon>
@@ -376,6 +415,20 @@
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx.designer.cs">
       <DependentUpon>InterfazProyectosDePruebas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazRequerimientos.aspx.cs">
+      <DependentUpon>InterfazRequerimientos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazRequerimientos.aspx.designer.cs">
+      <DependentUpon>InterfazRequerimientos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPage\Error404.aspx.cs">
+      <DependentUpon>Error404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPage\Error404.aspx.designer.cs">
+      <DependentUpon>Error404.aspx</DependentUpon>
     </Compile>
     <Compile Include="ErrorPage\ErrorPage.aspx.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>
@@ -469,6 +522,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' == ''" />
+  <PropertyGroup>
+    <SsdtUnitTestVersion>2.0</SsdtUnitTestVersion>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

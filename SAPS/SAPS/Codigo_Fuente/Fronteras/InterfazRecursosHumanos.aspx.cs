@@ -23,7 +23,7 @@ namespace SAPS.Fronteras
     {
         // Variables de instancia
         private ControladoraRecursosHumanos m_controladora_rh;
-        private ControladoraProyectoPruebas m_controladora_pdp;
+
         private static char m_opcion = 'i'; // i = insertar, m = modificar, e = eliminar
 
         private static string[,] m_tabla_recursos_disponibles; //posicion: 0 --> username, 1 --> nombre
@@ -40,13 +40,19 @@ namespace SAPS.Fronteras
             if (Request.IsAuthenticated)
             {
                 m_controladora_rh = new ControladoraRecursosHumanos();
-                m_controladora_pdp = new ControladoraProyectoPruebas();
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_advertencia.Visible = false;
-                drop_proyecto_asociado.Enabled = false;
-                drop_rol.Enabled = false;
-                activa_desactiva_botones_ime(false);
+                if (radio_btn_miembro.Checked)
+                {
+                    drop_proyecto_asociado.Enabled = true;
+                    drop_rol.Enabled = true;
+                }
+                else
+                {
+                    drop_proyecto_asociado.Enabled = false;
+                    drop_rol.Enabled = false;
+                }
                 mensaje_error_modal.Visible = false;
                 mensaje_exito_modal.Visible = false;
                 modal_reestablecer_input_usuario.Enabled = false;
@@ -60,7 +66,16 @@ namespace SAPS.Fronteras
                 {
                     btn_reestablece_contrasena.Visible = true;
                 }
-
+                if (m_opcion != 'i')
+                {
+                    activa_desactiva_botones_ime(true);
+                    if (m_opcion == 'm')
+                        btn_reestablece_contrasena.Visible = true;
+                }
+                else
+                {
+                    activa_desactiva_botones_ime(false);
+                }
                 if (!IsPostBack)
                 {
                     actualiza_proyectos();
@@ -277,7 +292,6 @@ namespace SAPS.Fronteras
             {
                 mensaje_error_modal.Visible = true;
             }
-            Response.Redirect(Request.RawUrl);
             upModal.Update();
         }
 
@@ -289,9 +303,11 @@ namespace SAPS.Fronteras
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal('hide');", true);
             upModal.Visible = false;
             upModal.Update();
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazRecursosHumanos.aspx");
         }
 
         /** @brief Se activa cuando el usuario escoge la opcion de reestablecer la contrasena, lo envia a la pagina para cambiar de contraseña.
+         * @param Los parametros por default de un evento de C#.
          */
         protected void btn_reestablece_contrasena_Click(object sender, EventArgs e)
         {
@@ -325,9 +341,14 @@ namespace SAPS.Fronteras
         */
         private void llena_proyectos_disponibles()
         {
-            DataTable tabla_proyectos = m_controladora_pdp.solicitar_proyectos_disponibles();
+            DataTable tabla_proyectos = m_controladora_rh.solicitar_proyectos_disponibles();
             m_tamano_tabla_pdp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pdp, 2];
+            ListItem primer_item = new ListItem();
+            primer_item.Selected = false;
+            primer_item.Text = "-Seleccione un proyecto-";
+            primer_item.Value = "";
+            drop_proyecto_asociado.Items.Add(primer_item);
             for (int i = 0; i < m_tamano_tabla_pdp; ++i)
             {
                 m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_proyectos.Rows[i]["id_proyecto"]);
@@ -448,11 +469,16 @@ namespace SAPS.Fronteras
                 TableCell celda_rol = new TableCell();
                 Button btn = new Button();
                 if (m_es_administrador)
+                {
                     m_tabla_recursos_disponibles[i, 0] = tabla_de_datos.Rows[i]["username"].ToString();
+                    btn.ID = tabla_de_datos.Rows[i]["username"].ToString();
+                }
                 else
+                {
                     m_tabla_recursos_disponibles[i, 0] = Context.User.Identity.Name;
+                    btn.ID = Context.User.Identity.Name;
+                }
                 m_tabla_recursos_disponibles[i, 1] = tabla_de_datos.Rows[i]["nombre"].ToString();
-                btn.ID = "btn_lista_" + i.ToString();
                 btn.Text = m_tabla_recursos_disponibles[i, 1];
                 btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_rh_click);
@@ -597,7 +623,7 @@ namespace SAPS.Fronteras
             else
             {
                 cuerpo_alerta_error.Text = "Es necesario ingresar un nombre de usuario.";
-                alerta_error.Visible = false;
+                alerta_error.Visible = true;
                 SetFocus(input_usuario);
             }
             return a_retornar;
@@ -640,8 +666,24 @@ namespace SAPS.Fronteras
                                                 if (radio_btn_miembro.Checked == true)
                                                 {
                                                     datos[6] = false; //no es admi
-                                                    datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
-                                                    datos[8] = drop_rol.SelectedItem.Text;
+                                                    if (drop_proyecto_asociado.SelectedItem.Value != "")
+                                                    {
+                                                        datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
+                                                    }
+                                                    else
+                                                    {
+                                                        cuerpo_alerta_error.Text = " Debe seleccionar un proyecto al que desea asociar un usuario.";
+                                                        return false;
+                                                    }// Validación del proyecto.
+                                                    if (drop_rol.SelectedItem.Value != "")
+                                                    {
+                                                        datos[8] = drop_rol.SelectedItem.Text;
+                                                    }
+                                                    else
+                                                    {
+                                                        cuerpo_alerta_error.Text = " No se seleccionó ningún rol para el usuario.";
+                                                        return false;
+                                                    }// Validacion del rol
                                                 }
                                                 else
                                                 {
@@ -666,6 +708,9 @@ namespace SAPS.Fronteras
                                             }
                                             else
                                             {
+                                                if (!m_controladora_rh.existe_usuario(input_usuario.Text))
+                                                {
+
                                                 if (input_contrasena.Text != "")
                                                 {
                                                     Object[] datos = new Object[9];
@@ -678,8 +723,24 @@ namespace SAPS.Fronteras
                                                     if (radio_btn_miembro.Checked == true)
                                                     {
                                                         datos[6] = false; //no es admi
-                                                        datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
-                                                        datos[8] = drop_rol.SelectedItem.Text;
+                                                        if (drop_proyecto_asociado.SelectedItem.Value != "")
+                                                        {
+                                                            datos[4] = buscar_id_proyecto(drop_proyecto_asociado.SelectedItem.Text);
+                                                        }
+                                                        else
+                                                        {
+                                                            cuerpo_alerta_error.Text = " Debe seleccionar un proyecto al que desea asociar un usuario.";
+                                                            return false;
+                                                        }// Validación del proyecto.
+                                                        if (drop_rol.SelectedItem.Value != "")
+                                                        {
+                                                            datos[8] = drop_rol.SelectedItem.Text;
+                                                        }
+                                                        else
+                                                        {
+                                                            cuerpo_alerta_error.Text = " No se seleccionó ningún rol para el usuario.";
+                                                            return false;
+                                                        }// Validacion del rol
                                                     }
                                                     else
                                                     {
@@ -708,6 +769,13 @@ namespace SAPS.Fronteras
                                                     SetFocus(input_contrasena);
                                                     a_retornar = false;
                                                 } // Contraseña
+                                            }
+                                                else
+                                                {
+                                                    cuerpo_alerta_error.Text = " El nombre de usuario ingresado ya existe, ingrese uno distinto.";
+                                                    a_retornar = false;
+                                                    SetFocus(input_usuario);
+                                                }
                                             }
                                         }
                                         else

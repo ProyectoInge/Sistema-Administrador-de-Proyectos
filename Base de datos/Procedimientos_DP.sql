@@ -5,23 +5,26 @@ DROP PROCEDURE MODIFICAR_DP
 DROP PROCEDURE ELIMINAR_DP
 DROP PROCEDURE CONSULTAR_DP
 DROP PROCEDURE CONSULTAR_DISENOS_DISPONIBLES
+DROP PROCEDURE SOLICITAR_REQUERIMIENTOS_ASOCIADOS
+DROP PROCEDURE SOLICITAR_REQUERIMIENTOS_NO_ASOCIADOS
+DROP PROCEDURE SOLICITAR_DISENOS_ASOCIADOS_PROYECTO
 
 GO 
 CREATE PROCEDURE INSERTAR_DP
-	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @nivel_prueba varchar(64)
+	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @tipo_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64), @ambiente varchar(128), @criterio_aceptacion varchar(256)
 AS
 	INSERT INTO DisenoPrueba
-		(id_proyecto, nombre_diseno, fecha_inicio, tecnica_prueba, nivel_prueba)
+		(id_proyecto, nombre_diseno, fecha_inicio, tecnica_prueba, tipo_prueba, nivel_prueba, username_responsable, ambiente, criterio_aceptacion)
 	VALUES
-		(@id_proyecto, @nombre_diseno, @fecha_inicio, @tecnica_prueba, @nivel_prueba)
+		(@id_proyecto, @nombre_diseno, @fecha_inicio, @tecnica_prueba, @tipo_prueba, @nivel_prueba, @username_responsable, @ambiente, @criterio_aceptacion)
 GO
 
 GO
 CREATE PROCEDURE MODIFICAR_DP
-	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @nivel_prueba varchar(64)
+	@id_diseno int, @id_proyecto int, @nombre_diseno varchar(64), @fecha_inicio date, @tecnica_prueba varchar(64), @tipo_prueba varchar(64), @nivel_prueba varchar(64), @username_responsable varchar(64), @ambiente varchar(128), @criterio_aceptacion varchar(256)
 AS
 	UPDATE DisenoPrueba
-		SET id_proyecto = @id_proyecto, nombre_diseno = @nombre_diseno, fecha_inicio = @fecha_inicio, tecnica_prueba = @tecnica_prueba, nivel_prueba = @nivel_prueba
+		SET id_proyecto = @id_proyecto, nombre_diseno = @nombre_diseno, fecha_inicio = @fecha_inicio, tecnica_prueba = @tecnica_prueba, tipo_prueba = @tipo_prueba, nivel_prueba = @nivel_prueba, username_responsable = @username_responsable, ambiente = @ambiente, criterio_aceptacion = @criterio_aceptacion
 		WHERE id_diseno = @id_diseno
 GO
 
@@ -41,7 +44,11 @@ AS
 			DisenoPrueba.nombre_diseno,
 			DisenoPrueba.fecha_inicio,
 			DisenoPrueba.tecnica_prueba,
-			DisenoPrueba.nivel_prueba
+			DisenoPrueba.tipo_prueba,
+			DisenoPrueba.nivel_prueba,
+			DisenoPrueba.username_responsable,
+			DisenoPrueba.ambiente,
+			DisenoPrueba.criterio_aceptacion
 	FROM DisenoPrueba
 	WHERE id_diseno = @id_diseno
 GO
@@ -54,7 +61,56 @@ AS BEGIN
 			DisenoPrueba.nombre_diseno,
 			DisenoPrueba.fecha_inicio,
 			DisenoPrueba.tecnica_prueba,
-			DisenoPrueba.nivel_prueba
+			DisenoPrueba.tipo_prueba,
+			DisenoPrueba.nivel_prueba,
+			DisenoPrueba.username_responsable,
+			DisenoPrueba.ambiente,
+			DisenoPrueba.criterio_aceptacion
 	FROM DisenoPrueba
 	END
+GO
+
+GO
+CREATE PROCEDURE SOLICITAR_REQUERIMIENTOS_ASOCIADOS
+	@id_diseno int
+AS
+	SELECT r.nombre,
+			r.id_requerimiento,
+			s.procedimiento
+	FROM Requerimientos r, SePrueba s
+	WHERE r.id_requerimiento = s.id_requerimiento AND
+		  s.id_diseno = @id_diseno
+		  /*
+		   AND
+		IN (
+		SELECT SePrueba.id_requerimiento
+		FROM SePrueba
+		WHERE id_diseno = @id_diseno) AND (
+			r.id_requerimiento = s.id_requerimiento
+		)*/
+GO
+
+GO
+CREATE PROCEDURE SOLICITAR_DISENOS_ASOCIADOS_PROYECTO
+	@id_proyecto int
+AS
+	SELECT DisenoPrueba.id_diseno,
+		   DisenoPrueba.nombre_diseno,
+		   DisenoPrueba.id_proyecto,
+		   DisenoPrueba.criterio_aceptacion
+	FROM DisenoPrueba
+	WHERE id_proyecto = @id_proyecto
+GO
+
+GO
+CREATE PROCEDURE SOLICITAR_REQUERIMIENTOS_NO_ASOCIADOS
+	@id_diseno int
+AS
+	SELECT Requerimientos.nombre,
+			Requerimientos.id_requerimiento
+	FROM Requerimientos
+	WHERE id_requerimiento IN (
+		SELECT SePrueba.id_requerimiento
+		FROM SePrueba
+		WHERE id_diseno != @id_diseno)
 GO
