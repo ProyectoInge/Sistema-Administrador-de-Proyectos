@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <asp:TextBox runat="server" ID="input_fecha" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                                    <asp:Label runat="server" CssClass="text-danger" ID="label_error_fecha"><small>Debe seleccionar una fecha para la ejecución.</small></asp:Label>
+                                    <asp:Label runat="server" CssClass="text-danger" ID="label_error_fecha"><small>Debe seleccionar una fecha.</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row2_panel3" class="form-group">

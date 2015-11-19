@@ -112,7 +112,7 @@ create table NecesitaDe(
 );
 
 create table Ejecucion(
-	num_ejecucion		int NOT NULL,
+	num_ejecucion		int IDENTITY(1,1) NOT NULL,
 	responsable			varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE SET NULL,
 	id_diseno			int NOT NULL,
 	fecha_ultima_ejec	date,
@@ -121,7 +121,7 @@ create table Ejecucion(
 );
 
 create table Resultados(
-	num_resultado		int NOT NULL,
+	num_resultado		int IDENTITY(1,1) NOT NULL,
 	id_diseno			int NOT NULL,
 	num_ejecucion		int NOT NULL,
 	estado				varchar(32),

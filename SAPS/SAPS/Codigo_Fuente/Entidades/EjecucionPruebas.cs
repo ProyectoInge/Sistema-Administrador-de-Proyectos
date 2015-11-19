@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SAPS.Codigo_Fuente.Entidades
+namespace SAPS.Entidades
 {
     public class EjecucionPruebas
     {
