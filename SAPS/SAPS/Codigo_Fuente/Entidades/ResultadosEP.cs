@@ -25,20 +25,20 @@ namespace SAPS.Entidades
         private string m_justificacion;
         /// @todo Manejar la imagen
 
-        /* @brief Constructor de la entidad de resultados de ejecucion de pruebas.
-        @param datos contiene los datos para poder crear un conjunto asociado a una ejecucion de pruebas, el orden va de la siguiente manera:
-                             * | Índice | Descripción             | Tipo de datos |
-                             * |:------:|:-----------------------:|:-------------:|
-                             * |    0   |  Numero de resultado    |      int      |
-                             * |    1   |  Id del diseno          |      int      |
-                             * |    2   |  Numero de ejecucion    |      int      |
-                             * |    3   |  Estado                 |     String    |
-                             * |    4   |  Tipo No Conformidad    |     String    |
-                             * |    5   |  Id del Caso            |     String    |
-                             * |    6   |  Descripcion No Conf.   |     String    |
-                             * |    7   |  Justificacion          |     String    |
-                             * |    8   |  Imagen                 |    Averiguar  |
-        * **/
+        /** @brief Constructor de la entidad de resultados de ejecucion de pruebas.
+         * @param datos contiene los datos para poder crear un conjunto asociado a una ejecucion de pruebas, el orden va de la siguiente manera:
+                             | Índice | Descripción             | Tipo de datos |
+                             |:------:|:-----------------------:|:-------------:|
+                             |    0   |  Numero de resultado    |      int      |
+                             |    1   |  Id del diseno          |      int      |
+                             |    2   |  Numero de ejecucion    |      int      |
+                             |    3   |  Estado                 |     String    |
+                             |    4   |  Tipo No Conformidad    |     String    |
+                             |    5   |  Id del Caso            |     String    |
+                             |    6   |  Descripcion No Conf.   |     String    |
+                             |    7   |  Justificacion          |     String    |
+                             |    8   |  Imagen                 |    Averiguar  |
+         */
         public ResultadosEP(Object[ ] datos)
         {
             m_numero_resultado = Convert.ToInt32(datos[0]);

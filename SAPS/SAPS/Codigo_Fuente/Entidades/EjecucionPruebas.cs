@@ -24,16 +24,16 @@ namespace SAPS.Entidades
         private DateTime m_fecha_ultima_ejecucion;
         private string m_incidencias;
 
-        /* @brief Constructor de la entidad de ejecucion de pruebas.
-        @param datos contiene los datos para poder crear una Ejecucion de pruebas, el orden va de la siguiente manera:
-                             * | Índice | Descripción             | Tipo de datos |
-                             * |:------:|:-----------------------:|:-------------:|
-                             * |    0   |  Numero de ejecucion    |      int      |
-                             * |    1   |  Responsable            |     String    |
-                             * |    2   |  Id del diseno          |      int      |
-                             * |    3   |  Fecha de ejecucion     |     Datetime  |
-                             * |    4   |  Incidencias            |     String    |
-        * **/
+        /** @brief Constructor de la entidad de ejecucion de pruebas.
+         * @param datos contiene los datos para poder crear una Ejecucion de pruebas, el orden va de la siguiente manera:
+            | Índice | Descripción             | Tipo de datos |
+            |:------:|:-----------------------:|:-------------:|
+            |    0   |  Numero de ejecucion    |      int      |
+            |    1   |  Responsable            |     String    |
+            |    2   |  Id del diseno          |      int      |
+            |    3   |  Fecha de ejecucion     |     Datetime  |
+            |    4   |  Incidencias            |     String    |
+         */
         public EjecucionPruebas(Object[] datos)
         {
             m_numero_ejecucion = Convert.ToInt32(datos[0]);

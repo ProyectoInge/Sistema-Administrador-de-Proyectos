@@ -1,15 +1,30 @@
-﻿using System;
+﻿/*
+ * Universidad de Costa Rica
+ * Escuela de Ciencias de la Computación e Informática
+ * Ingeniería de Software I
+ * Sistema Administrador de Proyectos de Software (SAPS)
+ * II Semestre 2015
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SAPS.Base_de_Datos;
+using SAPS.Entidades;
+using System.Data;
 
 namespace SAPS.Controladoras
 {
     public class ControladoraEjecuciones
     {
-        /// Variables de instancia
+        // Variables de instancia
         private BDEjecuciones m_base_datos;
+
+        // Controladoras de las clases con las que interactua la clase EjecucionesPruebas
+        private ControladoraRecursosHumanos m_controladora_rh;
+        private ControladoraDisenosPruebas m_controladora_dp;
+        private ControladoraCasoPruebas m_controladora_cp;
 
         ///@brief Constructor
         public ControladoraEjecuciones()
@@ -33,6 +48,75 @@ namespace SAPS.Controladoras
         internal int eliminar_resultado(int id_diseno, int num_ejecucion, int num_resultado)
         {
             return m_base_datos.eliminar_resultado(id_diseno, num_ejecucion, num_resultado);
+        }
+
+        /** @brief Método que ingresa una ejecución nueva al sistema.
+         * @param Vector de Objects con los datos de la ejecución a ingresar.
+            | Índice | Descripción             | Tipo de datos |
+            |:------:|:-----------------------:|:-------------:|
+            |    0   |  Numero de ejecucion    |      int      |
+            |    1   |  Responsable            |     String    |
+            |    2   |  Id del diseno          |      int      |
+            |    3   |  Fecha de ejecucion     |     Datetime  |
+            |    4   |  Incidencias            |     String    |
+         * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
+         */
+        internal int insertar_ejecucion(Object[] datos_ejecucion)
+        {
+            EjecucionPruebas ejecucion = new EjecucionPruebas(datos_ejecucion);
+            return m_base_datos.insertar_ejecucion(ejecucion);
+        }
+
+        /** @brief Método que ingresa un resultado nuevo al sistema.
+         * @param Vector de Objects con los datos del resultado a ingresar.
+                | Índice | Descripción             | Tipo de datos |
+                |:------:|:-----------------------:|:-------------:|
+                |    0   |  Numero de resultado    |      int      |
+                |    1   |  Id del diseno          |      int      |
+                |    2   |  Numero de ejecucion    |      int      |
+                |    3   |  Estado                 |     String    |
+                |    4   |  Tipo No Conformidad    |     String    |
+                |    5   |  Id del Caso            |     String    |
+                |    6   |  Descripcion No Conf.   |     String    |
+                |    7   |  Justificacion          |     String    |
+                |    8   |  Imagen                 |    Averiguar  | -- Esto falta de implementarlo @todo
+         * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
+         */
+        internal int insertar_resultado(Object[] datos_resultado)
+        {
+            ResultadosEP resultado = new ResultadosEP(datos_resultado);
+            return m_base_datos.insertar_resultado(resultado);
+        }
+
+        // -------------------------------------- Métodos que corresponden a otras clases --------------------------------------
+
+        /** @brief Método que se encarga de obtener todos los diseños de prueba que hay en el sistema.
+         * @return DataTable con toda la información de todos los diseños que estan presentes en el sistema.
+        */
+        public DataTable solicitar_disenos_disponibles()
+        {
+            m_controladora_dp = new ControladoraDisenosPruebas();
+            return m_controladora_dp.solicitar_disenos_disponibles();
+        }
+
+        /** @brief Método que solicita todos los casos de prueba que estan asociados a un diseño de pruebas.
+         * @param Identificador del diseño del que se quiere conocer los casos que tiene asociado.
+         * @return DataTable con toda la información de todos los casos asociados al diseño.
+         */
+        public DataTable solicitar_casos_asociados_diseno(int id_diseno)
+        {
+            ///@todo
+            return null;
+        }
+
+        /** @brief Método que se encarga de buscar la información correspondiente a un diseño de pruebas.
+         * @param El identificador del diseño del cual se desea conocer la información.
+         * @return DataTable con la información del diseño que se consultó.
+         */
+        public DataTable consultar_diseno(int id_diseno)
+        {
+            m_controladora_dp = new ControladoraDisenosPruebas();
+            return m_controladora_dp.consultar_diseno_pruebas(id_diseno);
         }
     }
 }
