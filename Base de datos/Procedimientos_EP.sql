@@ -1,4 +1,4 @@
-
+use proyectoDB
 
 DROP PROCEDURE ELIMINAR_EP;
 DROP PROCEDURE ELIMINAR_RESULTADO;
@@ -23,7 +23,7 @@ GO
 
 GO
 CREATE PROCEDURE INSERTAR_EP
-	@responsable varchar(64), @id_diseno int, @fecha_ultima_ejec date, @incidencias varchar(512)
+	@responsable varchar(64), @id_diseno int, @fecha_ultima_ejec datetime, @incidencias varchar(512)
 AS
 	INSERT INTO Ejecucion
 		(responsable, id_diseno, fecha_ultima_ejec, incidencias)

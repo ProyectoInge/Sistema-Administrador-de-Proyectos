@@ -115,7 +115,7 @@ create table Ejecucion(
 	num_ejecucion		int IDENTITY(1,1) NOT NULL,
 	responsable			varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE SET NULL,
 	id_diseno			int NOT NULL,
-	fecha_ultima_ejec	date,
+	fecha_ultima_ejec	datetime,
 	incidencias			varchar(512),
 	PRIMARY KEY(id_diseno, num_ejecucion)
 );

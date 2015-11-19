@@ -18,11 +18,11 @@ namespace SAPS.Entidades
     {
         // Elementos de ejecucion de pruebas
 
-        private int numero_ejecucion;
-        private string responsable;
-        private int id_diseno;
-        private DateTime fecha_ultima_ejecucion;
-        private string incidencias;
+        private int m_numero_ejecucion;
+        private string m_responsable;
+        private int m_id_diseno;
+        private DateTime m_fecha_ultima_ejecucion;
+        private string m_incidencias;
 
         /* @brief Constructor de la entidad de ejecucion de pruebas.
         @param datos contiene los datos para poder crear una Ejecucion de pruebas, el orden va de la siguiente manera:
@@ -36,41 +36,41 @@ namespace SAPS.Entidades
         * **/
         public EjecucionPruebas(Object[] datos)
         {
-            numero_ejecucion = Convert.ToInt32(datos[0]);
-            responsable = datos[1].ToString();
-            id_diseno = Convert.ToInt32(datos[2]);
-            fecha_ultima_ejecucion = Convert.ToDateTime(datos[3]);
-            incidencias = datos[4].ToString();
+            m_numero_ejecucion = Convert.ToInt32(datos[0]);
+            m_responsable = datos[1].ToString();
+            m_id_diseno = Convert.ToInt32(datos[2]);
+            m_fecha_ultima_ejecucion = Convert.ToDateTime(datos[3]);
+            m_incidencias = datos[4].ToString();
         }
 
         public int n_ejecucion
         {            
-            get{ return numero_ejecucion;  }
-            set { numero_ejecucion = value; }
+            get{ return m_numero_ejecucion;  }
+            set { m_numero_ejecucion = value; }
         }
 
-        public string ep_responsable
+        public string responsable
         {
-            get { return responsable; }
-            set { responsable = value; }
+            get { return m_responsable; }
+            set { m_responsable = value; }
         }
 
         public int diseno_asociado
         {
-            get { return id_diseno; }
-            set { id_diseno = value; }
+            get { return m_id_diseno; }
+            set { m_id_diseno = value; }
         }
 
         public DateTime fecha_ejecucion
         {
-            get { return fecha_ultima_ejecucion; }
-            set { fecha_ultima_ejecucion = value; }
+            get { return m_fecha_ultima_ejecucion; }
+            set { m_fecha_ultima_ejecucion = value; }
         }
 
-        public string incidencias_ep
+        public string incidencias
         {
-            get { return incidencias; }
-            set { incidencias = value; }
+            get { return m_incidencias; }
+            set { m_incidencias = value; }
         }
     }
 }

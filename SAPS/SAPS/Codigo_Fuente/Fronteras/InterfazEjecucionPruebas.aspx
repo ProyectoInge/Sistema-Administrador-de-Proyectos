@@ -58,18 +58,18 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_panel1" class="form-group">
-                                <div class="col-md-2">
+                                <div class="col-md-2 col-xs-2">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_disenos_disponibles"> Diseño <span class="text-danger">*</span></asp:Label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-xs-3">
                                     <asp:DropDownList ID="drop_disenos_disponibles" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
                                     <asp:Label runat="server" CssClass="text-danger" ID="label_error_diseno"><small>Debe seleccionar un diseño de prueba.</small></asp:Label>
                                 </div>
-                                <div class="col-md-1 col-md-offset-1">
+                                <div class="col-md-1 col-md-offset-1 col-xs-2">
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="input_ambiente_diseno">Ambiente</asp:Label>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-5 col-xs-3">
                                     <asp:TextBox runat="server" CssClass="form-control" ID="input_ambiente_diseno" Enabled="false"></asp:TextBox>
                                 </div>
                             </div>

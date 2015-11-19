@@ -1,4 +1,12 @@
-﻿using SAPS.Entidades;
+﻿/*
+ * Universidad de Costa Rica
+ * Escuela de Ciencias de la Computación e Informática
+ * Ingeniería de Software I
+ * Sistema Administrador de Proyectos de Software (SAPS)
+ * II Semestre 2015
+*/
+
+using SAPS.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -51,18 +59,58 @@ namespace SAPS.Base_de_Datos
          * @param El objeto "EjecucionPruebas" que se desea agregar al sistema.
          * @return 0 si tuvo éxito la operación, números negativos si ocurrió algún error con la Base de Datos.
          */
-        internal int insertar_ejecucion(EjecucionPruebas ejecucion) {
-            /// @todo
-            return 0;
+        internal int insertar_ejecucion(EjecucionPruebas ejecucion)
+        {
+            SqlCommand comando = new SqlCommand("INSERTAR_EP");
+            comando.CommandType = CommandType.StoredProcedure;
+            llena_parametros_ejecucion(ref comando, ejecucion);
+            return m_data_base_adapter.ejecutar_consulta(comando);
         }
 
         /** @brief Método que realiza la sentencia para agregar un resultado a la base de datos
          * @param El objeto "Resultados_EP" que se desea agregar al sistema.
          * @return 0 si tuvo éxito la operación, números negativos si ocurrió algún problema en la base.
          */
-        internal int insertar_resultado(Resultados_EP resultado) {
-            /// @todo
-            return 0;
+        internal int insertar_resultado(ResultadosEP resultado)
+        {
+            SqlCommand comando = new SqlCommand("INSERTAR_RESULTADO");
+            comando.CommandType = CommandType.StoredProcedure;
+            llena_parametros_resultado(ref comando, resultado);
+            return m_data_base_adapter.ejecutar_consulta(comando);
+        }
+
+        // ----------------------------------------------------------- Métodos auxiliares -----------------------------------------------------------------
+
+        /** @brief Método auxiliar que rellena los parámetros de una ejecucion de pruebas para poder realizar un procedimiento almacenado,
+                   se usa para agregar y modificar ejecuciones de pruebas.
+        *  @param comando comando sql que contendrá el procedimiento y sus respectivos parámetros. Se envía por referencia por lo tanto
+                  se va a modificar.
+        *  @param EjecucionPruebas ejecucion con la información necesaria para realizar el procedimiento.
+        */
+        private void llena_parametros_ejecucion(ref SqlCommand comando, EjecucionPruebas ejecucion)
+        {
+            comando.Parameters.Add("@responsable", SqlDbType.VarChar).Value = ejecucion.responsable;
+            comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = ejecucion.diseno_asociado;
+            comando.Parameters.Add("@fecha_ultima_ejec", SqlDbType.DateTime).Value = ejecucion.fecha_ejecucion;
+            comando.Parameters.Add("@incidencias", SqlDbType.VarChar).Value = ejecucion.incidencias;
+        }
+
+        /** @brief Método auxiliar que rellena los parámetros de un resultado de una ejecucion para poder realizar un procedimiento almacenado,
+                   se usa para agregar resultado.
+        *  @param comando comando sql que contendrá el procedimiento y sus respectivos parámetros. Se envía por referencia por lo tanto
+                  se va a modificar.
+        *  @param Resultado_EP resultado con la información necesaria para realizar el procedimiento.
+        */
+        private void llena_parametros_resultado(ref SqlCommand comando, ResultadosEP resultado)
+        {
+            comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = resultado.identificador_diseno;
+            comando.Parameters.Add("@num_ejecucion", SqlDbType.Int).Value = resultado.num_ejecucion;
+            comando.Parameters.Add("@estado", SqlDbType.VarChar).Value = resultado.estado;
+            comando.Parameters.Add("@tipo_no_conformidad", SqlDbType.VarChar).Value = resultado.tipo_no_conf;
+            comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = resultado.identificador_caso;
+            comando.Parameters.Add("@desc_no_conformidad", SqlDbType.VarChar).Value = resultado.descripcion_no_conformidad;
+            comando.Parameters.Add("@justificacion", SqlDbType.VarChar).Value = resultado.justificacion;
+            /// @todo Agregar la imagen
         }
 
     }
