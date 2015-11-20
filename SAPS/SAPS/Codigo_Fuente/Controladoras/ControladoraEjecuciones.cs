@@ -121,8 +121,8 @@ namespace SAPS.Controladoras
          */
         public DataTable solicitar_casos_asociados_diseno(int id_diseno)
         {
-            ///@todo
-            return null;
+            m_controladora_cp = new ControladoraCasoPruebas();
+            return m_controladora_cp.solicitar_casos_pruebas_disponibles(id_diseno);
         }
 
         /** @brief Método que se encarga de buscar la información correspondiente a un diseño de pruebas.
@@ -133,6 +133,16 @@ namespace SAPS.Controladoras
         {
             m_controladora_dp = new ControladoraDisenosPruebas();
             return m_controladora_dp.consultar_diseno_pruebas(id_diseno);
+        }
+
+        /** @brief Metodo que revisa si un usario es administrador o no.
+         * @param String con el nombre de usuario que se quiere saber si es administrador.
+         * @return True si es administrador, False si es un usuario normal.
+         */
+        public bool es_administrador(String nombre_usuario)
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.es_administrador(nombre_usuario);
         }
     }
 }

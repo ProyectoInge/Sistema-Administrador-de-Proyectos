@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SAPS.Controladoras;
+using System.Data;
 
 namespace SAPS.Fronteras
 {
@@ -15,6 +16,8 @@ namespace SAPS.Fronteras
         private static char m_opcion = 'i';
         private static int[] m_llave_ejecucion; //posiciones: 0 - num_ejecucion, 1 - id_diseno
 
+        private static bool m_es_administrador;
+
 
         /** @brief Metodo que se llama al cargar la página.
         */
@@ -24,10 +27,17 @@ namespace SAPS.Fronteras
             {
                 m_controladora_ep = new ControladoraEjecuciones();
                 m_opcion = 'i';
-                m_llave_ejecucion = new int[2] {-1, -1};
+                m_llave_ejecucion = new int[2] { -1, -1 };
                 alerta_advertencia.Visible = false;
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
+
+                if (!IsPostBack)
+                {
+
+                    m_es_administrador = m_controladora_ep.es_administrador(Context.User.Identity.Name);
+                    actualiza_disenos();
+                }
             }
             else
             {
@@ -90,7 +100,7 @@ namespace SAPS.Fronteras
 
                 case 'm':
                     ///@todo
-                    break;          
+                    break;
                 default:
                     cuerpo_alerta_error.Text = " Se presentó un problema al procesar su solicitud, intente nuevamente.";
                     alerta_error.Visible = true;
@@ -150,8 +160,52 @@ namespace SAPS.Fronteras
         protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
         {
             ///@todo sacar el num de resultado
-            int num_resultado=0;
+            int num_resultado = 0;
             m_controladora_ep.eliminar_resultado(m_llave_ejecucion[1], m_llave_ejecucion[0], num_resultado);
+        }
+
+        /** @brief Metodo que actualiza el combobox con los diseños disponibles en el sistema
+         */
+        private void actualiza_disenos()
+        {
+            vacia_disenos();
+            llena_disenos();
+        }
+
+        /** @brief Metodo que vacia el combobox de los diseños disponibles.
+         */
+        private void vacia_disenos()
+        {
+            drop_disenos_disponibles.Items.Clear();
+        }
+
+        /** @brief Metodo que llena el combobox con los diseños disponibles en el sistema.
+         */
+        private void llena_disenos()
+        {
+            DataTable disenos_disponibles = null;
+            if (m_es_administrador)
+            {
+                // Como soy administrador, puedo ver todos los diseños que hay en el sistema.
+                disenos_disponibles = m_controladora_ep.solicitar_disenos_disponibles();
+            }
+            else
+            {
+                ///@todo Si soy un usuario normal, solo puedo ver los diseños que tiene asociados el proyecto al que pertenezco.
+            }
+
+            ListItem item_tmp = new ListItem();
+            item_tmp.Text = "-Seleccione un diseño-";
+            item_tmp.Value = "";
+            drop_disenos_disponibles.Items.Add(item_tmp);
+
+            for (int i = 0; i < disenos_disponibles.Rows.Count; ++i)
+            {
+                item_tmp = new ListItem();
+                item_tmp.Text = disenos_disponibles.Rows[i]["nombre_diseno"].ToString();
+                item_tmp.Value = disenos_disponibles.Rows[i]["id_diseno"].ToString();
+                drop_disenos_disponibles.Items.Add(item_tmp);
+            }
         }
     }
 }
