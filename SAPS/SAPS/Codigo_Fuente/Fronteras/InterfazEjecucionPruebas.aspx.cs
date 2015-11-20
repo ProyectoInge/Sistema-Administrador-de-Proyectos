@@ -109,7 +109,7 @@ namespace SAPS.Fronteras
         }
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
-            ///@todo
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazEjecucionPruebas.aspx");
         }
 
         /** @brief Método que se encarga de hacer los pasos necesarios para eliminar una ejecucion
@@ -164,7 +164,7 @@ namespace SAPS.Fronteras
             m_controladora_ep.eliminar_resultado(m_llave_ejecucion[1], m_llave_ejecucion[0], num_resultado);
         }
 
-        /** @brief Metodo que actualiza el combobox con los diseños disponibles en el sistema
+        /** @brief Método que actualiza el combobox con los diseños disponibles en el sistema
          */
         private void actualiza_disenos()
         {
@@ -172,14 +172,14 @@ namespace SAPS.Fronteras
             llena_disenos();
         }
 
-        /** @brief Metodo que vacia el combobox de los diseños disponibles.
+        /** @brief Método que vacia el combobox de los diseños disponibles.
          */
         private void vacia_disenos()
         {
             drop_disenos_disponibles.Items.Clear();
         }
 
-        /** @brief Metodo que llena el combobox con los diseños disponibles en el sistema.
+        /** @brief Método que llena el combobox con los diseños disponibles en el sistema.
          */
         private void llena_disenos()
         {
@@ -205,6 +205,32 @@ namespace SAPS.Fronteras
                 item_tmp.Text = disenos_disponibles.Rows[i]["nombre_diseno"].ToString();
                 item_tmp.Value = disenos_disponibles.Rows[i]["id_diseno"].ToString();
                 drop_disenos_disponibles.Items.Add(item_tmp);
+            }
+        }
+
+        /** @brief Evento que se activa cuando se selecciona un nuevo elemento del combobox de los diseños disponibles.
+         * @param Los parametros por defecto de un evento de ASP.
+         */
+        protected void drop_disenos_disponibles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (drop_disenos_disponibles.SelectedItem.Value != "")
+            {
+                int id_diseno_seleccionado = Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value);
+                llena_info_diseno(id_diseno_seleccionado);
+            }
+
+        }
+
+        /** @brief Método que se encarga de llenar la informacion del diseño que se seleccionó.
+         */
+        private void llena_info_diseno(int id_diseno)
+        {
+            DataTable info_diseno = m_controladora_ep.consultar_diseno(id_diseno);
+            if (info_diseno.Rows.Count > 0)
+            {
+                input_ambiente_diseno.Text = info_diseno.Rows[0]["ambiente"].ToString();
+                input_criterios_aceptacion_diseno.Text = info_diseno.Rows[0]["criterio_aceptacion"].ToString();
+                ///@todo Llenar el procedimiento del diseño
             }
         }
     }

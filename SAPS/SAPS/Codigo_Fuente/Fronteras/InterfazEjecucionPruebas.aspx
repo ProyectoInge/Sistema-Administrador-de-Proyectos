@@ -62,7 +62,7 @@
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_disenos_disponibles"> Diseño <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-3 col-xs-3">
-                                    <asp:DropDownList ID="drop_disenos_disponibles" runat="server" CssClass="form-control">
+                                    <asp:DropDownList ID="drop_disenos_disponibles" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_disenos_disponibles_SelectedIndexChanged">
                                     </asp:DropDownList>
                                     <asp:Label runat="server" CssClass="text-danger" ID="label_error_diseno"><small>Debe seleccionar un diseño de prueba.</small></asp:Label>
                                 </div>
