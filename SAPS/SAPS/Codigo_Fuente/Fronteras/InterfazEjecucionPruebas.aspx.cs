@@ -122,7 +122,72 @@ namespace SAPS.Fronteras
         {
             bool respuesta = false;                                      // Bandera especifica que indica el exito o fallo de la modificacion
 
+            if (drop_disenos_disponibles.Text != "")
+            {
+                if (input_ambiente_diseno.Text != "")
+                {
 
+                    if (input_procedimiento_diseno.Text != "")
+                    {
+                        if (input_criterios_aceptacion_diseno.Text != "")
+                        {
+
+                            if (drop_rh_disponibles.Text != "")
+                            {
+
+                                if (input_fecha.Text != "")
+                                {
+
+                                    if (label_incidentes.Text != "")
+                                    {
+
+                                    }
+                                    else {
+                                        cuerpo_alerta_error.Text = "Debe ingresar una fecha de ejecución.";
+                                        SetFocus(input_fecha);
+                                        respuesta = false;
+                                    }
+
+                                }
+                                else {
+                                    cuerpo_alerta_error.Text = "Debe ingresar una fecha de ejecución.";
+                                    SetFocus(input_fecha);
+                                    respuesta = false;
+                                }
+
+                            }
+                            else {
+                                cuerpo_alerta_error.Text = "Debe insertar un responsable asociado.";
+                                SetFocus(drop_rh_disponibles);
+                                respuesta = false;
+                            }
+
+                        }
+                        else {
+                            cuerpo_alerta_error.Text = "Debe insertar Criterios de Aceptación.";
+                            SetFocus(input_criterios_aceptacion_diseno);
+                            respuesta = false;
+                        }
+                    }
+                    else {
+                        cuerpo_alerta_error.Text = "Debe insertar los datos de Procedimiento";
+                        SetFocus(input_procedimiento_diseno);
+                        respuesta = false;
+                    }
+
+                }
+                else {
+                    cuerpo_alerta_error.Text = "Debe insertar los datos de Ambiente.";
+                    SetFocus(input_ambiente_diseno);
+                    respuesta = false;
+                }
+
+            }
+            else {
+                cuerpo_alerta_error.Text = "Debe seleccionar un diseño asociado.";
+                SetFocus(drop_disenos_disponibles);
+                respuesta = false;
+            }
 
 
 
