@@ -50,7 +50,8 @@ AS
 	SELECT CasoPrueba.id_caso,
 		   CasoPrueba.proposito,
 		   CasoPrueba.resultado_esperado,
-		   CasoPrueba.flujo_central
+		   CasoPrueba.flujo_central,
+		   CasoPrueba.id_requerimiento
 	FROM
 			CasoPrueba
 	WHERE
