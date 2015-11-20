@@ -216,6 +216,7 @@ namespace SAPS.Fronteras
             if (drop_disenos_disponibles.SelectedItem.Value != "")
             {
                 int id_diseno_seleccionado = Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value);
+                m_llave_ejecucion[1] = id_diseno_seleccionado;
                 llena_info_diseno(id_diseno_seleccionado);
             }
 
@@ -233,5 +234,38 @@ namespace SAPS.Fronteras
                 ///@todo Llenar el procedimiento del diseño
             }
         }
+
+        /** @brief Método que actualiza la tabla donde estan los resultados de la ejecucion.
+         */
+        private void actualiza_resultados()
+        {
+            vacia_resultados();
+            llena_resultados();
+        }
+
+        /** @brief Método que vacia la tabla donde estan los resultados de la ejecución.
+         */
+        private void vacia_resultados()
+        {
+            tabla_ejecuciones.Rows.Clear();
+        }
+
+        /** @brief Método que llena la tabla donde estan los resultados de la ejecución.
+         */
+        private void llena_resultados()
+        {
+
+        }
+
+        private void llena_encabezado_tabla_resultados()
+        {
+            TableHeaderRow fila_enzabezado = new TableHeaderRow();
+            TableHeaderCell celda_encabezado = new TableHeaderCell();
+
+            celda_encabezado.Text = "#";
+            fila_enzabezado.Cells.Add(celda_encabezado);
+            /// Aqui quede (fabo)
+        }
     }
+
 }
