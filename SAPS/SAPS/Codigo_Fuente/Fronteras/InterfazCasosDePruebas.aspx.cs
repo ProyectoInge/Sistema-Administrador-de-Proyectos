@@ -167,7 +167,7 @@ namespace SAPS.Fronteras
                 if (m_opcion != 'e')
                 {
                     alerta_exito.Visible = true;
-                    if (m_opcion == 'i')
+                    if (m_opcion == 'i' || m_opcion == 'm')
                     {
                         activa_desactiva_botones_ime(true);
                     }
@@ -247,6 +247,7 @@ namespace SAPS.Fronteras
             text_proposito.Text = caso_de_prueba.Rows[0]["proposito"].ToString();
             text_flujo_central.Text = caso_de_prueba.Rows[0]["flujo_central"].ToString();
             input_entradas_resultado.Text = caso_de_prueba.Rows[0]["resultado_esperado"].ToString();
+            drop_id_requerimientos.Text = caso_de_prueba.Rows[0]["id_requerimiento"].ToString();
             
             actualiza_caso_de_pruebas_disponibles();
             m_caso_actual = id_caso_de_prueba;
@@ -699,10 +700,10 @@ namespace SAPS.Fronteras
                 {
                     m_caso_actual = caso_de_pruebas_disponibles.Rows[caso_de_pruebas_disponibles.Rows.Count-1]["id_caso"].ToString();
                 }
-                else
+                /*else
                 {
                     m_caso_actual = "";
-                }
+                }*/
 
             }            
         }
