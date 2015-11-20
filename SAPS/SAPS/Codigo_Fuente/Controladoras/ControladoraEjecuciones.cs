@@ -7,9 +7,6 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using SAPS.Base_de_Datos;
 using SAPS.Entidades;
 using System.Data;
@@ -33,7 +30,7 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para eliminar una ejecucion de pruebas de la base de datos.
-        * @param num de la ejecución que se desea eliminar y el id de diseño relacionado.
+        * @param num_ejecuccion de la ejecución que se desea eliminar y el id de diseño relacionado.
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         internal int eliminar_ejecucion(int id_diseno, int num_ejecucion)
@@ -87,6 +84,25 @@ namespace SAPS.Controladoras
             ResultadosEP resultado = new ResultadosEP(datos_resultado);
             return m_base_datos.insertar_resultado(resultado);
         }
+
+        /** @brief Consultar los datos de una ejecución de pruebas.
+        *   @param id_ejecucion id de la ejecucion a consultar.
+        *   @return DataTable con los datos de la ejecución de prueba.
+        */
+        internal DataTable consultar_ejecucion(int id_diseno, int id_ejecucion)
+        {
+            return m_base_datos.consultar_ejecucion(id_diseno, id_ejecucion);
+        }
+
+        /** @brief Consultar los resultados de una ejecución de pruebas.
+        *   @param id_ejecucion id de la ejecucion a consultar.
+        *   @return DataTable con los resultados de una ejecución de prueba.
+        */
+        internal DataTable consultar_resultados(int id_diseno, int id_ejecucion)
+        {
+            return m_base_datos.consultar_resultados(id_diseno, id_ejecucion);
+        }
+
 
         // -------------------------------------- Métodos que corresponden a otras clases --------------------------------------
 
