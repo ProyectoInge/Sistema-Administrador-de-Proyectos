@@ -36,6 +36,17 @@ namespace SAPS.Fronteras
 
         }
 
+
+        /** @brief Método que activa o desactiva todos los botones de ingresar, modificar y eliminar.
+        * @param bool que indica si se desea activar o desactivar todos los campos.
+        */
+        protected void activa_desactiva_botones_ime(bool v)
+        {
+            btn_crear.Enabled = v;
+            btn_modificar.Enabled = v;
+            btn_eliminar.Enabled = v;
+        }
+
         /** @brief Método que activa o desactiva todos los espacios de ingreso de datos.
         * @param bool que indica si se desea activar o desactivar todos los campos.
         */
@@ -49,9 +60,18 @@ namespace SAPS.Fronteras
             tabla_ejecuciones.Enabled = v;
         }
 
+        /**@brief Metodo encargado de activar la funcionalidad para modificar una ejecucion de pruebas
+        **/
         protected void btn_modificar_Click(object sender, EventArgs e)
-        {
-            ///@todo
+        {           
+            m_opcion = 'm';
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default";
+            btn_eliminar.CssClass = "btn btn-default";
+            activa_desactiva_inputs(true);
+            activa_desactiva_botones_ime(false);
+            btn_modificar.Enabled = true;
+
         }
 
         /** @brief Método que se activa al seleccionar el botón eliminar de los botones de IME
@@ -89,7 +109,7 @@ namespace SAPS.Fronteras
                     break;
 
                 case 'm':
-                    ///@todo
+                    modificar_ejecucion();                    
                     break;          
                 default:
                     cuerpo_alerta_error.Text = " Se presentó un problema al procesar su solicitud, intente nuevamente.";
@@ -97,6 +117,19 @@ namespace SAPS.Fronteras
                     break;
             }
         }
+
+        private bool modificar_ejecucion()
+        {
+            bool respuesta = false;                                      // Bandera especifica que indica el exito o fallo de la modificacion
+
+
+
+
+
+
+            return respuesta;
+        }
+
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
             ///@todo
