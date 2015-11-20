@@ -88,6 +88,62 @@ namespace SAPS.Controladoras
             return m_base_datos.insertar_resultado(resultado);
         }
 
+
+
+        /** @brief Método que modifica una ejecución del sistema.
+         * @param Vector de Objects con los datos de la ejecución a ingresar.
+            | Índice | Descripción             | Tipo de datos |
+            |:------:|:-----------------------:|:-------------:|
+            |    0   |  Numero de ejecucion    |      int      |
+            |    1   |  Responsable            |     String    |
+            |    2   |  Id del diseno          |      int      |
+            |    3   |  Fecha de ejecucion     |     Datetime  |
+            |    4   |  Incidencias            |     String    |
+         * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
+         */
+        internal int modificar_ejecucion(Object[] datos_ejecucion)
+        {
+            EjecucionPruebas ejecucion = new EjecucionPruebas(datos_ejecucion);
+
+            int primer_resultado = m_base_datos.eliminar_ejecucion( Convert.ToInt32(datos_ejecucion[2]), Convert.ToInt32(datos_ejecucion[0]) );
+
+            int segundo_resultado = m_base_datos.insertar_ejecucion(ejecucion);
+
+            return primer_resultado + segundo_resultado;
+        }
+
+
+        /** @brief Método que modifica un resultado del sistema.
+         * @param Vector de Objects con los datos del resultado a ingresar.
+                | Índice | Descripción             | Tipo de datos |
+                |:------:|:-----------------------:|:-------------:|
+                |    0   |  Numero de resultado    |      int      |
+                |    1   |  Id del diseno          |      int      |
+                |    2   |  Numero de ejecucion    |      int      |
+                |    3   |  Estado                 |     String    |
+                |    4   |  Tipo No Conformidad    |     String    |
+                |    5   |  Id del Caso            |     String    |
+                |    6   |  Descripcion No Conf.   |     String    |
+                |    7   |  Justificacion          |     String    |
+                |    8   |  Imagen                 |    Averiguar  | -- Esto falta de implementarlo @todo
+         * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
+         */
+        internal int modificar_resultado(Object[] datos_resultado)
+        {
+            ResultadosEP resultado = new ResultadosEP(datos_resultado);
+
+            int primer_resultado = m_base_datos.eliminar_resultado( Convert.ToInt32(datos_resultado[1]), Convert.ToInt32(datos_resultado[2]), Convert.ToInt32(datos_resultado[0]) );
+
+            int segundo_resultado = m_base_datos.insertar_resultado(resultado);
+
+            return primer_resultado + segundo_resultado;
+        }
+
+
+
+
+
+
         // -------------------------------------- Métodos que corresponden a otras clases --------------------------------------
 
         /** @brief Método que se encarga de obtener todos los diseños de prueba que hay en el sistema.

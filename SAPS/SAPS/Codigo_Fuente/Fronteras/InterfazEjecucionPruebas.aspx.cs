@@ -140,9 +140,17 @@ namespace SAPS.Fronteras
 
                                     if (label_incidentes.Text != "")
                                     {
+                                        Object[] datos = new Object[5];
+                                        //datos[0] = Numero de ejecucion int ;
+                                        datos[1] = drop_rh_disponibles.Text;
+                                        datos[2] = Convert.ToInt32(drop_disenos_disponibles.Text);
+                                        datos[3] = Convert.ToDateTime(input_fecha.Text);
+                                        datos[4] = label_incidentes.Text;
 
-                                    }
-                                    else {
+                                        respuesta = true;                                               // La insercion de la ejecucion es valida, pero aun no se ingresa
+                                    }                                                                   // Es necesario verificar los resultados de pruebas                                    
+                                    else
+                                    {
                                         cuerpo_alerta_error.Text = "Debe ingresar una fecha de ejecución.";
                                         SetFocus(input_fecha);
                                         respuesta = false;
@@ -187,6 +195,13 @@ namespace SAPS.Fronteras
                 cuerpo_alerta_error.Text = "Debe seleccionar un diseño asociado.";
                 SetFocus(drop_disenos_disponibles);
                 respuesta = false;
+            }
+
+
+            // Seccion que verifica si la lista de resultados no posee errores
+
+            if (respuesta) {                            // Verificados los datos de ejecucion, se verifican los de resultados
+
             }
 
 
