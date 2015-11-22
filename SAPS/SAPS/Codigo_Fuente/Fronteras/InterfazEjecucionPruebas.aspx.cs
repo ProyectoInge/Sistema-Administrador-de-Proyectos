@@ -38,6 +38,7 @@ namespace SAPS.Fronteras
                     m_es_administrador = m_controladora_ep.es_administrador(Context.User.Identity.Name);
                     actualiza_disenos();
                 }
+                actualiza_resultados();
             }
             else
             {
@@ -254,17 +255,180 @@ namespace SAPS.Fronteras
          */
         private void llena_resultados()
         {
+            llena_encabezado_tabla_resultados();
+            int num_secuencia = tabla_ejecuciones.Rows.Count;
+            llena_fila_inputs(num_secuencia);
+        }
+
+        /** @brief Método que crea la fila de la tabla de resultados donde se ingresan datos.
+         * @param El número de secuencia por el cual va la lista de los resultados.
+        */
+        private void llena_fila_inputs(int num_secuencia)
+        {
+            TableRow fila = new TableRow();
+            TableCell celda_tmp = new TableCell();
+            DropDownList drop_tmp = new DropDownList();
+            ListItem item_tmp = new ListItem();
+            TextBox entrada_tmp = new TextBox();
+            ///@todo Como agregar imágenes
+
+            celda_tmp.Text = (num_secuencia + 1).ToString();
+            fila.Cells.AddAt(0, celda_tmp);
+
+            //Llena y agrega el primer DropDown (Estado)
+            #region Creación DropDown "estado"
+            celda_tmp = new TableCell();
+            drop_tmp = new DropDownList();
+            drop_tmp.CssClass = "form-control";
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "Satisfactoria";
+            item_tmp.Value = "Satisfactoria";
+            drop_tmp.Items.Add(item_tmp);
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "Fallida";
+            item_tmp.Value = "Fallida";
+            drop_tmp.Items.Add(item_tmp);
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "Pendiente";
+            item_tmp.Value = "Pendiente";
+            drop_tmp.Items.Add(item_tmp);
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "Cancelada";
+            item_tmp.Value = "Cancelada";
+            drop_tmp.Items.Add(item_tmp);
+
+            celda_tmp.Controls.Add(drop_tmp);
+            fila.Cells.AddAt(1, celda_tmp);
+            #endregion
+
+            //Llena y crea el segundo DropDown (tipo de no conformidad)
+            #region Creación Dropdown "tipo no conformidad"
+            celda_tmp = new TableCell();
+            drop_tmp = new DropDownList();
+            drop_tmp.CssClass = "form-control";
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "No aplica";
+            item_tmp.Value = "No aplica";
+            drop_tmp.Items.Add(item_tmp);
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "Funcionalidad";
+            item_tmp.Value = "Funcionalidad";
+            drop_tmp.Items.Add(item_tmp);
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "Validación";
+            item_tmp.Value = "Validación";
+            drop_tmp.Items.Add(item_tmp);
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "Opciones que no funcionan";
+            item_tmp.Value = "Opciones que no funcionan";
+            drop_tmp.Items.Add(item_tmp);
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "Errores de usabilidad";
+            item_tmp.Value = "Errores de usabilidad";
+            drop_tmp.Items.Add(item_tmp);
+
+            item_tmp = new ListItem();
+            item_tmp.Text = "Excepciones";
+            item_tmp.Value = "Excepciones";
+            drop_tmp.Items.Add(item_tmp);
+
+            celda_tmp.Controls.Add(drop_tmp);
+            fila.Cells.AddAt(2, celda_tmp);
+            #endregion
+
+            //Llenado y creación del DropDown (ID caso de prueba)
+            #region Creación DropDown "ID caso de prueba"
+            DataTable casos_disponibles = m_controladora_ep.solicitar_casos_asociados_diseno(m_llave_ejecucion[1]);
+            celda_tmp = new TableCell();
+            drop_tmp = new DropDownList();
+            drop_tmp.CssClass = "form-control";
+
+            for (int i = 0; i < casos_disponibles.Rows.Count; ++i)
+            {
+                item_tmp = new ListItem();
+                item_tmp.Text = casos_disponibles.Rows[i]["id_caso"].ToString();
+                item_tmp.Value = casos_disponibles.Rows[i]["id_caso"].ToString();
+                drop_tmp.Items.Add(item_tmp);
+            }
+            celda_tmp.Controls.Add(drop_tmp);
+            fila.Cells.AddAt(3, celda_tmp);
+            #endregion
+
+            //Crea los campos donde el usuario va a ingresar text (Desc. no conformidad y justificacion)
+            #region Creación de las entradas de datos en la fila
+            //Descripcion de la no conformidad
+            celda_tmp = new TableCell();
+            entrada_tmp = new TextBox();
+            entrada_tmp.CssClass = "form-control";
+            entrada_tmp.Rows = 2;
+            entrada_tmp.TextMode = TextBoxMode.MultiLine;
+            entrada_tmp.Style.Add("resize", "none");
+            entrada_tmp.Attributes.Add("placeholder", "Describa la no conformidad");
+            celda_tmp.Controls.Add(entrada_tmp);
+            fila.Cells.AddAt(4, celda_tmp);
+
+            //Justificacion
+            celda_tmp = new TableCell();
+            entrada_tmp = new TextBox();
+            entrada_tmp.CssClass = "form-control";
+            entrada_tmp.Rows = 2;
+            entrada_tmp.TextMode = TextBoxMode.MultiLine;
+            entrada_tmp.Style.Add("resize", "none");
+            entrada_tmp.Attributes.Add("placeholder", "Escriba la justificación de lo ocurrido");
+            celda_tmp.Controls.Add(entrada_tmp);
+            fila.Cells.AddAt(5, celda_tmp);
+
+            #endregion
+            // Aca quede (Fabo)
+            tabla_resultados.Rows.Add(fila);
 
         }
 
+
+        /** @brief Método que llena la tabla del encabezado de la tabla de los resultados
+        */
         private void llena_encabezado_tabla_resultados()
         {
-            TableHeaderRow fila_enzabezado = new TableHeaderRow();
+            TableHeaderRow fila_encabezado = new TableHeaderRow();
             TableHeaderCell celda_encabezado = new TableHeaderCell();
 
             celda_encabezado.Text = "#";
-            fila_enzabezado.Cells.Add(celda_encabezado);
-            /// Aqui quede (fabo)
+            fila_encabezado.Cells.Add(celda_encabezado);
+
+            celda_encabezado = new TableHeaderCell();
+            celda_encabezado.Text = "Estado";
+            fila_encabezado.Cells.Add(celda_encabezado);
+
+            celda_encabezado = new TableHeaderCell();
+            celda_encabezado.Text = "Tipo de no conformidad";
+            fila_encabezado.Cells.Add(celda_encabezado);
+
+            celda_encabezado = new TableHeaderCell();
+            celda_encabezado.Text = "ID caso de prueba";
+            fila_encabezado.Cells.Add(celda_encabezado);
+
+            celda_encabezado = new TableHeaderCell();
+            celda_encabezado.Text = "Descripción";
+            fila_encabezado.Cells.Add(celda_encabezado);
+
+            celda_encabezado = new TableHeaderCell();
+            celda_encabezado.Text = "Justificación";
+            fila_encabezado.Cells.Add(celda_encabezado);
+
+            celda_encabezado = new TableHeaderCell();
+            celda_encabezado.Text = "Resultados";
+            fila_encabezado.Cells.Add(celda_encabezado);
+
+            tabla_resultados.Rows.Add(fila_encabezado);
         }
     }
 

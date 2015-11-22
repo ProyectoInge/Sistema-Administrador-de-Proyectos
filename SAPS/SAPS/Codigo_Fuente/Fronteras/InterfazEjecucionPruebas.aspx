@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="panel_2" class="col-md-10 col-md-offset-1">
+            <div id="panel_2" class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Lista de resultados</div>
