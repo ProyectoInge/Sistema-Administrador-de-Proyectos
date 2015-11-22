@@ -8,7 +8,7 @@
     </script>
     <section id="page_header">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 <div class="page-header">
                     <h1>SAPS <small>Ejecución de Pruebas</small></h1>
                 </div>
@@ -17,7 +17,7 @@
     </section>
     <section id="botones_IME">
         <div class="row">
-            <div class="col-md-4 col-md-offset-8">
+            <div class="col-md-3 col-md-offset-9">
                 <div class="btn-group" role="group">
                     <asp:Button runat="server" CssClass="btn btn-default active" ID="btn_crear" Enabled="true" Text="Ingresar" OnClick="btn_crear_Click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Text="Modificar" OnClick="btn_modificar_Click" />
@@ -50,7 +50,7 @@
     </section>
     <section id="form">
         <div class="row">
-            <div id="panel_1" class="col-md-10 col-md-offset-1">
+            <div id="panel_1" class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Información del diseño</div>
@@ -99,8 +99,9 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_panel2" class="form-group">
-                                <div class="col-md-12" style="height: 250px; overflow-y: scroll">
-                                    <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-hover form-group">
+                                <asp:Table runat="server" ID="tabla_encabezado" CssClass="table table-bordered"></asp:Table>
+                                <div class="col-md-12" style="height: 250px; overflow-y: scroll;">
+                                    <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-hover table-bordered">
                                     </asp:Table>
                                 </div>
                             </div>
@@ -116,7 +117,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="panel_3" class="col-md-10 col-md-offset-1">
+            <div id="panel_3" class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Información de la ejecución</div>
@@ -154,14 +155,14 @@
         </div>
     </section>
     <div class="row">
-        <div class="col-md-3 col-md-offset-9">
+        <div class="col-md-2 col-md-offset-10">
             <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
         </div>
     </div>
     <br />
     <section id="botones_aceptar_cancelar">
         <div class="row">
-            <div class="col-md-3 col-md-offset-9">
+            <div class="col-md-2 col-md-offset-10">
                 <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
                 <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
             </div>
@@ -169,20 +170,20 @@
     </section>
     <section id="linea_separadora">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 <hr />
             </div>
         </div>
     </section>
     <section id="area_consultas">
         <div class="row">
-            <div class="col-md-11 col-md-offset-1">
+            <div class="col-md-12">
                 <h4>Ejecuciones disponibles</h4>
             </div>
         </div>
         <br />
         <div class="row">
-            <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
+            <div class="col-md-12" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_ejecuciones" CssClass="table table-hover form-group">
                 </asp:Table>
             </div>
@@ -223,6 +224,43 @@
                             <div class="modal-footer">
                                 <asp:Button OnClick="btn_modal_cancelar_Click" CssClass="btn btn-link" Style="color: darkgray" ID="btn_modal_cancelar" Text="Volver" runat="server" />
                                 <asp:Button OnClick="btn_modal_aceptar_Click" CssClass="btn btn-danger" ID="btn_modal_aceptar" Text="Eliminar" runat="server" />
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </section>
+    <!-- Modal agregar imagen -->
+
+    <section id="modal_agregar_imagen">
+        <div class="modal fade bs-example-sm" id="modal_imagen" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="upModalImagen" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <asp:Label ID="Label1" runat="server" Text="Agregue una imagen con los resultados obtenidos"></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-md-4 col-md-offset-4">
+                                            <input type="file" id="subidor_archivo" runat="Server">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <asp:Button runat="server" CssClass="btn btn-primary btn-block" Text="Elija un archivo" ID="btn_agregar_imagen" OnClick="btn_agregar_imagen_Click"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <asp:Button CssClass="btn btn-link" style="color:darkgray" ID="btn_modal_img_volver" Text="Volver" runat="server" data-dismiss="modal"/>
                             </div>
                         </div>
                     </ContentTemplate>

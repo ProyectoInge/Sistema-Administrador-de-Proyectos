@@ -113,6 +113,13 @@ namespace SAPS.Fronteras
             Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazEjecucionPruebas.aspx");
         }
 
+
+        protected void btn_agregar_img_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_imagen", "$('#modal_imagen').modal();", true);
+            upModalImagen.Update();
+        }
+
         /** @brief Método que se encarga de hacer los pasos necesarios para eliminar una ejecucion
         *   @return true si fue exitoso, false si no.
         */
@@ -388,11 +395,19 @@ namespace SAPS.Fronteras
             fila.Cells.AddAt(5, celda_tmp);
 
             #endregion
-            // Aca quede (Fabo)
+
+            //Crea el boton
+            celda_tmp = new TableCell();
+            Button btn_agrega_img = new Button();
+            btn_agrega_img.CssClass = "btn btn-link btn-block";
+            btn_agrega_img.Text = "Subir una imagen";
+            btn_agrega_img.Click += new EventHandler(btn_agregar_img_Click);
+            celda_tmp.Controls.Add(btn_agrega_img);
+            fila.Cells.AddAt(6, celda_tmp);
+
             tabla_resultados.Rows.Add(fila);
 
         }
-
 
         /** @brief Método que llena la tabla del encabezado de la tabla de los resultados
         */
@@ -429,6 +444,11 @@ namespace SAPS.Fronteras
             fila_encabezado.Cells.Add(celda_encabezado);
 
             tabla_resultados.Rows.Add(fila_encabezado);
+        }
+
+        protected void btn_agregar_imagen_Click(object sender, EventArgs e)
+        {
+            ///@todo guardar la imagen temporalmente
         }
     }
 
