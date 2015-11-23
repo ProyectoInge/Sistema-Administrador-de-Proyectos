@@ -3,7 +3,6 @@ use proyectoDB;
 
 	drop table Resultados;
 	drop table Ejecucion;
-	drop table NecesitaDe;
 	drop table DatosCasoDePrueba;
 	drop table CasoPrueba;
 	drop table SePrueba;
@@ -80,13 +79,18 @@ create table Requerimientos(
 	criterio_aceptacion varchar(256) NOT NULL,
 );
 
+create table SePrueba(
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno) ON DELETE CASCADE,
+	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento) ON DELETE CASCADE,
+	PRIMARY KEY(id_diseno, id_requerimiento)
+);
 
 create table CasoPrueba(
 	id_caso				varchar(64) NOT NULL PRIMARY KEY,
 	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno) ON DELETE CASCADE,
+	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento) ON DELETE CASCADE,
 	proposito			varchar(256),
 	resultado_esperado  varchar(256),
-	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento) ON DELETE CASCADE,
 	flujo_central		varchar(512)
 );
 
@@ -97,7 +101,6 @@ create table DatosCasoDePrueba(
 	valor varchar(256), 
 	tipo varchar(24)
 );
-
 
 create table Ejecucion(
 	num_ejecucion		int IDENTITY(1,1) NOT NULL,

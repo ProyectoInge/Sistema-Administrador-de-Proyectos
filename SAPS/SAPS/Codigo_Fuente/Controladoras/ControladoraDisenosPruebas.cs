@@ -30,13 +30,11 @@ namespace SAPS.Controladoras
         public ControladoraDisenosPruebas()
         {
             m_base_datos = new BDDisenoPruebas();
-            m_controladora_req = new ControladoraRequerimientos();
-            m_controladora_rh = new ControladoraRecursosHumanos();
-            m_controladora_pyp = new ControladoraProyectoPruebas();
         }
 
         internal bool es_administrador(string name)
         {
+            m_controladora_rh = new ControladoraRecursosHumanos();
             return m_controladora_rh.es_administrador(name);
         }
 
@@ -54,12 +52,14 @@ namespace SAPS.Controladoras
             |    6   |    Nivel de prueba   |     string    |
             |    7   | Username responsable |     string    |
             |    8   |      Ambiente        |     string    |
-            |    9   | Criterio aceptacion  |     string    |
+            |    9   |      Proposito       |     string    |
+            |   10   |    Procedimiento     |     string    |
+            |   11   | Criterio aceptacion  |     string    |
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         public int insertar_diseno_pruebas(Object[] datos)
         {
-            if (datos.Length != 10)
+            if (datos.Length != 12)
                 return -1;
             DisenoPruebas diseno_pruebas = new DisenoPruebas(datos);
             return m_base_datos.insertar_diseno_pruebas(diseno_pruebas);
@@ -67,11 +67,13 @@ namespace SAPS.Controladoras
 
         internal DataTable solicitar_proyectos_no_eliminados()
         {
+            m_controladora_pyp = new ControladoraProyectoPruebas();
             return m_controladora_pyp.solicitar_proyectos_no_eliminados();
         }
 
         internal DataTable consultar_mi_proyecto(string name)
         {
+            m_controladora_pyp = new ControladoraProyectoPruebas();
             return m_controladora_pyp.consultar_mi_proyecto(name);
         }
 
@@ -89,12 +91,14 @@ namespace SAPS.Controladoras
             |    6   |    Nivel de prueba   |     string    |
             |    7   | Username responsable |     string    |
             |    8   |      Ambiente        |     string    |
-            |    9   | Criterio aceptacion  |     string    |
+            |    9   |      Proposito       |     string    |
+            |   10   |    Procedimiento     |     string    |
+            |   11   | Criterio aceptacion  |     string    |
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         public int modificar_diseno_pruebas(Object[] datos)
         {
-            if (datos.Length != 10)
+            if (datos.Length != 12)
                 return -1;
             DisenoPruebas diseno_pruebas = new DisenoPruebas(datos);
             return m_base_datos.modificar_diseno_pruebas(diseno_pruebas);
@@ -111,6 +115,7 @@ namespace SAPS.Controladoras
 
         internal DataTable solicitar_requerimientos_disponibles()
         {
+            m_controladora_req = new ControladoraRequerimientos();
             return m_controladora_req.solicitar_requerimientos_disponibles();
         }
 
@@ -160,21 +165,25 @@ namespace SAPS.Controladoras
 
         internal void asociar_requerimiento(object[] datosAsoc)
         {
+            m_controladora_req = new ControladoraRequerimientos();
             m_controladora_req.asociar_requerimiento(datosAsoc);
         }
 
         internal DataTable consultar_rh_asociados_proyecto(int v)
         {
+            m_controladora_rh = new ControladoraRecursosHumanos();
             return m_controladora_rh.consultar_rh_asociados_proyecto(v);
         }
 
         internal DataTable consultar_proyecto(int id_proyecto_asociado)
         {
+            m_controladora_pyp = new ControladoraProyectoPruebas();
             return m_controladora_pyp.consultar_proyecto(id_proyecto_asociado);
         }
 
         internal void modificar_requerimiento(object[] datosAsoc)
         {
+            m_controladora_req = new ControladoraRequerimientos();
             m_controladora_req.modificar_requerimiento(datosAsoc);
         }
     }
