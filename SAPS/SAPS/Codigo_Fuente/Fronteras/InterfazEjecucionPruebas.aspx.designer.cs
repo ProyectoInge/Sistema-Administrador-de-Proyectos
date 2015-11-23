@@ -157,6 +157,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_criterios_aceptacion_diseno;
         
         /// <summary>
+        /// tabla_encabezado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tabla_encabezado;
+        
+        /// <summary>
         /// tabla_resultados control.
         /// </summary>
         /// <remarks>
@@ -328,13 +337,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mensaje_exito_modal;
         
         /// <summary>
-        /// cuerpo_mensaje_exito control.
+        /// cuerpo_mensaje_exito_modal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label cuerpo_mensaje_exito;
+        protected global::System.Web.UI.WebControls.Label cuerpo_mensaje_exito_modal;
         
         /// <summary>
         /// mensaje_error_modal control.
@@ -346,13 +355,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl mensaje_error_modal;
         
         /// <summary>
-        /// Label3 control.
+        /// cuerpo_alerta_error_modal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label cuerpo_alerta_error_modal;
         
         /// <summary>
         /// btn_modal_cancelar control.
@@ -371,5 +380,59 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_modal_aceptar;
+        
+        /// <summary>
+        /// upModalImagen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upModalImagen;
+        
+        /// <summary>
+        /// titulo_modal_archivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label titulo_modal_archivo;
+        
+        /// <summary>
+        /// alerta_error_archivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl alerta_error_archivo;
+        
+        /// <summary>
+        /// label_mensaje_error_archivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_mensaje_error_archivo;
+        
+        /// <summary>
+        /// subidor_archivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload subidor_archivo;
+        
+        /// <summary>
+        /// btn_agregar_imagen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_agregar_imagen;
     }
 }

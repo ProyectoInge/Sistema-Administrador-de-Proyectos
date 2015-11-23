@@ -7,12 +7,8 @@
 */
 
 using SAPS.Entidades;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace SAPS.Base_de_Datos
 {
@@ -78,6 +74,33 @@ namespace SAPS.Base_de_Datos
             llena_parametros_resultado(ref comando, resultado);
             return m_data_base_adapter.ejecutar_consulta(comando);
         }
+
+        /** @brief Consulta los datos de una ejecución de una prueba.
+        *   @param id_ejecucion id de la ejecucción a consultar.
+        *   @return DataTable con los datos de la ejecución de pruebas.
+        */
+        internal DataTable consultar_ejecucion(int id_diseno, int id_ejecucion)
+        {
+            SqlCommand comando = new SqlCommand("CONSULTAR_EJECUCION");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("id_diseno", SqlDbType.Int).Value = id_diseno;
+            comando.Parameters.Add("id_ejecucion", SqlDbType.Int).Value = id_ejecucion;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
+        /** @brief Consulta todos los resultados asociados a una ejecución de una prueba.
+        *   @param id_ejecucion id de la ejecucción a consultar.
+        *   @return DataTable con los resultados asociados a la ejecución de pruebas.
+        */
+        internal DataTable consultar_resultados(int id_diseno, int id_ejecucion)
+        {
+            SqlCommand comando = new SqlCommand("CONSULTAR_RESULTADOS");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("id_diseno", SqlDbType.Int).Value = id_diseno;
+            comando.Parameters.Add("id_ejecucion", SqlDbType.Int).Value = id_ejecucion;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
 
         // ----------------------------------------------------------- Métodos auxiliares -----------------------------------------------------------------
 

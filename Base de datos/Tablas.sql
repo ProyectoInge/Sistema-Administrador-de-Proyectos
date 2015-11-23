@@ -114,7 +114,7 @@ create table NecesitaDe(
 create table Ejecucion(
 	num_ejecucion		int IDENTITY(1,1) NOT NULL,
 	responsable			varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE SET NULL,
-	id_diseno			int NOT NULL,
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES Diseno(id_diseno),
 	fecha_ultima_ejec	datetime,
 	incidencias			varchar(512),
 	PRIMARY KEY(id_diseno, num_ejecucion)
@@ -122,8 +122,8 @@ create table Ejecucion(
 
 create table Resultados(
 	num_resultado		int IDENTITY(1,1) NOT NULL,
-	id_diseno			int NOT NULL,
-	num_ejecucion		int NOT NULL,
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_diseno),
+	num_ejecucion		int NOT NULL FOREIGN KEY REFERENCES CasoPrueba(num_ejecucion),
 	estado				varchar(32),
 	tipo_no_conformidad varchar(64),
 	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso) ON DELETE CASCADE,

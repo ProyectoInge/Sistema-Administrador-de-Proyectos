@@ -4,6 +4,8 @@ DROP PROCEDURE ELIMINAR_EP;
 DROP PROCEDURE ELIMINAR_RESULTADO;
 DROP PROCEDURE INSERTAR_EP;
 DROP PROCEDURE INSERTAR_RESULTADO;
+DROP PROCEDURE CONSULTAR_EJECUCION;
+DROP PROCEDURE CONSULTAR_RESULTADOS;
 
 GO
 CREATE PROCEDURE ELIMINAR_EP
@@ -39,4 +41,22 @@ AS
 		(id_diseno, num_ejecucion, estado, tipo_no_conformidad, id_caso, desc_no_conformidad, justificacion, imagen)
 	VALUES
 		(@id_diseno, @num_ejecucion, @estado, @tipo_no_conformidad, @id_caso, @desc_no_conformidad, @justificacion, @imagen)
+GO
+
+GO
+CREATE PROCEDURE CONSULTAR_EJECUCION
+	@id_diseno int, @numero_ejecucion int
+AS
+	SELECT *
+	FROM Ejecucion
+	WHERE id_diseno = @id_diseno AND num_ejecucion = @numero_ejecucion
+GO
+
+GO
+CREATE PROCEDURE CONSULTAR_RESULTADOS
+	@id_diseno int, @numero_ejecucion int
+AS
+	SELECT *
+	FROM Resultados
+	WHERE id_diseno = @id_diseno AND num_ejecucion = @numero_ejecucion
 GO

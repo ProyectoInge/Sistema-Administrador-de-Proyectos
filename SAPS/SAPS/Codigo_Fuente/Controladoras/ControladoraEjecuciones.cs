@@ -7,9 +7,6 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using SAPS.Base_de_Datos;
 using SAPS.Entidades;
 using System.Data;
@@ -33,7 +30,7 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para eliminar una ejecucion de pruebas de la base de datos.
-        * @param num de la ejecución que se desea eliminar y el id de diseño relacionado.
+        * @param num_ejecuccion de la ejecución que se desea eliminar y el id de diseño relacionado.
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         internal int eliminar_ejecucion(int id_diseno, int num_ejecucion)
@@ -144,6 +141,25 @@ namespace SAPS.Controladoras
 
 
 
+        /** @brief Consultar los datos de una ejecución de pruebas.
+        *   @param id_ejecucion id de la ejecucion a consultar.
+        *   @return DataTable con los datos de la ejecución de prueba.
+        */
+        internal DataTable consultar_ejecucion(int id_diseno, int id_ejecucion)
+        {
+            return m_base_datos.consultar_ejecucion(id_diseno, id_ejecucion);
+        }
+
+        /** @brief Consultar los resultados de una ejecución de pruebas.
+        *   @param id_ejecucion id de la ejecucion a consultar.
+        *   @return DataTable con los resultados de una ejecución de prueba.
+        */
+        internal DataTable consultar_resultados(int id_diseno, int id_ejecucion)
+        {
+            return m_base_datos.consultar_resultados(id_diseno, id_ejecucion);
+        }
+
+
         // -------------------------------------- Métodos que corresponden a otras clases --------------------------------------
 
         /** @brief Método que se encarga de obtener todos los diseños de prueba que hay en el sistema.
@@ -161,8 +177,8 @@ namespace SAPS.Controladoras
          */
         public DataTable solicitar_casos_asociados_diseno(int id_diseno)
         {
-            ///@todo
-            return null;
+            m_controladora_cp = new ControladoraCasoPruebas();
+            return m_controladora_cp.solicitar_casos_pruebas_disponibles(id_diseno);
         }
 
         /** @brief Método que se encarga de buscar la información correspondiente a un diseño de pruebas.
@@ -173,6 +189,16 @@ namespace SAPS.Controladoras
         {
             m_controladora_dp = new ControladoraDisenosPruebas();
             return m_controladora_dp.consultar_diseno_pruebas(id_diseno);
+        }
+
+        /** @brief Metodo que revisa si un usario es administrador o no.
+         * @param String con el nombre de usuario que se quiere saber si es administrador.
+         * @return True si es administrador, False si es un usuario normal.
+         */
+        public bool es_administrador(String nombre_usuario)
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.es_administrador(nombre_usuario);
         }
     }
 }
