@@ -23,7 +23,7 @@ namespace SAPS.Entidades
         private string m_id_caso;
         private string m_desc_no_conformidad;
         private string m_justificacion;
-        /// @todo Manejar la imagen
+        private string m_ruta_imagen;
 
         /** @brief Constructor de la entidad de resultados de ejecucion de pruebas.
          * @param datos contiene los datos para poder crear un conjunto asociado a una ejecucion de pruebas, el orden va de la siguiente manera:
@@ -32,12 +32,12 @@ namespace SAPS.Entidades
                              |    0   |  Numero de resultado    |      int      |
                              |    1   |  Id del diseno          |      int      |
                              |    2   |  Numero de ejecucion    |      int      |
-                             |    3   |  Estado                 |     String    |
-                             |    4   |  Tipo No Conformidad    |     String    |
-                             |    5   |  Id del Caso            |     String    |
-                             |    6   |  Descripcion No Conf.   |     String    |
-                             |    7   |  Justificacion          |     String    |
-                             |    8   |  Imagen                 |    Averiguar  |
+                             |    3   |  Estado                 |     string    |
+                             |    4   |  Tipo No Conformidad    |     string    |
+                             |    5   |  Id del Caso            |     string    |
+                             |    6   |  Descripcion No Conf.   |     string    |
+                             |    7   |  Justificacion          |     string    |
+                             |    8   |  Ruta de la imagen      |     string    | 
          */
         public ResultadosEP(Object[ ] datos)
         {
@@ -49,7 +49,13 @@ namespace SAPS.Entidades
             m_id_caso = datos[5].ToString();
             m_desc_no_conformidad = datos[6].ToString();
             m_justificacion = datos[7].ToString();
-            /// @todo Agregar la imagen
+            m_ruta_imagen = datos[8].ToString();
+        }
+
+        public string ruta_imagen
+        {
+            get { return m_ruta_imagen; }
+            set { m_ruta_imagen = value; }
         }
 
         public int num_resultado

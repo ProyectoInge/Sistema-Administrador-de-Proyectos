@@ -35,12 +35,12 @@ GO
 
 GO
 CREATE PROCEDURE INSERTAR_RESULTADO
-	@id_diseno int, @num_ejecucion int, @estado varchar(32), @tipo_no_conformidad varchar(64), @id_caso varchar(64), @desc_no_conformidad varchar(256), @justificacion varchar(512), @imagen image
+	@id_diseno int, @num_ejecucion int, @estado varchar(32), @tipo_no_conformidad varchar(64), @id_caso varchar(64), @desc_no_conformidad varchar(256), @justificacion varchar(512), @ruta_imagen varchar(512)
 AS
 	INSERT INTO Resultados
-		(id_diseno, num_ejecucion, estado, tipo_no_conformidad, id_caso, desc_no_conformidad, justificacion, imagen)
+		(id_diseno, num_ejecucion, estado, tipo_no_conformidad, id_caso, desc_no_conformidad, justificacion, ruta_imagen)
 	VALUES
-		(@id_diseno, @num_ejecucion, @estado, @tipo_no_conformidad, @id_caso, @desc_no_conformidad, @justificacion, @imagen)
+		(@id_diseno, @num_ejecucion, @estado, @tipo_no_conformidad, @id_caso, @desc_no_conformidad, @justificacion, @ruta_imagen)
 GO
 
 GO

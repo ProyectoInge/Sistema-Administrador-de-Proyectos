@@ -17,6 +17,8 @@ namespace SAPS.Fronteras
         private static char m_opcion = 'i';
         private static int[] m_llave_ejecucion; //posiciones: 0 - num_ejecucion, 1 - id_diseno
 
+        private static int TAMA_ARCHIVO = 1600000; //Constante que es el tamaño máximo (en bytes) del archivo que se puede subir.
+
         private static bool m_es_administrador;
 
         private static string m_nombre_archivo;
@@ -440,7 +442,7 @@ namespace SAPS.Fronteras
                 string nombre_archivo = Server.HtmlEncode(subidor_archivo.FileName); //obtengo el nombre del archivo
                 string extension = System.IO.Path.GetExtension(nombre_archivo); //obtengo la extension del archivo
                 int tamano_archivo = subidor_archivo.PostedFile.ContentLength;  //obtengo el tamaño del archivo
-                if (tamano_archivo < 2100000)    //revisa que el archivo sea menor a 2MB
+                if (tamano_archivo < TAMA_ARCHIVO)    //revisa que el archivo sea menor a 1.5MB
                 {
                     if (extension == ".jpg" || extension == ".png" || extension == ".jpeg") //revisa que sea una imagen
                     {

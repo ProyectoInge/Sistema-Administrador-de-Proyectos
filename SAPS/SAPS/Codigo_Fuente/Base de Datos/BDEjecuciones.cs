@@ -133,7 +133,7 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@id_caso", SqlDbType.VarChar).Value = resultado.identificador_caso;
             comando.Parameters.Add("@desc_no_conformidad", SqlDbType.VarChar).Value = resultado.descripcion_no_conformidad;
             comando.Parameters.Add("@justificacion", SqlDbType.VarChar).Value = resultado.justificacion;
-            /// @todo Agregar la imagen
+            comando.Parameters.Add("@ruta_imagen", SqlDbType.VarChar).Value = resultado.ruta_imagen;
         }
 
     }
