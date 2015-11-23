@@ -237,7 +237,6 @@
             <div class="modal-dialog">
                 <asp:UpdatePanel ID="upModalImagen" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                     <Triggers>
-                         <!-- Debido a que esta en un UpdatePanel, hay que usarlo para forzar al postback-->
                         <asp:PostBackTrigger ControlID="btn_agregar_imagen" />
                     </Triggers>
                     <ContentTemplate>

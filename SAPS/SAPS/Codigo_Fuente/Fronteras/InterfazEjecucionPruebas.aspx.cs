@@ -23,6 +23,7 @@ namespace SAPS.Fronteras
         */
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Form.Attributes.Add("enctype", "multipart/form-data");
             if (Request.IsAuthenticated)
             {
                 m_controladora_ep = new ControladoraEjecuciones();
