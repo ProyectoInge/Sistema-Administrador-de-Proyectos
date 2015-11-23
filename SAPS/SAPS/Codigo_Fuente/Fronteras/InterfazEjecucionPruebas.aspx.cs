@@ -212,7 +212,11 @@ namespace SAPS.Fronteras
 
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
-            ///@todo
+            m_opcion = 'i';
+            activa_desactiva_botones_ime(false);
+            //limpiar los campos
+            Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazEjecucionPruebas.aspx");
+
         }
 
         /** @brief Método que se encarga de hacer los pasos necesarios para eliminar una ejecucion
