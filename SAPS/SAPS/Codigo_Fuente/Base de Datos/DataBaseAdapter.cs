@@ -20,10 +20,10 @@ namespace SAPS.Base_de_Datos
         // Contiene la dirección del servidor donde se encuentra la base de datos
 
         // Amazon
-        //const string conexion = "Data Source=proyectopruebas.cph3bzyte6rr.us-west-2.rds.amazonaws.com,1433;" + "Initial Catalog=proyectoDB;" + "User id=masterwizard;" + "Password=urenaselacome;";
+        const string conexion = "Data Source=proyectopruebas.cph3bzyte6rr.us-west-2.rds.amazonaws.com,1433;" + "Initial Catalog=proyectoDB;" + "User id=masterwizard;" + "Password=urenaselacome;";
 
         // ECCI
-        const string conexion = "Server=eccibdisw;" +  "Initial Catalog= g1inge;" + "Integrated Security=SSPI";
+        //const string conexion = "Server=eccibdisw;" +  "Initial Catalog= g1inge;" + "Integrated Security=SSPI";
 
         public DataTable obtener_resultado_consulta(SqlCommand comando_sql)
         {

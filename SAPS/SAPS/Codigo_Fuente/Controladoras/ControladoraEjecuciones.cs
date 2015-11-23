@@ -76,13 +76,64 @@ namespace SAPS.Controladoras
                 |    5   |  Id del Caso            |     String    |
                 |    6   |  Descripcion No Conf.   |     String    |
                 |    7   |  Justificacion          |     String    |
-                |    8   |  Imagen                 |    Averiguar  | -- Esto falta de implementarlo @todo
+                |    8   |  Ruta de la imagen      |     String    |
          * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
          */
         internal int insertar_resultado(Object[] datos_resultado)
         {
             ResultadosEP resultado = new ResultadosEP(datos_resultado);
             return m_base_datos.insertar_resultado(resultado);
+        }
+
+
+
+        /** @brief Método que modifica una ejecución del sistema.
+         * @param Vector de Objects con los datos de la ejecución a ingresar.
+            | Índice | Descripción             | Tipo de datos |
+            |:------:|:-----------------------:|:-------------:|
+            |    0   |  Numero de ejecucion    |      int      |
+            |    1   |  Responsable            |     string    |
+            |    2   |  Id del diseno          |      int      |
+            |    3   |  Fecha de ejecucion     |     Datetime  |
+            |    4   |  Incidencias            |     string    |
+         * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
+         */
+        internal int modificar_ejecucion(Object[] datos_ejecucion)
+        {
+            EjecucionPruebas ejecucion = new EjecucionPruebas(datos_ejecucion);
+
+            int primer_resultado = m_base_datos.eliminar_ejecucion( Convert.ToInt32(datos_ejecucion[2]), Convert.ToInt32(datos_ejecucion[0]) );
+
+            int segundo_resultado = m_base_datos.insertar_ejecucion(ejecucion);
+
+            return primer_resultado + segundo_resultado;
+        }
+
+
+        /** @brief Método que modifica un resultado del sistema.
+         * @param Vector de Objects con los datos del resultado a ingresar.
+                | Índice | Descripción             | Tipo de datos |
+                |:------:|:-----------------------:|:-------------:|
+                |    0   |  Numero de resultado    |      int      |
+                |    1   |  Id del diseno          |      int      |
+                |    2   |  Numero de ejecucion    |      int      |
+                |    3   |  Estado                 |     string    |
+                |    4   |  Tipo No Conformidad    |     string    |
+                |    5   |  Id del Caso            |     string    |
+                |    6   |  Descripcion No Conf.   |     string    |
+                |    7   |  Justificacion          |     string    |
+                |    8   |  Ruta de la imagen      |     string    |
+         * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
+         */
+        internal int modificar_resultado(Object[] datos_resultado)
+        {
+            ResultadosEP resultado = new ResultadosEP(datos_resultado);
+
+            int primer_resultado = m_base_datos.eliminar_resultado( Convert.ToInt32(datos_resultado[1]), Convert.ToInt32(datos_resultado[2]), Convert.ToInt32(datos_resultado[0]) );
+
+            int segundo_resultado = m_base_datos.insertar_resultado(resultado);
+
+            return primer_resultado + segundo_resultado;
         }
 
         /** @brief Consultar los datos de una ejecución de pruebas.

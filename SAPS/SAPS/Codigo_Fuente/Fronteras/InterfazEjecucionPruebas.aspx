@@ -8,7 +8,7 @@
     </script>
     <section id="page_header">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 <div class="page-header">
                     <h1>SAPS <small>Ejecución de Pruebas</small></h1>
                 </div>
@@ -17,7 +17,7 @@
     </section>
     <section id="botones_IME">
         <div class="row">
-            <div class="col-md-4 col-md-offset-8">
+            <div class="col-md-3 col-md-offset-9">
                 <div class="btn-group" role="group">
                     <asp:Button runat="server" CssClass="btn btn-default active" ID="btn_crear" Enabled="true" Text="Ingresar" OnClick="btn_crear_Click" />
                     <asp:Button runat="server" CssClass="btn btn-default" ID="btn_modificar" Text="Modificar" OnClick="btn_modificar_Click" />
@@ -50,7 +50,7 @@
     </section>
     <section id="form">
         <div class="row">
-            <div id="panel_1" class="col-md-10 col-md-offset-1">
+            <div id="panel_1" class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Información del diseño</div>
@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="panel_2" class="col-md-10 col-md-offset-1">
+            <div id="panel_2" class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Lista de resultados</div>
@@ -99,13 +99,60 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_panel2" class="form-group">
-                                <div class="col-md-12" style="height: 250px; overflow-y: scroll">
-                                    <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-hover form-group">
+                                <asp:Table runat="server" ID="tabla_encabezado" CssClass="table table-bordered"></asp:Table>
+                                <div class="col-md-12" style="height: 250px; overflow-y: scroll;">
+                                    <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-bordered">
+                                        <asp:TableHeaderRow runat="server" ID="header_tabla_resultados">
+                                            <asp:TableHeaderCell runat="server" ID="celda_num_resultado" Text="#"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_estado_resultado" Text="Estado"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_no_conformidad_resultado" Text="Tipo de no conformidad"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_id_caso_resultado" Text="ID caso de prueba"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_descripcion_resultado" Text="Descripción"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_justificacion_resultado" Text="Justificación"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_resultados_resultado" Text="Resultados"></asp:TableHeaderCell>
+                                        </asp:TableHeaderRow>
+                                        <asp:TableRow runat="server" ID="fila_inputs">
+                                            <asp:TableCell runat="server" ID="celda_drop_num_resultado"></asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_drop_estado">
+                                                <asp:DropDownList runat="server" ID="drop_estado" CssClass="form-control">
+                                                    <asp:ListItem runat="server" Text="Satisfactoria" Value="Satisfactoria"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Fallida" Value="Fallida"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Pendiente" Value="Pendiente"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Pendiente" Value="Pendiente"></asp:ListItem>
+                                                </asp:DropDownList>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_drop_tipo_no_conformidad">
+                                                <asp:DropDownList runat="server" ID="drop_tipo_no_conformidad" CssClass="form-control">
+                                                    <asp:ListItem runat="server" Text="No aplica" Value="No aplica"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Funcionalidad" Value="Funcionalidad"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Validación" Value="Validación"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Opciones que no funcionan" Value="Opciones que no funcionan"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Errores de usabilidad" Value="Errores de usabilidad"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Excepciones" Value="Excepciones"></asp:ListItem>
+                                                </asp:DropDownList>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_drop_casos">
+                                                <asp:DropDownList runat="server" ID="drop_casos" CssClass="form-control">
+                                                </asp:DropDownList>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_descripcion">
+                                                <asp:TextBox runat="server" ID="input_descripcion" CssClass="form-control" TextMode="MultiLine" Rows="2" style="resize:none"
+                                                    placeholder="Describa la no conformidad"></asp:TextBox>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_justificacion">
+                                                <asp:TextBox runat="server" ID="input_justificacion" CssClass="form-control" TextMode="MultiLine" Rows="2" style="resize:none"
+                                                    placeholder="Escriba la justificación de lo ocurrido"></asp:TextBox>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_btn_agregar_imagen">
+                                                <asp:Button runat="server" ID="btn_agregar_img" CssClass="btn btn-link btn-block" data-target="#modal_imagen" data-toggle="modal" Text="Subir una imagen" />
+                                                <asp:Label runat="server" ID="label_img_agregada" CssClass="text-success"><small> &nbsp;&nbsp;&nbsp;Imagen cargada</small></asp:Label>
+                                            </asp:TableCell>
+                                        </asp:TableRow>
                                     </asp:Table>
                                 </div>
                             </div>
                             <div id="row2_panel2" class="form-group">
-                                <div class="col-md-3 col-md-offset-9">
+                                <div class="col-md-2 col-md-offset-10">
                                     <asp:Button runat="server" CssClass="btn btn-link" ID="btn_agregar_resultado" Text="Agregar" OnClick="btn_agregar_resultado_Click" />
                                     <asp:Button runat="server" CssClass="btn btn-link" ID="btn_eliminar_resultado" Text="Eliminar" OnClick="btn_eliminar_resultado_Click" />
                                 </div>
@@ -116,7 +163,7 @@
             </div>
         </div>
         <div class="row">
-            <div id="panel_3" class="col-md-10 col-md-offset-1">
+            <div id="panel_3" class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Información de la ejecución</div>
@@ -154,14 +201,14 @@
         </div>
     </section>
     <div class="row">
-        <div class="col-md-3 col-md-offset-9">
+        <div class="col-md-2 col-md-offset-10">
             <asp:Label runat="server" CssClass="text-danger">* Campos obligatorios</asp:Label>
         </div>
     </div>
     <br />
     <section id="botones_aceptar_cancelar">
         <div class="row">
-            <div class="col-md-3 col-md-offset-9">
+            <div class="col-md-2 col-md-offset-10">
                 <asp:Button runat="server" CssClass="btn btn-success" ID="btn_Aceptar" Text="Aceptar" OnClick="btn_Aceptar_Click" />
                 <asp:Button runat="server" CssClass="btn btn-danger" ID="btn_Cancelar" Text="Cancelar" OnClick="btn_Cancelar_Click" />
             </div>
@@ -169,20 +216,20 @@
     </section>
     <section id="linea_separadora">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 <hr />
             </div>
         </div>
     </section>
     <section id="area_consultas">
         <div class="row">
-            <div class="col-md-11 col-md-offset-1">
+            <div class="col-md-12">
                 <h4>Ejecuciones disponibles</h4>
             </div>
         </div>
         <br />
         <div class="row">
-            <div class="col-md-10 col-md-offset-1" style="height: 300px; overflow-y: scroll">
+            <div class="col-md-12" style="height: 300px; overflow-y: scroll">
                 <asp:Table runat="server" ID="tabla_ejecuciones" CssClass="table table-hover form-group">
                 </asp:Table>
             </div>
@@ -211,11 +258,11 @@
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
                                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                            <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="Se eliminó correctamente la ejecución."></asp:Label>
+                                            <asp:Label runat="server" ID="cuerpo_mensaje_exito_modal" Text="Se eliminó correctamente la ejecución."></asp:Label>
                                         </div>
                                         <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
                                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                            <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente la ejecución."></asp:Label>
+                                            <asp:Label runat="server" ID="cuerpo_alerta_error_modal" Text="Se presentó un error, intente eliminar nuevamente la ejecución."></asp:Label>
                                         </div>
                                     </div>
                                 </div>
@@ -230,6 +277,65 @@
             </div>
         </div>
     </section>
+    <!-- Modal agregar imagen -->
+    <section id="modal_agregar_imagen">
+        <div class="modal fade bs-example-sm" id="modal_imagen" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="upModalImagen" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <Triggers>
+                        <asp:PostBackTrigger ControlID="btn_agregar_imagen" />
+                    </Triggers>
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <asp:Label ID="titulo_modal_archivo" runat="server" Text="Agregue una imagen con los resultados obtenidos"></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="alert alert-danger alert-dismissible" id="alerta_error_archivo" role="alert" aria-hidden="true" runat="server">
+                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                <asp:Label runat="server" ID="label_mensaje_error_archivo" Text=""></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <p>
+                                                Seleccione el archivo que desea adjuntar donde se ven los resultados de la prueba realizada. El archivo tiene que estar en formato .jpg, .jpeg o .png solamente 
+                                            y no puede pesar más de 2 MB.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-4 col-md-offset-1">
+                                            <asp:FileUpload ID="subidor_archivo" runat="server"/>
+                                        </div>
+                                        <div class="col-md-5 col-md-offset-1">
+                                            <asp:Button runat="server" CssClass="btn btn-primary btn-block" Text="Guardar imagen" ID="btn_agregar_imagen" OnClick="btn_agregar_imagen_Click" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-link" style="color: darkgray" data-dismiss="modal" aria-label="Close">Volver</button>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </section>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#btn_ep").addClass("active");// Para activar el elemento en el navbar
