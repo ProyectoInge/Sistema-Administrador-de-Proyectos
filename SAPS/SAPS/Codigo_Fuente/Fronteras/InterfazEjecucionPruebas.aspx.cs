@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SAPS.Controladoras;
 using System.Data;
+using System.Drawing;
 
 namespace SAPS.Fronteras
 {
@@ -459,7 +460,7 @@ namespace SAPS.Fronteras
                 {
                     if(extension == ".jpg" || extension == ".png" || extension == ".jpeg") //revisa que sea una imagen
                     {
-                        ///@todo subir la imagen.
+                        subidor_archivo.PostedFile.SaveAs(Server.MapPath("~")+"/imagenes/" + nombre_archivo); //Guarda el archivo en el servidor.
                     }
                     else
                     {

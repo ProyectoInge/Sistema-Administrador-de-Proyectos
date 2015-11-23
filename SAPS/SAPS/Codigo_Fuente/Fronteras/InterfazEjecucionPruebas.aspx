@@ -272,7 +272,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-4 col-md-offset-1">
-                                            <asp:FileUpload ID="subidor_archivo" runat="server" />
+                                            <asp:FileUpload ID="subidor_archivo" runat="server"/>
                                         </div>
                                         <div class="col-md-5 col-md-offset-1">
                                             <asp:Button runat="server" CssClass="btn btn-primary btn-block" Text="Guardar imagen" ID="btn_agregar_imagen" OnClick="btn_agregar_imagen_Click" />
