@@ -212,11 +212,11 @@
                                     <div class="col-md-10 col-md-offset-1">
                                         <div class="alert alert-success" id="mensaje_exito_modal" role="alert" aria-hidden="true" runat="server">
                                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                            <asp:Label runat="server" ID="cuerpo_mensaje_exito" Text="Se eliminó correctamente la ejecución."></asp:Label>
+                                            <asp:Label runat="server" ID="cuerpo_mensaje_exito_modal" Text="Se eliminó correctamente la ejecución."></asp:Label>
                                         </div>
                                         <div class="alert alert-danger alert-dismissible" id="mensaje_error_modal" role="alert" aria-hidden="true" runat="server">
                                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                            <asp:Label runat="server" ID="Label3" Text="Se presentó un error, intente eliminar nuevamente la ejecución."></asp:Label>
+                                            <asp:Label runat="server" ID="cuerpo_alerta_error_modal" Text="Se presentó un error, intente eliminar nuevamente la ejecución."></asp:Label>
                                         </div>
                                     </div>
                                 </div>
@@ -232,35 +232,57 @@
         </div>
     </section>
     <!-- Modal agregar imagen -->
-
     <section id="modal_agregar_imagen">
         <div class="modal fade bs-example-sm" id="modal_imagen" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <asp:UpdatePanel ID="upModalImagen" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <Triggers>
+                         <!-- Debido a que esta en un UpdatePanel, hay que usarlo para forzar al postback-->
+                        <asp:PostBackTrigger ControlID="btn_agregar_imagen" />
+                    </Triggers>
                     <ContentTemplate>
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <asp:Label ID="Label1" runat="server" Text="Agregue una imagen con los resultados obtenidos"></asp:Label>
+                                    <asp:Label ID="titulo_modal_archivo" runat="server" Text="Agregue una imagen con los resultados obtenidos"></asp:Label>
                                 </h4>
                             </div>
                             <div class="modal-body">
                                 <div class="form-horizontal">
                                     <div class="form-group">
-                                        <div class="col-md-4 col-md-offset-4">
-                                            <input type="file" id="subidor_archivo" runat="Server">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <div class="alert alert-danger alert-dismissible" id="alerta_error_archivo" role="alert" aria-hidden="true" runat="server">
+                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                <asp:Label runat="server" ID="label_mensaje_error_archivo" Text=""></asp:Label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-md-6 col-md-offset-3">
-                                            <asp:Button runat="server" CssClass="btn btn-primary btn-block" Text="Elija un archivo" ID="btn_agregar_imagen" OnClick="btn_agregar_imagen_Click"/>
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <p>
+                                                Seleccione el archivo que desea adjuntar donde se ven los resultados de la prueba realizada. El archivo tiene que estar en formato .jpg, .jpeg o .png solamente 
+                                            y no puede pesar más de 2 MB.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-10 col-md-offset-1">
+                                            <hr />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-4 col-md-offset-1">
+                                            <asp:FileUpload ID="subidor_archivo" runat="server" />
+                                        </div>
+                                        <div class="col-md-5 col-md-offset-1">
+                                            <asp:Button runat="server" CssClass="btn btn-primary btn-block" Text="Guardar imagen" ID="btn_agregar_imagen" OnClick="btn_agregar_imagen_Click" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button CssClass="btn btn-link" style="color:darkgray" ID="btn_modal_img_volver" Text="Volver" runat="server" data-dismiss="modal"/>
+                                <button type="button" class="btn btn-link" style="color: darkgray" data-dismiss="modal" aria-label="Close">Volver</button>
                             </div>
                         </div>
                     </ContentTemplate>
@@ -268,6 +290,7 @@
             </div>
         </div>
     </section>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $("#btn_ep").addClass("active");// Para activar el elemento en el navbar

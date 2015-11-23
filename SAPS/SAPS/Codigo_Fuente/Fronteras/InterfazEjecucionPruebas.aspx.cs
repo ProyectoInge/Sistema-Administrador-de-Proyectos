@@ -31,6 +31,7 @@ namespace SAPS.Fronteras
                 alerta_advertencia.Visible = false;
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
+                alerta_error_archivo.Visible = false;
 
                 if (!IsPostBack)
                 {
@@ -448,7 +449,39 @@ namespace SAPS.Fronteras
 
         protected void btn_agregar_imagen_Click(object sender, EventArgs e)
         {
-            ///@todo guardar la imagen temporalmente
+            if (subidor_archivo.HasFile) //Verifica que escogió un archivo
+            {
+                string nombre_archivo = Server.HtmlEncode(subidor_archivo.FileName); //obtengo el nombre del archivo
+                string extension = System.IO.Path.GetExtension(nombre_archivo); //obtengo la extension del archivo
+                int tamano_archivo = subidor_archivo.PostedFile.ContentLength;  //obtengo el tamaño del archivo
+                if(tamano_archivo < 2100000)    //revisa que el archivo sea menor a 2MB
+                {
+                    if(extension == ".jpg" || extension == ".png" || extension == ".jpeg") //revisa que sea una imagen
+                    {
+                        ///@todo subir la imagen.
+                    }
+                    else
+                    {
+                        label_mensaje_error_archivo.Text = " Solo puede subir imágenes.";
+                        alerta_error_archivo.Visible = true;
+                        upModalImagen.Update();
+                    }
+
+                }
+                else
+                {
+                    label_mensaje_error_archivo.Text = " El archivo seleccionado pesa mas de 2MB.";
+                    alerta_error_archivo.Visible = true;
+                    upModalImagen.Update();
+                }
+
+            }
+            else
+            {
+                label_mensaje_error_archivo.Text = " No seleccionó ningún archivo.";
+                alerta_error_archivo.Visible = true;
+                upModalImagen.Update();
+            }
         }
     }
 
