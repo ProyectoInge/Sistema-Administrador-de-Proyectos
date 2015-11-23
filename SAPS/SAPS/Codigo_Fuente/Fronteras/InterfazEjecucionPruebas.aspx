@@ -99,7 +99,6 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_panel2" class="form-group">
-                                <asp:Table runat="server" ID="tabla_encabezado" CssClass="table table-bordered"></asp:Table>
                                 <div class="col-md-12" style="height: 250px; overflow-y: scroll;">
                                     <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-bordered">
                                         <asp:TableHeaderRow runat="server" ID="header_tabla_resultados">

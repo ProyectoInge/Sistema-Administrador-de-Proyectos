@@ -157,15 +157,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TextBox input_criterios_aceptacion_diseno;
         
         /// <summary>
-        /// tabla_encabezado control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tabla_encabezado;
-        
-        /// <summary>
         /// tabla_resultados control.
         /// </summary>
         /// <remarks>
