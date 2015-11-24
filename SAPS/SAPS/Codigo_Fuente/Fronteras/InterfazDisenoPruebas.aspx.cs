@@ -597,6 +597,9 @@ namespace SAPS.Fronteras
                 m_dp_seleccionado = diseños.Rows[diseños.Rows.Count - 1]["id_diseno"].ToString();
                 btn_modificar_Click(this, null);
                 btn_Aceptar_Click(this,null);
+                if (res) cuerpo_alerta_exito.Text = " Se ha agregado un nuevo diseño correctamente.";
+                else     cuerpo_alerta_error.Text = " No se logró agregado el diseño, intente nuevamente.";
+
             }
             else if(m_opcion == 'e')
             {
