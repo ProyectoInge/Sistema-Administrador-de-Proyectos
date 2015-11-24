@@ -23,6 +23,9 @@ namespace SAPS.Fronteras
 
         private static string m_nombre_archivo;
 
+        // Resultados
+        private static List<string[]> m_resultados_tmp;
+
 
         /** @brief Metodo que se llama al cargar la página.
         */
@@ -402,9 +405,23 @@ namespace SAPS.Fronteras
             // incidentes
             input_incidentes.Text = datos_ejecucion.Rows[0]["incidencias"].ToString();
 
+
+            // Resultados
+            vacia_resultados();
             DataTable resultados_ejecucion = m_controladora_ep.consultar_resultados(id_ejecucion);
+            foreach (DataRow resultado in resultados_ejecucion.Rows)
+            {
+                string[] datos_resultado = new string[7];
+                int i = 0;
+                foreach (var item in resultado.ItemArray)
+                {
+                    datos_resultado[i] = item.ToString();
+                    i++;
+                }
+                m_resultados_tmp.Add(datos_resultado);
+            }
             
-            // @todo llenar resutlados asociados a una ejecución
+            // @todo llamar a método que llena la lista de resultados.
         }
 
         protected void llenar_ejecuciones_disponibles(int id_diseno)
@@ -566,7 +583,6 @@ namespace SAPS.Fronteras
          */
         private void vacia_resultados()
         {
-            // DUDA: Esto está bien?
             tabla_ejecuciones.Rows.Clear();
         }
 
