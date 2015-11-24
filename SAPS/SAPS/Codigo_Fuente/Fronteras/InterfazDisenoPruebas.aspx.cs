@@ -97,7 +97,7 @@ namespace SAPS.Fronteras
             m_tamano_tabla_pyp = tabla_proyectos.Rows.Count;
             m_tabla_proyectos_disponibles = new Object[m_tamano_tabla_pyp, 2];
 
-
+            
             ListItem item_proyecto = new ListItem();
             item_proyecto.Text = "-Seleccione un proyecto-";
             item_proyecto.Value = "";
@@ -107,7 +107,7 @@ namespace SAPS.Fronteras
             {
                 item_proyecto = new ListItem();
                 m_tabla_proyectos_disponibles[i, 0] = Convert.ToInt32(tabla_proyectos.Rows[i]["id_proyecto"]);
-                m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();
+                m_tabla_proyectos_disponibles[i, 1] = tabla_proyectos.Rows[i]["nombre_proyecto"].ToString();                
                 item_proyecto.Text = Convert.ToString(m_tabla_proyectos_disponibles[i, 1]);
                 item_proyecto.Value = Convert.ToString(m_tabla_proyectos_disponibles[i, 0]);
                 drop_proyecto.Items.Add(item_proyecto);
@@ -136,7 +136,7 @@ namespace SAPS.Fronteras
 
             for (int i = (m_tamano_tabla_req - 1); i >= 0; --i)
             {
-                m_tabla_requerimientos_disponibles.Add(Tuple.Create(tabla_de_datos.Rows[i]["nombre"].ToString(), Convert.ToString(tabla_de_datos.Rows[i]["id_requerimiento"])));
+               m_tabla_requerimientos_disponibles.Add(Tuple.Create(tabla_de_datos.Rows[i]["nombre"].ToString(), Convert.ToString(tabla_de_datos.Rows[i]["id_requerimiento"])));
             }
             refrescar_requerimientos();
         }
@@ -187,72 +187,72 @@ namespace SAPS.Fronteras
                                 if (input_ambiente.Text != "")
                                 {
                                     if (input_procedimiento.Text != "")
-                                    {
-                                        if (drop_responsable.Text != "")
                                         {
-                                            if (input_fecha.Text != "")
+                                        if (drop_responsable.Text != "")
                                             {
+                                                if (input_fecha.Text != "")
+                                                {
                                                 Object[] datosDiseno = new Object[11];
-                                                datosDiseno[0] = 0;
-                                                datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
-                                                datosDiseno[2] = input_nombre.Text;
-                                                datosDiseno[3] = DateTime.Parse(input_fecha.Text);
-                                                datosDiseno[4] = drop_tecnica.SelectedValue;
-                                                datosDiseno[5] = drop_tipo.SelectedValue;
-                                                datosDiseno[6] = drop_nivel.SelectedValue;
-                                                datosDiseno[7] = drop_responsable.SelectedValue;
-                                                datosDiseno[8] = input_ambiente.Text;
+                                                    datosDiseno[0] = 0;
+                                                    datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
+                                                    datosDiseno[2] = input_nombre.Text;
+                                                    datosDiseno[3] = DateTime.Parse(input_fecha.Text);
+                                                    datosDiseno[4] = drop_tecnica.SelectedValue;
+                                                    datosDiseno[5] = drop_tipo.SelectedValue;
+                                                    datosDiseno[6] = drop_nivel.SelectedValue;
+                                                    datosDiseno[7] = drop_responsable.SelectedValue;
+                                                    datosDiseno[8] = input_ambiente.Text;
                                                 datosDiseno[9] = input_procedimiento.Text;
                                                 datosDiseno[10] = input_criterio.Text;
+                                                    
+                                                    int resultado = m_controladora_dp.insertar_diseno_pruebas(datosDiseno);
+                                                    DataTable diseños = m_controladora_dp.solicitar_disenos_disponibles();
+                                                    int id_agregado = Convert.ToInt32(diseños.Rows[diseños.Rows.Count - 1]["id_diseno"]);
 
-                                                int resultado = m_controladora_dp.insertar_diseno_pruebas(datosDiseno);
-                                                DataTable diseños = m_controladora_dp.solicitar_disenos_disponibles();
-                                                int id_agregado = Convert.ToInt32(diseños.Rows[diseños.Rows.Count - 1]["id_diseno"]);
-
-                                                for (int i = 0; i < m_tabla_requerimientos_seleccionados.Count; i++)
-                                                {
+                                                    for (int i = 0; i < m_tabla_requerimientos_seleccionados.Count; i++)
+                                                    {
                                                     Object[] datosAsoc = new Object[2];
-                                                    datosAsoc[0] = id_agregado;
-                                                    datosAsoc[1] = m_tabla_requerimientos_seleccionados[i].Item2;
+                                                        datosAsoc[0] = id_agregado;
+                                                        datosAsoc[1] = m_tabla_requerimientos_seleccionados[i].Item2;
 
-                                                    m_controladora_dp.asociar_requerimiento(datosAsoc);
-                                                }
+                                                        m_controladora_dp.asociar_requerimiento(datosAsoc);
+                                                    }
 
 
-                                                if (resultado == 0)
-                                                {
-                                                    cuerpo_alerta_exito.Text = " Se ha insertado un nuevo diseño correctamente.";
-                                                    actualiza_grid_dp();
-                                                    btn_eliminar.Enabled = true;
-                                                    btn_modificar.Enabled = true;
+                                                    if (resultado == 0)
+                                                    {
+                                                        cuerpo_alerta_exito.Text = " Se ha insertado un nuevo diseño correctamente.";
+                                                        actualiza_grid_dp();
+                                                        btn_eliminar.Enabled = true;
+                                                        btn_modificar.Enabled = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        cuerpo_alerta_error.Text = " No se logró insertar el diseño, intente nuevamente.";
+                                                        a_retornar = false;
+                                                    }
                                                 }
                                                 else
                                                 {
-                                                    cuerpo_alerta_error.Text = " No se logró insertar el diseño, intente nuevamente.";
+                                                    cuerpo_alerta_error.Text = "Es necesario seleccionar una fecha.";
+                                                    SetFocus(input_fecha);
                                                     a_retornar = false;
                                                 }
                                             }
                                             else
                                             {
-                                                cuerpo_alerta_error.Text = "Es necesario seleccionar una fecha.";
-                                                SetFocus(input_fecha);
+                                                cuerpo_alerta_error.Text = "Es necesario seleccionar un responsable.";
+                                                SetFocus(drop_responsable);
                                                 a_retornar = false;
                                             }
                                         }
                                         else
                                         {
-                                            cuerpo_alerta_error.Text = "Es necesario seleccionar un responsable.";
-                                            SetFocus(drop_responsable);
+                                            cuerpo_alerta_error.Text = "Es necesario ingresar el procedimiento de prueba.";
+                                            SetFocus(input_procedimiento);
                                             a_retornar = false;
                                         }
-                                    }
-                                    else
-                                    {
-                                        cuerpo_alerta_error.Text = "Es necesario ingresar el procedimiento de prueba.";
-                                        SetFocus(input_procedimiento);
-                                        a_retornar = false;
-                                    }
-
+                                    
                                 }
                                 else
                                 {
@@ -309,7 +309,7 @@ namespace SAPS.Fronteras
         {
             tabla_disponibles.Rows.Clear();
             tabla_agregados.Rows.Clear();
-
+            
             for (int i = 0; i < m_tamano_tabla_req; i++)
             {
                 TableRow fila = new TableRow();
@@ -388,7 +388,7 @@ namespace SAPS.Fronteras
             }
             carga_requerimientos_transicion(enviador.Text, id, se_agrega);
 
-
+            
         }
 
 
@@ -439,7 +439,7 @@ namespace SAPS.Fronteras
             DataTable tabla_de_datos;
             if (m_es_administrador)
             {
-                tabla_de_datos = m_controladora_dp.solicitar_disenos_disponibles();
+                tabla_de_datos = m_controladora_dp.solicitar_disenos_disponibles(); 
             }
             else
             {
@@ -461,13 +461,13 @@ namespace SAPS.Fronteras
                 btn.Text = m_tabla_dp[i, 1];
                 btn.CssClass = "btn btn-link";
                 btn.Click += new EventHandler(btn_lista_dp_click);
-
+                
 
                 int id_proyecto_asociado = Convert.ToInt32(tabla_de_datos.Rows[i]["id_proyecto"]);
                 celda_proyecto.Text = m_controladora_dp.consultar_proyecto(id_proyecto_asociado).Rows[0]["nombre_proyecto"].ToString();
+                
 
-
-
+               
                 celda_boton.Controls.AddAt(0, btn);
                 fila.Cells.AddAt(0, celda_boton);
                 fila.Cells.AddAt(1, celda_proyecto);
@@ -499,7 +499,7 @@ namespace SAPS.Fronteras
             for (int i = 0; i < m_tamano_tabla_dp; i++)
             {
                 if (m_tabla_dp[i, 1].Equals(dp_nombre))
-                {
+            {
                     dp_id = m_tabla_dp[i, 0];
                 }
 
@@ -594,7 +594,10 @@ namespace SAPS.Fronteras
                 DataTable diseños = m_controladora_dp.solicitar_disenos_asociados_proyecto(Convert.ToInt32(drop_proyecto.SelectedValue));
                 m_dp_seleccionado = diseños.Rows[diseños.Rows.Count-1]["id_diseno"].ToString();
                 btn_modificar_Click(this, null);
-                btn_Aceptar_Click(this, null);
+                btn_Aceptar_Click(this,null);
+                if (res) cuerpo_alerta_exito.Text = " Se ha agregado un nuevo diseño correctamente.";
+                else     cuerpo_alerta_error.Text = " No se logró agregado el diseño, intente nuevamente.";
+
             }
             else if (m_opcion == 'e')
             {
@@ -632,7 +635,7 @@ namespace SAPS.Fronteras
                                             if (input_fecha.Text != "")
                                             {
                                                 Object[] datosDiseno = new Object[11];
-                                                datosDiseno[0] = m_dp_seleccionado;
+                                                datosDiseno[0] = m_dp_seleccionado; 
                                                 datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
                                                 datosDiseno[2] = input_nombre.Text;
                                                 datosDiseno[3] = DateTime.Parse(input_fecha.Text);
@@ -745,12 +748,12 @@ namespace SAPS.Fronteras
         */
         private bool eliminar_diseno()
         {
-            cuerpo_modal.Text = " ¿Esta seguro que desea eliminar el diseño del sistema?";
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
-            upModal.Update();
+                cuerpo_modal.Text = " ¿Esta seguro que desea eliminar el diseño del sistema?";
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_alerta", "$('#modal_alerta').modal();", true);
+                upModal.Update();
 
-            return true;
-
+                return true;
+            
         }
 
         protected void btn_modal_cancelar_Click(object sender, EventArgs e)
@@ -788,7 +791,7 @@ namespace SAPS.Fronteras
             btn_eliminar.CssClass = "btn btn-default";
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default active";
-
+           
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "eliminar".
@@ -796,13 +799,13 @@ namespace SAPS.Fronteras
         */
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-
-            m_opcion = 'e';
-            activa_desactiva_inputs(false);
-            btn_eliminar.CssClass = "btn btn-default active";
-            btn_crear.CssClass = "btn btn-default";
-            btn_modificar.CssClass = "btn btn-default";
-
+            
+                m_opcion = 'e';
+                activa_desactiva_inputs(false);
+                btn_eliminar.CssClass = "btn btn-default active";
+                btn_crear.CssClass = "btn btn-default";
+                btn_modificar.CssClass = "btn btn-default";
+                        
         }
 
         /** @brief Evento que se activa cuando el usuario selecciona la opción de "insertar".
