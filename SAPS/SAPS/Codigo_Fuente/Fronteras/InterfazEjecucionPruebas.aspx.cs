@@ -39,6 +39,9 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 alerta_error_archivo.Visible = false;
                 label_img_agregada.Visible = false;
+                btn_agregar_resultado.Enabled = false;
+                btn_eliminar_resultado.Enabled = false;
+                drop_rh_disponibles.Enabled = false;
 
                 if (!IsPostBack)
                 {
@@ -245,13 +248,6 @@ namespace SAPS.Fronteras
 
         }
 
-
-        protected void btn_agregar_img_Click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_imagen", "$('#modal_imagen').modal();", true);
-            upModalImagen.Update();
-        }
-
         /** @brief Método que se encarga de hacer los pasos necesarios para eliminar una ejecucion
         *   @return true si fue exitoso, false si no.
         */
@@ -298,6 +294,70 @@ namespace SAPS.Fronteras
         protected void btn_agregar_resultado_Click(object sender, EventArgs e)
         {
             string ruta = Server.MapPath("~") + "/imagenes/" + m_nombre_archivo;
+            TableRow nueva_fila = new TableRow();
+            TableCell celda_tmp = new TableCell();
+
+            //Agrega el numero de resultado
+            celda_tmp.Text = celda_drop_num_resultado.Text;
+            nueva_fila.Cells.Add(celda_tmp);
+
+            //Agrega el estado del resultado
+            celda_tmp = new TableCell();
+            celda_tmp.Text = drop_estado.SelectedItem.Value;
+            nueva_fila.Cells.Add(celda_tmp);
+
+            //Agrega el tipo de no conformidad del resultado
+            celda_tmp = new TableCell();
+            celda_tmp.Text = drop_tipo_no_conformidad.SelectedItem.Value;
+            nueva_fila.Cells.Add(celda_tmp);
+
+            //Agrega el identificador del caso de prueba del resultado
+            celda_tmp = new TableCell();
+            celda_tmp.Text = drop_casos.SelectedItem.Value;
+            nueva_fila.Cells.Add(celda_tmp);
+
+            //Agrega la descripcion de la no conformidad
+            celda_tmp = new TableCell();
+            TextBox input_tmp = new TextBox();
+            input_tmp.CssClass = "form-control";
+            input_tmp.Enabled = false;
+            input_tmp.TextMode = TextBoxMode.MultiLine;
+            input_tmp.Attributes.Add("resize", "none");
+            input_tmp.Text = input_descripcion.Text;
+            celda_tmp.Controls.Add(input_tmp);
+            nueva_fila.Cells.Add(celda_tmp);
+
+            //Agrega la justificacion
+            celda_tmp = new TableCell();
+            input_tmp = new TextBox();
+            input_tmp.CssClass = "form-control";
+            input_tmp.Enabled = false;
+            input_tmp.TextMode = TextBoxMode.MultiLine;
+            input_tmp.Attributes.Add("resize", "none");
+            input_tmp.Text = input_justificacion.Text;
+            celda_tmp.Controls.Add(input_tmp);
+            nueva_fila.Cells.Add(celda_tmp);
+
+            //Hace el boton para consultar la imagen
+            celda_tmp = new TableCell();
+            Button btn_consultar_imagen = new Button();
+            btn_consultar_imagen.CssClass = "btn btn-link";
+            btn_consultar_imagen.Text = "Ver imagen";
+            btn_consultar_imagen.ID = ruta;
+            btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
+            celda_tmp.Controls.Add(btn_consultar_imagen);
+            nueva_fila.Cells.Add(celda_tmp);
+
+            //agrega la fila a la tabla
+            tabla_resultados.Rows.Add(nueva_fila);
+
+
+        }
+
+        protected void btn_consultar_imagen_Click(object sender, EventArgs e)
+        {
+            // En el ID del boton viene la ruta a la imagen.
+            ///@todo Desplegar el modal donde muestre la imagen
         }
 
         /** @brief Agrega un resultado a la tabla de los resultados.
@@ -314,7 +374,7 @@ namespace SAPS.Fronteras
         */
         private void agrega_resultado(Object[] datos_resultado)
         {
-            
+            int resultado = m_controladora_ep.insertar_resultado(datos_resultado);
         }
 
         protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
@@ -391,7 +451,10 @@ namespace SAPS.Fronteras
             {
                 input_ambiente_diseno.Text = info_diseno.Rows[0]["ambiente"].ToString();
                 input_criterios_aceptacion_diseno.Text = info_diseno.Rows[0]["criterio_aceptacion"].ToString();
-                ///@todo Llenar el procedimiento del diseño
+                input_procedimiento_diseno.Text = info_diseno.Rows[0]["procedimiento"].ToString();
+                btn_eliminar_resultado.Enabled = true;
+                btn_agregar_resultado.Enabled = true;
+                drop_rh_disponibles.Enabled = true;
             }
         }
 
@@ -414,7 +477,7 @@ namespace SAPS.Fronteras
          */
         private void llena_resultados()
         {
-            celda_drop_num_resultado.Text = (tabla_resultados.Rows.Count-1).ToString();
+            celda_drop_num_resultado.Text = (tabla_resultados.Rows.Count - 1).ToString();
             llena_casos();
         }
 

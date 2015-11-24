@@ -68,7 +68,6 @@ create table DisenoPrueba(
 	nivel_prueba		varchar(64),
 	username_responsable varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE SET NULL,
 	ambiente			varchar(128),
-	proposito			varchar(128) NOT NULL,
 	procedimiento		varchar(512) NOT NULL,
 	criterio_aceptacion varchar(256)
 );
