@@ -1,9 +1,7 @@
 use proyectoDB;
---use g1inge
 
 	drop table Resultados;
 	drop table Ejecucion;
-	drop table NecesitaDe;
 	drop table DatosCasoDePrueba;
 	drop table CasoPrueba;
 	drop table SePrueba;
@@ -69,6 +67,7 @@ create table DisenoPrueba(
 	nivel_prueba		varchar(64),
 	username_responsable varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE SET NULL,
 	ambiente			varchar(128),
+	procedimiento		varchar(512) NOT NULL,
 	criterio_aceptacion varchar(256)
 );
 
@@ -81,14 +80,13 @@ create table Requerimientos(
 create table SePrueba(
 	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno) ON DELETE CASCADE,
 	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento) ON DELETE CASCADE,
-	proposito			varchar(128) NOT NULL,
-	procedimiento		varchar(512) NOT NULL,
 	PRIMARY KEY(id_diseno, id_requerimiento)
 );
 
 create table CasoPrueba(
 	id_caso				varchar(64) NOT NULL PRIMARY KEY,
 	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno) ON DELETE CASCADE,
+	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento) ON DELETE CASCADE,
 	proposito			varchar(256),
 	resultado_esperado  varchar(256),
 	flujo_central		varchar(512)
@@ -102,19 +100,10 @@ create table DatosCasoDePrueba(
 	tipo varchar(24)
 );
 
-create table NecesitaDe(
-	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento) ON DELETE CASCADE,
-	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso) ON DELETE CASCADE,
-	precondiciones		varchar(512),
-	variables			varchar(512),
-	restricciones		varchar(512),
-	PRIMARY KEY(id_requerimiento, id_caso)
-);
-
 create table Ejecucion(
 	num_ejecucion		int IDENTITY(1,1) NOT NULL,
 	responsable			varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE SET NULL,
-	id_diseno			int NOT NULL,
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno),
 	fecha_ultima_ejec	datetime,
 	incidencias			varchar(512),
 	PRIMARY KEY(id_diseno, num_ejecucion)
@@ -122,14 +111,14 @@ create table Ejecucion(
 
 create table Resultados(
 	num_resultado		int IDENTITY(1,1) NOT NULL,
-	id_diseno			int NOT NULL,
-	num_ejecucion		int NOT NULL,
+	id_diseno			int NOT NULL, --FOREIGN KEY REFERENCES Ejecucion(id_diseno),
+	num_ejecucion		int NOT NULL, --FOREIGN KEY REFERENCES Ejecucion(num_ejecucion),
 	estado				varchar(32),
 	tipo_no_conformidad varchar(64),
 	id_caso				varchar(64) NOT NULL FOREIGN KEY REFERENCES CasoPrueba(id_caso) ON DELETE CASCADE,
 	desc_no_conformidad varchar(256),
 	justificacion		varchar(512),
-	imagen				image,
+	ruta_imagen			varchar(512),
 	CONSTRAINT			fk_ejecucion	
 	FOREIGN KEY(id_diseno, num_ejecucion) REFERENCES Ejecucion(id_diseno, num_ejecucion) ON DELETE CASCADE,
 	PRIMARY KEY			(num_resultado, id_diseno, num_ejecucion)

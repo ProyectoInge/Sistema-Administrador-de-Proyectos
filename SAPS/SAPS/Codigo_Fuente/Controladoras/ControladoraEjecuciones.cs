@@ -7,9 +7,6 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using SAPS.Base_de_Datos;
 using SAPS.Entidades;
 using System.Data;
@@ -33,7 +30,7 @@ namespace SAPS.Controladoras
         }
 
         /** @brief Método que se encarga de las operaciones necesarias para eliminar una ejecucion de pruebas de la base de datos.
-        * @param num de la ejecución que se desea eliminar y el id de diseño relacionado.
+        * @param num_ejecuccion de la ejecución que se desea eliminar y el id de diseño relacionado.
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
         internal int eliminar_ejecucion(int id_diseno, int num_ejecucion)
@@ -79,7 +76,7 @@ namespace SAPS.Controladoras
                 |    5   |  Id del Caso            |     String    |
                 |    6   |  Descripcion No Conf.   |     String    |
                 |    7   |  Justificacion          |     String    |
-                |    8   |  Imagen                 |    Averiguar  | -- Esto falta de implementarlo @todo
+                |    8   |  Ruta de la imagen      |     String    |
          * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
          */
         internal int insertar_resultado(Object[] datos_resultado)
@@ -87,6 +84,76 @@ namespace SAPS.Controladoras
             ResultadosEP resultado = new ResultadosEP(datos_resultado);
             return m_base_datos.insertar_resultado(resultado);
         }
+
+
+
+        /** @brief Método que modifica una ejecución del sistema.
+         * @param Vector de Objects con los datos de la ejecución a ingresar.
+            | Índice | Descripción             | Tipo de datos |
+            |:------:|:-----------------------:|:-------------:|
+            |    0   |  Numero de ejecucion    |      int      |
+            |    1   |  Responsable            |     string    |
+            |    2   |  Id del diseno          |      int      |
+            |    3   |  Fecha de ejecucion     |     Datetime  |
+            |    4   |  Incidencias            |     string    |
+         * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
+         */
+        internal int modificar_ejecucion(Object[] datos_ejecucion)
+        {
+            EjecucionPruebas ejecucion = new EjecucionPruebas(datos_ejecucion);
+
+            int primer_resultado = m_base_datos.eliminar_ejecucion( Convert.ToInt32(datos_ejecucion[2]), Convert.ToInt32(datos_ejecucion[0]) );
+
+            int segundo_resultado = m_base_datos.insertar_ejecucion(ejecucion);
+
+            return primer_resultado + segundo_resultado;
+        }
+
+
+        /** @brief Método que modifica un resultado del sistema.
+         * @param Vector de Objects con los datos del resultado a ingresar.
+                | Índice | Descripción             | Tipo de datos |
+                |:------:|:-----------------------:|:-------------:|
+                |    0   |  Numero de resultado    |      int      |
+                |    1   |  Id del diseno          |      int      |
+                |    2   |  Numero de ejecucion    |      int      |
+                |    3   |  Estado                 |     string    |
+                |    4   |  Tipo No Conformidad    |     string    |
+                |    5   |  Id del Caso            |     string    |
+                |    6   |  Descripcion No Conf.   |     string    |
+                |    7   |  Justificacion          |     string    |
+                |    8   |  Ruta de la imagen      |     string    |
+         * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
+         */
+        internal int modificar_resultado(Object[] datos_resultado)
+        {
+            ResultadosEP resultado = new ResultadosEP(datos_resultado);
+
+            int primer_resultado = m_base_datos.eliminar_resultado( Convert.ToInt32(datos_resultado[1]), Convert.ToInt32(datos_resultado[2]), Convert.ToInt32(datos_resultado[0]) );
+
+            int segundo_resultado = m_base_datos.insertar_resultado(resultado);
+
+            return primer_resultado + segundo_resultado;
+        }
+
+        /** @brief Consultar los datos de una ejecución de pruebas.
+        *   @param id_ejecucion id de la ejecucion a consultar.
+        *   @return DataTable con los datos de la ejecución de prueba.
+        */
+        internal DataTable consultar_ejecucion(int id_diseno, int id_ejecucion)
+        {
+            return m_base_datos.consultar_ejecucion(id_diseno, id_ejecucion);
+        }
+
+        /** @brief Consultar los resultados de una ejecución de pruebas.
+        *   @param id_ejecucion id de la ejecucion a consultar.
+        *   @return DataTable con los resultados de una ejecución de prueba.
+        */
+        internal DataTable consultar_resultados(int id_diseno, int id_ejecucion)
+        {
+            return m_base_datos.consultar_resultados(id_diseno, id_ejecucion);
+        }
+
 
         // -------------------------------------- Métodos que corresponden a otras clases --------------------------------------
 
@@ -105,8 +172,8 @@ namespace SAPS.Controladoras
          */
         public DataTable solicitar_casos_asociados_diseno(int id_diseno)
         {
-            ///@todo
-            return null;
+            m_controladora_cp = new ControladoraCasoPruebas();
+            return m_controladora_cp.solicitar_casos_pruebas_disponibles(id_diseno);
         }
 
         /** @brief Método que se encarga de buscar la información correspondiente a un diseño de pruebas.
@@ -117,6 +184,16 @@ namespace SAPS.Controladoras
         {
             m_controladora_dp = new ControladoraDisenosPruebas();
             return m_controladora_dp.consultar_diseno_pruebas(id_diseno);
+        }
+
+        /** @brief Metodo que revisa si un usario es administrador o no.
+         * @param String con el nombre de usuario que se quiere saber si es administrador.
+         * @return True si es administrador, False si es un usuario normal.
+         */
+        public bool es_administrador(String nombre_usuario)
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.es_administrador(nombre_usuario);
         }
     }
 }

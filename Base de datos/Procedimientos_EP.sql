@@ -4,6 +4,8 @@ DROP PROCEDURE ELIMINAR_EP;
 DROP PROCEDURE ELIMINAR_RESULTADO;
 DROP PROCEDURE INSERTAR_EP;
 DROP PROCEDURE INSERTAR_RESULTADO;
+DROP PROCEDURE CONSULTAR_EJECUCION;
+DROP PROCEDURE CONSULTAR_RESULTADOS;
 
 GO
 CREATE PROCEDURE ELIMINAR_EP
@@ -33,10 +35,28 @@ GO
 
 GO
 CREATE PROCEDURE INSERTAR_RESULTADO
-	@id_diseno int, @num_ejecucion int, @estado varchar(32), @tipo_no_conformidad varchar(64), @id_caso varchar(64), @desc_no_conformidad varchar(256), @justificacion varchar(512), @imagen image
+	@id_diseno int, @num_ejecucion int, @estado varchar(32), @tipo_no_conformidad varchar(64), @id_caso varchar(64), @desc_no_conformidad varchar(256), @justificacion varchar(512), @ruta_imagen varchar(512)
 AS
 	INSERT INTO Resultados
-		(id_diseno, num_ejecucion, estado, tipo_no_conformidad, id_caso, desc_no_conformidad, justificacion, imagen)
+		(id_diseno, num_ejecucion, estado, tipo_no_conformidad, id_caso, desc_no_conformidad, justificacion, ruta_imagen)
 	VALUES
-		(@id_diseno, @num_ejecucion, @estado, @tipo_no_conformidad, @id_caso, @desc_no_conformidad, @justificacion, @imagen)
+		(@id_diseno, @num_ejecucion, @estado, @tipo_no_conformidad, @id_caso, @desc_no_conformidad, @justificacion, @ruta_imagen)
+GO
+
+GO
+CREATE PROCEDURE CONSULTAR_EJECUCION
+	@id_diseno int, @numero_ejecucion int
+AS
+	SELECT *
+	FROM Ejecucion
+	WHERE id_diseno = @id_diseno AND num_ejecucion = @numero_ejecucion
+GO
+
+GO
+CREATE PROCEDURE CONSULTAR_RESULTADOS
+	@id_diseno int, @numero_ejecucion int
+AS
+	SELECT *
+	FROM Resultados
+	WHERE id_diseno = @id_diseno AND num_ejecucion = @numero_ejecucion
 GO

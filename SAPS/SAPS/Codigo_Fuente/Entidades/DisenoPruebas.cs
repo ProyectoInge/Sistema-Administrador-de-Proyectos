@@ -27,6 +27,7 @@ namespace SAPS.Entidades
         private string m_nivel_prueba;
         private string m_username_responsable;
         private string m_ambiente;
+        private string m_procedimiento;
         private string m_criterio_aceptacion;
 
         /** @param datos Un vector tipo objeto que contiene toda la información necesaria
@@ -42,7 +43,8 @@ namespace SAPS.Entidades
             |    6   |    Nivel de prueba   |     string    |
             |    7   | Username responsable |     string    |
             |    8   |      Ambiente        |     string    |
-            |    9   | Criterio aceptacion  |     string    |
+            |    9   |    Procedimiento     |     string    |
+            |   10   | Criterio aceptacion  |     string    |
         */
         public DisenoPruebas(Object[] datos)
         {
@@ -55,10 +57,17 @@ namespace SAPS.Entidades
             m_nivel_prueba = Convert.ToString(datos[6]);
             m_username_responsable = Convert.ToString(datos[7]);
             m_ambiente = Convert.ToString(datos[8]);
-            m_criterio_aceptacion = Convert.ToString(datos[9]);
+            m_procedimiento = datos[9].ToString();
+            m_criterio_aceptacion = Convert.ToString(datos[10]);
         }
 
         //Métodos de get y set
+
+        public string procedimiento
+        {
+            get { return m_procedimiento; }
+            set { m_procedimiento = value; }
+        }
 
         public string criterio_aceptacion
         {
