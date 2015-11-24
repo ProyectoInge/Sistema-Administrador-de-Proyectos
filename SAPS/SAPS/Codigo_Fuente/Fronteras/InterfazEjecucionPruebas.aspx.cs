@@ -452,6 +452,8 @@ namespace SAPS.Fronteras
                 input_ambiente_diseno.Text = info_diseno.Rows[0]["ambiente"].ToString();
                 input_criterios_aceptacion_diseno.Text = info_diseno.Rows[0]["criterio_aceptacion"].ToString();
                 input_procedimiento_diseno.Text = info_diseno.Rows[0]["procedimiento"].ToString();
+                int id_proyecto = Convert.ToInt32(info_diseno.Rows[0]["id_proyecto"]);
+                llena_rh_disponibles(id_proyecto);
                 btn_eliminar_resultado.Enabled = true;
                 btn_agregar_resultado.Enabled = true;
                 drop_rh_disponibles.Enabled = true;
@@ -536,6 +538,25 @@ namespace SAPS.Fronteras
                 label_mensaje_error_archivo.Text = " No seleccionó ningún archivo.";
                 alerta_error_archivo.Visible = true;
                 upModalImagen.Update();
+            }
+        }
+
+        /** @brief Metodo que se encarga de llenar los recursos humanos disponibles.
+         * @param El identificador del proyecto del cual se van a mostrar los recursos humanos disponibles.
+        */
+        private void llena_rh_disponibles(int id_proyecto)
+        {
+            DataTable rh_disponibles = m_controladora_ep.consultar_rh_asociados_proyecto(id_proyecto);
+            ListItem item_tmp = new ListItem();
+            item_tmp.Text = "-Seleccione un recurso humano-";
+            item_tmp.Value = "";
+            drop_rh_disponibles.Items.Add(item_tmp);
+            for (int i=0; i<rh_disponibles.Rows.Count; ++i)
+            {
+                item_tmp = new ListItem();
+                item_tmp.Text = rh_disponibles.Rows[i]["nombre"].ToString();
+                item_tmp.Value = rh_disponibles.Rows[i]["username"].ToString();
+                drop_rh_disponibles.Items.Add(item_tmp);
             }
         }
     }

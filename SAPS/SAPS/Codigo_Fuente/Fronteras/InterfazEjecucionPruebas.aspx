@@ -173,12 +173,12 @@
                                 <div class="col-md-2">
                                     <asp:Label runat="server" ID="label_responsable" AssociatedControlID="drop_rh_disponibles" CssClass="control-label">Responsable <span class="text-danger">*</span></asp:Label>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <asp:DropDownList ID="drop_rh_disponibles" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
                                     <asp:Label runat="server" CssClass="text-danger" ID="label_error_rh"><small>Debe seleccionar un responsable para la ejecución.</small></asp:Label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-md-offset-1">
                                     <asp:Label runat="server" ID="label_fecha" AssociatedControlID="input_fecha" CssClass="control-label">Fecha de la última ejecución <span class="text-danger"">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-3">

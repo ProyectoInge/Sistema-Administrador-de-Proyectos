@@ -102,7 +102,7 @@ namespace SAPS.Controladoras
         {
             EjecucionPruebas ejecucion = new EjecucionPruebas(datos_ejecucion);
 
-            int primer_resultado = m_base_datos.eliminar_ejecucion( Convert.ToInt32(datos_ejecucion[2]), Convert.ToInt32(datos_ejecucion[0]) );
+            int primer_resultado = m_base_datos.eliminar_ejecucion(Convert.ToInt32(datos_ejecucion[2]), Convert.ToInt32(datos_ejecucion[0]));
 
             int segundo_resultado = m_base_datos.insertar_ejecucion(ejecucion);
 
@@ -129,7 +129,7 @@ namespace SAPS.Controladoras
         {
             ResultadosEP resultado = new ResultadosEP(datos_resultado);
 
-            int primer_resultado = m_base_datos.eliminar_resultado( Convert.ToInt32(datos_resultado[1]), Convert.ToInt32(datos_resultado[2]), Convert.ToInt32(datos_resultado[0]) );
+            int primer_resultado = m_base_datos.eliminar_resultado(Convert.ToInt32(datos_resultado[1]), Convert.ToInt32(datos_resultado[2]), Convert.ToInt32(datos_resultado[0]));
 
             int segundo_resultado = m_base_datos.insertar_resultado(resultado);
 
@@ -156,6 +156,16 @@ namespace SAPS.Controladoras
 
 
         // -------------------------------------- Métodos que corresponden a otras clases --------------------------------------
+
+        /** @brief Método que busca todos los recursos humanos que estan asociados a un determinado proyecto.
+         * @param El identificador del proyecto.
+         * @return DataTable con la informacion de todos los recursos humanos asociados al proyecto puesto
+        */
+        public DataTable consultar_rh_asociados_proyecto(int id_proyecto)
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.consultar_rh_asociados_proyecto(id_proyecto);
+        }
 
         /** @brief Método que se encarga de obtener todos los diseños de prueba que hay en el sistema.
          * @return DataTable con toda la información de todos los diseños que estan presentes en el sistema.
