@@ -39,17 +39,16 @@ namespace SAPS.Fronteras
                 alerta_exito.Visible = false;
                 alerta_error_archivo.Visible = false;
                 label_img_agregada.Visible = false;
-                btn_agregar_resultado.Enabled = false;
-                btn_eliminar_resultado.Enabled = false;
                 drop_rh_disponibles.Enabled = false;
 
                 if (!IsPostBack)
                 {
-
                     m_es_administrador = m_controladora_ep.es_administrador(Context.User.Identity.Name);
                     actualiza_disenos();
+                    btn_agregar_resultado.Enabled = false;
+                    btn_eliminar_resultado.Enabled = false;
+                    actualiza_resultados();
                 }
-                actualiza_resultados();
             }
             else
             {
@@ -293,7 +292,12 @@ namespace SAPS.Fronteras
         */
         protected void btn_agregar_resultado_Click(object sender, EventArgs e)
         {
-            string ruta = Server.MapPath("~") + "/imagenes/" + m_nombre_archivo;
+            string ruta = "";
+            if (m_nombre_archivo != "")
+            {
+                ruta = Server.MapPath("~") + "/imagenes/" + m_nombre_archivo;
+            }
+
             TableRow nueva_fila = new TableRow();
             TableCell celda_tmp = new TableCell();
 
@@ -313,7 +317,9 @@ namespace SAPS.Fronteras
 
             //Agrega el identificador del caso de prueba del resultado
             celda_tmp = new TableCell();
-            celda_tmp.Text = drop_casos.SelectedItem.Value;
+            ///@todo Elejir el caso correcto, por ahora tira un foobar de 1
+            //celda_tmp.Text = drop_casos.SelectedItem.Value;
+            celda_tmp.Text = 1.ToString(); ;
             nueva_fila.Cells.Add(celda_tmp);
 
             //Agrega la descripcion de la no conformidad
@@ -322,6 +328,7 @@ namespace SAPS.Fronteras
             input_tmp.CssClass = "form-control";
             input_tmp.Enabled = false;
             input_tmp.TextMode = TextBoxMode.MultiLine;
+            input_tmp.Rows = 2;
             input_tmp.Attributes.Add("resize", "none");
             input_tmp.Text = input_descripcion.Text;
             celda_tmp.Controls.Add(input_tmp);
@@ -333,6 +340,7 @@ namespace SAPS.Fronteras
             input_tmp.CssClass = "form-control";
             input_tmp.Enabled = false;
             input_tmp.TextMode = TextBoxMode.MultiLine;
+            input_tmp.Rows = 2;
             input_tmp.Attributes.Add("resize", "none");
             input_tmp.Text = input_justificacion.Text;
             celda_tmp.Controls.Add(input_tmp);
@@ -351,7 +359,14 @@ namespace SAPS.Fronteras
             //agrega la fila a la tabla
             tabla_resultados.Rows.Add(nueva_fila);
 
+            limpia_campos_ingresar_resultado();
+        }
 
+        private void limpia_campos_ingresar_resultado()
+        {
+            input_descripcion.Text = "";
+            input_justificacion.Text = "";
+            m_nombre_archivo = "";
         }
 
         protected void btn_consultar_imagen_Click(object sender, EventArgs e)
@@ -487,7 +502,6 @@ namespace SAPS.Fronteras
         */
         private void llena_casos()
         {
-            //Llenado y creación del DropDown (ID caso de prueba)
             DataTable casos_disponibles = m_controladora_ep.solicitar_casos_asociados_diseno(m_llave_ejecucion[1]);
             ListItem item_tmp = new ListItem();
             for (int i = 0; i < casos_disponibles.Rows.Count; ++i)
@@ -511,7 +525,7 @@ namespace SAPS.Fronteras
                 {
                     if (extension == ".jpg" || extension == ".png" || extension == ".jpeg") //revisa que sea una imagen
                     {
-                        subidor_archivo.PostedFile.SaveAs(Server.MapPath("~") + "/imagenes/" + nombre_archivo); //Guarda el archivo en el servidor.
+                        subidor_archivo.PostedFile.SaveAs(Server.MapPath("~") + "/imagenes/"+ DateTime.Now.ToString("yyyyMMddHHmmssfff") + nombre_archivo); //Guarda el archivo en el servidor.
                         m_nombre_archivo = nombre_archivo;
                         cuerpo_alerta_exito.Text = " Se subió correctamente la imagen";
                         alerta_exito.Visible = true;
