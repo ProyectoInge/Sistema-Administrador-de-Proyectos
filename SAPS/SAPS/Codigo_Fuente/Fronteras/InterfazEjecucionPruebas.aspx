@@ -135,11 +135,11 @@
                                                 </asp:DropDownList>
                                             </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_descripcion">
-                                                <asp:TextBox runat="server" ID="input_descripcion" CssClass="form-control" TextMode="MultiLine" Rows="2" style="resize:none"
+                                                <asp:TextBox runat="server" ID="input_descripcion" CssClass="form-control" TextMode="MultiLine" Rows="2" Style="resize: none"
                                                     placeholder="Describa la no conformidad"></asp:TextBox>
                                             </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_justificacion">
-                                                <asp:TextBox runat="server" ID="input_justificacion" CssClass="form-control" TextMode="MultiLine" Rows="2" style="resize:none"
+                                                <asp:TextBox runat="server" ID="input_justificacion" CssClass="form-control" TextMode="MultiLine" Rows="2" Style="resize: none"
                                                     placeholder="Escriba la justificación de lo ocurrido"></asp:TextBox>
                                             </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_btn_agregar_imagen">
@@ -317,7 +317,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-4 col-md-offset-1">
-                                            <asp:FileUpload ID="subidor_archivo" runat="server"/>
+                                            <asp:FileUpload ID="subidor_archivo" runat="server" />
                                         </div>
                                         <div class="col-md-5 col-md-offset-1">
                                             <asp:Button runat="server" CssClass="btn btn-primary btn-block" Text="Guardar imagen" ID="btn_agregar_imagen" OnClick="btn_agregar_imagen_Click" />
@@ -329,6 +329,31 @@
                                 <button type="button" class="btn btn-link" style="color: darkgray" data-dismiss="modal" aria-label="Close">Volver</button>
                             </div>
                         </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </section>
+    <!--Mostrar imágen -->
+    <section id="modal_imagen">
+        <div class="modal fade bs-example-sm" id="modal_mostrar_imagen" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="update_mostrar_imagen" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <asp:Label ID="Label1" runat="server" Text="Imagen"></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Image ID="visor_imagen" runat="server"/>
+                                    </div>
+                                </div>
+                            </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>

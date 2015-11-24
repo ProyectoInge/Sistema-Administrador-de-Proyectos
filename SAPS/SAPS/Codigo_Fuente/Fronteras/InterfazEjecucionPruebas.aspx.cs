@@ -463,8 +463,16 @@ namespace SAPS.Fronteras
 
         protected void btn_consultar_imagen_Click(object sender, EventArgs e)
         {
-            // En el ID del boton viene la ruta a la imagen.
-            ///@todo Desplegar el modal donde muestre la imagen
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_mostrar_imagen", "$('#modal_mostrar_imagen').modal();", true);
+            string url_image = ((Button)sender).ID;
+            if (url_image != "") {
+                visor_imagen.ImageUrl = url_image;
+            }
+            else
+            {
+                visor_imagen.ImageUrl = "http://telegram-sticker.github.io/public/stickers/animals/15.png";
+            }
+            update_mostrar_imagen.Update();
         }
 
         /** @brief Agrega un resultado a la tabla de los resultados.
