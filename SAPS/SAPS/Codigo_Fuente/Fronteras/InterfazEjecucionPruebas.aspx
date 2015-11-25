@@ -336,7 +336,7 @@
             </div>
         </div>
     </section>
-    <!--Mostrar imágen -->
+    <!--Mostrar imgen -->
     <section id="modal_imagen_mostrar">
         <div class="modal fade bs-example-sm" id="modal_mostrar_imagen" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -435,6 +435,10 @@
                 } else {
                     $("#<%= label_error_input_resultado.ClientID%>").fadeOut();
                 }
+            });
+
+            $("#<%=btn_Aceptar.ClientID%>").click(function () {
+                ///@todo
             });
         });
     </script>
