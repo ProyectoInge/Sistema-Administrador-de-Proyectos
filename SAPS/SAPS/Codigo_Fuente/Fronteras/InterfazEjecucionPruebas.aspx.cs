@@ -629,23 +629,6 @@ namespace SAPS.Fronteras
             update_mostrar_imagen.Update();
         }
 
-        /** @brief Agrega un resultado a la tabla de los resultados.
-         * @param Un vector con todos los datos del resultado a ingresar.
-         *  | Indice    |   Descripcion         | Tipo de dato      |
-            |:---------:|:---------------------:|:-----------------:|
-            |   0       |   # de resultado      |   int             |
-            |   1       |   Estado              |   string          |
-            |   2       |   Tipo no conformidad |   string          |
-            |   3       |   ID Caso de prueba   |   string          |
-            |   4       |   Desc. no conformidad|   string          |
-            |   5       |   Justificacion       |   string          |
-            |   6       |   Ruta imagen         |   string          |
-        */
-        private void agrega_resultado(Object[] datos_resultado)
-        {
-            int resultado = m_controladora_ep.insertar_resultado(datos_resultado);
-        }
-
         protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
         {
             ///@todo sacar el num de resultado
