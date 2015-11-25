@@ -149,6 +149,11 @@ namespace SAPS.Controladoras
             return m_base_datos.consultar_ejecucion(id_ejecucion);
         }
 
+        public DataTable consultar_ejecuciones(int id_diseno)
+        {
+            return m_base_datos.consultar_ejecuciones(id_diseno);
+        }
+
         /** @brief Consultar los resultados de una ejecución de pruebas.
         *   @param id_ejecucion id de la ejecucion a consultar.
         *   @return DataTable con los resultados de una ejecución de prueba.
@@ -156,11 +161,6 @@ namespace SAPS.Controladoras
         public DataTable consultar_resultados(int id_ejecucion)
         {
             return m_base_datos.consultar_resultados(id_ejecucion);
-        }
-
-        public DataTable consultar_ejecuciones(int id_diseno)
-        {
-            return m_base_datos.consultar_ejecuciones(id_diseno);
         }
 
 
