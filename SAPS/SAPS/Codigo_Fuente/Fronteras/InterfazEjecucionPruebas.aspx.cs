@@ -23,6 +23,20 @@ namespace SAPS.Fronteras
 
         private static string m_nombre_archivo;
 
+        private static List<string[]> m_resultados_tmp;     // Va a llevar registro de cuantos resultados temporales se han creado.
+        /* Cada String[] de la lista m_resultados_tmp tiene la siguiente estructura:
+            
+            |   Indice  |   Significado         |
+            |:---------:|:---------------------:|
+            |   0       |   # resultado         |
+            |   1       |   estado              |
+            |   2       |   tipo no conformidad |
+            |   3       |   ID Caso             |
+            |   4       |   Descripcion         |
+            |   5       |   Justificacion       |
+            |   6       |   Ruta imagen         |
+        
+            */
 
         /** @brief Metodo que se llama al cargar la página.
         */
@@ -32,21 +46,25 @@ namespace SAPS.Fronteras
             if (Request.IsAuthenticated)
             {
                 m_controladora_ep = new ControladoraEjecuciones();
-                m_opcion = 'i';
-                m_llave_ejecucion = new int[2] { -1, -1 };
                 alerta_advertencia.Visible = false;
                 alerta_error.Visible = false;
                 alerta_exito.Visible = false;
                 alerta_error_archivo.Visible = false;
-                label_img_agregada.Visible = false;
-                drop_rh_disponibles.Enabled = false;
 
                 if (!IsPostBack)
                 {
+                    m_llave_ejecucion = new int[2] { -1, -1 };
                     m_es_administrador = m_controladora_ep.es_administrador(Context.User.Identity.Name);
                     actualiza_disenos();
                     btn_agregar_resultado.Enabled = false;
                     btn_eliminar_resultado.Enabled = false;
+                    drop_rh_disponibles.Enabled = false;
+                    label_img_agregada.Visible = false;
+                    m_resultados_tmp = new List<string[]>();
+                    m_nombre_archivo = "";
+                }
+                else
+                {
                     actualiza_resultados();
                 }
             }
@@ -86,8 +104,8 @@ namespace SAPS.Fronteras
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
             m_opcion = 'm';
-            btn_crear.CssClass = "btn btn-default active";
-            btn_modificar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default active";
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
             activa_desactiva_botones_ime(false);
@@ -102,15 +120,19 @@ namespace SAPS.Fronteras
         {
             ///@todo
             m_opcion = 'e';
-            btn_crear.CssClass = "btn btn-default active";
+            btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default";
-            btn_eliminar.CssClass = "btn btn-default";
+            btn_eliminar.CssClass = "btn btn-default active";
             activa_desactiva_inputs(false);
         }
 
         protected void btn_crear_Click(object sender, EventArgs e)
         {
-            ///@todo
+            m_opcion = 'i';
+            btn_crear.CssClass = "btn btn-default active";
+            btn_modificar.CssClass = "btn btn-default";
+            btn_eliminar.CssClass = "btn btn-default";
+            activa_desactiva_inputs(true);
         }
 
         /** @brief Método que se activa al seleccionar el botón Aceptar, debe distinguir sobre cual funcionalidad de IME se trata
@@ -292,74 +314,32 @@ namespace SAPS.Fronteras
         */
         protected void btn_agregar_resultado_Click(object sender, EventArgs e)
         {
+            string[] fila_tmp = new string[7];
+
             string ruta = "";
             if (m_nombre_archivo != "")
             {
                 ruta = Server.MapPath("~") + "/imagenes/" + m_nombre_archivo;
             }
+            else
+            {
+                ruta = "NoTiene," + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            }
 
-            TableRow nueva_fila = new TableRow();
-            TableCell celda_tmp = new TableCell();
-
-            //Agrega el numero de resultado
-            celda_tmp.Text = celda_drop_num_resultado.Text;
-            nueva_fila.Cells.Add(celda_tmp);
-
-            //Agrega el estado del resultado
-            celda_tmp = new TableCell();
-            celda_tmp.Text = drop_estado.SelectedItem.Value;
-            nueva_fila.Cells.Add(celda_tmp);
-
-            //Agrega el tipo de no conformidad del resultado
-            celda_tmp = new TableCell();
-            celda_tmp.Text = drop_tipo_no_conformidad.SelectedItem.Value;
-            nueva_fila.Cells.Add(celda_tmp);
-
-            //Agrega el identificador del caso de prueba del resultado
-            celda_tmp = new TableCell();
-            ///@todo Elejir el caso correcto, por ahora tira un foobar de 1
-            //celda_tmp.Text = drop_casos.SelectedItem.Value;
-            celda_tmp.Text = 1.ToString(); ;
-            nueva_fila.Cells.Add(celda_tmp);
-
-            //Agrega la descripcion de la no conformidad
-            celda_tmp = new TableCell();
-            TextBox input_tmp = new TextBox();
-            input_tmp.CssClass = "form-control";
-            input_tmp.Enabled = false;
-            input_tmp.TextMode = TextBoxMode.MultiLine;
-            input_tmp.Rows = 2;
-            input_tmp.Attributes.Add("resize", "none");
-            input_tmp.Text = input_descripcion.Text;
-            celda_tmp.Controls.Add(input_tmp);
-            nueva_fila.Cells.Add(celda_tmp);
-
-            //Agrega la justificacion
-            celda_tmp = new TableCell();
-            input_tmp = new TextBox();
-            input_tmp.CssClass = "form-control";
-            input_tmp.Enabled = false;
-            input_tmp.TextMode = TextBoxMode.MultiLine;
-            input_tmp.Rows = 2;
-            input_tmp.Attributes.Add("resize", "none");
-            input_tmp.Text = input_justificacion.Text;
-            celda_tmp.Controls.Add(input_tmp);
-            nueva_fila.Cells.Add(celda_tmp);
-
-            //Hace el boton para consultar la imagen
-            celda_tmp = new TableCell();
-            Button btn_consultar_imagen = new Button();
-            btn_consultar_imagen.CssClass = "btn btn-link";
-            btn_consultar_imagen.Text = "Ver imagen";
-            btn_consultar_imagen.ID = ruta;
-            btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
-            celda_tmp.Controls.Add(btn_consultar_imagen);
-            nueva_fila.Cells.Add(celda_tmp);
-
-            //agrega la fila a la tabla
-            tabla_resultados.Rows.Add(nueva_fila);
+            #region Agrega los datos de la fila nueva a m_resultados_tmp
+            //Agrega el nuevo elemento a la lista
+            fila_tmp[0] = celda_drop_num_resultado.Text;
+            fila_tmp[1] = drop_estado.SelectedItem.Value;
+            fila_tmp[2] = drop_tipo_no_conformidad.SelectedItem.Value;
+            fila_tmp[3] = drop_casos.SelectedItem.Value; ///@todo Elejir el caso correcto, por ahora tira un foobar de 1
+            fila_tmp[4] = input_descripcion.Text;
+            fila_tmp[5] = input_justificacion.Text;
+            fila_tmp[6] = ruta;
+            m_resultados_tmp.Add(fila_tmp);     //Agrega la fila a la lista que contiene la informacion en memoria
+            #endregion
 
             limpia_campos_ingresar_resultado();
+            actualiza_resultados();
         }
 
         private void limpia_campos_ingresar_resultado()
@@ -367,6 +347,7 @@ namespace SAPS.Fronteras
             input_descripcion.Text = "";
             input_justificacion.Text = "";
             m_nombre_archivo = "";
+            label_img_agregada.Visible = false;
         }
 
         protected void btn_consultar_imagen_Click(object sender, EventArgs e)
@@ -389,6 +370,7 @@ namespace SAPS.Fronteras
         */
         private void agrega_resultado(Object[] datos_resultado)
         {
+            ///@todo la validacion de todos los campos
             int resultado = m_controladora_ep.insertar_resultado(datos_resultado);
         }
 
@@ -453,6 +435,7 @@ namespace SAPS.Fronteras
                 int id_diseno_seleccionado = Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value);
                 m_llave_ejecucion[1] = id_diseno_seleccionado;
                 llena_info_diseno(id_diseno_seleccionado);
+                llena_casos();
             }
 
         }
@@ -487,15 +470,79 @@ namespace SAPS.Fronteras
          */
         private void vacia_resultados()
         {
-            tabla_ejecuciones.Rows.Clear();
+            for(int i=tabla_resultados.Rows.Count-1; i>=2; --i)
+            {
+                tabla_resultados.Rows.RemoveAt(i);
+            }
         }
 
         /** @brief Método que llena la tabla donde estan los resultados de la ejecución.
          */
         private void llena_resultados()
         {
-            celda_drop_num_resultado.Text = (tabla_resultados.Rows.Count - 1).ToString();
-            llena_casos();
+            celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
+            for (int i = 0; i < m_resultados_tmp.Count; ++i)
+            {
+                string[] vec_tmp = m_resultados_tmp[i]; //Agarra el i-esimo vector de la lista
+                TableRow nueva_fila = new TableRow();
+                TableCell celda_tmp = new TableCell();
+
+                #region Crea los controles de la fila
+                //Agrega el numero de resultado
+                celda_tmp.Text = vec_tmp[0];
+                nueva_fila.Cells.Add(celda_tmp);
+
+                //Agrega el estado del resultado
+                celda_tmp = new TableCell();
+                celda_tmp.Text = vec_tmp[1];
+                nueva_fila.Cells.Add(celda_tmp);
+
+                //Agrega el tipo de no conformidad del resultado
+                celda_tmp = new TableCell();
+                celda_tmp.Text = vec_tmp[2];
+                nueva_fila.Cells.Add(celda_tmp);
+
+                //Agrega el identificador del caso de prueba del resultado
+                celda_tmp = new TableCell();
+                celda_tmp.Text = vec_tmp[3];
+                nueva_fila.Cells.Add(celda_tmp);
+
+                //Agrega la descripcion de la no conformidad
+                celda_tmp = new TableCell();
+                TextBox input_tmp = new TextBox();
+                input_tmp.CssClass = "form-control";
+                input_tmp.Enabled = false;
+                input_tmp.TextMode = TextBoxMode.MultiLine;
+                input_tmp.Rows = 2;
+                input_tmp.Attributes.Add("resize", "none");
+                input_tmp.Text = vec_tmp[4];
+                celda_tmp.Controls.Add(input_tmp);
+                nueva_fila.Cells.Add(celda_tmp);
+
+                //Agrega la justificacion
+                celda_tmp = new TableCell();
+                input_tmp = new TextBox();
+                input_tmp.CssClass = "form-control";
+                input_tmp.Enabled = false;
+                input_tmp.TextMode = TextBoxMode.MultiLine;
+                input_tmp.Rows = 2;
+                input_tmp.Attributes.Add("resize", "none");
+                input_tmp.Text = vec_tmp[5];
+                celda_tmp.Controls.Add(input_tmp);
+                nueva_fila.Cells.Add(celda_tmp);
+
+                //Hace el boton para consultar la imagen
+                celda_tmp = new TableCell();
+                Button btn_consultar_imagen = new Button();
+                btn_consultar_imagen.CssClass = "btn btn-link";
+                btn_consultar_imagen.Text = "Ver imagen";
+                btn_consultar_imagen.ID = vec_tmp[6];
+                btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
+                celda_tmp.Controls.Add(btn_consultar_imagen);
+                nueva_fila.Cells.Add(celda_tmp);
+                #endregion
+                tabla_resultados.Rows.Add(nueva_fila);
+            }
         }
 
         /** @brief Metodo que se encarga de llenar el drop con los casos disponibles.
@@ -513,19 +560,21 @@ namespace SAPS.Fronteras
             }
         }
 
-
+        /** @brief Evento que guarda una imagen que subió el usuario al servidor.
+         * @param Los parametros por defecto de ASP para un evento.
+        */
         protected void btn_agregar_imagen_Click(object sender, EventArgs e)
         {
             if (subidor_archivo.HasFile) //Verifica que escogió un archivo
             {
-                string nombre_archivo = Server.HtmlEncode(subidor_archivo.FileName); //obtengo el nombre del archivo
+                string nombre_archivo = DateTime.Now.ToString("yyyyMMddHHmmssfff") + Server.HtmlEncode(subidor_archivo.FileName); //obtengo el nombre del archivo
                 string extension = System.IO.Path.GetExtension(nombre_archivo); //obtengo la extension del archivo
                 int tamano_archivo = subidor_archivo.PostedFile.ContentLength;  //obtengo el tamaño del archivo
                 if (tamano_archivo < TAMA_ARCHIVO)    //revisa que el archivo sea menor a 1.5MB
                 {
                     if (extension == ".jpg" || extension == ".png" || extension == ".jpeg") //revisa que sea una imagen
                     {
-                        subidor_archivo.PostedFile.SaveAs(Server.MapPath("~") + "/imagenes/"+ DateTime.Now.ToString("yyyyMMddHHmmssfff") + nombre_archivo); //Guarda el archivo en el servidor.
+                        subidor_archivo.PostedFile.SaveAs(Server.MapPath("~") + "/imagenes/" + nombre_archivo); //Guarda el archivo en el servidor.
                         m_nombre_archivo = nombre_archivo;
                         cuerpo_alerta_exito.Text = " Se subió correctamente la imagen";
                         alerta_exito.Visible = true;
@@ -541,7 +590,7 @@ namespace SAPS.Fronteras
                 }
                 else
                 {
-                    label_mensaje_error_archivo.Text = " El archivo seleccionado pesa mas de 2MB.";
+                    label_mensaje_error_archivo.Text = " El archivo seleccionado pesa mas de 1,5MB.";
                     alerta_error_archivo.Visible = true;
                     upModalImagen.Update();
                 }
@@ -565,7 +614,7 @@ namespace SAPS.Fronteras
             item_tmp.Text = "-Seleccione un recurso humano-";
             item_tmp.Value = "";
             drop_rh_disponibles.Items.Add(item_tmp);
-            for (int i=0; i<rh_disponibles.Rows.Count; ++i)
+            for (int i = 0; i < rh_disponibles.Rows.Count; ++i)
             {
                 item_tmp = new ListItem();
                 item_tmp.Text = rh_disponibles.Rows[i]["nombre"].ToString();

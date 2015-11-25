@@ -99,7 +99,7 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_panel2" class="form-group">
-                                <div class="col-md-12" style="height: 250px; overflow-y: scroll;">
+                                <div class="col-md-12" style="height: 400px; overflow-y: scroll;">
                                     <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-bordered">
                                         <asp:TableHeaderRow runat="server" ID="header_tabla_resultados">
                                             <asp:TableHeaderCell runat="server" ID="celda_num_resultado" Text="#"></asp:TableHeaderCell>
@@ -117,7 +117,7 @@
                                                     <asp:ListItem runat="server" Text="Satisfactoria" Value="Satisfactoria"></asp:ListItem>
                                                     <asp:ListItem runat="server" Text="Fallida" Value="Fallida"></asp:ListItem>
                                                     <asp:ListItem runat="server" Text="Pendiente" Value="Pendiente"></asp:ListItem>
-                                                    <asp:ListItem runat="server" Text="Pendiente" Value="Pendiente"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Cancelada" Value="Cancelada"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_drop_tipo_no_conformidad">
@@ -306,7 +306,7 @@
                                         <div class="col-md-10 col-md-offset-1">
                                             <p>
                                                 Seleccione el archivo que desea adjuntar donde se ven los resultados de la prueba realizada. El archivo tiene que estar en formato .jpg, .jpeg o .png solamente 
-                                            y no puede pesar más de 2 MB.
+                                            y no puede pesar más de 1,5 MB.
                                             </p>
                                         </div>
                                     </div>
