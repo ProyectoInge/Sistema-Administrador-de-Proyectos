@@ -73,8 +73,15 @@ namespace SAPS.Fronteras
                 }
                 else
                 {
-                actualiza_resultados();
-            }
+                    actualiza_resultados();
+                }
+
+                if (drop_disenos_disponibles.SelectedItem.Value != "")
+                {
+                    llenar_ejecuciones_disponibles(Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value));
+                }
+
+
             }
             else
             {
@@ -356,7 +363,7 @@ namespace SAPS.Fronteras
             input_justificacion.Text = "";
             m_nombre_archivo = "";
             label_img_agregada.Visible = false;
-            
+
         }
 
 
@@ -401,7 +408,7 @@ namespace SAPS.Fronteras
             try
             {
                 input_fecha.Text = Convert.ToDateTime(datos_ejecucion.Rows[0]["fecha_ultima_ejec"]).ToString("yyyy-MM-dd");
-        }
+            }
             catch (Exception error)
             {
                 input_fecha.Text = "yyyy-MM-dd";
@@ -469,9 +476,10 @@ namespace SAPS.Fronteras
         protected void btn_consultar_imagen_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_mostrar_imagen", "$('#modal_mostrar_imagen').modal();", true);
-            string url_image = ((Button)sender).ID;
-            if (url_image != "") {
-                visor_imagen.ImageUrl = url_image;
+            string[] partes_imagen = ((Button)sender).ID.Split(',');
+            if (partes_imagen[0] != "NoTiene")
+            {
+                visor_imagen.ImageUrl = partes_imagen[0];
             }
             else
             {
@@ -600,7 +608,7 @@ namespace SAPS.Fronteras
          */
         private void vacia_resultados()
         {
-            for(int i=tabla_resultados.Rows.Count-1; i>=2; --i)
+            for (int i = tabla_resultados.Rows.Count - 1; i >= 2; --i)
             {
                 tabla_resultados.Rows.RemoveAt(i);
             }
