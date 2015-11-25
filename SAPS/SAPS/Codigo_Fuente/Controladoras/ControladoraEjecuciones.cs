@@ -102,7 +102,7 @@ namespace SAPS.Controladoras
         {
             EjecucionPruebas ejecucion = new EjecucionPruebas(datos_ejecucion);
 
-            int primer_resultado = m_base_datos.eliminar_ejecucion( Convert.ToInt32(datos_ejecucion[2]), Convert.ToInt32(datos_ejecucion[0]) );
+            int primer_resultado = m_base_datos.eliminar_ejecucion(Convert.ToInt32(datos_ejecucion[2]), Convert.ToInt32(datos_ejecucion[0]));
 
             int segundo_resultado = m_base_datos.insertar_ejecucion(ejecucion);
 
@@ -129,7 +129,7 @@ namespace SAPS.Controladoras
         {
             ResultadosEP resultado = new ResultadosEP(datos_resultado);
 
-            int primer_resultado = m_base_datos.eliminar_resultado( Convert.ToInt32(datos_resultado[1]), Convert.ToInt32(datos_resultado[2]), Convert.ToInt32(datos_resultado[0]) );
+            int primer_resultado = m_base_datos.eliminar_resultado(Convert.ToInt32(datos_resultado[1]), Convert.ToInt32(datos_resultado[2]), Convert.ToInt32(datos_resultado[0]));
 
             int segundo_resultado = m_base_datos.insertar_resultado(resultado);
 
@@ -140,22 +140,37 @@ namespace SAPS.Controladoras
         *   @param id_ejecucion id de la ejecucion a consultar.
         *   @return DataTable con los datos de la ejecución de prueba.
         */
-        internal DataTable consultar_ejecucion(int id_diseno, int id_ejecucion)
+        internal DataTable consultar_ejecucion(int id_ejecucion)
         {
-            return m_base_datos.consultar_ejecucion(id_diseno, id_ejecucion);
+            return m_base_datos.consultar_ejecucion(id_ejecucion);
         }
 
         /** @brief Consultar los resultados de una ejecución de pruebas.
         *   @param id_ejecucion id de la ejecucion a consultar.
         *   @return DataTable con los resultados de una ejecución de prueba.
         */
-        internal DataTable consultar_resultados(int id_diseno, int id_ejecucion)
+        internal DataTable consultar_resultados(int id_ejecucion)
         {
-            return m_base_datos.consultar_resultados(id_diseno, id_ejecucion);
+            return m_base_datos.consultar_resultados(id_ejecucion);
+        }
+
+        internal DataTable consultar_ejecuciones(int id_diseno)
+        {
+            return m_base_datos.consultar_ejecuciones(id_diseno);
         }
 
 
         // -------------------------------------- Métodos que corresponden a otras clases --------------------------------------
+
+        /** @brief Método que busca todos los recursos humanos que estan asociados a un determinado proyecto.
+         * @param El identificador del proyecto.
+         * @return DataTable con la informacion de todos los recursos humanos asociados al proyecto puesto
+        */
+        public DataTable consultar_rh_asociados_proyecto(int id_proyecto)
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.consultar_rh_asociados_proyecto(id_proyecto);
+        }
 
         /** @brief Método que se encarga de obtener todos los diseños de prueba que hay en el sistema.
          * @return DataTable con toda la información de todos los diseños que estan presentes en el sistema.
@@ -186,6 +201,11 @@ namespace SAPS.Controladoras
             return m_controladora_dp.consultar_diseno_pruebas(id_diseno);
         }
 
+        public string obtener_proposito_diseno(int id_diseno)
+        {
+            return consultar_diseno(id_diseno).Rows[0]["proposito"].ToString();
+        }
+
         /** @brief Metodo que revisa si un usario es administrador o no.
          * @param String con el nombre de usuario que se quiere saber si es administrador.
          * @return True si es administrador, False si es un usuario normal.
@@ -194,6 +214,11 @@ namespace SAPS.Controladoras
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
             return m_controladora_rh.es_administrador(nombre_usuario);
+        }
+
+        public DataTable obtener_recurso_humano(string nombre_usuario)
+        {
+            return m_controladora_rh.consultar_recurso_humano(nombre_usuario);
         }
     }
 }

@@ -290,9 +290,9 @@
                 var texto_ingresado = new String();
                 texto_ingresado = $("#<%= drop_proyecto_asociado.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_proyecto_asociado_vacio.ClientID %>").show();
+                    $("#<%= label_proyecto_asociado_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_proyecto_asociado_vacio.ClientID %>").hide();
+                    $("#<%= label_proyecto_asociado_vacio.ClientID %>").fadeOut();
                 }
             });
 
@@ -301,9 +301,9 @@
                 var texto_ingresado = new String();
                 texto_ingresado = $("#<%= drop_diseno_asociado.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_diseno_asociado_vacio.ClientID %>").show();
+                    $("#<%= label_diseno_asociado_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_diseno_asociado_vacio.ClientID %>").hide();
+                    $("#<%= label_diseno_asociado_vacio.ClientID %>").fadeOut();
                 }
             });
 
@@ -313,9 +313,9 @@
                 var texto_ingresado = new String();
                 texto_ingresado = $("#<%= drop_id_requerimientos.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_id_requerimiento_asociado_vacio.ClientID %>").show();
+                    $("#<%= label_id_requerimiento_asociado_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_id_requerimiento_asociado_vacio.ClientID %>").hide();
+                    $("#<%= label_id_requerimiento_asociado_vacio.ClientID %>").fadeOut();
                 }
             });
 
@@ -324,9 +324,9 @@
             $("#<%= text_proposito.ClientID%>").blur(function () {
                 var texto_ingresado = $("#<%= text_proposito.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_proposito_vacio.ClientID %>").show();
+                    $("#<%= label_proposito_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_proposito_vacio.ClientID %>").hide();
+                    $("#<%= label_proposito_vacio.ClientID %>").fadeOut();
                 }
             });
 
@@ -334,9 +334,9 @@
             $("#<%= text_flujo_central.ClientID%>").blur(function () {
                 var texto_ingresado = $("#<%= text_flujo_central.ClientID %>").val();
                 if (texto_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_flujo_central_vacio.ClientID %>").show();
+                    $("#<%= label_flujo_central_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_flujo_central_vacio.ClientID %>").hide();
+                    $("#<%= label_flujo_central_vacio.ClientID %>").fadeOut();
                 }
             });
 

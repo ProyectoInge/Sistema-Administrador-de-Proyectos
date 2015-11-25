@@ -348,17 +348,17 @@
 
             $("#<%= input_asignment_date.ClientID %>").blur(function () {
 
-                $("#<%= label_fecha_inicio_pronta.ClientID%>").hide();
+                $("#<%= label_fecha_inicio_pronta.ClientID%>").fadeOut();
 
                 var fecha_asignacion_ingresada = new Date($("#<%= input_asignment_date.ClientID %>").val());
 
                 if (isNaN(fecha_asignacion_ingresada.getTime())) {
-                    $("#<%= label_fecha_asigna_ingresar.ClientID%>").show();
-                    $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+                    $("#<%= label_fecha_asigna_ingresar.ClientID%>").fadeIn();
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").fadeOut();
                     $("#<%= input_asignment_date.ClientID %>").focus();
                 } else {
-                    $("#<%= label_fecha_asigna_ingresar.ClientID%>").hide();
-                    $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+                    $("#<%= label_fecha_asigna_ingresar.ClientID%>").fadeOut();
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").fadeOut();
                     $("#<%= input_start_date.ClientID %>").focus();
                 }
 
@@ -368,32 +368,32 @@
 
             $("#<%= input_start_date.ClientID %>").blur(function () {
 
-                $("#<%= label_fecha_inicio_vacia.ClientID%>").hide();
+                $("#<%= label_fecha_inicio_vacia.ClientID%>").fadeOut();
 
                 // Asignacion de las fechas a un objeto en Javascript tipo Date
                 var fecha_inicio_ingresada = new Date($("#<%= input_start_date.ClientID%>").val());
                 var fecha_asignacion_ingresada = new Date($("#<%= input_asignment_date.ClientID %>").val());
 
                 if (isNaN(fecha_asignacion_ingresada.getTime())) {                    // No puede ingresar una fecha de inicio sin ingresar una fecha de asignacion.
-                    $("#<%= label_fecha_asigna_vacia.ClientID%>").show();
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").fadeIn();
                     $("#<%= input_asignment_date.ClientID %>").focus();
                 } else {
-                    $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
+                    $("#<%= label_fecha_asigna_vacia.ClientID%>").fadeOut();
 
                     if (isNaN(fecha_inicio_ingresada.getTime())) {
 
-                        $("#<%= input_start_date.ClientID %>").focus();
+                        $("#<%= input_start_date.ClientID %>").fadeIn();
 
                     } else {
 
                         if (fecha_inicio_ingresada < fecha_asignacion_ingresada) {        // La fecha de inicio no puede ser menor a la fecha de asignacion                        
                             $("#<%= label_fecha_inicio_pronta.ClientID%>").show();
-                            $("#<%= input_start_date.ClientID %>").focus();
+                            $("#<%= input_start_date.ClientID %>").fadeIn();
                         } else {
-                            $("#<%= label_fecha_inicio_pronta.ClientID%>").hide();
-                            $("#<%= label_fecha_asigna_vacia.ClientID%>").hide();
-                            $("#<%= label_fecha_inicio_vacia.ClientID%>").hide();
-                            $("#<%= label_fecha_final_pronta.ClientID%>").hide();
+                            $("#<%= label_fecha_inicio_pronta.ClientID%>").fadeOut();
+                            $("#<%= label_fecha_asigna_vacia.ClientID%>").fadeOut();
+                            $("#<%= label_fecha_inicio_vacia.ClientID%>").fadeOut();
+                            $("#<%= label_fecha_final_pronta.ClientID%>").fadeOut();
                             $("#<%= input_finish_date.ClientID %>").focus();
                         }
                     }
@@ -408,7 +408,7 @@
                 var fecha_final = new Date($("#<%= input_finish_date.ClientID%>").val());
 
                 if (isNaN(fecha_inicio.getTime())) {
-                    $("#<%= label_fecha_inicio_vacia.ClientID%>").show();
+                    $("#<%= label_fecha_inicio_vacia.ClientID%>").fadeIn();
                     $("#<%= input_start_date.ClientID %>").focus();
                 } else {
 
@@ -417,10 +417,10 @@
                     } else {
 
                         if (fecha_inicio > fecha_final) {
-                            $("#<%= label_fecha_final_pronta.ClientID%>").show();
+                            $("#<%= label_fecha_final_pronta.ClientID%>").fadeIn();
                             $("#<%= input_finish_date.ClientID %>").focus();
                         } else {
-                            $("#<%= label_fecha_final_pronta.ClientID%>").hide();
+                            $("#<%= label_fecha_final_pronta.ClientID%>").fadeOut();
                         }
                     }
                 }

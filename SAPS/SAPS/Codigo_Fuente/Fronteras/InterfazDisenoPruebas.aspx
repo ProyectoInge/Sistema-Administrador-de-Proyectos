@@ -343,9 +343,9 @@
             $("#<%= input_ambiente.ClientID %>").blur(function () {
                 var cedula_ingresada = $("#<%= input_ambiente.ClientID %>").val();
                 if (cedula_ingresada == "") {   //Verifica que no este vacía
-                    $("#<%= label_error_ambiente.ClientID %>").show();
+                    $("#<%= label_error_ambiente.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_error_ambiente.ClientID%>").hide();
+                    $("#<%= label_error_ambiente.ClientID%>").fadeOut();
                 }
             });
 
@@ -354,9 +354,9 @@
             $("#<%= input_fecha.ClientID %>").blur(function () {
                 var input_fecha = $("#<%= input_fecha.ClientID %>").val();
                 if (input_fecha == "") { //Verifica que no este vacio
-                    $("#<%= label_error_fecha.ClientID %>").show();
+                    $("#<%= label_error_fecha.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_error_fecha.ClientID %>").hide();
+                    $("#<%= label_error_fecha.ClientID %>").fadeOut();
                     // TO DO --> validar el correo con una regex
                 }
             });
@@ -365,9 +365,9 @@
             $("#<%= input_nombre.ClientID %>").blur(function () {
                 var input_nombre = $("#<%= input_nombre.ClientID %>").val();
                 if (input_nombre == "") { //Verifica que no este vacio
-                    $("#<%= label_nombre_vacio.ClientID%>").show();
+                    $("#<%= label_nombre_vacio.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_nombre_vacio.ClientID%>").hide();
+                    $("#<%= label_nombre_vacio.ClientID%>").fadeOut();
                 }
             });
 
@@ -375,9 +375,9 @@
             $("#<%= input_procedimiento.ClientID %>").blur(function () {
                 var input_procedimiento = $("#<%= input_procedimiento%>").val();
                 if (input_procedimiento == "") {
-                    $("#<%= label_error_procedimiento.ClientID%>").show();
+                    $("#<%= label_error_procedimiento.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_procedimiento.ClientID%>").hide();
+                    $("#<%= label_error_procedimiento.ClientID%>").fadeOut();
                 }
             });
 
@@ -385,9 +385,9 @@
             $("#<%= drop_proyecto.ClientID %>").blur(function () {
                 var drop_proyecto = $(this).val();
                 if (drop_proyecto == "") {
-                    $("#<%= label_error_proyecto.ClientID%>").show();
+                    $("#<%= label_error_proyecto.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_proyecto.ClientID%>").hide();
+                    $("#<%= label_error_proyecto.ClientID%>").fadeOut();
                 }
             });
 
@@ -395,9 +395,9 @@
             $("#<%= drop_nivel.ClientID %>").blur(function () {
                 var drop_nivel = $(this).val();
                 if (drop_nivel == "") {
-                    $("#<%= label_error_drop_nivel.ClientID%>").show();
+                    $("#<%= label_error_drop_nivel.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_drop_nivel.ClientID%>").hide();
+                    $("#<%= label_error_drop_nivel.ClientID%>").fadeOut();
                 }
             });
 
@@ -405,9 +405,9 @@
             $("#<%= drop_tecnica.ClientID %>").blur(function () {
                 var drop_tecnica = $(this).val();
                 if (drop_tecnica == "") {
-                    $("#<%= label_error_drop_tecnica.ClientID%>").show();
+                    $("#<%= label_error_drop_tecnica.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_drop_tecnica.ClientID%>").hide();
+                    $("#<%= label_error_drop_tecnica.ClientID%>").fadeOut();
                 }
             });
 
@@ -416,9 +416,9 @@
             $("#<%= drop_tipo.ClientID %>").blur(function () {
                 var drop_tipo = $(this).val();
                 if (drop_tipo == "") {
-                    $("#<%= label_error_drop_tipo.ClientID%>").show();
+                    $("#<%= label_error_drop_tipo.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_drop_tipo.ClientID%>").hide();
+                    $("#<%= label_error_drop_tipo.ClientID%>").fadeOut();
                 }
             });
 
@@ -427,9 +427,9 @@
             $("#<%= drop_responsable.ClientID %>").blur(function () {
                 var drop_responsable = $(this).val();
                 if (drop_responsable == "") {
-                    $("#<%= label_error_rh.ClientID%>").show();
+                    $("#<%= label_error_rh.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_rh.ClientID%>").hide();
+                    $("#<%= label_error_rh.ClientID%>").fadeOut();
                 }
             });
 
@@ -437,9 +437,9 @@
             $("#<%= input_criterio.ClientID %>").blur(function () {
                 var input_criterio = $(this).val();
                 if (input_criterio == "") {
-                    $("#<%= label_error_criterio.ClientID%>").show();
+                    $("#<%= label_error_criterio.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_criterio.ClientID%>").hide();
+                    $("#<%= label_error_criterio.ClientID%>").fadeOut();
                 }
             });
 
