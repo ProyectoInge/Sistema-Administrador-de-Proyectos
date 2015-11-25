@@ -90,13 +90,11 @@ namespace SAPS.Fronteras
         protected void btn_modificar_Click(object sender, EventArgs e)
         {
             m_opcion = 'm';
-            btn_crear.CssClass = "btn btn-default active";
-            btn_modificar.CssClass = "btn btn-default";
+            btn_crear.CssClass = "btn btn-default";
+            btn_modificar.CssClass = "btn btn-default active"; 
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
             activa_desactiva_botones_ime(true);
-            btn_modificar.Enabled = false;
-
         }
 
         /** @brief Método que se activa al seleccionar el botón eliminar de los botones de IME
@@ -106,9 +104,9 @@ namespace SAPS.Fronteras
         {
             ///@todo
             m_opcion = 'e';
-            btn_crear.CssClass = "btn btn-default active";
+            btn_crear.CssClass = "btn btn-default"; 
             btn_modificar.CssClass = "btn btn-default";
-            btn_eliminar.CssClass = "btn btn-default";
+            btn_eliminar.CssClass = "btn btn-default active";
             activa_desactiva_inputs(false);
         }
 
