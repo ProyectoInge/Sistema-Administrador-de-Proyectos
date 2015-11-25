@@ -19,7 +19,7 @@ namespace SAPS.Fronteras
     {
         #region Variables de instancia
         ///Variables de instancia
-        private static ControladoraReportes m_controladora_rep;
+        // private static ControladoraReportes m_controladora_rep;
         #endregion
 
         protected void Page_Load(object sender, EventArgs e)

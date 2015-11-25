@@ -222,6 +222,7 @@ namespace SAPS.Controladoras
 
         public DataTable obtener_recurso_humano(string nombre_usuario)
         {
+            m_controladora_rh = new ControladoraRecursosHumanos();
             return m_controladora_rh.consultar_recurso_humano(nombre_usuario);
         }
     }

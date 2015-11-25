@@ -83,7 +83,7 @@ namespace SAPS.Base_de_Datos
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_EJECUCION");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("id_ejecucion", SqlDbType.Int).Value = id_ejecucion;
+            comando.Parameters.Add("numero_ejecucion", SqlDbType.Int).Value = id_ejecucion;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
@@ -95,7 +95,7 @@ namespace SAPS.Base_de_Datos
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_RESULTADOS");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("id_ejecucion", SqlDbType.Int).Value = id_ejecucion;
+            comando.Parameters.Add("numero_ejecucion", SqlDbType.Int).Value = id_ejecucion;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 

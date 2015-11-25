@@ -523,14 +523,16 @@ namespace SAPS.Fronteras
             DataTable datos_ejecucion = m_controladora_ep.consultar_ejecucion(id_ejecucion);
 
             m_llave_ejecucion[0] = id_ejecucion;
-            m_llave_ejecucion[1] = Convert.ToInt32(datos_ejecucion.Rows[0]["id_ejecucion"].ToString());
+            m_llave_ejecucion[1] = Convert.ToInt32(datos_ejecucion.Rows[0]["num_ejecucion"].ToString());
 
             // Responsable
             ListItem nombre_responsable = new ListItem();
             string nombre_usuario = datos_ejecucion.Rows[0]["responsable"].ToString();
             nombre_responsable.Text = m_controladora_ep.obtener_recurso_humano(nombre_usuario).Rows[0]["nombre"].ToString();
             nombre_responsable.Value = nombre_usuario;
-            drop_disenos_disponibles.Items.Add(nombre_responsable);
+            drop_rh_disponibles.Items.Add(nombre_responsable);
+            drop_rh_disponibles.SelectedValue = nombre_usuario;
+            drop_rh_disponibles.Enabled = false;
 
             // Fecha
             try
@@ -541,23 +543,26 @@ namespace SAPS.Fronteras
             {
                 input_fecha.Text = "yyyy-MM-dd";
             }
+            input_fecha.Enabled = false;
 
             // incidentes
             input_incidentes.Text = datos_ejecucion.Rows[0]["incidencias"].ToString();
-
+            input_incidentes.Enabled = false;
 
             // Resultados
             vacia_resultados();
             DataTable resultados_ejecucion = m_controladora_ep.consultar_resultados(id_ejecucion);
-            foreach (DataRow resultado in resultados_ejecucion.Rows)
+
+            for (int i = 0; i < resultados_ejecucion.Rows.Count; ++i)
             {
                 string[] datos_resultado = new string[7];
-                int i = 0;
-                foreach (var item in resultado.ItemArray)
-                {
-                    datos_resultado[i] = item.ToString();
-                    i++;
-                }
+                datos_resultado[0] = resultados_ejecucion.Rows[i]["num_resultado"].ToString();
+                datos_resultado[1] = resultados_ejecucion.Rows[i]["estado"].ToString();
+                datos_resultado[2] = resultados_ejecucion.Rows[i]["tipo_no_conformidad"].ToString();
+                datos_resultado[3] = resultados_ejecucion.Rows[i]["id_caso"].ToString();
+                datos_resultado[4] = resultados_ejecucion.Rows[i]["desc_no_conformidad"].ToString();
+                datos_resultado[5] = resultados_ejecucion.Rows[i]["justificacion"].ToString();
+                datos_resultado[6] = resultados_ejecucion.Rows[i]["ruta_imagen"].ToString();
                 m_resultados_tmp.Add(datos_resultado);
             }
 
@@ -580,7 +585,15 @@ namespace SAPS.Fronteras
                 responsable_ejecucion.Text = ejecucion["responsable"].ToString();
 
                 TableCell fecha_ultima_ejecucion = new TableCell();
-                fecha_ultima_ejecucion.Text = ejecucion["fecha_ultima_ejec"].ToString();
+
+                try
+                {
+                    fecha_ultima_ejecucion.Text = ejecucion["fecha_ultima_ejec"].ToString();
+                }
+                catch (Exception error)
+                {
+                    input_fecha.Text = "yyyy-MM-dd";
+                }
 
                 // Botón para consultar
                 TableCell celda_consultar = new TableCell();
@@ -697,7 +710,7 @@ namespace SAPS.Fronteras
                 llena_casos();
 
                 // Llena la tabla de ejecuciones asociadas a un diseño
-                llenar_ejecuciones_disponibles(id_diseno_seleccionado);
+                //llenar_ejecuciones_disponibles(id_diseno_seleccionado);
             }
             else
             {
