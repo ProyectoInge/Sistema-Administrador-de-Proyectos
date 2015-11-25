@@ -33,7 +33,7 @@ namespace SAPS.Controladoras
         * @param num_ejecuccion de la ejecución que se desea eliminar y el id de diseño relacionado.
         * @return 0 si tuvo éxito, números negativos si se presentó un error con la base de datos.
         */
-        internal int eliminar_ejecucion(int id_diseno, int num_ejecucion)
+        public int eliminar_ejecucion(int id_diseno, int num_ejecucion)
         {
             return m_base_datos.eliminar_ejecucion(id_diseno, num_ejecucion);
         }
@@ -42,7 +42,7 @@ namespace SAPS.Controladoras
          * @param num del resultado que se desea eliminar y num de la ejecución y el id de diseño relacionados.
         * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
         */
-        internal int eliminar_resultado(int id_diseno, int num_ejecucion, int num_resultado)
+        public int eliminar_resultado(int id_diseno, int num_ejecucion, int num_resultado)
         {
             return m_base_datos.eliminar_resultado(id_diseno, num_ejecucion, num_resultado);
         }
@@ -52,14 +52,16 @@ namespace SAPS.Controladoras
             | Índice | Descripción             | Tipo de datos |
             |:------:|:-----------------------:|:-------------:|
             |    0   |  Numero de ejecucion    |      int      |
-            |    1   |  Responsable            |     String    |
+            |    1   |  Responsable            |     string    |
             |    2   |  Id del diseno          |      int      |
             |    3   |  Fecha de ejecucion     |     Datetime  |
-            |    4   |  Incidencias            |     String    |
+            |    4   |  Incidencias            |     string    |
          * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
          */
-        internal int insertar_ejecucion(Object[] datos_ejecucion)
+        public int insertar_ejecucion(Object[] datos_ejecucion)
         {
+            if (datos_ejecucion.Length != 5)
+                return -1;
             EjecucionPruebas ejecucion = new EjecucionPruebas(datos_ejecucion);
             return m_base_datos.insertar_ejecucion(ejecucion);
         }
@@ -71,16 +73,18 @@ namespace SAPS.Controladoras
                 |    0   |  Numero de resultado    |      int      |
                 |    1   |  Id del diseno          |      int      |
                 |    2   |  Numero de ejecucion    |      int      |
-                |    3   |  Estado                 |     String    |
-                |    4   |  Tipo No Conformidad    |     String    |
-                |    5   |  Id del Caso            |     String    |
-                |    6   |  Descripcion No Conf.   |     String    |
-                |    7   |  Justificacion          |     String    |
-                |    8   |  Ruta de la imagen      |     String    |
+                |    3   |  Estado                 |     string    |
+                |    4   |  Tipo No Conformidad    |     string    |
+                |    5   |  Id del Caso            |     string    |
+                |    6   |  Descripcion No Conf.   |     string    |
+                |    7   |  Justificacion          |     string    |
+                |    8   |  Ruta de la imagen      |     string    |
          * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
          */
-        internal int insertar_resultado(Object[] datos_resultado)
+        public int insertar_resultado(Object[] datos_resultado)
         {
+            if (datos_resultado.Length != 9)
+                return -1;
             ResultadosEP resultado = new ResultadosEP(datos_resultado);
             return m_base_datos.insertar_resultado(resultado);
         }
@@ -98,7 +102,7 @@ namespace SAPS.Controladoras
             |    4   |  Incidencias            |     string    |
          * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
          */
-        internal int modificar_ejecucion(Object[] datos_ejecucion)
+        public int modificar_ejecucion(Object[] datos_ejecucion)
         {
             EjecucionPruebas ejecucion = new EjecucionPruebas(datos_ejecucion);
 
@@ -125,7 +129,7 @@ namespace SAPS.Controladoras
                 |    8   |  Ruta de la imagen      |     string    |
          * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
          */
-        internal int modificar_resultado(Object[] datos_resultado)
+        public int modificar_resultado(Object[] datos_resultado)
         {
             ResultadosEP resultado = new ResultadosEP(datos_resultado);
 
@@ -140,7 +144,7 @@ namespace SAPS.Controladoras
         *   @param id_ejecucion id de la ejecucion a consultar.
         *   @return DataTable con los datos de la ejecución de prueba.
         */
-        internal DataTable consultar_ejecucion(int id_ejecucion)
+        public DataTable consultar_ejecucion(int id_ejecucion)
         {
             return m_base_datos.consultar_ejecucion(id_ejecucion);
         }
@@ -149,12 +153,12 @@ namespace SAPS.Controladoras
         *   @param id_ejecucion id de la ejecucion a consultar.
         *   @return DataTable con los resultados de una ejecución de prueba.
         */
-        internal DataTable consultar_resultados(int id_ejecucion)
+        public DataTable consultar_resultados(int id_ejecucion)
         {
             return m_base_datos.consultar_resultados(id_ejecucion);
         }
 
-        internal DataTable consultar_ejecuciones(int id_diseno)
+        public DataTable consultar_ejecuciones(int id_diseno)
         {
             return m_base_datos.consultar_ejecuciones(id_diseno);
         }
@@ -203,7 +207,7 @@ namespace SAPS.Controladoras
 
         public string obtener_proposito_diseno(int id_diseno)
         {
-            return consultar_diseno(id_diseno).Rows[0]["proposito"].ToString();
+            return consultar_diseno(id_diseno).Rows[0]["nombre_diseno"].ToString();
         }
 
         /** @brief Metodo que revisa si un usario es administrador o no.
@@ -218,6 +222,7 @@ namespace SAPS.Controladoras
 
         public DataTable obtener_recurso_humano(string nombre_usuario)
         {
+            m_controladora_rh = new ControladoraRecursosHumanos();
             return m_controladora_rh.consultar_recurso_humano(nombre_usuario);
         }
     }

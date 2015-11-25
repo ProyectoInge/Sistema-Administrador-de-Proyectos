@@ -20,9 +20,9 @@ AS
 	FROM CasoPrueba
 	WHERE CasoPrueba.id_diseno = @id_diseno_asociado))
 	INSERT INTO CasoPrueba
-		(id_caso, id_diseno, id_requerimiento, proposito, resultado_esperado, flujo_central)
+		(id_caso, id_diseno, proposito, resultado_esperado, flujo_central)
 	VALUES
-		(@id_caso, @id_diseno_asociado, @id_req_asociado, @proposito, @resultado_esperado, @flujo)
+		(@id_caso, @id_diseno_asociado, @proposito, @resultado_esperado, @flujo)
 	SELECT id_caso FROM CasoPrueba WHERE id_caso = @id_caso;
 GO
 
@@ -50,7 +50,8 @@ AS
 	SELECT CasoPrueba.id_caso,
 		   CasoPrueba.proposito,
 		   CasoPrueba.resultado_esperado,
-		   CasoPrueba.flujo_central
+		   CasoPrueba.flujo_central,
+		   CasoPrueba.id_requerimiento
 	FROM
 			CasoPrueba
 	WHERE
