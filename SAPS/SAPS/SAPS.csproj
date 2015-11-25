@@ -175,6 +175,7 @@
     <Content Include="Codigo_Fuente\Fronteras\InterfazEjecucionPruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazLogin.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
+    <Content Include="Codigo_Fuente\Fronteras\InterfazReportes.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazRequerimientos.aspx" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\hover.css" />
@@ -419,6 +420,13 @@
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx.designer.cs">
       <DependentUpon>InterfazProyectosDePruebas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazReportes.aspx.cs">
+      <DependentUpon>InterfazReportes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Codigo_Fuente\Fronteras\InterfazReportes.aspx.designer.cs">
+      <DependentUpon>InterfazReportes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Codigo_Fuente\Fronteras\InterfazRequerimientos.aspx.cs">
       <DependentUpon>InterfazRequerimientos.aspx</DependentUpon>

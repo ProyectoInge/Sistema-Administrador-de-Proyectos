@@ -73,12 +73,12 @@ namespace SAPS.Fronteras
                 }
                 if (m_resultados_tmp.Count > 0)
                 {
-                    actualiza_resultados();
-                }
+                actualiza_resultados();
+            }
                 else
                 {
                     celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
-                }
+            }
             }
             else
             {
@@ -485,7 +485,7 @@ namespace SAPS.Fronteras
             input_justificacion.Text = "";
             m_nombre_archivo = "";
             label_img_agregada.Visible = false;
-
+            
         }
 
 
@@ -516,6 +516,9 @@ namespace SAPS.Fronteras
             int id_ejecucion = Convert.ToInt32(((Button)sender).ID);
             DataTable datos_ejecucion = m_controladora_ep.consultar_ejecucion(id_ejecucion);
 
+            m_llave_ejecucion[0] = id_ejecucion;
+            m_llave_ejecucion[1] = Convert.ToInt32(datos_ejecucion.Rows[0]["id_ejecucion"].ToString());
+
             // Responsable
             ListItem nombre_responsable = new ListItem();
             string nombre_usuario = datos_ejecucion.Rows[0]["responsable"].ToString();
@@ -527,7 +530,7 @@ namespace SAPS.Fronteras
             try
             {
                 input_fecha.Text = Convert.ToDateTime(datos_ejecucion.Rows[0]["fecha_ultima_ejec"]).ToString("yyyy-MM-dd");
-            }
+        }
             catch (Exception error)
             {
                 input_fecha.Text = "yyyy-MM-dd";
@@ -551,8 +554,8 @@ namespace SAPS.Fronteras
                 }
                 m_resultados_tmp.Add(datos_resultado);
             }
-
-            // @todo llamar a método que llena la lista de resultados.
+            
+            llena_resultados();
         }
 
         protected void llenar_ejecuciones_disponibles(int id_diseno)
