@@ -176,9 +176,9 @@
             $("#<%= input_id_requerimiento.ClientID%>").blur(function () {
                 var id_ingresado = $("#<%= input_id_requerimiento.ClientID%>").val();
                 if (id_ingresado == "") {
-                    $("#<%= label_id_vacio.ClientID%>").show();
+                    $("#<%= label_id_vacio.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_id_vacio.ClientID%>").hide();
+                    $("#<%= label_id_vacio.ClientID%>").fadeOut();
                 }
             });
 
@@ -186,9 +186,9 @@
             $("#<%= input_nombre_requerimiento.ClientID %>").blur(function valida_nombre() {
                 var nombre_ingresado = $("#<%= input_nombre_requerimiento.ClientID %>").val();
                 if (nombre_ingresado == "") {
-                    $("#<%= label_nombre_vacio.ClientID %>").show();
+                    $("#<%= label_nombre_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_nombre_vacio.ClientID %>").hide();
+                    $("#<%= label_nombre_vacio.ClientID %>").fadeOut();
                 }
             });
 
@@ -196,9 +196,9 @@
             $("#<%= input_criterio_aceptacion.ClientID %>").blur(function valida_requerimiento() {
                 var criterio_ingresado = $("#<%= input_criterio_aceptacion.ClientID %>").val();
                 if (criterio_ingresado == "") {
-                    $("#<%= label_criterio_vacio.ClientID %>").show();
+                    $("#<%= label_criterio_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_criterio_vacio.ClientID %>").hide();
+                    $("#<%= label_criterio_vacio.ClientID %>").fadeOut();
                 }
             });
 
@@ -208,23 +208,23 @@
                 var nombre_ingresado = $("#<%= input_nombre_requerimiento.ClientID %>").val();
                 var id_ingresado = $("#<%= input_id_requerimiento.ClientID%>").val();
                 if (id_ingresado != "") {
-                    $("#<%= label_id_vacio.ClientID%>").hide();
+                    $("#<%= label_id_vacio.ClientID%>").fadeOut();
                     if (nombre_ingresado != "") {
-                        $("#<%= label_nombre_vacio.ClientID %>").hide();
+                        $("#<%= label_nombre_vacio.ClientID %>").fadeOut();
                         if (criterio_ingresado != "") {
-                            $("#<%= label_criterio_vacio.ClientID %>").hide();
+                            $("#<%= label_criterio_vacio.ClientID %>").fadeOut();
                         } else {
-                            $("#<%= label_criterio_vacio.ClientID %>").show();
+                            $("#<%= label_criterio_vacio.ClientID %>").fadeIn();
                             $("#<%= input_criterio_aceptacion.ClientID %>").focus();
                             return false; // Esto previene que realice el PostBack
                         }
                     } else {
-                        $("#<%= label_nombre_vacio.ClientID %>").show();
+                        $("#<%= label_nombre_vacio.ClientID %>").fadeIn();
                         $("#<%= input_nombre_requerimiento.ClientID %>").focus();
                         return false; // Esto previene que realice el PostBack
                     }
                 } else {
-                    $("#<%= label_id_vacio.ClientID%>").show();
+                    $("#<%= label_id_vacio.ClientID%>").fadeIn();
                     $("#<%= input_id_requerimiento.ClientID%>").focus();
                     return false;
                 }
