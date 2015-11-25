@@ -32,7 +32,7 @@ namespace SAPS.Controladoras
             m_base_datos = new BDDisenoPruebas();
         }
 
-        internal bool es_administrador(string name)
+        public bool es_administrador(string name)
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
             return m_controladora_rh.es_administrador(name);
@@ -64,13 +64,13 @@ namespace SAPS.Controladoras
             return m_base_datos.insertar_diseno_pruebas(diseno_pruebas);
         }
 
-        internal DataTable solicitar_proyectos_no_eliminados()
+        public DataTable solicitar_proyectos_no_eliminados()
         {
             m_controladora_pyp = new ControladoraProyectoPruebas();
             return m_controladora_pyp.solicitar_proyectos_no_eliminados();
         }
 
-        internal DataTable consultar_mi_proyecto(string name)
+        public DataTable consultar_mi_proyecto(string name)
         {
             m_controladora_pyp = new ControladoraProyectoPruebas();
             return m_controladora_pyp.consultar_mi_proyecto(name);
@@ -111,7 +111,7 @@ namespace SAPS.Controladoras
             return m_base_datos.eliminar_diseno_pruebas(id_diseno);
         }
 
-        internal DataTable solicitar_requerimientos_disponibles()
+        public DataTable solicitar_requerimientos_disponibles()
         {
             m_controladora_req = new ControladoraRequerimientos();
             return m_controladora_req.solicitar_requerimientos_disponibles();
@@ -161,25 +161,25 @@ namespace SAPS.Controladoras
             return m_base_datos.solicitar_disenos_asociados_proyecto(id_proyecto);
         }
 
-        internal void asociar_requerimiento(object[] datosAsoc)
+        public void asociar_requerimiento(object[] datosAsoc)
         {
             m_controladora_req = new ControladoraRequerimientos();
             m_controladora_req.asociar_requerimiento(datosAsoc);
         }
 
-        internal DataTable consultar_rh_asociados_proyecto(int v)
+        public DataTable consultar_rh_asociados_proyecto(int v)
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
             return m_controladora_rh.consultar_rh_asociados_proyecto(v);
         }
 
-        internal DataTable consultar_proyecto(int id_proyecto_asociado)
+        public DataTable consultar_proyecto(int id_proyecto_asociado)
         {
             m_controladora_pyp = new ControladoraProyectoPruebas();
             return m_controladora_pyp.consultar_proyecto(id_proyecto_asociado);
         }
 
-        internal void modificar_requerimiento(object[] datosAsoc)
+        public void modificar_requerimiento(object[] datosAsoc)
         {
             m_controladora_req = new ControladoraRequerimientos();
             m_controladora_req.modificar_requerimiento(datosAsoc);
