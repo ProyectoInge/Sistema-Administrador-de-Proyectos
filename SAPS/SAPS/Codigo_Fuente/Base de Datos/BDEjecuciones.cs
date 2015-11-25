@@ -79,11 +79,10 @@ namespace SAPS.Base_de_Datos
         *   @param id_ejecucion id de la ejecucción a consultar.
         *   @return DataTable con los datos de la ejecución de pruebas.
         */
-        internal DataTable consultar_ejecucion(int id_diseno, int id_ejecucion)
+        internal DataTable consultar_ejecucion(int id_ejecucion)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_EJECUCION");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("id_diseno", SqlDbType.Int).Value = id_diseno;
             comando.Parameters.Add("id_ejecucion", SqlDbType.Int).Value = id_ejecucion;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
@@ -92,12 +91,19 @@ namespace SAPS.Base_de_Datos
         *   @param id_ejecucion id de la ejecucción a consultar.
         *   @return DataTable con los resultados asociados a la ejecución de pruebas.
         */
-        internal DataTable consultar_resultados(int id_diseno, int id_ejecucion)
+        internal DataTable consultar_resultados(int id_ejecucion)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_RESULTADOS");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("id_diseno", SqlDbType.Int).Value = id_diseno;
             comando.Parameters.Add("id_ejecucion", SqlDbType.Int).Value = id_ejecucion;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
+        internal DataTable consultar_ejecuciones(int id_diseno)
+        {
+            SqlCommand comando = new SqlCommand("CONSULTAR_EJECUCIONES");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("id_diseno", SqlDbType.Int).Value = id_diseno;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 

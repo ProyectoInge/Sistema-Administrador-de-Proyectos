@@ -25,7 +25,7 @@ namespace SAPS.Fronteras
 
         private static List<string[]> m_resultados_tmp;     // Va a llevar registro de cuantos resultados temporales se han creado.
         /* Cada String[] de la lista m_resultados_tmp tiene la siguiente estructura:
-            
+
             |   Indice  |   Significado         |
             |:---------:|:---------------------:|
             |   0       |   # resultado         |
@@ -65,8 +65,8 @@ namespace SAPS.Fronteras
                 }
                 else
                 {
-                    actualiza_resultados();
-                }
+                actualiza_resultados();
+            }
             }
             else
             {
@@ -108,8 +108,8 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default active";
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
-            activa_desactiva_botones_ime(false);
-            btn_modificar.Enabled = true;
+            activa_desactiva_botones_ime(true);
+            btn_modificar.Enabled = false;
 
         }
 
@@ -348,12 +348,125 @@ namespace SAPS.Fronteras
             input_justificacion.Text = "";
             m_nombre_archivo = "";
             label_img_agregada.Visible = false;
+            
+        }
+
+
+        // Métodos relacionados a consultar
+
+        protected void borrar_filas_tabla_ejecuciones_disponibles()
+        {
+            tabla_ejecuciones.Rows.Clear();
+        }
+
+        protected void crea_encabezado_ejecuciones_disponibles()
+        {
+            TableHeaderRow header = new TableHeaderRow();
+            TableHeaderCell celda_header_proposito = new TableHeaderCell();
+            TableHeaderCell celda_header_responsable = new TableHeaderCell();
+            TableHeaderCell celda_header_fecha_ultima_ejecucion = new TableHeaderCell();
+            celda_header_proposito.Text = "Próposito del diseño";
+            header.Cells.AddAt(0, celda_header_proposito);
+            celda_header_responsable.Text = "Responsable";
+            header.Cells.AddAt(1, celda_header_responsable);
+            celda_header_fecha_ultima_ejecucion.Text = "Fecha de la última ejecución";
+            header.Cells.AddAt(2, celda_header_fecha_ultima_ejecucion);
+            tabla_ejecuciones.Rows.Add(header);
+        }
+
+        protected void ejecucion_seleccionado(object sender, EventArgs e)
+        {
+            int id_ejecucion = Convert.ToInt32(((Button)sender).ID);
+            DataTable datos_ejecucion = m_controladora_ep.consultar_ejecucion(id_ejecucion);
+
+            // Responsable
+            ListItem nombre_responsable = new ListItem();
+            string nombre_usuario = datos_ejecucion.Rows[0]["responsable"].ToString();
+            nombre_responsable.Text = m_controladora_ep.obtener_recurso_humano(nombre_usuario).Rows[0]["nombre"].ToString();
+            nombre_responsable.Value = nombre_usuario;
+            drop_disenos_disponibles.Items.Add(nombre_responsable);
+
+            // Fecha
+            try
+            {
+                input_fecha.Text = Convert.ToDateTime(datos_ejecucion.Rows[0]["fecha_ultima_ejec"]).ToString("yyyy-MM-dd");
+        }
+            catch (Exception error)
+            {
+                input_fecha.Text = "yyyy-MM-dd";
+            }
+
+            // incidentes
+            input_incidentes.Text = datos_ejecucion.Rows[0]["incidencias"].ToString();
+
+
+            // Resultados
+            vacia_resultados();
+            DataTable resultados_ejecucion = m_controladora_ep.consultar_resultados(id_ejecucion);
+            foreach (DataRow resultado in resultados_ejecucion.Rows)
+            {
+                string[] datos_resultado = new string[7];
+                int i = 0;
+                foreach (var item in resultado.ItemArray)
+                {
+                    datos_resultado[i] = item.ToString();
+                    i++;
+                }
+                m_resultados_tmp.Add(datos_resultado);
+            }
+            
+            // @todo llamar a método que llena la lista de resultados.
+        }
+
+        protected void llenar_ejecuciones_disponibles(int id_diseno)
+        {
+            crea_encabezado_ejecuciones_disponibles();
+
+            DataTable ejecuciones = m_controladora_ep.consultar_ejecuciones(id_diseno);
+            foreach (DataRow ejecucion in ejecuciones.Rows)
+            {
+                TableRow fila_ejecucion = new TableRow();
+
+                TableCell proposito_diseno = new TableCell();
+                proposito_diseno.Text = m_controladora_ep.obtener_proposito_diseno(Convert.ToInt32(ejecucion["id_diseno"].ToString()));
+
+                TableCell responsable_ejecucion = new TableCell();
+                responsable_ejecucion.Text = ejecucion["responsable"].ToString();
+
+                TableCell fecha_ultima_ejecucion = new TableCell();
+                fecha_ultima_ejecucion.Text = ejecucion["fecha_ultima_ejecuc"].ToString();
+
+                // Botón para consultar
+                TableCell celda_consultar = new TableCell();
+                Button btn_id_ejecucion = new Button();
+                btn_id_ejecucion.Text = "Consultar";
+                btn_id_ejecucion.ID = ejecucion["num_ejecucion"].ToString();
+                btn_id_ejecucion.CssClass = "btn btn-link";
+                btn_id_ejecucion.Click += new EventHandler(ejecucion_seleccionado);
+                celda_consultar.Controls.Add(btn_id_ejecucion);
+
+                // Insertar en la fila
+                fila_ejecucion.Cells.Add(proposito_diseno);
+                fila_ejecucion.Cells.Add(responsable_ejecucion);
+                fila_ejecucion.Cells.Add(fecha_ultima_ejecucion);
+                fila_ejecucion.Cells.Add(celda_consultar);
+
+                tabla_ejecuciones.Rows.Add(fila_ejecucion);
+            }
         }
 
         protected void btn_consultar_imagen_Click(object sender, EventArgs e)
         {
-            // En el ID del boton viene la ruta a la imagen.
-            ///@todo Desplegar el modal donde muestre la imagen
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_mostrar_imagen", "$('#modal_mostrar_imagen').modal();", true);
+            string url_image = ((Button)sender).ID;
+            if (url_image != "") {
+                visor_imagen.ImageUrl = url_image;
+            }
+            else
+            {
+                visor_imagen.ImageUrl = "http://telegram-sticker.github.io/public/stickers/animals/15.png";
+            }
+            update_mostrar_imagen.Update();
         }
 
         /** @brief Agrega un resultado a la tabla de los resultados.
@@ -436,8 +549,14 @@ namespace SAPS.Fronteras
                 m_llave_ejecucion[1] = id_diseno_seleccionado;
                 llena_info_diseno(id_diseno_seleccionado);
                 llena_casos();
-            }
 
+                // Llena la tabla de ejecuciones asociadas a un diseño
+                llenar_ejecuciones_disponibles(id_diseno_seleccionado);
+            }
+            else
+            {
+                borrar_filas_tabla_ejecuciones_disponibles();
+            }
         }
 
         /** @brief Método que se encarga de llenar la informacion del diseño que se seleccionó.

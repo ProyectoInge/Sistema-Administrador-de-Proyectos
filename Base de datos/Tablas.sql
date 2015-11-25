@@ -1,5 +1,4 @@
 use proyectoDB;
---use g1inge
 
 	drop table Resultados;
 	drop table Ejecucion;
