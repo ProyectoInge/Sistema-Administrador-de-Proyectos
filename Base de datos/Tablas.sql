@@ -4,7 +4,6 @@ use proyectoDB;
 	drop table Ejecucion;
 	drop table DatosCasoDePrueba;
 	drop table CasoPrueba;
-	drop table SePrueba;
 	drop table Requerimientos;
 	drop table DisenoPrueba;
 	drop table MiembroPertenece;
