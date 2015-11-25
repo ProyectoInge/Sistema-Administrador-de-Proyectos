@@ -108,8 +108,8 @@ namespace SAPS.Controladoras
         public int asociar_requerimiento(Object[] datos)
         {
             if (existe_requerimiento(Convert.ToString(datos[1])) && datos.Length != 2) //Verifica que el requerimiento exista
-                return m_base_datos.asociar_requerimiento(datos);
-            return -1;
+                return -1;
+            return m_base_datos.asociar_requerimiento(datos);
         }
 
         /** @brief Método que se encarga de verificar si un requerimiento existe en la base de datos.
