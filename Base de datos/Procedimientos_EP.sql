@@ -6,6 +6,7 @@ DROP PROCEDURE INSERTAR_EP;
 DROP PROCEDURE INSERTAR_RESULTADO;
 DROP PROCEDURE CONSULTAR_EJECUCION;
 DROP PROCEDURE CONSULTAR_RESULTADOS;
+DROP PROCEDURE CONSULTAR_EJECUCIONES;
 
 GO
 CREATE PROCEDURE ELIMINAR_EP
@@ -45,18 +46,26 @@ GO
 
 GO
 CREATE PROCEDURE CONSULTAR_EJECUCION
-	@id_diseno int, @numero_ejecucion int
+	@numero_ejecucion int
 AS
 	SELECT *
 	FROM Ejecucion
-	WHERE id_diseno = @id_diseno AND num_ejecucion = @numero_ejecucion
+	WHERE num_ejecucion = @numero_ejecucion
 GO
 
 GO
 CREATE PROCEDURE CONSULTAR_RESULTADOS
-	@id_diseno int, @numero_ejecucion int
+	@numero_ejecucion int
 AS
 	SELECT *
 	FROM Resultados
-	WHERE id_diseno = @id_diseno AND num_ejecucion = @numero_ejecucion
+	WHERE num_ejecucion = @numero_ejecucion
+GO
+
+GO
+CREATE PROCEDURE CONSULTAR_EJECUCIONES
+	@id_diseno int
+AS
+	SELECT *
+	FROM Ejecucion
 GO

@@ -102,16 +102,14 @@ namespace SAPS.Controladoras
             |:------:|:------------------------:|:-------------:|
             |   0    |     ID del diseño        |       int     |
             |   1    |  ID del requerimiento    |     String    |
-            |   2    |        Propósito         |     String    |
-            |   3    |      Procedimiento       |     String    |
 
          * @return 0 si no hubo ningún problema, números negativos si hubo algún problema con la base de datos.
         */
         public int asociar_requerimiento(Object[] datos)
         {
-            if (existe_requerimiento(Convert.ToString(datos[1])) && datos.Length != 5) //Verifica que el requerimiento exista
+            if (existe_requerimiento(Convert.ToString(datos[1])) && datos.Length != 2) //Verifica que el requerimiento exista
+                return -1;
                 return m_base_datos.asociar_requerimiento(datos);
-            return -1;
         }
 
         /** @brief Método que se encarga de verificar si un requerimiento existe en la base de datos.

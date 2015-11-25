@@ -1,5 +1,4 @@
 use proyectoDB;
---use g1inge
 
 	drop table Resultados;
 	drop table Ejecucion;
@@ -67,7 +66,6 @@ create table DisenoPrueba(
 	nivel_prueba		varchar(64),
 	username_responsable varchar(64) FOREIGN KEY REFERENCES RecursosHumanos(username) ON DELETE SET NULL,
 	ambiente			varchar(128),
-	proposito			varchar(128) NOT NULL,
 	procedimiento		varchar(512) NOT NULL,
 	criterio_aceptacion varchar(256)
 );
@@ -76,6 +74,12 @@ create table Requerimientos(
 	id_requerimiento	varchar(32) NOT NULL PRIMARY KEY,
 	nombre				varchar(64) NOT NULL,
 	criterio_aceptacion varchar(256) NOT NULL,
+);
+
+create table SePrueba(
+	id_diseno			int NOT NULL FOREIGN KEY REFERENCES DisenoPrueba(id_diseno) ON DELETE CASCADE,
+	id_requerimiento	varchar(32) NOT NULL FOREIGN KEY REFERENCES Requerimientos(id_requerimiento) ON DELETE CASCADE,
+	PRIMARY KEY(id_diseno, id_requerimiento)
 );
 
 create table CasoPrueba(

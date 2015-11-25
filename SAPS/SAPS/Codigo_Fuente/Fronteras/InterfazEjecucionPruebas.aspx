@@ -62,7 +62,7 @@
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_disenos_disponibles"> Diseño <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-3 col-xs-3">
-                                    <asp:DropDownList ID="drop_disenos_disponibles" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_disenos_disponibles_SelectedIndexChanged">
+                                    <asp:DropDownList ID="drop_disenos_disponibles" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_disenos_disponibles_SelectedIndexChanged" AutoPostBack="true">
                                     </asp:DropDownList>
                                     <asp:Label runat="server" CssClass="text-danger" ID="label_error_diseno"><small>Debe seleccionar un diseño de prueba.</small></asp:Label>
                                 </div>
@@ -99,16 +99,15 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_panel2" class="form-group">
-                                <asp:Table runat="server" ID="tabla_encabezado" CssClass="table table-bordered"></asp:Table>
-                                <div class="col-md-12" style="height: 250px; overflow-y: scroll;">
+                                <div class="col-md-12">
                                     <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-bordered">
                                         <asp:TableHeaderRow runat="server" ID="header_tabla_resultados">
                                             <asp:TableHeaderCell runat="server" ID="celda_num_resultado" Text="#"></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_estado_resultado" Text="Estado"></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_no_conformidad_resultado" Text="Tipo de no conformidad"></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_id_caso_resultado" Text="ID caso de prueba"></asp:TableHeaderCell>
-                                            <asp:TableHeaderCell runat="server" ID="celda_descripcion_resultado" Text="Descripción"></asp:TableHeaderCell>
-                                            <asp:TableHeaderCell runat="server" ID="celda_justificacion_resultado" Text="Justificación"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_descripcion_resultado">Descripción <span class="text-danger">*</span></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_justificacion_resultado">Justificación <span class="text-danger">*</span></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_resultados_resultado" Text="Resultados"></asp:TableHeaderCell>
                                         </asp:TableHeaderRow>
                                         <asp:TableRow runat="server" ID="fila_inputs">
@@ -118,7 +117,7 @@
                                                     <asp:ListItem runat="server" Text="Satisfactoria" Value="Satisfactoria"></asp:ListItem>
                                                     <asp:ListItem runat="server" Text="Fallida" Value="Fallida"></asp:ListItem>
                                                     <asp:ListItem runat="server" Text="Pendiente" Value="Pendiente"></asp:ListItem>
-                                                    <asp:ListItem runat="server" Text="Pendiente" Value="Pendiente"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Cancelada" Value="Cancelada"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_drop_tipo_no_conformidad">
@@ -136,11 +135,11 @@
                                                 </asp:DropDownList>
                                             </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_descripcion">
-                                                <asp:TextBox runat="server" ID="input_descripcion" CssClass="form-control" TextMode="MultiLine" Rows="2" style="resize:none"
+                                                <asp:TextBox runat="server" ID="input_descripcion" CssClass="form-control" TextMode="MultiLine" Rows="2" Style="resize: none"
                                                     placeholder="Describa la no conformidad"></asp:TextBox>
                                             </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_justificacion">
-                                                <asp:TextBox runat="server" ID="input_justificacion" CssClass="form-control" TextMode="MultiLine" Rows="2" style="resize:none"
+                                                <asp:TextBox runat="server" ID="input_justificacion" CssClass="form-control" TextMode="MultiLine" Rows="2" Style="resize: none"
                                                     placeholder="Escriba la justificación de lo ocurrido"></asp:TextBox>
                                             </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_btn_agregar_imagen">
@@ -149,10 +148,12 @@
                                             </asp:TableCell>
                                         </asp:TableRow>
                                     </asp:Table>
+                                    <asp:Label runat="server" CssClass="text-danger" ID="label_error_input_resultado"><small>Faltan campos por llenar</small></asp:Label>
                                 </div>
                             </div>
                             <div id="row2_panel2" class="form-group">
                                 <div class="col-md-2 col-md-offset-10">
+                                    <asp:Label runat="server" CssClass="text-danger"><small>* Campos obligatorios</small></asp:Label>
                                     <asp:Button runat="server" CssClass="btn btn-link" ID="btn_agregar_resultado" Text="Agregar" OnClick="btn_agregar_resultado_Click" />
                                     <asp:Button runat="server" CssClass="btn btn-link" ID="btn_eliminar_resultado" Text="Eliminar" OnClick="btn_eliminar_resultado_Click" />
                                 </div>
@@ -174,12 +175,12 @@
                                 <div class="col-md-2">
                                     <asp:Label runat="server" ID="label_responsable" AssociatedControlID="drop_rh_disponibles" CssClass="control-label">Responsable <span class="text-danger">*</span></asp:Label>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <asp:DropDownList ID="drop_rh_disponibles" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
                                     <asp:Label runat="server" CssClass="text-danger" ID="label_error_rh"><small>Debe seleccionar un responsable para la ejecución.</small></asp:Label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-md-offset-1">
                                     <asp:Label runat="server" ID="label_fecha" AssociatedControlID="input_fecha" CssClass="control-label">Fecha de la última ejecución <span class="text-danger"">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-3">
@@ -307,7 +308,7 @@
                                         <div class="col-md-10 col-md-offset-1">
                                             <p>
                                                 Seleccione el archivo que desea adjuntar donde se ven los resultados de la prueba realizada. El archivo tiene que estar en formato .jpg, .jpeg o .png solamente 
-                                            y no puede pesar más de 2 MB.
+                                            y no puede pesar más de 1,5 MB.
                                             </p>
                                         </div>
                                     </div>
@@ -318,7 +319,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-4 col-md-offset-1">
-                                            <asp:FileUpload ID="subidor_archivo" runat="server"/>
+                                            <asp:FileUpload ID="subidor_archivo" runat="server" />
                                         </div>
                                         <div class="col-md-5 col-md-offset-1">
                                             <asp:Button runat="server" CssClass="btn btn-primary btn-block" Text="Guardar imagen" ID="btn_agregar_imagen" OnClick="btn_agregar_imagen_Click" />
@@ -330,6 +331,31 @@
                                 <button type="button" class="btn btn-link" style="color: darkgray" data-dismiss="modal" aria-label="Close">Volver</button>
                             </div>
                         </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </section>
+    <!--Mostrar imgen -->
+    <section id="modal_imagen_mostrar">
+        <div class="modal fade bs-example-sm" id="modal_mostrar_imagen" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="update_mostrar_imagen" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <asp:Label ID="Label1" runat="server" Text="Imagen"></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Image ID="visor_imagen" runat="server" />
+                                    </div>
+                                </div>
+                            </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
@@ -347,14 +373,15 @@
             $("#<%= label_error_rh.ClientID%>").hide();
             $("#<%= label_error_fecha.ClientID%>").hide();
             $("#<%= label_error_incidentes.ClientID%>").hide();
+            $("#<%= label_error_input_resultado.ClientID%>").hide();
 
             //Validacion del diseño seleccionado
             $("#<%= drop_disenos_disponibles.ClientID%>").blur(function () {
                 var diseno_seleccionado = $(this).val();
                 if (diseno_seleccionado == "") {
-                    $("#<%= label_error_diseno.ClientID%>").show();
+                    $("#<%= label_error_diseno.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_diseno.ClientID%>").hide();
+                    $("#<%= label_error_diseno.ClientID%>").fadeOut();
                 }
             });
 
@@ -362,9 +389,9 @@
             $("#<%= drop_rh_disponibles.ClientID%>").blur(function () {
                 var rh_seleccionado = $(this).val();
                 if (rh_seleccionado == "") {
-                    $("#<%= label_error_rh.ClientID%>").show();
+                    $("#<%= label_error_rh.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_rh.ClientID%>").hide();
+                    $("#<%= label_error_rh.ClientID%>").fadeOut();
                 }
             });
 
@@ -372,9 +399,9 @@
             $("#<%= input_fecha.ClientID%>").blur(function () {
                 var fecha_seleccionada = $(this).val();
                 if (fecha_seleccionada == "") {
-                    $("#<%= label_error_fecha.ClientID%>").show();
+                    $("#<%= label_error_fecha.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_fecha.ClientID%>").hide();
+                    $("#<%= label_error_fecha.ClientID%>").fadeOut();
                 }
             });
 
@@ -382,10 +409,36 @@
             $("#<%= input_incidentes.ClientID%>").blur(function () {
                 var incidentes_ingresados = $("#<%= input_incidentes.ClientID%>").val();
                 if (incidentes_ingresados == "") {
-                    $("#<%= label_error_incidentes.ClientID%>").show();
+                    $("#<%= label_error_incidentes.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_error_incidentes.ClientID%>").hide();
+                    $("#<%= label_error_incidentes.ClientID%>").fadeOut();
                 }
+            });
+
+            //Valida la entrada de datos en la tabla de los resultados
+            $("#<%= btn_agregar_resultado.ClientID %>").click(function () {
+                var descripcion_ingresada = $("#<%= input_descripcion.ClientID%>").val();
+                var justificacion_ingresada = $("#<%= input_justificacion.ClientID%>").val();
+                if (descripcion_ingresada == "") {
+                    $("#<%= celda_descripcion.ClientID%>").addClass("has-error");
+                    $("#<%= input_descripcion.ClientID%>").focus();
+                    $("#<%= label_error_input_resultado.ClientID%>").fadeIn();
+                    return false;
+                } else {
+                    $("#<%= label_error_input_resultado.ClientID%>").fadeOut();
+                }
+                if (justificacion_ingresada == "") {
+                    $("#<%= celda_justificacion.ClientID%>").addClass("has-error");
+                    $("#<%= input_justificacion.ClientID%>").focus();
+                    $("#<%= label_error_input_resultado.ClientID%>").fadeIn();
+                    return false;
+                } else {
+                    $("#<%= label_error_input_resultado.ClientID%>").fadeOut();
+                }
+            });
+
+            $("#<%=btn_Aceptar.ClientID%>").click(function () {
+                ///@todo
             });
         });
     </script>

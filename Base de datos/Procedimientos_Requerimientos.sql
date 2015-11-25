@@ -57,10 +57,10 @@ GO
 
 GO
 CREATE PROCEDURE ASOCIAR_REQUERIMIENTO
-	@id_diseno int, @id_requerimiento varchar(32), @proposito varchar(128), @procedimiento varchar(512)
+	@id_diseno int, @id_requerimiento varchar(32)
 AS
 	INSERT INTO SePrueba
-		(id_diseno, id_requerimiento, proposito, procedimiento)
+		(id_diseno, id_requerimiento)
 	VALUES
-		(@id_diseno, @id_requerimiento, @proposito, @procedimiento)
+		(@id_diseno, @id_requerimiento)
 GO
