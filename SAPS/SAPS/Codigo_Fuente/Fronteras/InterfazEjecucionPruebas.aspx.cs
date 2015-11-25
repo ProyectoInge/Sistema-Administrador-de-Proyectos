@@ -166,7 +166,7 @@ namespace SAPS.Fronteras
                                     if (label_incidentes.Text != "")
                                     {
                                         Object[] datos = new Object[5];
-                                        //datos[0] = Numero de ejecucion int ;
+                                        datos[0] = m_llave_ejecucion[0];                                // Al consultar una ejecucion, el vector de llaves se llena
                                         datos[1] = drop_rh_disponibles.Text;
                                         datos[2] = Convert.ToInt32(drop_disenos_disponibles.Text);
                                         datos[3] = Convert.ToDateTime(input_fecha.Text);
@@ -235,9 +235,6 @@ namespace SAPS.Fronteras
             {                            // Verificados los datos de ejecucion, se verifican los de resultados
 
             }
-
-
-
 
             return respuesta;
         }
