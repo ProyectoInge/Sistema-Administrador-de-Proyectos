@@ -387,6 +387,9 @@ namespace SAPS.Fronteras
             int id_ejecucion = Convert.ToInt32(((Button)sender).ID);
             DataTable datos_ejecucion = m_controladora_ep.consultar_ejecucion(id_ejecucion);
 
+            m_llave_ejecucion[0] = id_ejecucion;
+            m_llave_ejecucion[1] = Convert.ToInt32(datos_ejecucion.Rows[0]["id_ejecucion"].ToString());
+
             // Responsable
             ListItem nombre_responsable = new ListItem();
             string nombre_usuario = datos_ejecucion.Rows[0]["responsable"].ToString();
@@ -422,8 +425,8 @@ namespace SAPS.Fronteras
                 }
                 m_resultados_tmp.Add(datos_resultado);
             }
-            
-            // @todo llamar a método que llena la lista de resultados.
+
+            llena_resultados();
         }
 
         protected void llenar_ejecuciones_disponibles(int id_diseno)
