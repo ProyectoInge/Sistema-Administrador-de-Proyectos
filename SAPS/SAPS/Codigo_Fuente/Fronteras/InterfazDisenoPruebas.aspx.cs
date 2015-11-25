@@ -176,23 +176,23 @@ namespace SAPS.Fronteras
             bool a_retornar = true;
             if (input_nombre.Text != "")
             {
-                if(drop_proyecto.Text != "")
+                if (drop_proyecto.Text != "")
                 {
-                    if(drop_nivel.Text != "")
+                    if (drop_nivel.Text != "")
                     {
-                        if(drop_tecnica.Text != "")
+                        if (drop_tecnica.Text != "")
                         {
-                            if(drop_tipo.Text != "")
+                            if (drop_tipo.Text != "")
                             {
-                                if(input_ambiente.Text != "")
+                                if (input_ambiente.Text != "")
                                 {
-                                        if(input_procedimiento.Text != "")
+                                    if (input_procedimiento.Text != "")
                                         {
-                                            if(drop_responsable.Text != "")
+                                        if (drop_responsable.Text != "")
                                             {
                                                 if (input_fecha.Text != "")
                                                 {
-                                                    Object[] datosDiseno = new Object[10];
+                                                Object[] datosDiseno = new Object[11];
                                                     datosDiseno[0] = 0;
                                                     datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
                                                     datosDiseno[2] = input_nombre.Text;
@@ -202,7 +202,8 @@ namespace SAPS.Fronteras
                                                     datosDiseno[6] = drop_nivel.SelectedValue;
                                                     datosDiseno[7] = drop_responsable.SelectedValue;
                                                     datosDiseno[8] = input_ambiente.Text;
-                                                    datosDiseno[9] = input_criterio.Text;
+                                                datosDiseno[9] = input_procedimiento.Text;
+                                                datosDiseno[10] = input_criterio.Text;
                                                     
                                                     int resultado = m_controladora_dp.insertar_diseno_pruebas(datosDiseno);
                                                     DataTable diseños = m_controladora_dp.solicitar_disenos_disponibles();
@@ -210,11 +211,9 @@ namespace SAPS.Fronteras
 
                                                     for (int i = 0; i < m_tabla_requerimientos_seleccionados.Count; i++)
                                                     {
-                                                        Object[] datosAsoc = new Object[4];
+                                                    Object[] datosAsoc = new Object[2];
                                                         datosAsoc[0] = id_agregado;
                                                         datosAsoc[1] = m_tabla_requerimientos_seleccionados[i].Item2;
-                                                        datosAsoc[2] = "";
-                                                        datosAsoc[3] = input_procedimiento.Text;
 
                                                         m_controladora_dp.asociar_requerimiento(datosAsoc);
                                                     }
@@ -351,7 +350,7 @@ namespace SAPS.Fronteras
 
             m_tamano_tabla_seleccionados = asociados.Rows.Count;
             m_tamano_tabla_req = no_asociados.Rows.Count;
-            for(int i = 0; i < asociados.Rows.Count; i++)
+            for (int i = 0; i < asociados.Rows.Count; i++)
             {
                 m_tabla_requerimientos_seleccionados.Add(Tuple.Create(asociados.Rows[i]["nombre"].ToString(), Convert.ToString(asociados.Rows[i]["id_requerimiento"])));
             }
@@ -370,15 +369,16 @@ namespace SAPS.Fronteras
         {
             Button enviador = sender as Button;
             bool se_agrega = enviador.ID.StartsWith("btn_lista_disponibles");
-            string id="";
-            if(se_agrega)
+            string id = "";
+            if (se_agrega)
             {
-                foreach(var coso in m_tabla_requerimientos_disponibles)
+                foreach (var coso in m_tabla_requerimientos_disponibles)
                 {
                     if (coso.Item1.Equals(enviador.Text))
                         id = coso.Item2;
                 }
-            }else
+            }
+            else
             {
                 foreach (var coso in m_tabla_requerimientos_seleccionados)
                 {
@@ -433,7 +433,7 @@ namespace SAPS.Fronteras
         */
         private void actualiza_grid_dp()
         {
-            int proy_id=-1;
+            int proy_id = -1;
             tabla_disenos_prueba.Rows.Clear();
             crea_encabezado_tabla_dp();
             DataTable tabla_de_datos;
@@ -477,7 +477,7 @@ namespace SAPS.Fronteras
 
         protected void btn_Casos_Click(object sender, EventArgs e)
         {
-            string url = "~/Codigo_Fuente/Fronteras/InterfazCasosDePruebas.aspx?id_diseno=" + m_dp_seleccionado + "&id_proyecto="+drop_proyecto.SelectedValue;
+            string url = "~/Codigo_Fuente/Fronteras/InterfazCasosDePruebas.aspx?id_diseno=" + m_dp_seleccionado + "&id_proyecto=" + drop_proyecto.SelectedValue;
             Response.Redirect(url);
         }
 
@@ -496,9 +496,10 @@ namespace SAPS.Fronteras
             string dp_nombre = ((Button)sender).Text;
             m_dp_seleccionado = ((Button)sender).ID;
             string dp_id = "";
-            for(int i = 0; i< m_tamano_tabla_dp; i++)
+            for (int i = 0; i < m_tamano_tabla_dp; i++)
             {
-                if (m_tabla_dp[i, 1].Equals(dp_nombre)) {
+                if (m_tabla_dp[i, 1].Equals(dp_nombre))
+            {
                     dp_id = m_tabla_dp[i, 0];
                 }
 
@@ -525,7 +526,7 @@ namespace SAPS.Fronteras
             drop_responsable.Enabled = false;
             input_fecha.Enabled = v;
             input_criterio.Enabled = v;
-            for(int i = 0; i < m_tamano_tabla_req; i++)
+            for (int i = 0; i < m_tamano_tabla_req; i++)
             {
                 tabla_disponibles.Rows[i].Enabled = v;
             }
@@ -557,10 +558,7 @@ namespace SAPS.Fronteras
             drop_responsable.ClearSelection();
             drop_responsable.Items.FindByValue(tabla_dp.Rows[0]["username_responsable"].ToString()).Selected = true;
             input_criterio.Text = tabla_dp.Rows[0]["criterio_aceptacion"].ToString();
-            if (tabla_req_asoc.Rows.Count != 0)
-            {
-                input_procedimiento.Text = tabla_req_asoc.Rows[0]["procedimiento"].ToString();
-            }
+            input_procedimiento.Text = tabla_dp.Rows[0]["procedimiento"].ToString();
             input_fecha.Text = Convert.ToDateTime(tabla_dp.Rows[0]["fecha_inicio"]).ToString("yyy-MM-dd");
             input_fecha.DataBind();
             carga_requerimientos_existente(tabla_req_asoc, tabla_req_disp);
@@ -588,23 +586,26 @@ namespace SAPS.Fronteras
         */
         protected void btn_Aceptar_Click(object sender, EventArgs e)
         {
-            if(m_opcion == 'i')
+            if (m_opcion == 'i')
             {
                 bool res = ingresar_diseno();
                 alerta_exito.Visible = res;
                 alerta_error.Visible = !res;
                 DataTable diseños = m_controladora_dp.solicitar_disenos_asociados_proyecto(Convert.ToInt32(drop_proyecto.SelectedValue));
-                m_dp_seleccionado = diseños.Rows[diseños.Rows.Count - 1]["id_diseno"].ToString();
+                m_dp_seleccionado = diseños.Rows[diseños.Rows.Count-1]["id_diseno"].ToString();
                 btn_modificar_Click(this, null);
                 btn_Aceptar_Click(this,null);
+                if (res) cuerpo_alerta_exito.Text = " Se ha agregado un nuevo diseño correctamente.";
+                else     cuerpo_alerta_error.Text = " No se logró agregado el diseño, intente nuevamente.";
+
             }
-            else if(m_opcion == 'e')
+            else if (m_opcion == 'e')
             {
                 bool res = eliminar_diseno();
                 alerta_exito.Visible = res;
                 alerta_error.Visible = !res;
             }
-            else if(m_opcion == 'm')
+            else if (m_opcion == 'm')
             {
                 bool res = modificar_diseno();
                 alerta_exito.Visible = res;
@@ -633,7 +634,7 @@ namespace SAPS.Fronteras
                                         {
                                             if (input_fecha.Text != "")
                                             {
-                                                Object[] datosDiseno = new Object[10];
+                                                Object[] datosDiseno = new Object[11];
                                                 datosDiseno[0] = m_dp_seleccionado; 
                                                 datosDiseno[1] = Convert.ToInt32(drop_proyecto.SelectedValue);
                                                 datosDiseno[2] = input_nombre.Text;
@@ -643,7 +644,8 @@ namespace SAPS.Fronteras
                                                 datosDiseno[6] = drop_nivel.SelectedValue;
                                                 datosDiseno[7] = drop_responsable.SelectedValue;
                                                 datosDiseno[8] = input_ambiente.Text;
-                                                datosDiseno[9] = input_criterio.Text;
+                                                datosDiseno[9] = input_procedimiento.Text;
+                                                datosDiseno[10] = input_criterio.Text;
 
                                                 int resultado = m_controladora_dp.modificar_diseno_pruebas(datosDiseno);
                                                 DataTable diseños = m_controladora_dp.solicitar_disenos_disponibles();
@@ -651,11 +653,9 @@ namespace SAPS.Fronteras
 
                                                 for (int i = 0; i < m_tabla_requerimientos_seleccionados.Count; i++)
                                                 {
-                                                    Object[] datosAsoc = new Object[4];
+                                                    Object[] datosAsoc = new Object[2];
                                                     datosAsoc[0] = id_agregado;
                                                     datosAsoc[1] = m_tabla_requerimientos_seleccionados[i].Item2;
-                                                    datosAsoc[2] = "";
-                                                    datosAsoc[3] = input_procedimiento.Text;
 
                                                     m_controladora_dp.modificar_requerimiento(datosAsoc);
                                                 }

@@ -62,7 +62,7 @@
                                     <asp:Label runat="server" CssClass="control-label" AssociatedControlID="drop_disenos_disponibles"> Diseño <span class="text-danger">*</span></asp:Label>
                                 </div>
                                 <div class="col-md-3 col-xs-3">
-                                    <asp:DropDownList ID="drop_disenos_disponibles" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_disenos_disponibles_SelectedIndexChanged">
+                                    <asp:DropDownList ID="drop_disenos_disponibles" runat="server" CssClass="form-control" OnSelectedIndexChanged="drop_disenos_disponibles_SelectedIndexChanged" AutoPostBack="true">
                                     </asp:DropDownList>
                                     <asp:Label runat="server" CssClass="text-danger" ID="label_error_diseno"><small>Debe seleccionar un diseño de prueba.</small></asp:Label>
                                 </div>
@@ -99,14 +99,59 @@
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div id="row1_panel2" class="form-group">
-                                <asp:Table runat="server" ID="tabla_encabezado" CssClass="table table-bordered"></asp:Table>
                                 <div class="col-md-12" style="height: 250px; overflow-y: scroll;">
-                                    <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-hover table-bordered">
+                                    <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-bordered">
+                                        <asp:TableHeaderRow runat="server" ID="header_tabla_resultados">
+                                            <asp:TableHeaderCell runat="server" ID="celda_num_resultado" Text="#"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_estado_resultado" Text="Estado"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_no_conformidad_resultado" Text="Tipo de no conformidad"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_id_caso_resultado" Text="ID caso de prueba"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_descripcion_resultado" Text="Descripción"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_justificacion_resultado" Text="Justificación"></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_resultados_resultado" Text="Resultados"></asp:TableHeaderCell>
+                                        </asp:TableHeaderRow>
+                                        <asp:TableRow runat="server" ID="fila_inputs">
+                                            <asp:TableCell runat="server" ID="celda_drop_num_resultado"></asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_drop_estado">
+                                                <asp:DropDownList runat="server" ID="drop_estado" CssClass="form-control">
+                                                    <asp:ListItem runat="server" Text="Satisfactoria" Value="Satisfactoria"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Fallida" Value="Fallida"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Pendiente" Value="Pendiente"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Pendiente" Value="Pendiente"></asp:ListItem>
+                                                </asp:DropDownList>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_drop_tipo_no_conformidad">
+                                                <asp:DropDownList runat="server" ID="drop_tipo_no_conformidad" CssClass="form-control">
+                                                    <asp:ListItem runat="server" Text="No aplica" Value="No aplica"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Funcionalidad" Value="Funcionalidad"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Validación" Value="Validación"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Opciones que no funcionan" Value="Opciones que no funcionan"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Errores de usabilidad" Value="Errores de usabilidad"></asp:ListItem>
+                                                    <asp:ListItem runat="server" Text="Excepciones" Value="Excepciones"></asp:ListItem>
+                                                </asp:DropDownList>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_drop_casos">
+                                                <asp:DropDownList runat="server" ID="drop_casos" CssClass="form-control">
+                                                </asp:DropDownList>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_descripcion">
+                                                <asp:TextBox runat="server" ID="input_descripcion" CssClass="form-control" TextMode="MultiLine" Rows="2" Style="resize: none"
+                                                    placeholder="Describa la no conformidad"></asp:TextBox>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_justificacion">
+                                                <asp:TextBox runat="server" ID="input_justificacion" CssClass="form-control" TextMode="MultiLine" Rows="2" Style="resize: none"
+                                                    placeholder="Escriba la justificación de lo ocurrido"></asp:TextBox>
+                                            </asp:TableCell>
+                                            <asp:TableCell runat="server" ID="celda_btn_agregar_imagen">
+                                                <asp:Button runat="server" ID="btn_agregar_img" CssClass="btn btn-link btn-block" data-target="#modal_imagen" data-toggle="modal" Text="Subir una imagen" />
+                                                <asp:Label runat="server" ID="label_img_agregada" CssClass="text-success"><small> &nbsp;&nbsp;&nbsp;Imagen cargada</small></asp:Label>
+                                            </asp:TableCell>
+                                        </asp:TableRow>
                                     </asp:Table>
                                 </div>
                             </div>
                             <div id="row2_panel2" class="form-group">
-                                <div class="col-md-3 col-md-offset-9">
+                                <div class="col-md-2 col-md-offset-10">
                                     <asp:Button runat="server" CssClass="btn btn-link" ID="btn_agregar_resultado" Text="Agregar" OnClick="btn_agregar_resultado_Click" />
                                     <asp:Button runat="server" CssClass="btn btn-link" ID="btn_eliminar_resultado" Text="Eliminar" OnClick="btn_eliminar_resultado_Click" />
                                 </div>
@@ -272,7 +317,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-4 col-md-offset-1">
-                                            <asp:FileUpload ID="subidor_archivo" runat="server"/>
+                                            <asp:FileUpload ID="subidor_archivo" runat="server" />
                                         </div>
                                         <div class="col-md-5 col-md-offset-1">
                                             <asp:Button runat="server" CssClass="btn btn-primary btn-block" Text="Guardar imagen" ID="btn_agregar_imagen" OnClick="btn_agregar_imagen_Click" />
@@ -284,6 +329,31 @@
                                 <button type="button" class="btn btn-link" style="color: darkgray" data-dismiss="modal" aria-label="Close">Volver</button>
                             </div>
                         </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+        </div>
+    </section>
+    <!--Mostrar imágen -->
+    <section id="modal_imagen">
+        <div class="modal fade bs-example-sm" id="modal_mostrar_imagen" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <asp:UpdatePanel ID="update_mostrar_imagen" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <asp:Label ID="Label1" runat="server" Text="Imagen"></asp:Label>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Image ID="visor_imagen" runat="server"/>
+                                    </div>
+                                </div>
+                            </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
