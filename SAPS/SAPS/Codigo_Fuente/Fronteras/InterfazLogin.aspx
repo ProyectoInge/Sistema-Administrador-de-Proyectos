@@ -64,9 +64,9 @@
             $("#<%= input_usuario.ClientID%>").blur(function () {
                 var nombre_ingresado = $("#<%= input_usuario.ClientID %>").val();
                 if (nombre_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_usuario_vacio.ClientID %>").show();
+                    $("#<%= label_usuario_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_usuario_vacio.ClientID %>").hide();
+                    $("#<%= label_usuario_vacio.ClientID %>").fadeOut();
                 }
             });
 
@@ -74,9 +74,9 @@
             $("#<%= input_contrasena.ClientID%>").blur(function () {
                 var nombre_ingresado = $("#<%= input_contrasena.ClientID %>").val();
                 if (nombre_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_contrasena_vacia.ClientID %>").show();
+                    $("#<%= label_contrasena_vacia.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_contrasena_vacia.ClientID %>").hide();
+                    $("#<%= label_contrasena_vacia.ClientID %>").fadeOut();
                 }
             });
 
@@ -84,16 +84,16 @@
                 var usuario_ingresado = $("#<%= input_usuario.ClientID %>").val();
                 var contrasena_ingresada = $("#<%= input_contrasena.ClientID %>").val();
                 if (usuario_ingresado != "") {
-                    $("#<%= label_usuario_vacio.ClientID %>").hide();
+                    $("#<%= label_usuario_vacio.ClientID %>").fadeOut();
                     if (contrasena_ingresada != "") {
-                        $("#<%= label_contrasena_vacia.ClientID %>").hide();
+                        $("#<%= label_contrasena_vacia.ClientID %>").fadeOut();
                     } else {
-                        $("#<%= label_contrasena_vacia.ClientID %>").show();
+                        $("#<%= label_contrasena_vacia.ClientID %>").fadeIn();
                         $("#<%= input_contrasena.ClientID %>").focus();
                         return false; // Esto previene que realice el PostBack
                     }
                 } else {
-                    $("#<%= label_usuario_vacio.ClientID %>").show();
+                    $("#<%= label_usuario_vacio.ClientID %>").fadeIn();
                     $("#<%= input_usuario.ClientID %>").focus();
                     return false; // Esto previene que realice el PostBack
                 }

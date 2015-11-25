@@ -72,8 +72,8 @@ namespace SAPS.Entidades
 
         public int num_ejecucion
         {
-            get { return num_ejecucion; }
-            set { num_ejecucion = value; }
+            get { return m_numero_ejecucion; }
+            set { m_numero_ejecucion = value; }
         }
 
         public string estado
@@ -105,7 +105,6 @@ namespace SAPS.Entidades
             get { return m_justificacion; }
             set { m_justificacion = value; }
         }
-
-        /// @todo Sets y gets para la imagen
+        
     }    
 }

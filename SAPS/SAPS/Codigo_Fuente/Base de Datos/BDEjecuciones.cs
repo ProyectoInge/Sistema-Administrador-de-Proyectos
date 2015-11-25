@@ -27,7 +27,7 @@ namespace SAPS.Base_de_Datos
          * @param num de la ejecución que se desea eliminar y el id de diseño relacionado.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        internal int eliminar_ejecucion(int id_diseno, int num_ejecucion)
+        public int eliminar_ejecucion(int id_diseno, int num_ejecucion)
         {
             SqlCommand comando = new SqlCommand("ELIMINAR_EP");
             comando.CommandType = CommandType.StoredProcedure;
@@ -41,7 +41,7 @@ namespace SAPS.Base_de_Datos
          * @param num del resultado que se desea eliminar y num de la ejecución y el id de diseño relacionados.
          * @return 0 si la operación se realizó con éxito, números negativos si pasó algún error con la Base de Datos.
          */
-        internal int eliminar_resultado(int id_diseno, int num_ejecucion, int num_resultado)
+        public int eliminar_resultado(int id_diseno, int num_ejecucion, int num_resultado)
         {
             SqlCommand comando = new SqlCommand("ELIMINAR_RESULTADO");
             comando.CommandType = CommandType.StoredProcedure;
@@ -55,7 +55,7 @@ namespace SAPS.Base_de_Datos
          * @param El objeto "EjecucionPruebas" que se desea agregar al sistema.
          * @return 0 si tuvo éxito la operación, números negativos si ocurrió algún error con la Base de Datos.
          */
-        internal int insertar_ejecucion(EjecucionPruebas ejecucion)
+        public int insertar_ejecucion(EjecucionPruebas ejecucion)
         {
             SqlCommand comando = new SqlCommand("INSERTAR_EP");
             comando.CommandType = CommandType.StoredProcedure;
@@ -67,7 +67,7 @@ namespace SAPS.Base_de_Datos
          * @param El objeto "Resultados_EP" que se desea agregar al sistema.
          * @return 0 si tuvo éxito la operación, números negativos si ocurrió algún problema en la base.
          */
-        internal int insertar_resultado(ResultadosEP resultado)
+        public int insertar_resultado(ResultadosEP resultado)
         {
             SqlCommand comando = new SqlCommand("INSERTAR_RESULTADO");
             comando.CommandType = CommandType.StoredProcedure;
@@ -79,11 +79,11 @@ namespace SAPS.Base_de_Datos
         *   @param id_ejecucion id de la ejecucción a consultar.
         *   @return DataTable con los datos de la ejecución de pruebas.
         */
-        internal DataTable consultar_ejecucion(int id_ejecucion)
+        public DataTable consultar_ejecucion(int id_ejecucion)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_EJECUCION");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("id_ejecucion", SqlDbType.Int).Value = id_ejecucion;
+            comando.Parameters.Add("numero_ejecucion", SqlDbType.Int).Value = id_ejecucion;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
@@ -91,15 +91,15 @@ namespace SAPS.Base_de_Datos
         *   @param id_ejecucion id de la ejecucción a consultar.
         *   @return DataTable con los resultados asociados a la ejecución de pruebas.
         */
-        internal DataTable consultar_resultados(int id_ejecucion)
+        public DataTable consultar_resultados(int id_ejecucion)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_RESULTADOS");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("id_ejecucion", SqlDbType.Int).Value = id_ejecucion;
+            comando.Parameters.Add("numero_ejecucion", SqlDbType.Int).Value = id_ejecucion;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
-        internal DataTable consultar_ejecuciones(int id_diseno)
+        public DataTable consultar_ejecuciones(int id_diseno)
         {
             SqlCommand comando = new SqlCommand("CONSULTAR_EJECUCIONES");
             comando.CommandType = CommandType.StoredProcedure;

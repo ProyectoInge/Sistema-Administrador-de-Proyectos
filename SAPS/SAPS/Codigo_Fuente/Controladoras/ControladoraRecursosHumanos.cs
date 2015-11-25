@@ -100,7 +100,7 @@ namespace SAPS.Controladoras
         {
             return m_base_datos.consultar_rh_asociados_proyecto(id_proyecto);
         }
-
+        
 
         // Módulo Seguridad
 

@@ -39,10 +39,6 @@ execute INSERTAR_REQUERIMIENTO 'RH_M', 'Requerimiento 2', 'Criterio 1, Criterio 
 execute INSERTAR_REQUERIMIENTO 'DP_I', 'Requerimiento 3', 'Criterio 1, Criterio 2'
 execute INSERTAR_REQUERIMIENTO 'DP_E', 'Requerimiento 4', 'Criterio 1, Criterio 2'
 
-select * from SePrueba
-execute ASOCIAR_REQUERIMIENTO 1, 'RH_I', 'Proposito', 'Procedimiento'
-execute ASOCIAR_REQUERIMIENTO 2, 'DP_E', 'Proposito', 'Procedimiento'
-
 select * from CasoPrueba
 execute INSERTAR_CP  1, 'Unitaria#1', 'A,B,C'
 execute INSERTAR_CP  1, 'Unitaria#2', 'A,B,C'
@@ -50,5 +46,3 @@ execute INSERTAR_CP  1, 'Unitaria#3', 'A,B,C'
 execute INSERTAR_CP  2, 'Unitaria#1', 'A,B,C'
 execute INSERTAR_CP  2, 'Unitaria#2', 'A,B,C'
 execute INSERTAR_CP  2, 'Unitaria#3', 'A,B,C'
-
-

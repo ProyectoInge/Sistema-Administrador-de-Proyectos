@@ -343,15 +343,15 @@
             $("#<%= input_cedula.ClientID %>").blur(function () {
                 var cedula_ingresada = $("#<%= input_cedula.ClientID %>").val();
                 if (cedula_ingresada == "") {   //Verifica que no este vacía
-                    $("#<%= label_error_input_cedula.ClientID%>").hide();
-                    $("#<%= label_cedula_vacia.ClientID %>").show();
+                    $("#<%= label_error_input_cedula.ClientID%>").fadeOut();
+                    $("#<%= label_cedula_vacia.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_cedula_vacia.ClientID%>").hide();
+                    $("#<%= label_cedula_vacia.ClientID%>").fadeOut();
                     var regex = /([1-7]|9)-\d{4}-\d{4}/;
                     if (regex.test(cedula_ingresada) == false) {    //Verifica que coincida con la REGEX
-                        $("#<%= label_error_input_cedula.ClientID%>").show();
+                        $("#<%= label_error_input_cedula.ClientID%>").fadeIn();
                     } else {
-                        $("#<%= label_error_input_cedula.ClientID%>").hide();
+                        $("#<%= label_error_input_cedula.ClientID%>").fadeOut();
                     }
                 }
             });
@@ -360,9 +360,9 @@
             $("#<%= input_name.ClientID%>").blur(function () {
                 var nombre_ingresado = $("#<%= input_name.ClientID %>").val();
                 if (nombre_ingresado == "") { //Verifica que no este vacia
-                    $("#<%= label_nombre_vacio.ClientID %>").show();
+                    $("#<%= label_nombre_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_nombre_vacio.ClientID %>").hide();
+                    $("#<%= label_nombre_vacio.ClientID %>").fadeOut();
                 }
             });
 
@@ -370,10 +370,10 @@
             $("#<%= input_correo.ClientID %>").blur(function () {
                 var correo_ingresado = $("#<%= input_correo.ClientID %>").val();
                 if (correo_ingresado == "") { //Verifica que no este vacio
-                    $("#<%= label_error_correo.ClientID %>").hide();
-                    $("#<%= label_correo_vacio.ClientID %>").show();
+                    $("#<%= label_error_correo.ClientID %>").fadeOut();
+                    $("#<%= label_correo_vacio.ClientID %>").fadeIn();
                 } else {
-                    $("#<%= label_correo_vacio.ClientID %>").hide();
+                    $("#<%= label_correo_vacio.ClientID %>").fadeOut();
                     // TO DO --> validar el correo con una regex
                 }
             });
@@ -382,15 +382,15 @@
             $("#<%= input_telefono.ClientID %>").blur(function () {
                 var telefono_ingresado = $("#<%= input_telefono.ClientID %>").val();
                 if (telefono_ingresado == "") { //Verifica que no este vacio
-                    $("#<%= label_error_telefono.ClientID%>").hide();
-                    $("#<%= label_telefono_vacio.ClientID%>").show();
+                    $("#<%= label_error_telefono.ClientID%>").fadeOut();
+                    $("#<%= label_telefono_vacio.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_telefono_vacio.ClientID%>").hide();
+                    $("#<%= label_telefono_vacio.ClientID%>").fadeOut();
                     var regex_telefono = /(\(?\+?\d{3}\))?(2|4|5|6|7|8)\d{3}-?\d{4}/;
                     if (regex_telefono.test(telefono_ingresado) == false) { //Revisa si coincide el numero ingresado con la regex
-                        $("#<%= label_error_telefono.ClientID%>").show();
+                        $("#<%= label_error_telefono.ClientID%>").fadeIn();
                     } else {
-                        $("#<%= label_error_telefono.ClientID%>").hide();
+                        $("#<%= label_error_telefono.ClientID%>").fadeOut();
                     }
                 }
             });
@@ -399,9 +399,9 @@
             $("#<%= input_usuario.ClientID %>").blur(function () {
                 var usuario_ingresado = $("#<%= input_usuario%>").val();
                 if (usuario_ingresado == "") {
-                    $("#<%= label_usuario_vacio.ClientID%>").show();
+                    $("#<%= label_usuario_vacio.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_usuario_vacio.ClientID%>").hide();
+                    $("#<%= label_usuario_vacio.ClientID%>").fadeOut();
                 }
             });
 
@@ -410,9 +410,9 @@
                 var proyecto_ingresado = new String();
                 proyecto_ingresado = $("#<%= drop_proyecto_asociado.ClientID%>").val();
                 if (proyecto_ingresado == "") {
-                    $("#<%= label_proyecto_vacio.ClientID%>").show();
+                    $("#<%= label_proyecto_vacio.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_proyecto_vacio.ClientID%>").hide();
+                    $("#<%= label_proyecto_vacio.ClientID%>").fadeOut();
                 }
             });
 
@@ -421,9 +421,9 @@
                 var rol_ingresado = new String();
                 rol_ingresado = $("#<%= drop_rol.ClientID%>").val();
                 if (rol_ingresado == "") {
-                    $("#<%= label_rol_vacio.ClientID%>").show();
+                    $("#<%= label_rol_vacio.ClientID%>").fadeIn();
                 } else {
-                    $("#<%= label_rol_vacio.ClientID%>").hide();
+                    $("#<%= label_rol_vacio.ClientID%>").fadeOut();
                 }
             });
 
@@ -432,10 +432,10 @@
                 var contrasena1 = $("#<%= modal_reestablecer_input_contrasena_1.ClientID %>").val();
                 var contrasena2 = $("#<%= modal_reestablecer_input_contrasena_2.ClientID %>").val();
                 if (contrasena1 != contrasena2) {
-                    $("#<%= label_contrasenas_distintas.ClientID%>").show();
+                    $("#<%= label_contrasenas_distintas.ClientID%>").fadeIn();
                     $("#<%= modal_reestablecer_input_contrasena_1.ClientID %>").focus();
                 } else {
-                    $("#<%= label_contrasenas_distintas.ClientID%>").hide();
+                    $("#<%= label_contrasenas_distintas.ClientID%>").fadeOut();
                 }
             });
 

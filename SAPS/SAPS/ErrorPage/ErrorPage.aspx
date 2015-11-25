@@ -11,17 +11,21 @@
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-12 col-lg-12">
-                                        <h2>Error :(  <small>sentimos el inconveniente</small></h2>
+                                        <h2>Error <small>sentimos el inconveniente</small></h2>
                                     </div>
                                 </div>
                                 <hr />
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
-                                            <p>Lamentablemente el sistema se detuvo, estamos trabajando para solucionar el problema y que esto no vuelva a ocurrir.
-                                                Mientras tanto, lo invitamos a que vuelva a la pantalla de inicio :)
-                                            </p>
-                                        </div>
+                                    <div class="col-md-4 col-md-offset-3">
+                                        <img src="http://telegram-stickers.github.io/public/stickers/animals/15.png" class="img-rounded" alt="imagen error" width="170" height="200">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+                                        <p>
+                                            Lamentablemente el sistema se detuvo, estamos trabajando para solucionar el problema y que esto no vuelva a ocurrir.
+                                                Mientras tanto, lo invitamos a que vuelva a la pantalla de inicio.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
