@@ -83,8 +83,8 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default";
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
-            activa_desactiva_botones_ime(false);
-            btn_modificar.Enabled = true;
+            activa_desactiva_botones_ime(true);
+            btn_modificar.Enabled = false;
 
         }
 
