@@ -148,10 +148,29 @@ namespace SAPS.Base_de_Datos
         */
         public DataTable solicitar_proyectos_no_eliminados()
         {
-            SqlCommand comando = new SqlCommand("SOLICITAR_PROYECTOS_NO_ELIMINADOS");
+            SqlCommand comando = new SqlFILTRAR_PROYECTOSCommand("SOLICITAR_PROYECTOS_NO_ELIMINADOS");
             comando.CommandType = CommandType.StoredProcedure;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
+
+
+        /**@brief Método que se encarga de realizar una sentencia SQL para obtener los proyectos aplicandole una serie de filtros
+        * @param datos array con los valores de los filtros que se desean aplicar.
+        * @return Información de todos los proyectos que cumplen las condiciones específicadas en los filtros.
+        */
+        private DataTable aplicar_filtros_proyecto_pruebas(string[] datos)
+        {
+            SqlCommand comando = new SqlCommand("");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@filtro_id_oficina", SqlDbType.Int).Value = datos[0];
+            comando.Parameters.Add("@filtro_despues_de", SqlDbType.DateTime).Value = datos[1];
+            comando.Parameters.Add("@filtro_antes_de", SqlDbType.DateTime).Value = datos[2];
+            comando.Parameters.Add("@filtro_nombre_sistema", SqlDbType.VarChar).Value = datos[3];
+            comando.Parameters.Add("@filtro_estado", SqlDbType.VarChar).Value = datos[4];
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
+
 
 
         // Métodos auxiliares
