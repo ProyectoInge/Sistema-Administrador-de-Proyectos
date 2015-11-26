@@ -12,7 +12,11 @@
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
     <webopt:BundleReference runat="server" Path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="Content/bootstrap.css" rel="stylesheet">
+    <link href="Content/bootstrap-toggle.css" rel="stylesheet">
+    <script src="~/Scripts/WebForms/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/WebForms/bootstrap-switch.js"></script>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />    
     <link href="Content/rotating-card.css" rel="stylesheet" />
     <link href="Content/font-awesome.css" rel="stylesheet" />
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -58,6 +62,7 @@
                         <li id="btn_dp"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazDisenoPruebas.aspx">Diseño De Pruebas</a></li>
                         <li id="btn_cdp"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazCasosDePruebas.aspx">Casos de Pruebas</a></li>
                         <li id="btn_ep"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazEjecucionPruebas.aspx">Ejecución de Pruebas</a></li>
+                        <li id="btn_rp"><a runat="server" href="~/Codigo_Fuente/Fronteras/InterfazReportes.aspx">Reportes</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
                         <AnonymousTemplate>

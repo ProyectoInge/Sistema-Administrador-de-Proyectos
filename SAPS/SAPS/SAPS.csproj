@@ -177,6 +177,8 @@
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazReportes.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazRequerimientos.aspx" />
+    <Content Include="Content\bootstrap-toggle.css" />
+    <Content Include="Content\bootstrap-toggle.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\hover.css" />
     <Content Include="Content\rotating-card.css" />

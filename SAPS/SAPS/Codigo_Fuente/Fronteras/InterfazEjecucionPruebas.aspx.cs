@@ -43,7 +43,7 @@ namespace SAPS.Fronteras
             |   4       |   Descripcion         |
             |   5       |   Justificacion       |
             |   6       |   Ruta imagen         |
-        
+
             */
 
         /** @brief Metodo que se llama al cargar la página.
@@ -74,10 +74,10 @@ namespace SAPS.Fronteras
 
                 if (m_resultados_tmp.Count > 0)
                 {
-                    actualiza_resultados();
-                }
-                else
-                {
+                actualiza_resultados();
+            }
+            else
+            {
                     celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
                 }
 
@@ -127,8 +127,6 @@ namespace SAPS.Fronteras
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
             activa_desactiva_botones_ime(true);
-            btn_modificar.Enabled = false;
-
         }
 
         /** @brief Método que se activa al seleccionar el botón eliminar de los botones de IME
@@ -327,7 +325,7 @@ namespace SAPS.Fronteras
                                     if (label_incidentes.Text != "")
                                     {
                                         Object[] datos = new Object[5];
-                                        //datos[0] = Numero de ejecucion int ;
+                                        datos[0] = m_llave_ejecucion[0];                                // Al consultar una ejecucion, el vector de llaves se llena
                                         datos[1] = drop_rh_disponibles.Text;
                                         datos[2] = Convert.ToInt32(drop_disenos_disponibles.Text);
                                         datos[3] = Convert.ToDateTime(input_fecha.Text);
@@ -396,9 +394,6 @@ namespace SAPS.Fronteras
             {                            // Verificados los datos de ejecucion, se verifican los de resultados
 
             }
-
-
-
 
             return respuesta;
         }
@@ -565,7 +560,7 @@ namespace SAPS.Fronteras
                 datos_resultado[6] = resultados_ejecucion.Rows[i]["ruta_imagen"].ToString();
                 m_resultados_tmp.Add(datos_resultado);
             }
-
+            
             llena_resultados();
         }
 
