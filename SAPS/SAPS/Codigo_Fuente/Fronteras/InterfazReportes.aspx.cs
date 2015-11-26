@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SAPS.Controladoras;
+using System.Data;
 
 namespace SAPS.Fronteras
 {
@@ -34,9 +35,13 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Metodo que llena la tabla con los proyectos que hay disponibles en el sistema.
+         */
         private void llena_proyectos_disponibles()
         {
+            DataTable proyectos_disponibles = m_controladora_rep.solicitar_proyectos_disponibles();
         }
+
         protected void btn_generar_reporte_Click(object sender, EventArgs e)
         {
         }

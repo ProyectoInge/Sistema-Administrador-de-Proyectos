@@ -733,6 +733,21 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Actualiza los casos dependiendo del diseño que se seleccionó
+        */
+        private void actualizar_casos()
+        {
+            vaciar_casos();
+            llena_casos();
+        }
+
+        /** @brief Elimina todos los items que hay en el drop de los casos.
+        */
+        private void vaciar_casos()
+        {
+            drop_casos.Items.Clear();
+        }
+
         /** @brief Evento que se activa cuando se selecciona un nuevo elemento del combobox de los diseños disponibles.
          * @param Los parametros por defecto de un evento de ASP.
          */
@@ -743,7 +758,7 @@ namespace SAPS.Fronteras
                 int id_diseno_seleccionado = Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value);
                 m_llave_ejecucion[1] = id_diseno_seleccionado;
                 llena_info_diseno(id_diseno_seleccionado);
-                llena_casos();
+                actualizar_casos();
 
                 // Llena la tabla de ejecuciones asociadas a un diseño
                 //llenar_ejecuciones_disponibles(id_diseno_seleccionado);
@@ -751,6 +766,7 @@ namespace SAPS.Fronteras
             else
             {
                 borrar_filas_tabla_ejecuciones_disponibles();
+                actualizar_casos();
             }
         }
 

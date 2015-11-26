@@ -21,6 +21,7 @@ namespace SAPS.Controladoras
         private ControladoraRecursosHumanos m_controladora_rh;
         private ControladoraDisenosPruebas m_controladora_dp;
         private ControladoraCasoPruebas m_controladora_cp;
+        private ControladoraProyectoPruebas m_controladora_pdp;
 
         ///@brief Constructor
         public ControladoraReportes()
@@ -70,8 +71,14 @@ namespace SAPS.Controladoras
             return null;
         }
 
-
-
+        /** @brief Metodo que consulta los proyectos disponibles en el sistema.
+         *  @return DataTable con la informacion de los proyectos disponibles en la base de datos.
+         */
+        public DataTable solicitar_proyectos_disponibles()
+        {
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.solicitar_proyectos_disponibles();
+        }
 
 
 
