@@ -24,9 +24,18 @@ namespace SAPS.Fronteras
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            alerta_advertencia.Visible = false;
+            alerta_error.Visible = false;
+            alerta_exito.Visible = false;
         }
 
+        protected void btn_generar_reporte_Click(object sender, EventArgs e)
+        {
+        }
 
+        protected void btn_cancelar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

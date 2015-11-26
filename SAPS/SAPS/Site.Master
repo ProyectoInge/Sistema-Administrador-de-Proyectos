@@ -16,11 +16,13 @@
     <link href="Content/bootstrap-toggle.css" rel="stylesheet">
     <script src="~/Scripts/WebForms/jquery-1.10.2.js"></script>
     <script src="~/Scripts/WebForms/bootstrap-switch.js"></script>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />    
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="Content/rotating-card.css" rel="stylesheet" />
     <link href="Content/font-awesome.css" rel="stylesheet" />
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="Content/hover.css" rel="stylesheet" />
+    <link href="Content/bootstrap-toggle.css" rel="stylesheet">
+    <script src="Scripts/bootstrap-toggle.js"></script>
 </head>
 <body>
     <form runat="server">
