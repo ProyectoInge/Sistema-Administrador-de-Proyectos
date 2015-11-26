@@ -64,8 +64,8 @@
                                     <div style="height: 100px; overflow-y: scroll">
                                         <asp:Table runat="server" ID="tabla_proyectos" CssClass="table table-bordered">
                                             <asp:TableHeaderRow runat="server" ID="header_tabla_proyectos">
-                                                <asp:TableHeaderCell runat="server" CssClass="col-md-2 text-center" ID="celda_check_proyectos">
-                                                    <asp:CheckBox runat="server" ID="check_header_proyecto" />
+                                                <asp:TableHeaderCell runat="server" CssClass="col-md-3 text-center" ID="celda_check_proyectos">
+                                                    <asp:Checkbox runat="server" CssClass="checkbox-inline" ID="check_header_proyecto" Text="Todos"/>
                                                 </asp:TableHeaderCell>
                                                 <asp:TableHeaderCell runat="server" ID="celda_nombre_proyecto" CssClass="text-center" Text="Nombre"></asp:TableHeaderCell>
                                             </asp:TableHeaderRow>
@@ -196,6 +196,8 @@
                 $("#<%=check_miembros.ClientID%>").prop("disabled", false);
                 $("#<%=check_objetivos.ClientID%>").prop("disabled", false);
                 $("#<%=check_oficina.ClientID%>").prop("disabled", false);
+                $("#<%=check_header_proyecto.ClientID%>").prop("disabled", false);
+
             });
             $("#proyecto_inhabilitado").click(function () {
                 $("#btn_estado_proyecto").text("Inhabilitado");
@@ -210,6 +212,7 @@
                 $("#<%=check_miembros.ClientID%>").prop("disabled", true);
                 $("#<%=check_objetivos.ClientID%>").prop("disabled", true);
                 $("#<%=check_oficina.ClientID%>").prop("disabled", true);
+                $("#<%=check_header_proyecto.ClientID%>").prop("disabled", true);
             });
         });
     </script>

@@ -375,6 +375,7 @@
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraDisenosPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
+    <Compile Include="Codigo_Fuente\Controladoras\ControladoraReportes.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRequerimientos.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Ayudantes\Datos.cs" />
     <Compile Include="Codigo_Fuente\Entidades\CasoPruebas.cs" />
