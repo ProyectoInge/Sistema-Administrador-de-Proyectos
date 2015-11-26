@@ -331,8 +331,17 @@ namespace SAPS.Fronteras
                                         datos[3] = Convert.ToDateTime(input_fecha.Text);
                                         datos[4] = label_incidentes.Text;
 
-                                        respuesta = true;                                               // La insercion de la ejecucion es valida, pero aun no se ingresa
-                                    }                                                                   // Es necesario verificar los resultados de pruebas                                    
+                                        int resultado = m_controladora_ep.modificar_ejecucion(datos);
+                                        if (resultado == 0)
+                                        {
+                                            respuesta = true;                                               // La insercion de la ejecucion es valida
+                                                                                                            // Es necesario verificar los resultados de pruebas                                    
+                                        }
+                                        else {
+                                            respuesta = false;
+                                        }
+
+                                    }                                                                   
                                     else
                                     {
                                         cuerpo_alerta_error.Text = "Debe ingresar una fecha de ejecución.";
@@ -392,7 +401,56 @@ namespace SAPS.Fronteras
 
             if (respuesta)
             {                            // Verificados los datos de ejecucion, se verifican los de resultados
+                DataTable ejecuciones_disponibles = m_controladora_ep.consultar_ejecuciones(Int32.Parse(drop_disenos_disponibles.SelectedItem.Value));
+                int id_ejecucion_recien_agrgada = Convert.ToInt32(ejecuciones_disponibles.Rows[ejecuciones_disponibles.Rows.Count - 1]["num_ejecucion"]);
+                
+                /*
+                    | Índice | Descripción             | Tipo de datos |
+                    |:------:|:-----------------------:|:-------------:|
+                    |    0   |  Numero de resultado    |      int      |
+                    |    1   |  Id del diseno          |      int      |
+                    |    2   |  Numero de ejecucion    |      int      |
+                    |    3   |  Estado                 |     string    |
+                    |    4   |  Tipo No Conformidad    |     string    |
+                    |    5   |  Id del Caso            |     string    |
+                    |    6   |  Descripcion No Conf.   |     string    |
+                    |    7   |  Justificacion          |     string    |
+                    |    8   |  Ruta de la imagen      |     string    |
 
+                    |   Indice  |   Significado         |
+                    |:---------:|:---------------------:|
+                    |   0       |   # resultado         |
+                    |   1       |   estado              |
+                    |   2       |   tipo no conformidad |   Todos son string
+                    |   3       |   ID Caso             |
+                    |   4       |   Descripcion         |
+                    |   5       |   Justificacion       |
+                    |   6       |   Ruta imagen         |
+                */
+                for (int i = 0; i < m_resultados_tmp.Count; ++i)
+                {
+                    string[] vec_tmp = m_resultados_tmp[i];
+                    Object[] datos_resultado = new Object[9];
+                    datos_resultado[0] = Int32.Parse(vec_tmp[0]);
+                    datos_resultado[1] = Int32.Parse(drop_disenos_disponibles.SelectedItem.Value);
+                    datos_resultado[2] = id_ejecucion_recien_agrgada;
+                    datos_resultado[3] = vec_tmp[1];
+                    datos_resultado[4] = vec_tmp[2];
+                    datos_resultado[5] = vec_tmp[3];
+                    datos_resultado[6] = vec_tmp[4];
+                    datos_resultado[7] = vec_tmp[5];
+                    datos_resultado[8] = vec_tmp[6];
+                    int resultado_agrega_resultado = m_controladora_ep.modificar_resultado(datos_resultado);
+                    if (resultado_agrega_resultado != 0)
+                    {
+                        cuerpo_alerta_error.Text = " Se presentó un error al insertar el resultado " + vec_tmp[0];
+                        alerta_error.Visible = true;
+                        return false;
+                    }
+                }
+
+                cuerpo_alerta_exito.Text = " Se agregó la ejecución con sus resultados correctamente.";
+                alerta_exito.Visible = true;
             }
 
             return respuesta;
