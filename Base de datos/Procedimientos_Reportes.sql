@@ -26,6 +26,21 @@ SET @SQLCommand = @SQLCommand+' 0=0 ';  --se podrá mejorar?
 EXECUTE(@SQLCommand)
 GO
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--PRUEBAS FILTRO PROYECTO
 execute FILTRAR_PROYECTOS '', '', '', '',''						--Sin filtro
 execute FILTRAR_PROYECTOS '1', '', '', '','Finalizado'
 execute FILTRAR_PROYECTOS '1', '', '', 'HIP HOP','Finalizado'
