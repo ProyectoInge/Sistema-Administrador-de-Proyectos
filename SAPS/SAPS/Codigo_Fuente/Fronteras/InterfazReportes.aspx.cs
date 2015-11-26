@@ -12,6 +12,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using SAPS.Controladoras;
 
 namespace SAPS.Fronteras
 {
@@ -19,14 +20,30 @@ namespace SAPS.Fronteras
     {
         #region Variables de instancia
         ///Variables de instancia
-        // private static ControladoraReportes m_controladora_rep;
+        private static ControladoraReportes m_controladora_rep;
         #endregion
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            alerta_advertencia.Visible = false;
+            alerta_error.Visible = false;
+            alerta_exito.Visible = false;
+            if (!IsPostBack)
+            {
+                m_controladora_rep = new ControladoraReportes();
+            }
         }
 
+        private void llena_proyectos_disponibles()
+        {
+        }
+        protected void btn_generar_reporte_Click(object sender, EventArgs e)
+        {
+        }
 
+        protected void btn_cancelar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
