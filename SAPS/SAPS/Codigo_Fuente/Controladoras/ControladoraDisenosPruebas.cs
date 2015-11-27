@@ -70,6 +70,10 @@ namespace SAPS.Controladoras
             return m_controladora_pyp.solicitar_proyectos_no_eliminados();
         }
 
+        /** @brief Método que asigna las operaciones necesarias para poder consultar mi proyecto de pruebas.
+         *  @param username de quien hace la consulta.
+         *  @return DataTable con los resultados de la consultas.
+        */
         public DataTable consultar_mi_proyecto(string name)
         {
             m_controladora_pyp = new ControladoraProyectoPruebas();
