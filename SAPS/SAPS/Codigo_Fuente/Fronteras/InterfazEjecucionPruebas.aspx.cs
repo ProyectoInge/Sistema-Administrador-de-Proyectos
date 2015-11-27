@@ -72,6 +72,12 @@ namespace SAPS.Fronteras
                     m_nombre_archivo = "";
                 }
 
+                if (drop_disenos_disponibles.SelectedItem.Value != "")
+                {
+                    llenar_ejecuciones_disponibles(Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value));
+                }
+
+                // Si hay ejecuciones
                 if (m_resultados_tmp.Count > 0)
                 {
                     actualiza_resultados();
@@ -79,11 +85,6 @@ namespace SAPS.Fronteras
                 else
                 {
                     celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
-                }
-
-                if (drop_disenos_disponibles.SelectedItem.Value != "")
-                {
-                    llenar_ejecuciones_disponibles(Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value));
                 }
             }
             else
@@ -562,13 +563,16 @@ namespace SAPS.Fronteras
             TableHeaderCell celda_header_proposito = new TableHeaderCell();
             TableHeaderCell celda_header_responsable = new TableHeaderCell();
             TableHeaderCell celda_header_fecha_ultima_ejecucion = new TableHeaderCell();
+            TableHeaderCell celda_header_accion = new TableHeaderCell();
             celda_header_proposito.Text = "Nombre del diseño";
             header.Cells.AddAt(0, celda_header_proposito);
             celda_header_responsable.Text = "Responsable";
             header.Cells.AddAt(1, celda_header_responsable);
             celda_header_fecha_ultima_ejecucion.Text = "Fecha de la última ejecución";
+            celda_header_accion.Text = "Acción";
             header.Cells.AddAt(2, celda_header_fecha_ultima_ejecucion);
             tabla_ejecuciones.Rows.Add(header);
+            header.Cells.AddAt(3, celda_header_accion);
         }
 
         protected void ejecucion_seleccionado(object sender, EventArgs e)
@@ -762,9 +766,6 @@ namespace SAPS.Fronteras
                 m_llave_ejecucion[1] = id_diseno_seleccionado;
                 llena_info_diseno(id_diseno_seleccionado);
                 actualizar_casos();
-
-                // Llena la tabla de ejecuciones asociadas a un diseño
-                //llenar_ejecuciones_disponibles(id_diseno_seleccionado);
             }
             else
             {
@@ -835,7 +836,6 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[1];
                 DropDownList lista = new DropDownList();
-                lista.ID = "lista_estado";
 
                 switch (celda_tmp.Text) {                                   // Creacion del dropdown de estados
                     case "Satisfactoria":                        
@@ -871,7 +871,6 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[2];
                 DropDownList lista_conformidad = new DropDownList();
-                lista_conformidad.ID = "lista_conformidad";
 
                 switch (celda_tmp.Text) {                                                  // Creacion del dropdown de tipos de no conformidad
                     case "No aplica":
