@@ -73,6 +73,7 @@ namespace SAPS.Fronteras
                 {
 
                 }
+                actualizar_oficinas();
                 actualiza_proyectos_disponibles();
             }
             else
@@ -157,6 +158,37 @@ namespace SAPS.Fronteras
 
                 fila_tmp.Cells.Add(celda_tmp);
                 tabla_proyectos.Rows.Add(fila_tmp);
+
+            }
+        }
+
+        /** @brief Metodo que actualiza el drop de las oficinas en la interfaz.
+        */
+        private void actualizar_oficinas()
+        {
+            vaciar_oficinas();
+            llenar_oficinas();
+        }
+
+        /** @brief Metodo que vacia el drop de las oficinas disponibles
+        */
+        private void vaciar_oficinas()
+        {
+            proyecto_drop_oficina.Items.Clear();
+        }
+
+        /** @brief Metodo que llena el drop con las oficinas que hay en el sistema.
+        */
+        private void llenar_oficinas()
+        {
+            DataTable oficinas_disponibles = m_controladora_rep.solicitar_oficinas_disponibles();
+            for(int i=0; i<oficinas_disponibles.Rows.Count; ++i)
+            {
+                ListItem item_tmp = new ListItem();
+                item_tmp.Text = oficinas_disponibles.Rows[i]["nombre_oficina"].ToString();
+                item_tmp.Value = oficinas_disponibles.Rows[i]["id_oficina"].ToString();
+                proyecto_drop_oficina.Items.Add(item_tmp);
+                ///@todo Hacer que cuando selecciona una oficina filtre los proyectos que muestra.
 
             }
         }

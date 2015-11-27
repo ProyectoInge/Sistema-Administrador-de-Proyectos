@@ -212,56 +212,18 @@ namespace SAPS.Fronteras
                             {
                                 DataTable ejecuciones_disponibles = m_controladora_ep.consultar_ejecuciones(Int32.Parse(drop_disenos_disponibles.SelectedItem.Value));
                                 int id_ejecucion_recien_agrgada = Convert.ToInt32(ejecuciones_disponibles.Rows[ejecuciones_disponibles.Rows.Count - 1]["num_ejecucion"]);
-                                #region Guardar los resutlados en la base de datos
-                                /*
-                                    | Índice | Descripción             | Tipo de datos |
-                                    |:------:|:-----------------------:|:-------------:|
-                                    |    0   |  Numero de resultado    |      int      |
-                                    |    1   |  Id del diseno          |      int      |
-                                    |    2   |  Numero de ejecucion    |      int      |
-                                    |    3   |  Estado                 |     string    |
-                                    |    4   |  Tipo No Conformidad    |     string    |
-                                    |    5   |  Id del Caso            |     string    |
-                                    |    6   |  Descripcion No Conf.   |     string    |
-                                    |    7   |  Justificacion          |     string    |
-                                    |    8   |  Ruta de la imagen      |     string    |
-
-                                    |   Indice  |   Significado         |
-                                    |:---------:|:---------------------:|
-                                    |   0       |   # resultado         |
-                                    |   1       |   estado              |
-                                    |   2       |   tipo no conformidad |   Todos son string
-                                    |   3       |   ID Caso             |
-                                    |   4       |   Descripcion         |
-                                    |   5       |   Justificacion       |
-                                    |   6       |   Ruta imagen         |
-                                */
-                                for (int i = 0; i < m_resultados_tmp.Count; ++i)
+                                bool resultado_resultados = ingresar_resultados_sistema(id_ejecucion_recien_agrgada);
+                                if (resultado_resultados)
                                 {
-                                    string[] vec_tmp = m_resultados_tmp[i];
-                                    Object[] datos_resultado = new Object[9];
-                                    datos_resultado[0] = Int32.Parse(vec_tmp[0]);
-                                    datos_resultado[1] = Int32.Parse(drop_disenos_disponibles.SelectedItem.Value);
-                                    datos_resultado[2] = id_ejecucion_recien_agrgada;
-                                    datos_resultado[3] = vec_tmp[1];
-                                    datos_resultado[4] = vec_tmp[2];
-                                    datos_resultado[5] = vec_tmp[3];
-                                    datos_resultado[6] = vec_tmp[4];
-                                    datos_resultado[7] = vec_tmp[5];
-                                    datos_resultado[8] = vec_tmp[6];
-                                    int resultado_agrega_resultado = m_controladora_ep.insertar_resultado(datos_resultado);
-                                    if (resultado_agrega_resultado != 0)
-                                    {
-                                        cuerpo_alerta_error.Text = " Se presentó un error al insertar el resultado " + vec_tmp[0];
-                                        alerta_error.Visible = true;
-                                        return false;
-                                    }
+                                    cuerpo_alerta_exito.Text = " Se agregó la ejecución con sus resultados correctamente.";
+                                    alerta_exito.Visible = true;
+                                    a_retornar = true;
                                 }
-                                #endregion
-
-                                cuerpo_alerta_exito.Text = " Se agregó la ejecución con sus resultados correctamente.";
-                                alerta_exito.Visible = true;
-                                a_retornar = true;
+                                else
+                                {
+                                    cuerpo_alerta_error.Text = "Se presento un error al agregar uno de los resultados";
+                                    alerta_error.Visible = true;
+                                }
 
                             }
                             else
@@ -301,7 +263,61 @@ namespace SAPS.Fronteras
 
             return a_retornar;
         }
+        /** @brief Metodo que se encarga de agregar todos los resultados que estan en la estructura de los resultados y los pasa a la base.
+         *  @param El identificador de la ejecucion a la que se le van a asociar los resultados
+         *  @return True si logro agregar todos los resultados, false si alguno presento error
+        */
+        private bool ingresar_resultados_sistema(int id_ejecucion)
+        {
 
+            #region Guardar los resutlados en la base de datos
+            /*
+                | Índice | Descripción             | Tipo de datos |
+                |:------:|:-----------------------:|:-------------:|
+                |    0   |  Numero de resultado    |      int      |
+                |    1   |  Id del diseno          |      int      |
+                |    2   |  Numero de ejecucion    |      int      |
+                |    3   |  Estado                 |     string    |
+                |    4   |  Tipo No Conformidad    |     string    |
+                |    5   |  Id del Caso            |     string    |
+                |    6   |  Descripcion No Conf.   |     string    |
+                |    7   |  Justificacion          |     string    |
+                |    8   |  Ruta de la imagen      |     string    |
+
+                |   Indice  |   Significado         |
+                |:---------:|:---------------------:|
+                |   0       |   # resultado         |
+                |   1       |   estado              |
+                |   2       |   tipo no conformidad |   Todos son string
+                |   3       |   ID Caso             |
+                |   4       |   Descripcion         |
+                |   5       |   Justificacion       |
+                |   6       |   Ruta imagen         |
+            */
+            for (int i = 0; i < m_resultados_tmp.Count; ++i)
+            {
+                string[] vec_tmp = m_resultados_tmp[i];
+                Object[] datos_resultado = new Object[9];
+                datos_resultado[0] = Int32.Parse(vec_tmp[0]);
+                datos_resultado[1] = Int32.Parse(drop_disenos_disponibles.SelectedItem.Value);
+                datos_resultado[2] = id_ejecucion;
+                datos_resultado[3] = vec_tmp[1];
+                datos_resultado[4] = vec_tmp[2];
+                datos_resultado[5] = vec_tmp[3];
+                datos_resultado[6] = vec_tmp[4];
+                datos_resultado[7] = vec_tmp[5];
+                datos_resultado[8] = vec_tmp[6];
+                int resultado_agrega_resultado = m_controladora_ep.insertar_resultado(datos_resultado);
+                if (resultado_agrega_resultado != 0)
+                {
+                    cuerpo_alerta_error.Text = " Se presentó un error al insertar el resultado " + vec_tmp[0];
+                    alerta_error.Visible = true;
+                    return false;
+                }
+            }
+            return true;
+            #endregion
+        }
         private bool modificar_ejecucion()
         {
             bool respuesta = false;                                      // Bandera especifica que indica el exito o fallo de la modificacion
@@ -852,8 +868,9 @@ namespace SAPS.Fronteras
                 celda_tmp.Text = vec_tmp[1];
                 DropDownList lista = new DropDownList();
 
-                switch (celda_tmp.Text) {                                   // Creacion del dropdown de estados
-                    case "Satisfactoria":                        
+                switch (celda_tmp.Text)
+                {                                   // Creacion del dropdown de estados
+                    case "Satisfactoria":
                         lista.Items.Add("Satisfactoria");
                         lista.Items.Add("Fallida");
                         lista.Items.Add("Pendiente");
@@ -880,14 +897,15 @@ namespace SAPS.Fronteras
                 }
                 lista.Enabled = false;
                 celda_tmp.Controls.Add(lista);                                              // Se agrega el dropdown de estados a la celda
-                nueva_fila.Cells.Add(celda_tmp);                                        
+                nueva_fila.Cells.Add(celda_tmp);
 
                 //Agrega el tipo de no conformidad del resultado
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[2];
                 DropDownList lista_conformidad = new DropDownList();
 
-                switch (celda_tmp.Text) {                                                  // Creacion del dropdown de tipos de no conformidad
+                switch (celda_tmp.Text)
+                {                                                  // Creacion del dropdown de tipos de no conformidad
                     case "No aplica":
                         lista_conformidad.Items.Add("No aplica");
                         lista_conformidad.Items.Add("Funcionalidad");

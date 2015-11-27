@@ -100,6 +100,15 @@ namespace SAPS.Controladoras
             return m_controladora_rh.es_administrador(nombre_usuario);
         }
 
+        /** @brief Método que asigna las operaciones necesarias para poder consultar las oficibas disponibles.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable solicitar_oficinas_disponibles()
+        {
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.solicitar_oficinas_disponibles();
+        }
+
 
     }
 }
