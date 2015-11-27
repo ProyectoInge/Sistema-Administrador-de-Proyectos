@@ -59,24 +59,6 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <asp:Label runat="server" CssClass="control-label" Text="Proyectos disponibles" AssociatedControlID="tabla_proyectos" />
-                                </div>
-                                <div class="col-md-4 col-md-offset-4">
-                                    <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="proyecto_check_todos" Text="Seleccionar todos" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div style="height: 250px; overflow-y: scroll">
-                                        <asp:Table runat="server" ID="tabla_proyectos" CssClass="table table-hover">
-                                        </asp:Table>
-                                    </div>
-                                    <label class="text-info"><small>Los proyectos en rojo ya fueron marcados como "eliminados" en el sistema.</small></label>
-                                </div>
-                            </div>
-                            <hr />
                             <section id="seccion_filtros_proyecto">
                                 <div class="form-group">
                                     <div class="col-md-12">
@@ -111,6 +93,26 @@
                                     <div class="col-md-6">
                                         <asp:Label runat="server" CssClass="control-label" Text="Fecha de finalización" />
                                         <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="proyecto_input_fecha_final" />
+                                    </div>
+                                </div>
+                            </section>
+                            <hr />
+                            <section id="seccion_proyectos_disponibles">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Proyectos disponibles" AssociatedControlID="tabla_proyectos" />
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="proyecto_check_todos" Text="Seleccionar todos" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div style="height: 250px; overflow-y: scroll">
+                                            <asp:Table runat="server" ID="tabla_proyectos" CssClass="table table-hover">
+                                            </asp:Table>
+                                        </div>
+                                        <label class="text-info"><small>Los proyectos en rojo ya fueron marcados como "eliminados" en el sistema.</small></label>
                                     </div>
                                 </div>
                             </section>

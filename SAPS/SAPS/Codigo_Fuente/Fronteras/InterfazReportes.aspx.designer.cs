@@ -67,24 +67,6 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label cuerpo_alerta_advertencia;
         
         /// <summary>
-        /// proyecto_check_todos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox proyecto_check_todos;
-        
-        /// <summary>
-        /// tabla_proyectos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tabla_proyectos;
-        
-        /// <summary>
         /// label_filtros_proyecto control.
         /// </summary>
         /// <remarks>
@@ -137,6 +119,24 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox proyecto_input_fecha_final;
+        
+        /// <summary>
+        /// proyecto_check_todos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox proyecto_check_todos;
+        
+        /// <summary>
+        /// tabla_proyectos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tabla_proyectos;
         
         /// <summary>
         /// label_info_proyectos control.
