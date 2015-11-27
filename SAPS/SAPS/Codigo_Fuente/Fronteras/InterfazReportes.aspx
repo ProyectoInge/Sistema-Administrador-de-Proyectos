@@ -8,7 +8,7 @@
     </script>
     <section id="page_header">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12">
                 <div class="page-header">
                     <h1>SAPS <small>Generación de reportes</small></h1>
                 </div>
@@ -39,7 +39,7 @@
     <section id="form">
         <div class="row">
             <!--Primer caja - Proyecto-->
-            <div class="col-md-5 col-md-offset-1">
+            <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">
@@ -59,92 +59,98 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div style="height: 100px; overflow-y: scroll">
-                                        <asp:Table runat="server" ID="tabla_proyectos" CssClass="table table-bordered">
-                                            <asp:TableHeaderRow runat="server" ID="header_tabla_proyectos">
-                                                <asp:TableHeaderCell runat="server" CssClass="col-md-3 text-center" ID="celda_check_proyectos">
-                                                    <asp:Checkbox runat="server" CssClass="checkbox-inline" ID="check_header_proyecto" Text="Todos"/>
-                                                </asp:TableHeaderCell>
-                                                <asp:TableHeaderCell runat="server" ID="celda_nombre_proyecto" CssClass="text-center" Text="Nombre"></asp:TableHeaderCell>
-                                            </asp:TableHeaderRow>
-                                        </asp:Table>
+                            <section id="seccion_filtros_proyecto">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <asp:Label runat="server" CssClass="control-label" ID="label_filtros_proyecto" AssociatedControlID="proyecto_input_fecha_inicio" Text="Filtros" />
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-5">
-                                    <asp:Label runat="server" ID="label_info_proyectos" AssociatedControlID="check_miembros" CssClass="control-label" Text="Información a incluir:" />
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Oficinas" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_oficina" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Estado" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_estado">
+                                            <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
+                                            <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
+                                            <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>
+                                            <asp:ListItem Text="Finalizado" Value="Finalizado"></asp:ListItem>
+                                            <asp:ListItem Text="Cerrado" Value="Cerrado"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Miembros" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_miembro" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-5">
-                                    <asp:CheckBox runat="server" ID="check_miembros" />
-                                    Miembros asociados
-                                   
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Fecha de inicio" />
+                                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="proyecto_input_fecha_inicio" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Fecha de finalización" />
+                                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="proyecto_input_fecha_final" />
+                                    </div>
                                 </div>
-                                <div class="col-md-5">
-                                    <asp:CheckBox runat="server" ID="check_fechas" />
-                                    Fechas
-                                   
+                            </section>
+                            <hr />
+                            <section id="seccion_proyectos_disponibles">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Proyectos disponibles" AssociatedControlID="tabla_proyectos" />
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="proyecto_check_todos" Text="Seleccionar todos" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-5">
-                                    <asp:CheckBox runat="server" ID="check_disenos" />
-                                    Diseños asociados
-                                   
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div style="height: 250px; overflow-y: scroll">
+                                            <asp:Table runat="server" ID="tabla_proyectos" CssClass="table table-hover">
+                                            </asp:Table>
+                                        </div>
+                                        <label class="text-info"><small>Los proyectos en rojo ya fueron marcados como "eliminados" en el sistema.</small></label>
+                                    </div>
                                 </div>
-                                <div class="col-md-5">
-                                    <asp:CheckBox runat="server" ID="check_oficina" />
-                                    Oficina asociada
-                                   
+                            </section>
+                            <hr />
+                            <section id="seccion_info_incluir_proyecto">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <asp:Label runat="server" ID="label_info_proyectos" AssociatedControlID="proyecto_check_miembros" CssClass="control-label" Text="Información a incluir" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <asp:CheckBox runat="server" ID="check_objetivos" />
-                                    Objetivos
-                                   
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" ID="proyecto_check_miembros" CssClass="checkbox checkbox-inline" Text="Miembros asociados" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" ID="proyecto_check_fechas" CssClass="checkbox checkbox-inline" Text="Fechas" />
+                                    </div>
                                 </div>
-                            </div>
-                            <br />
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <asp:Label runat="server" CssClass="control-label" ID="label_filtros_proyecto" AssociatedControlID="drop_encargado" Text="Filtros:" />
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" ID="proyecto_check_disenos" CssClass="checkbox checkbox-inline" Text="Diseños asociados" />
+                                    </div>
+                                    <div class="col-md-5">
+                                        <asp:CheckBox runat="server" ID="proyecto_check_oficina" CssClass="checkbox checkbox-inline" Text="Oficina asociada" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <asp:DropDownList runat="server" CssClass="form-control" ID="drop_encargado" />
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <asp:CheckBox runat="server" ID="proyecto_check_objetivos" CssClass="checkbox checkbox-inline" Text="Objetivos" />
+                                    </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <asp:DropDownList runat="server" CssClass="form-control" ID="drop_fecha_ini" />
-                                </div>
-                                <div class="col-md-4">
-                                    <asp:DropDownList runat="server" CssClass="form-control" ID="drop_fecha_fin" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-4">
-                                    <asp:DropDownList runat="server" CssClass="form-control" ID="drop_oficina" />
-                                </div>
-                                <div class="col-md-4">
-                                    <asp:DropDownList runat="server" CssClass="form-control" ID="drop_estado" />
-                                </div>
-                                <div class="col-md-4">
-                                    <asp:DropDownList runat="server" CssClass="form-control" ID="drop_miembro" />
-                                </div>
-                            </div>
+                            </section>
                         </div>
                     </div>
                 </div>
             </div>
-
-
             <!--Segunda caja-->
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Diseño</div>
@@ -163,7 +169,7 @@
         <div class="row">
             <div class="form-horizontal">
                 <div class="form-group">
-                    <div class="col-md-10 col-md-offset-1">
+                    <div class="col-md-12">
                         <hr />
                     </div>
                 </div>
@@ -185,34 +191,38 @@
         $(document).ready(function () {
             $("#proyecto_habilitado").click(function () {
                 $("#btn_estado_proyecto").text("Habilitado");
-                $("#<%=drop_encargado.ClientID%>").prop("disabled", false);
-                $("#<%=drop_estado.ClientID%>").prop("disabled", false);
-                $("#<%=drop_fecha_fin.ClientID%>").prop("disabled", false);
-                $("#<%=drop_fecha_ini.ClientID%>").prop("disabled", false);
-                $("#<%=drop_miembro.ClientID%>").prop("disabled", false);
-                $("#<%=drop_oficina.ClientID%>").prop("disabled", false);
-                $("#<%=check_disenos.ClientID%>").prop("disabled", false);
-                $("#<%=check_fechas.ClientID%>").prop("disabled", false);
-                $("#<%=check_miembros.ClientID%>").prop("disabled", false);
-                $("#<%=check_objetivos.ClientID%>").prop("disabled", false);
-                $("#<%=check_oficina.ClientID%>").prop("disabled", false);
-                $("#<%=check_header_proyecto.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_input_fecha_final.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_input_fecha_inicio.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_drop_miembro.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_drop_oficina.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_disenos.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_fechas.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", false);
+
+                //Habilito la tabla de los proyectos
+                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
 
             });
             $("#proyecto_inhabilitado").click(function () {
                 $("#btn_estado_proyecto").text("Inhabilitado");
-                $("#<%=drop_encargado.ClientID%>").prop("disabled", true);
-                $("#<%=drop_estado.ClientID%>").prop("disabled", true);
-                $("#<%=drop_fecha_fin.ClientID%>").prop("disabled", true);
-                $("#<%=drop_fecha_ini.ClientID%>").prop("disabled", true);
-                $("#<%=drop_miembro.ClientID%>").prop("disabled", true);
-                $("#<%=drop_oficina.ClientID%>").prop("disabled", true);
-                $("#<%=check_disenos.ClientID%>").prop("disabled", true);
-                $("#<%=check_fechas.ClientID%>").prop("disabled", true);
-                $("#<%=check_miembros.ClientID%>").prop("disabled", true);
-                $("#<%=check_objetivos.ClientID%>").prop("disabled", true);
-                $("#<%=check_oficina.ClientID%>").prop("disabled", true);
-                $("#<%=check_header_proyecto.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_input_fecha_final.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_input_fecha_inicio.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_drop_miembro.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_drop_oficina.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_check_disenos.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_check_fechas.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", true);
+                $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", true);
+
+                //Deshabilito la tabla de los proyectos
+                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
             });
         });
     </script>

@@ -166,6 +166,26 @@ namespace SAPS.Controladoras
 
         // -------------------------------------- Métodos que corresponden a otras clases --------------------------------------
 
+        /** @brief Método que se encarga de buscar los diseños asociados a un proyecto.
+         * @param El identificador del proyecto al que se le quieren encontrar los diseños que tiene asociados.
+         * @return DataTable con todos los diseños que tiene asociados el proyecto.
+        */
+        public DataTable solicitar_disenos_asociados_proyecto(int id_proyecto)
+        {
+            m_controladora_dp = new ControladoraDisenosPruebas();
+            return m_controladora_dp.solicitar_disenos_asociados_proyecto(id_proyecto);
+        }
+
+        /** @brief Método que asigna las operaciones necesarias para poder consultar mi proyecto de pruebas.
+         *  @param username de quien hace la consulta.
+         *  @return DataTable con los resultados de la consultas.
+        */
+        public DataTable consultar_mi_proyecto(string nombre_usuario)
+        {
+            m_controladora_dp = new ControladoraDisenosPruebas();
+            return m_controladora_dp.consultar_mi_proyecto(nombre_usuario);
+        }
+
         /** @brief Método que busca todos los recursos humanos que estan asociados a un determinado proyecto.
          * @param El identificador del proyecto.
          * @return DataTable con la informacion de todos los recursos humanos asociados al proyecto puesto

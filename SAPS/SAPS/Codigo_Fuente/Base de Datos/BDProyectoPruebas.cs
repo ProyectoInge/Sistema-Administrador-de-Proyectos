@@ -148,9 +148,9 @@ namespace SAPS.Base_de_Datos
         */
         public DataTable solicitar_proyectos_no_eliminados()
         {
-             SqlCommand comando = new SqlFILTRAR_PROYECTOSCommand( "SOLICITAR_PROYECTOS_NO_ELIMINADOS");
-             comando.CommandType = CommandType.StoredProcedure;
-             return m_data_base_adapter.obtener_resultado_consulta(comando);
+            SqlCommand comando = new SqlCommand("SOLICITAR_PROYECTOS_NO_ELIMINADOS");
+            comando.CommandType = CommandType.StoredProcedure;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
 
@@ -158,7 +158,7 @@ namespace SAPS.Base_de_Datos
         * @param datos array con los valores de los filtros que se desean aplicar.
         * @return Información de todos los proyectos que cumplen las condiciones específicadas en los filtros.
         */
-        private DataTable aplicar_filtros_proyecto_pruebas(string[] datos)
+        public DataTable aplicar_filtros_proyecto_pruebas(string[] datos)
         {
             SqlCommand comando = new SqlCommand("");
             comando.CommandType = CommandType.StoredProcedure;

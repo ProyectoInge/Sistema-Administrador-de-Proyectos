@@ -74,10 +74,10 @@ namespace SAPS.Fronteras
 
                 if (m_resultados_tmp.Count > 0)
                 {
-                actualiza_resultados();
-            }
-            else
-            {
+                    actualiza_resultados();
+                }
+                else
+                {
                     celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
                 }
 
@@ -337,11 +337,12 @@ namespace SAPS.Fronteras
                                             respuesta = true;                                               // La insercion de la ejecucion es valida
                                                                                                             // Es necesario verificar los resultados de pruebas                                    
                                         }
-                                        else {
+                                        else
+                                        {
                                             respuesta = false;
                                         }
 
-                                    }                                                                   
+                                    }
                                     else
                                     {
                                         cuerpo_alerta_error.Text = "Debe ingresar una fecha de ejecución.";
@@ -403,7 +404,7 @@ namespace SAPS.Fronteras
             {                            // Verificados los datos de ejecucion, se verifican los de resultados
                 DataTable ejecuciones_disponibles = m_controladora_ep.consultar_ejecuciones(Int32.Parse(drop_disenos_disponibles.SelectedItem.Value));
                 int id_ejecucion_recien_agrgada = Convert.ToInt32(ejecuciones_disponibles.Rows[ejecuciones_disponibles.Rows.Count - 1]["num_ejecucion"]);
-                
+
                 /*
                     | Índice | Descripción             | Tipo de datos |
                     |:------:|:-----------------------:|:-------------:|
@@ -618,7 +619,7 @@ namespace SAPS.Fronteras
                 datos_resultado[6] = resultados_ejecucion.Rows[i]["ruta_imagen"].ToString();
                 m_resultados_tmp.Add(datos_resultado);
             }
-            
+
             llena_resultados();
         }
 
@@ -716,7 +717,9 @@ namespace SAPS.Fronteras
             }
             else
             {
-                ///@todo Si soy un usuario normal, solo puedo ver los diseños que tiene asociados el proyecto al que pertenezco.
+                DataTable info_proyecto_asociado = m_controladora_ep.consultar_mi_proyecto(Context.User.Identity.Name);
+                int id_mi_proyecto = Convert.ToInt32(info_proyecto_asociado.Rows[0]["id_proyecto"]);
+                disenos_disponibles = m_controladora_ep.solicitar_disenos_asociados_proyecto(id_mi_proyecto);
             }
 
             ListItem item_tmp = new ListItem();
@@ -818,7 +821,13 @@ namespace SAPS.Fronteras
                 TableCell celda_tmp = new TableCell();
 
                 #region Crea los controles de la fila
+                //Agrega el identificador del caso de prueba del resultado
+                celda_tmp = new TableCell();
+                celda_tmp.Text = vec_tmp[3];
+                nueva_fila.Cells.Add(celda_tmp);
+
                 //Agrega el numero de resultado
+                celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[0];
                 nueva_fila.Cells.Add(celda_tmp);
 
@@ -918,11 +927,6 @@ namespace SAPS.Fronteras
                 celda_tmp.Controls.Add(lista_conformidad);                                      // Se agrega el dropdown de tipos de no conformidad a la celda
                 nueva_fila.Cells.Add(celda_tmp);
 
-                //Agrega el identificador del caso de prueba del resultado
-                celda_tmp = new TableCell();
-                celda_tmp.Text = vec_tmp[3];
-                nueva_fila.Cells.Add(celda_tmp);
-
                 //Agrega la descripcion de la no conformidad
                 celda_tmp = new TableCell();
                 TextBox input_tmp = new TextBox();
@@ -953,7 +957,7 @@ namespace SAPS.Fronteras
                 btn_consultar_imagen.CssClass = "btn btn-link";
                 btn_consultar_imagen.Text = "Ver imagen";
                 btn_consultar_imagen.ID = vec_tmp[6];
-                btn_consultar_imagen.Click += new EventHandler(this.btn_consultar_imagen_Click);
+                btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
                 celda_tmp.Controls.Add(btn_consultar_imagen);
                 nueva_fila.Cells.Add(celda_tmp);
                 #endregion
