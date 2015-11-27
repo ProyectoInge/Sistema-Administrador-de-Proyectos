@@ -148,9 +148,9 @@ namespace SAPS.Base_de_Datos
         */
         public DataTable solicitar_proyectos_no_eliminados()
         {
-            SqlCommand comando = new SqlFILTRAR_PROYECTOSCommand("SOLICITAR_PROYECTOS_NO_ELIMINADOS");
-            comando.CommandType = CommandType.StoredProcedure;
-            return m_data_base_adapter.obtener_resultado_consulta(comando);
+             SqlCommand comando = new SqlFILTRAR_PROYECTOSCommand( "SOLICITAR_PROYECTOS_NO_ELIMINADOS");
+             comando.CommandType = CommandType.StoredProcedure;
+             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
 
