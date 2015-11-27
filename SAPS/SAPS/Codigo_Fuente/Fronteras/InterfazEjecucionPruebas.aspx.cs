@@ -135,7 +135,6 @@ namespace SAPS.Fronteras
         */
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-            ///@todo
             m_opcion = 'e';
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default";
@@ -785,11 +784,27 @@ namespace SAPS.Fronteras
                 input_criterios_aceptacion_diseno.Text = info_diseno.Rows[0]["criterio_aceptacion"].ToString();
                 input_procedimiento_diseno.Text = info_diseno.Rows[0]["procedimiento"].ToString();
                 int id_proyecto = Convert.ToInt32(info_diseno.Rows[0]["id_proyecto"]);
-                llena_rh_disponibles(id_proyecto);
+                actualizar_rh_disponibles(id_proyecto);
                 btn_eliminar_resultado.Enabled = true;
                 btn_agregar_resultado.Enabled = true;
                 drop_rh_disponibles.Enabled = true;
             }
+        }
+
+        /** @brief Metodo que actualiza el drop de los diseños disponibles dependiendo del proyecto que se haya seleccionado.
+         *  @param El identificador del proyecto que se eligio.
+        */
+        private void actualizar_rh_disponibles(int id_proyecto)
+        {
+            vaciar_rh_disponibles();
+            llena_rh_disponibles(id_proyecto);
+        }
+
+        /** @brief Metod que vacia por completo el drop de los recursos humanos
+        */
+        private void vaciar_rh_disponibles()
+        {
+            drop_rh_disponibles.Items.Clear();
         }
 
         /** @brief Método que actualiza la tabla donde estan los resultados de la ejecucion.
