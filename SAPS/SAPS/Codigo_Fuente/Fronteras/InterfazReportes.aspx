@@ -103,7 +103,7 @@
                                         <asp:Label runat="server" CssClass="control-label" Text="Proyectos disponibles" AssociatedControlID="tabla_proyectos" />
                                     </div>
                                     <div class="col-md-4 col-md-offset-4">
-                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="proyecto_check_todos" OnCheckedChanged="proyecto_check_todos_CheckedChanged" Text="Seleccionar todos" />
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="proyecto_check_todos" OnCheckedChanged="proyecto_check_todos_CheckedChanged" Text="Seleccionar todos" AutoPostBack="true" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -189,6 +189,35 @@
     </section>
     <script type="text/javascript">
         $(document).ready(function () {
+
+            // ---------------------------------------------------------------------- Panel de proyectos ----------------------------------------------------------------------
+
+            //Revisa si el check de proyectos esta seleccionado para marcar todos
+            if ($("#<%=proyecto_check_todos.ClientID%>").is(":checked")) {
+                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", true);
+                //Deshabilito la tabla de los proyectos
+                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
+            } else {
+                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", false);
+                //Habilito la tabla de los proyectos
+                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
+            }
+
+            //Selecciono todos los proyectos
+            $("#<%=proyecto_check_todos.ClientID%>").click(function () {
+                if ($("#<%=proyecto_check_todos.ClientID%>").is(":checked")) {
+                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", true);
+                    //Deshabilito la tabla de los proyectos
+                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
+                } else {
+                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", false);
+                    //Habilito la tabla de los proyectos
+                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
+                }
+                return true;
+            });
+
+            //Habilito los campos
             $("#proyecto_habilitado").click(function () {
                 $("#btn_estado_proyecto").text("Habilitado");
                 $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", false);
@@ -207,6 +236,8 @@
                 $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
 
             });
+
+            //Deshabilito los campos
             $("#proyecto_inhabilitado").click(function () {
                 $("#btn_estado_proyecto").text("Inhabilitado");
                 $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", true);
@@ -224,6 +255,7 @@
                 //Deshabilito la tabla de los proyectos
                 $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
             });
+            // ---------------------------------------------------------------------- Fin panel proyectos ---------------------------------------------------------------------
         });
     </script>
 

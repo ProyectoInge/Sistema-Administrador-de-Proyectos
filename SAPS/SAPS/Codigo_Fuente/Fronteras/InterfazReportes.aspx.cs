@@ -122,6 +122,7 @@ namespace SAPS.Fronteras
         {
             DataTable proyectos_disponibles = null;
             //Llena la DataTable con la información de todos los proyectos (si soy administrador) o con la del proyecto que tengo asociado (si soy usuario normal).
+            ///@todo Hacer la consulta dependiendo de los filtros que se seleccionaron
             if (m_es_administrador)
                 proyectos_disponibles = m_controladora_rep.solicitar_proyectos_disponibles();
             else
@@ -174,7 +175,22 @@ namespace SAPS.Fronteras
         */
         protected void proyecto_check_todos_CheckedChanged(object sender, EventArgs e)
         {
-            ///@todo
+            bool estado = ((CheckBox)sender).Checked;
+            if (estado)
+            {
+                for (int i = 0; i < m_proyectos.Count; ++i)
+                {
+                    m_proyectos[i].Second = estado;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < m_proyectos.Count; ++i)
+                {
+                    m_proyectos[i].Second = estado;
+                }
+            }
+
         }
     }
 }
