@@ -86,7 +86,7 @@ namespace SAPS.Fronteras
                 {
                     celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
                 }
-                }
+            }
             else
             {
                 Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
@@ -128,6 +128,7 @@ namespace SAPS.Fronteras
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
             activa_desactiva_botones_ime(true);
+            actualiza_resultados();
         }
 
         /** @brief Método que se activa al seleccionar el botón eliminar de los botones de IME
@@ -846,7 +847,7 @@ namespace SAPS.Fronteras
                 caso_escogido.Text = celda_tmp.Text;
                 caso_escogido.Value = celda_tmp.Text;
                 casos.Items.Add(caso_escogido);
-                                                                                                    // Posterior, se consulta el resto de casos y se agrega
+                // Posterior, se consulta el resto de casos y se agrega
                 DataTable casos_disponibles = m_controladora_ep.solicitar_casos_asociados_diseno(m_llave_ejecucion[1]);
                 ListItem item_tmp = new ListItem();
                 for (int j = 0; j < casos_disponibles.Rows.Count; ++j)
@@ -854,10 +855,10 @@ namespace SAPS.Fronteras
                     item_tmp = new ListItem();
                     item_tmp.Text = casos_disponibles.Rows[j]["id_caso"].ToString();
                     item_tmp.Value = casos_disponibles.Rows[j]["id_caso"].ToString();
-                    if(item_tmp.Text != celda_tmp.Text)
+                    if (item_tmp.Text != celda_tmp.Text)
                     {
                         casos.Items.Add(item_tmp);
-                    }                    
+                    }
                 }
 
                 celda_tmp.Controls.Add(casos);                                                      // Se agrega la lista de casos al resultado
@@ -873,8 +874,9 @@ namespace SAPS.Fronteras
                 celda_tmp.Text = vec_tmp[1];
                 DropDownList lista = new DropDownList();
 
-                switch (celda_tmp.Text) {                                   // Creacion del dropdown de estados
-                    case "Satisfactoria":                        
+                switch (celda_tmp.Text)
+                {                                   // Creacion del dropdown de estados
+                    case "Satisfactoria":
                         lista.Items.Add("Satisfactoria");
                         lista.Items.Add("Fallida");
                         lista.Items.Add("Pendiente");
@@ -901,14 +903,15 @@ namespace SAPS.Fronteras
                 }
                 lista.Enabled = false;
                 celda_tmp.Controls.Add(lista);                                              // Se agrega el dropdown de estados a la celda
-                nueva_fila.Cells.Add(celda_tmp);                                        
+                nueva_fila.Cells.Add(celda_tmp);
 
                 //Agrega el tipo de no conformidad del resultado
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[2];
                 DropDownList lista_conformidad = new DropDownList();
 
-                switch (celda_tmp.Text) {                                                  // Creacion del dropdown de tipos de no conformidad
+                switch (celda_tmp.Text)
+                {                                                  // Creacion del dropdown de tipos de no conformidad
                     case "No aplica":
                         lista_conformidad.Items.Add("No aplica");
                         lista_conformidad.Items.Add("Funcionalidad");
@@ -988,26 +991,27 @@ namespace SAPS.Fronteras
 
                 //Hace el boton para consultar la imagen
 
-                if (m_opcion == 'm') {                                                                      // Se permite al usuario subir otra imagen
+                if (m_opcion == 'm')
+                {                                                                      // Se permite al usuario subir otra imagen
                     celda_tmp = new TableCell();
                     Button btn_modificar_imagen = new Button();
                     btn_modificar_imagen.CssClass = "btn btn-link";
                     btn_modificar_imagen.Text = "Cambiar imagen";
                     btn_modificar_imagen.ID = vec_tmp[6];
-                    btn_modificar_imagen.Click += new EventHandler(btn_agregar_imagen_Click);
+                    btn_modificar_imagen.Click += new EventHandler(activar_modal_imagen);
                     celda_tmp.Controls.Add(btn_modificar_imagen);
                     nueva_fila.Cells.Add(celda_tmp);
                 }
                 else                                                                                        // Consulta normal de resultados de ejecucion
                 {
-                celda_tmp = new TableCell();
-                Button btn_consultar_imagen = new Button();
-                btn_consultar_imagen.CssClass = "btn btn-link";
-                btn_consultar_imagen.Text = "Ver imagen";
-                btn_consultar_imagen.ID = vec_tmp[6];
-                btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
-                celda_tmp.Controls.Add(btn_consultar_imagen);
-                nueva_fila.Cells.Add(celda_tmp);
+                    celda_tmp = new TableCell();
+                    Button btn_consultar_imagen = new Button();
+                    btn_consultar_imagen.CssClass = "btn btn-link";
+                    btn_consultar_imagen.Text = "Ver imagen";
+                    btn_consultar_imagen.ID = vec_tmp[6];
+                    btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
+                    celda_tmp.Controls.Add(btn_consultar_imagen);
+                    nueva_fila.Cells.Add(celda_tmp);
                 }
                 #endregion
                 tabla_resultados.Rows.Add(nueva_fila);
@@ -1028,6 +1032,17 @@ namespace SAPS.Fronteras
                 drop_casos.Items.Add(item_tmp);
             }
         }
+
+
+        /**@brief Evento encargado de mostrar el modal apropiado para cargar una imagen relacionada al resultado.
+        */
+        protected void activar_modal_imagen(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_imagen", "$('#modal_imagen').modal();", true);
+            upModalImagen.Update();
+        }
+
+
 
         /** @brief Evento que guarda una imagen que subió el usuario al servidor.
          * @param Los parametros por defecto de ASP para un evento.
