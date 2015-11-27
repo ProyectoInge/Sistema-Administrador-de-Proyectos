@@ -11,6 +11,7 @@ namespace PruebasUnitarias
         private ControladoraEjecuciones m_controladora_ep = new ControladoraEjecuciones();
 
         // ------------------------------- Pruebas de insertar ejecuciones y resultados -------------------------------
+        #region Pruebas insertar ejecuciones
         [TestMethod]
         public void agrega_ejecuciones_1()
         {
@@ -20,48 +21,64 @@ namespace PruebasUnitarias
             Assert.AreEqual(resultado_esperado, resultado, "La inserción se realizó con éxito.");
         }
 
-        // --------------------------------- Pruebas de consulta de datos -----------------------------------------------
         [TestMethod]
-        public void consulta_ejecuciones()
+        public void agrega_ejecucion_2()
         {
-            int id_diseno = 4;
-            int cantidad_ejecuciones_relacinadas_con_diseno = 1;
-            DataTable ejecuciones = m_controladora_ep.consultar_ejecuciones(id_diseno);
-            Assert.AreEqual(cantidad_ejecuciones_relacinadas_con_diseno, ejecuciones.Rows.Count);
+            Object[] datos_ejecucion = { 92, "usuario", "bla bla bla" };
+            int resultado = m_controladora_ep.insertar_ejecucion(datos_ejecucion);
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "No lo logra ingresar ya que faltan datos");
         }
 
         [TestMethod]
-        public void consulta_ejecucion()
+        public void agregar_ejecucion_3()
         {
-            int id_diseno = 4;
-            int id_ejecucion_consultar = 5;
-            string responsable = "test";
-            string fecha = "2015-11-25";
-            string incidencias = "Incidente test";
-
-            DataTable ejecucion = m_controladora_ep.consultar_ejecucion(id_ejecucion_consultar);
-            Assert.AreEqual(Convert.ToInt32(ejecucion.Rows[0]["num_ejecucion"]), id_ejecucion_consultar);
-            Assert.AreEqual(Convert.ToInt32(ejecucion.Rows[0]["id_diseno"]), id_diseno);
-            Assert.AreEqual(ejecucion.Rows[0]["responsable"], responsable);
-            Assert.AreEqual(Convert.ToDateTime(ejecucion.Rows[0]["fecha_ultima_ejec"]).ToString("yyyy-MM-dd"), fecha);
-            Assert.AreEqual(ejecucion.Rows[0]["incidencias"], incidencias);
+            Object[] datos = { 0, "usuario", 3, "2015-11-27 00:00:00.000", "una incidencia muy uncidentada", 87, "hola" };
+            int resultado = m_controladora_ep.insertar_ejecucion(datos);
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "No lo logra ingresar ya que son demasiados datos");
+        }
+        #endregion
+        #region Pruebas insertar resultados
+        /*
+                | Índice | Descripción             | Tipo de datos |
+                |:------:|:-----------------------:|:-------------:|
+                |    0   |  Numero de resultado    |      int      |
+                |    1   |  Id del diseno          |      int      |
+                |    2   |  Numero de ejecucion    |      int      |
+                |    3   |  Estado                 |     string    |
+                |    4   |  Tipo No Conformidad    |     string    |
+                |    5   |  Id del Caso            |     string    |
+                |    6   |  Descripcion No Conf.   |     string    |
+                |    7   |  Justificacion          |     string    |
+                |    8   |  Ruta de la imagen      |     string    |
+            */
+        [TestMethod]
+        public void agregar_resultado_1()
+        {
+            Object[] datos = { 8, 3, 4, "Satisfactoria", "No aplica", "DP_E31", "No conforme", "Justificado", "" };
+            int resultado = m_controladora_ep.insertar_resultado(datos);
+            int esperado = 0;
+            Assert.AreEqual(esperado, resultado, "Se agrego el resultado correctamente");
         }
 
         [TestMethod]
-        public void consulta_resultados_ejecucion()
+        public void agregar_resultado_2()
         {
-            int id_ejecucion_consultar = 5;
-            DataTable resultados_ejecucion = m_controladora_ep.consultar_resultados(id_ejecucion_consultar);
-
-            string estado = "Satisfactoria";
-            string tipo_de_no_conformidad = "Funcionalidad";
-            string desc_no_conformidad = "Test";
-            string justificacion = "Test";
-
-            Assert.AreEqual(resultados_ejecucion.Rows[0]["estado"], estado);
-            Assert.AreEqual(resultados_ejecucion.Rows[0]["tipo_no_conformidad"], tipo_de_no_conformidad);
-            Assert.AreEqual(resultados_ejecucion.Rows[0]["desc_no_conformidad"], desc_no_conformidad);
-            Assert.AreEqual(resultados_ejecucion.Rows[0]["justificacion"], justificacion);
+            Object[] datos = { 8, 3, 4, "Satisfactoria", "No aplica", "DP_E31", "No conforme" };
+            int resultado = m_controladora_ep.insertar_resultado(datos);
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "No tiene suficientes datos para agregar un resultado");
         }
+
+        [TestMethod]
+        public void agregar_resultado_3()
+        {
+            Object[] datos = { 8, 3, 4, "Satisfactoria", "No aplica", "DP_E31", "No conforme", 7878, "bla bla bla", 8773, "bla bla bla" };
+            int resultado = m_controladora_ep.insertar_resultado(datos);
+            int no_esperado = 0;
+            Assert.AreNotEqual(no_esperado, resultado, "Son demasiados datos para agregar el resultado");
+        }
+        #endregion
     }
 }

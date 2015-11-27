@@ -21,20 +21,21 @@ namespace SAPS.Controladoras
         private ControladoraRecursosHumanos m_controladora_rh;
         private ControladoraDisenosPruebas m_controladora_dp;
         private ControladoraCasoPruebas m_controladora_cp;
+        private ControladoraProyectoPruebas m_controladora_pdp;
 
         ///@brief Constructor
         public ControladoraReportes()
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
             m_controladora_dp = new ControladoraDisenosPruebas();
-            m_controladora_cp = new ControladoraCasoPruebas(); 
-         }
+            m_controladora_cp = new ControladoraCasoPruebas();
+        }
 
         /** @brief Recolectar información de un proyecto de pruebas en específico.
         *   @param datos_incluidos datos extra a incluir en la consulta, filtros filtros aplicables a la consulta 
         *   @return DataTable con los datos de un proyecto  en específico.
         */
-        public DataTable recolectar_info_proyecto(Object [] datos_incluidos, Object [] filtros)
+        public DataTable recolectar_info_proyecto(Object[] datos_incluidos, Object[] filtros)
         {
 
             return null;
@@ -70,10 +71,34 @@ namespace SAPS.Controladoras
             return null;
         }
 
+        /** @brief Metodo que consulta los proyectos disponibles en el sistema.
+         *  @return DataTable con la informacion de los proyectos disponibles en la base de datos.
+         */
+        public DataTable solicitar_proyectos_disponibles()
+        {
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.solicitar_proyectos_disponibles();
+        }
 
+        /** @brief Método que asigna las operaciones necesarias para poder consultar mi proyecto de pruebas.
+         * @param username de quien hace la consulta.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable consultar_mi_proyecto(string nombre_usuario)
+        {
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.consultar_mi_proyecto(nombre_usuario);
+        }
 
-
-
+        /** @brief Método que consulta el perfil de un usuario del sistema, permite que se mantenga la arquitectura N capas.
+         * @param nombre_usuario usuario cuyo perfil se desea consultar.
+         * @return false si es administrador, true si es miembro
+        */
+        public bool es_administrador(string nombre_usuario)
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.es_administrador(nombre_usuario);
+        }
 
 
     }

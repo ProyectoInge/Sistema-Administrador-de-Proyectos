@@ -177,6 +177,8 @@
     <Content Include="Codigo_Fuente\Fronteras\InterfazProyectosDePruebas.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazReportes.aspx" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazRequerimientos.aspx" />
+    <Content Include="Content\bootstrap-toggle.css" />
+    <Content Include="Content\bootstrap-toggle.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\hover.css" />
     <Content Include="Content\rotating-card.css" />
@@ -196,8 +198,11 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Scripts\bootstrap-toggle.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Codigo_Fuente\Fronteras\InterfazRecursosHumanos.aspx" />
+    <Content Include="Scripts\bootstrap-toggle.js" />
+    <Content Include="Scripts\bootstrap-toggle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -370,6 +375,7 @@
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraDisenosPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraProyectoPruebas.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRecursosHumanos.cs" />
+    <Compile Include="Codigo_Fuente\Controladoras\ControladoraReportes.cs" />
     <Compile Include="Codigo_Fuente\Controladoras\ControladoraRequerimientos.cs" />
     <Compile Include="Codigo_Fuente\Entidades\Ayudantes\Datos.cs" />
     <Compile Include="Codigo_Fuente\Entidades\CasoPruebas.cs" />

@@ -43,7 +43,7 @@ namespace SAPS.Fronteras
             |   4       |   Descripcion         |
             |   5       |   Justificacion       |
             |   6       |   Ruta imagen         |
-        
+
             */
 
         /** @brief Metodo que se llama al cargar la página.
@@ -127,8 +127,6 @@ namespace SAPS.Fronteras
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
             activa_desactiva_botones_ime(true);
-            btn_modificar.Enabled = false;
-
         }
 
         /** @brief Método que se activa al seleccionar el botón eliminar de los botones de IME
@@ -327,14 +325,24 @@ namespace SAPS.Fronteras
                                     if (label_incidentes.Text != "")
                                     {
                                         Object[] datos = new Object[5];
-                                        //datos[0] = Numero de ejecucion int ;
+                                        datos[0] = m_llave_ejecucion[0];                                // Al consultar una ejecucion, el vector de llaves se llena
                                         datos[1] = drop_rh_disponibles.Text;
                                         datos[2] = Convert.ToInt32(drop_disenos_disponibles.Text);
                                         datos[3] = Convert.ToDateTime(input_fecha.Text);
                                         datos[4] = label_incidentes.Text;
 
-                                        respuesta = true;                                               // La insercion de la ejecucion es valida, pero aun no se ingresa
-                                    }                                                                   // Es necesario verificar los resultados de pruebas                                    
+                                        int resultado = m_controladora_ep.modificar_ejecucion(datos);
+                                        if (resultado == 0)
+                                        {
+                                            respuesta = true;                                               // La insercion de la ejecucion es valida
+                                                                                                            // Es necesario verificar los resultados de pruebas                                    
+                                        }
+                                        else
+                                        {
+                                            respuesta = false;
+                                        }
+
+                                    }
                                     else
                                     {
                                         cuerpo_alerta_error.Text = "Debe ingresar una fecha de ejecución.";
@@ -394,11 +402,57 @@ namespace SAPS.Fronteras
 
             if (respuesta)
             {                            // Verificados los datos de ejecucion, se verifican los de resultados
+                DataTable ejecuciones_disponibles = m_controladora_ep.consultar_ejecuciones(Int32.Parse(drop_disenos_disponibles.SelectedItem.Value));
+                int id_ejecucion_recien_agrgada = Convert.ToInt32(ejecuciones_disponibles.Rows[ejecuciones_disponibles.Rows.Count - 1]["num_ejecucion"]);
 
+                /*
+                    | Índice | Descripción             | Tipo de datos |
+                    |:------:|:-----------------------:|:-------------:|
+                    |    0   |  Numero de resultado    |      int      |
+                    |    1   |  Id del diseno          |      int      |
+                    |    2   |  Numero de ejecucion    |      int      |
+                    |    3   |  Estado                 |     string    |
+                    |    4   |  Tipo No Conformidad    |     string    |
+                    |    5   |  Id del Caso            |     string    |
+                    |    6   |  Descripcion No Conf.   |     string    |
+                    |    7   |  Justificacion          |     string    |
+                    |    8   |  Ruta de la imagen      |     string    |
+
+                    |   Indice  |   Significado         |
+                    |:---------:|:---------------------:|
+                    |   0       |   # resultado         |
+                    |   1       |   estado              |
+                    |   2       |   tipo no conformidad |   Todos son string
+                    |   3       |   ID Caso             |
+                    |   4       |   Descripcion         |
+                    |   5       |   Justificacion       |
+                    |   6       |   Ruta imagen         |
+                */
+                for (int i = 0; i < m_resultados_tmp.Count; ++i)
+                {
+                    string[] vec_tmp = m_resultados_tmp[i];
+                    Object[] datos_resultado = new Object[9];
+                    datos_resultado[0] = Int32.Parse(vec_tmp[0]);
+                    datos_resultado[1] = Int32.Parse(drop_disenos_disponibles.SelectedItem.Value);
+                    datos_resultado[2] = id_ejecucion_recien_agrgada;
+                    datos_resultado[3] = vec_tmp[1];
+                    datos_resultado[4] = vec_tmp[2];
+                    datos_resultado[5] = vec_tmp[3];
+                    datos_resultado[6] = vec_tmp[4];
+                    datos_resultado[7] = vec_tmp[5];
+                    datos_resultado[8] = vec_tmp[6];
+                    int resultado_agrega_resultado = m_controladora_ep.modificar_resultado(datos_resultado);
+                    if (resultado_agrega_resultado != 0)
+                    {
+                        cuerpo_alerta_error.Text = " Se presentó un error al insertar el resultado " + vec_tmp[0];
+                        alerta_error.Visible = true;
+                        return false;
+                    }
+                }
+
+                cuerpo_alerta_exito.Text = " Se agregó la ejecución con sus resultados correctamente.";
+                alerta_exito.Visible = true;
             }
-
-
-
 
             return respuesta;
         }
@@ -616,16 +670,16 @@ namespace SAPS.Fronteras
 
         protected void btn_consultar_imagen_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_mostrar_imagen", "$('#modal_mostrar_imagen').modal();", true);
-            string url_image = ((Button)sender).ID;
-            if (url_image != "")
+            string[] ruta_url = ((Button)sender).ID.Split(',');
+            if (ruta_url[0] != "NoTiene")
             {
-                visor_imagen.ImageUrl = url_image;
+                visor_imagen.ImageUrl = ruta_url[0];
             }
             else
             {
-                visor_imagen.ImageUrl = "http://telegram-sticker.github.io/public/stickers/animals/15.png";
+                visor_imagen.ImageUrl = "http://telegram-stickers.github.io/public/stickers/animals/15.png";
             }
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_mostrar_imagen", "$('#modal_mostrar_imagen').modal();", true);
             update_mostrar_imagen.Update();
         }
 
@@ -680,6 +734,21 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Actualiza los casos dependiendo del diseño que se seleccionó
+        */
+        private void actualizar_casos()
+        {
+            vaciar_casos();
+            llena_casos();
+        }
+
+        /** @brief Elimina todos los items que hay en el drop de los casos.
+        */
+        private void vaciar_casos()
+        {
+            drop_casos.Items.Clear();
+        }
+
         /** @brief Evento que se activa cuando se selecciona un nuevo elemento del combobox de los diseños disponibles.
          * @param Los parametros por defecto de un evento de ASP.
          */
@@ -690,7 +759,7 @@ namespace SAPS.Fronteras
                 int id_diseno_seleccionado = Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value);
                 m_llave_ejecucion[1] = id_diseno_seleccionado;
                 llena_info_diseno(id_diseno_seleccionado);
-                llena_casos();
+                actualizar_casos();
 
                 // Llena la tabla de ejecuciones asociadas a un diseño
                 //llenar_ejecuciones_disponibles(id_diseno_seleccionado);
@@ -698,6 +767,7 @@ namespace SAPS.Fronteras
             else
             {
                 borrar_filas_tabla_ejecuciones_disponibles();
+                actualizar_casos();
             }
         }
 
@@ -798,7 +868,7 @@ namespace SAPS.Fronteras
                 btn_consultar_imagen.CssClass = "btn btn-link";
                 btn_consultar_imagen.Text = "Ver imagen";
                 btn_consultar_imagen.ID = vec_tmp[6];
-                btn_consultar_imagen.Click += new EventHandler(this.btn_consultar_imagen_Click);
+                btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
                 celda_tmp.Controls.Add(btn_consultar_imagen);
                 nueva_fila.Cells.Add(celda_tmp);
                 #endregion

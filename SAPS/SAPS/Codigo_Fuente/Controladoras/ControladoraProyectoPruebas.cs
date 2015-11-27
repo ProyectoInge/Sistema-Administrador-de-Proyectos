@@ -134,5 +134,15 @@ namespace SAPS.Controladoras
             return m_base_datos_pdp.solicitar_proyectos_no_eliminados();
         }
 
+
+        public DataTable aplicitar_proyectos_filtrados(string [] datos)
+        {
+            return m_base_datos_pdp.aplicar_filtros_proyecto_pruebas(datos);
+
+        }
+
+
+
+
     }
 }

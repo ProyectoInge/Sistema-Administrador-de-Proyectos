@@ -351,8 +351,8 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <asp:Image ID="visor_imagen" runat="server" />
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <asp:Image ID="visor_imagen" runat="server" CssClass="img-thumbnail" />
                                     </div>
                                 </div>
                             </div>
@@ -417,6 +417,18 @@
 
             //Valida la entrada de datos en la tabla de los resultados
             $("#<%= btn_agregar_resultado.ClientID %>").click(function () {
+                var caso_seleccionado = $("#<%= drop_casos.ClientID %>").val();
+                //alert(caso_seleccionado);
+                if (caso_seleccionado == null) {
+                    $("#<%= celda_drop_casos.ClientID%>").addClass("has-error");
+                    $("#<%= drop_casos.ClientID%>").focus();
+                    $("#<%= label_error_input_resultado.ClientID%>").fadeIn();
+                    return false;
+                } else {
+                    $("#<%= celda_drop_casos.ClientID%>").removeClass("has-error");
+                    $("#<%= label_error_input_resultado.ClientID%>").fadeOut();
+                }
+
                 var descripcion_ingresada = $("#<%= input_descripcion.ClientID%>").val();
                 var justificacion_ingresada = $("#<%= input_justificacion.ClientID%>").val();
                 if (descripcion_ingresada == "") {
@@ -425,6 +437,7 @@
                     $("#<%= label_error_input_resultado.ClientID%>").fadeIn();
                     return false;
                 } else {
+                    $("#<%= celda_descripcion.ClientID%>").removeClass("has-error");
                     $("#<%= label_error_input_resultado.ClientID%>").fadeOut();
                 }
                 if (justificacion_ingresada == "") {
@@ -433,6 +446,7 @@
                     $("#<%= label_error_input_resultado.ClientID%>").fadeIn();
                     return false;
                 } else {
+                    $("#<%= celda_justificacion.ClientID%>").removeClass("has-error");
                     $("#<%= label_error_input_resultado.ClientID%>").fadeOut();
                 }
             });
