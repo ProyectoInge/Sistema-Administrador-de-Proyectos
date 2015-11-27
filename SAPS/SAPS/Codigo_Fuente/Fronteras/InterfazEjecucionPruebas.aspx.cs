@@ -819,11 +819,32 @@ namespace SAPS.Fronteras
                 string[] vec_tmp = m_resultados_tmp[i]; //Agarra el i-esimo vector de la lista
                 TableRow nueva_fila = new TableRow();
                 TableCell celda_tmp = new TableCell();
+                DropDownList casos = new DropDownList();
 
                 #region Crea los controles de la fila
                 //Agrega el identificador del caso de prueba del resultado
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[3];
+
+                ListItem caso_escogido = new ListItem();                                            // Se agrega inicialmente el caso escogido
+                caso_escogido.Text = celda_tmp.Text;
+                caso_escogido.Value = celda_tmp.Text;
+                casos.Items.Add(caso_escogido);
+                                                                                                    // Posterior, se consulta el resto de casos y se agrega
+                DataTable casos_disponibles = m_controladora_ep.solicitar_casos_asociados_diseno(m_llave_ejecucion[1]);
+                ListItem item_tmp = new ListItem();
+                for (int j = 0; j < casos_disponibles.Rows.Count; ++j)
+                {
+                    item_tmp = new ListItem();
+                    item_tmp.Text = casos_disponibles.Rows[j]["id_caso"].ToString();
+                    item_tmp.Value = casos_disponibles.Rows[j]["id_caso"].ToString();
+                    if(item_tmp.Text != celda_tmp.Text)
+                    {
+                        casos.Items.Add(item_tmp);
+                    }                    
+                }
+
+                celda_tmp.Controls.Add(casos);                                                      // Se agrega la lista de casos al resultado
                 nueva_fila.Cells.Add(celda_tmp);
 
                 //Agrega el numero de resultado
@@ -835,7 +856,7 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[1];
                 DropDownList lista = new DropDownList();
-                lista.ID = "lista_estado";
+                //lista.ID = "lista_estado";
 
                 switch (celda_tmp.Text) {                                   // Creacion del dropdown de estados
                     case "Satisfactoria":                        
@@ -871,7 +892,7 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[2];
                 DropDownList lista_conformidad = new DropDownList();
-                lista_conformidad.ID = "lista_conformidad";
+                //lista_conformidad.ID = "lista_conformidad";
 
                 switch (celda_tmp.Text) {                                                  // Creacion del dropdown de tipos de no conformidad
                     case "No aplica":
@@ -952,14 +973,28 @@ namespace SAPS.Fronteras
                 nueva_fila.Cells.Add(celda_tmp);
 
                 //Hace el boton para consultar la imagen
-                celda_tmp = new TableCell();
-                Button btn_consultar_imagen = new Button();
-                btn_consultar_imagen.CssClass = "btn btn-link";
-                btn_consultar_imagen.Text = "Ver imagen";
-                btn_consultar_imagen.ID = vec_tmp[6];
-                btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
-                celda_tmp.Controls.Add(btn_consultar_imagen);
-                nueva_fila.Cells.Add(celda_tmp);
+
+                if (m_opcion == 'm') {                                                                      // Se permite al usuario subir otra imagen
+                    celda_tmp = new TableCell();
+                    Button btn_modificar_imagen = new Button();
+                    btn_modificar_imagen.CssClass = "btn btn-link";
+                    btn_modificar_imagen.Text = "Cambiar imagen";
+                    btn_modificar_imagen.ID = vec_tmp[6];
+                    btn_modificar_imagen.Click += new EventHandler(btn_agregar_imagen_Click);
+                    celda_tmp.Controls.Add(btn_modificar_imagen);
+                    nueva_fila.Cells.Add(celda_tmp);
+                }
+                else                                                                                        // Consulta normal de resultados de ejecucion
+                {
+                    celda_tmp = new TableCell();
+                    Button btn_consultar_imagen = new Button();
+                    btn_consultar_imagen.CssClass = "btn btn-link";
+                    btn_consultar_imagen.Text = "Ver imagen";
+                    btn_consultar_imagen.ID = vec_tmp[6];
+                    btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
+                    celda_tmp.Controls.Add(btn_consultar_imagen);
+                    nueva_fila.Cells.Add(celda_tmp);
+                }
                 #endregion
                 tabla_resultados.Rows.Add(nueva_fila);
             }
