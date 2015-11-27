@@ -867,7 +867,7 @@ namespace SAPS.Fronteras
                 btn_consultar_imagen.CssClass = "btn btn-link";
                 btn_consultar_imagen.Text = "Ver imagen";
                 btn_consultar_imagen.ID = vec_tmp[6];
-                btn_consultar_imagen.Click += new EventHandler(this.btn_consultar_imagen_Click);
+                btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
                 celda_tmp.Controls.Add(btn_consultar_imagen);
                 nueva_fila.Cells.Add(celda_tmp);
                 #endregion
