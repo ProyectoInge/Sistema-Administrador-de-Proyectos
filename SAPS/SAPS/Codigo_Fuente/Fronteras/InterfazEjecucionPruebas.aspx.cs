@@ -717,7 +717,9 @@ namespace SAPS.Fronteras
             }
             else
             {
-                ///@todo Si soy un usuario normal, solo puedo ver los diseños que tiene asociados el proyecto al que pertenezco.
+                DataTable info_proyecto_asociado = m_controladora_ep.consultar_mi_proyecto(Context.User.Identity.Name);
+                int id_mi_proyecto = Convert.ToInt32(info_proyecto_asociado.Rows[0]["id_proyecto"]);
+                disenos_disponibles = m_controladora_ep.solicitar_disenos_asociados_proyecto(id_mi_proyecto);
             }
 
             ListItem item_tmp = new ListItem();
@@ -819,23 +821,110 @@ namespace SAPS.Fronteras
                 TableCell celda_tmp = new TableCell();
 
                 #region Crea los controles de la fila
+                //Agrega el identificador del caso de prueba del resultado
+                celda_tmp = new TableCell();
+                celda_tmp.Text = vec_tmp[3];
+                nueva_fila.Cells.Add(celda_tmp);
+
                 //Agrega el numero de resultado
+                celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[0];
                 nueva_fila.Cells.Add(celda_tmp);
 
                 //Agrega el estado del resultado
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[1];
-                nueva_fila.Cells.Add(celda_tmp);
+                DropDownList lista = new DropDownList();
+                lista.ID = "lista_estado";
+
+                switch (celda_tmp.Text) {                                   // Creacion del dropdown de estados
+                    case "Satisfactoria":                        
+                        lista.Items.Add("Satisfactoria");
+                        lista.Items.Add("Fallida");
+                        lista.Items.Add("Pendiente");
+                        lista.Items.Add("Cancelada");
+                        break;
+                    case "Fallida":
+                        lista.Items.Add("Fallida");
+                        lista.Items.Add("Satisfactoria");
+                        lista.Items.Add("Pendiente");
+                        lista.Items.Add("Cancelada");
+                        break;
+                    case "Pendiente":
+                        lista.Items.Add("Pendiente");
+                        lista.Items.Add("Fallida");
+                        lista.Items.Add("Satisfactoria");
+                        lista.Items.Add("Cancelada");
+                        break;
+                    case "Cancelada":
+                        lista.Items.Add("Cancelada");
+                        lista.Items.Add("Pendiente");
+                        lista.Items.Add("Fallida");
+                        lista.Items.Add("Satisfactoria");
+                        break;
+                }
+                lista.Enabled = false;
+                celda_tmp.Controls.Add(lista);                                              // Se agrega el dropdown de estados a la celda
+                nueva_fila.Cells.Add(celda_tmp);                                        
 
                 //Agrega el tipo de no conformidad del resultado
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[2];
-                nueva_fila.Cells.Add(celda_tmp);
+                DropDownList lista_conformidad = new DropDownList();
+                lista_conformidad.ID = "lista_conformidad";
 
-                //Agrega el identificador del caso de prueba del resultado
-                celda_tmp = new TableCell();
-                celda_tmp.Text = vec_tmp[3];
+                switch (celda_tmp.Text) {                                                  // Creacion del dropdown de tipos de no conformidad
+                    case "No aplica":
+                        lista_conformidad.Items.Add("No aplica");
+                        lista_conformidad.Items.Add("Funcionalidad");
+                        lista_conformidad.Items.Add("Validación");
+                        lista_conformidad.Items.Add("Opciones que no funcionan");
+                        lista_conformidad.Items.Add("Errores de usabilidad");
+                        lista_conformidad.Items.Add("Excepciones");
+                        break;
+                    case "Funcionalidad":
+                        lista_conformidad.Items.Add("Funcionalidad");
+                        lista_conformidad.Items.Add("No aplica");
+                        lista_conformidad.Items.Add("Validación");
+                        lista_conformidad.Items.Add("Opciones que no funcionan");
+                        lista_conformidad.Items.Add("Errores de usabilidad");
+                        lista_conformidad.Items.Add("Excepciones");
+                        break;
+                    case "Validación":
+                        lista_conformidad.Items.Add("Validación");
+                        lista_conformidad.Items.Add("Funcionalidad");
+                        lista_conformidad.Items.Add("No aplica");
+                        lista_conformidad.Items.Add("Opciones que no funcionan");
+                        lista_conformidad.Items.Add("Errores de usabilidad");
+                        lista_conformidad.Items.Add("Excepciones");
+                        break;
+                    case "Opciones que no funcionan":
+                        lista_conformidad.Items.Add("Opciones que no funcionan");
+                        lista_conformidad.Items.Add("Validación");
+                        lista_conformidad.Items.Add("Funcionalidad");
+                        lista_conformidad.Items.Add("No aplica");
+                        lista_conformidad.Items.Add("Errores de usabilidad");
+                        lista_conformidad.Items.Add("Excepciones");
+                        break;
+                    case "Errores de usabilidad":
+                        lista_conformidad.Items.Add("Errores de usabilidad");
+                        lista_conformidad.Items.Add("Opciones que no funcionan");
+                        lista_conformidad.Items.Add("Validación");
+                        lista_conformidad.Items.Add("Funcionalidad");
+                        lista_conformidad.Items.Add("No aplica");
+                        lista_conformidad.Items.Add("Excepciones");
+                        break;
+                    case "Excepciones":
+                        lista_conformidad.Items.Add("Excepciones");
+                        lista_conformidad.Items.Add("Errores de usabilidad");
+                        lista_conformidad.Items.Add("Opciones que no funcionan");
+                        lista_conformidad.Items.Add("Validación");
+                        lista_conformidad.Items.Add("Funcionalidad");
+                        lista_conformidad.Items.Add("No aplica");
+                        break;
+                }
+                lista_conformidad.Enabled = false;
+                celda_tmp.Controls.Add(lista_conformidad);                                      // Se agrega el dropdown de tipos de no conformidad a la celda
                 nueva_fila.Cells.Add(celda_tmp);
 
                 //Agrega la descripcion de la no conformidad
