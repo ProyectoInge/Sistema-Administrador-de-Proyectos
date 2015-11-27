@@ -73,6 +73,7 @@
                                         <asp:Table runat="server" ID="tabla_proyectos" CssClass="table table-hover">
                                         </asp:Table>
                                     </div>
+                                    <label class="text-info"><small>Los proyectos en rojo ya fueron marcados como "eliminados" en el sistema.</small></label>
                                 </div>
                             </div>
                             <hr />
