@@ -89,7 +89,13 @@
                                     </div>
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Estado" />
-                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_estado" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_estado">
+                                            <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
+                                            <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
+                                            <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>
+                                            <asp:ListItem Text="Finalizado" Value="Finalizado"></asp:ListItem>
+                                            <asp:ListItem Text="Cerrado" Value="Cerrado"></asp:ListItem>
+                                        </asp:DropDownList>
                                     </div>
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Miembros" />
@@ -193,7 +199,9 @@
                 $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", false);
                 $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", false);
                 $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", false);
-                
+
+                //Habilito la tabla de los proyectos
+                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
 
             });
             $("#proyecto_inhabilitado").click(function () {
@@ -209,6 +217,9 @@
                 $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", true);
                 $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", true);
                 $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", true);
+
+                //Deshabilito la tabla de los proyectos
+                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
             });
         });
     </script>
