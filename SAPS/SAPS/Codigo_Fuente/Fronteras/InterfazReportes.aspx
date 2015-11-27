@@ -192,7 +192,6 @@
                 $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", false);
                 $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", false);
                 $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", false);
-                $("#<%=check_header_proyecto.ClientID%>").prop("disabled", false);
                 $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", false);
                 
 
@@ -209,7 +208,6 @@
                 $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", true);
                 $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", true);
                 $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", true);
-                $("#<%=check_header_proyecto.ClientID%>").prop("disabled", true);
                 $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", true);
             });
         });
