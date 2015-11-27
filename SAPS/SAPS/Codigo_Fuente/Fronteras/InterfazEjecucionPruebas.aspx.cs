@@ -72,6 +72,12 @@ namespace SAPS.Fronteras
                     m_nombre_archivo = "";
                 }
 
+                if (drop_disenos_disponibles.SelectedItem.Value != "")
+                {
+                    llenar_ejecuciones_disponibles(Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value));
+                }
+
+                // Si hay ejecuciones
                 if (m_resultados_tmp.Count > 0)
                 {
                     actualiza_resultados();
@@ -80,12 +86,7 @@ namespace SAPS.Fronteras
                 {
                     celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
                 }
-
-                if (drop_disenos_disponibles.SelectedItem.Value != "")
-                {
-                    llenar_ejecuciones_disponibles(Convert.ToInt32(drop_disenos_disponibles.SelectedItem.Value));
                 }
-            }
             else
             {
                 Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
@@ -134,7 +135,6 @@ namespace SAPS.Fronteras
         */
         protected void btn_eliminar_Click(object sender, EventArgs e)
         {
-            ///@todo
             m_opcion = 'e';
             btn_crear.CssClass = "btn btn-default";
             btn_modificar.CssClass = "btn btn-default";
@@ -562,13 +562,16 @@ namespace SAPS.Fronteras
             TableHeaderCell celda_header_proposito = new TableHeaderCell();
             TableHeaderCell celda_header_responsable = new TableHeaderCell();
             TableHeaderCell celda_header_fecha_ultima_ejecucion = new TableHeaderCell();
+            TableHeaderCell celda_header_accion = new TableHeaderCell();
             celda_header_proposito.Text = "Nombre del diseño";
             header.Cells.AddAt(0, celda_header_proposito);
             celda_header_responsable.Text = "Responsable";
             header.Cells.AddAt(1, celda_header_responsable);
             celda_header_fecha_ultima_ejecucion.Text = "Fecha de la última ejecución";
+            celda_header_accion.Text = "Acción";
             header.Cells.AddAt(2, celda_header_fecha_ultima_ejecucion);
             tabla_ejecuciones.Rows.Add(header);
+            header.Cells.AddAt(3, celda_header_accion);
         }
 
         protected void ejecucion_seleccionado(object sender, EventArgs e)
@@ -670,16 +673,16 @@ namespace SAPS.Fronteras
 
         protected void btn_consultar_imagen_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_mostrar_imagen", "$('#modal_mostrar_imagen').modal();", true);
-            string url_image = ((Button)sender).ID;
-            if (url_image != "")
+            string[] ruta_url = ((Button)sender).ID.Split(',');
+            if (ruta_url[0] != "NoTiene")
             {
-                visor_imagen.ImageUrl = url_image;
+                visor_imagen.ImageUrl = ruta_url[0];
             }
             else
             {
-                visor_imagen.ImageUrl = "http://telegram-sticker.github.io/public/stickers/animals/15.png";
+                visor_imagen.ImageUrl = "http://telegram-stickers.github.io/public/stickers/animals/15.png";
             }
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_mostrar_imagen", "$('#modal_mostrar_imagen').modal();", true);
             update_mostrar_imagen.Update();
         }
 
@@ -762,9 +765,6 @@ namespace SAPS.Fronteras
                 m_llave_ejecucion[1] = id_diseno_seleccionado;
                 llena_info_diseno(id_diseno_seleccionado);
                 actualizar_casos();
-
-                // Llena la tabla de ejecuciones asociadas a un diseño
-                //llenar_ejecuciones_disponibles(id_diseno_seleccionado);
             }
             else
             {
@@ -784,11 +784,27 @@ namespace SAPS.Fronteras
                 input_criterios_aceptacion_diseno.Text = info_diseno.Rows[0]["criterio_aceptacion"].ToString();
                 input_procedimiento_diseno.Text = info_diseno.Rows[0]["procedimiento"].ToString();
                 int id_proyecto = Convert.ToInt32(info_diseno.Rows[0]["id_proyecto"]);
-                llena_rh_disponibles(id_proyecto);
+                actualizar_rh_disponibles(id_proyecto);
                 btn_eliminar_resultado.Enabled = true;
                 btn_agregar_resultado.Enabled = true;
                 drop_rh_disponibles.Enabled = true;
             }
+        }
+
+        /** @brief Metodo que actualiza el drop de los diseños disponibles dependiendo del proyecto que se haya seleccionado.
+         *  @param El identificador del proyecto que se eligio.
+        */
+        private void actualizar_rh_disponibles(int id_proyecto)
+        {
+            vaciar_rh_disponibles();
+            llena_rh_disponibles(id_proyecto);
+        }
+
+        /** @brief Metod que vacia por completo el drop de los recursos humanos
+        */
+        private void vaciar_rh_disponibles()
+        {
+            drop_rh_disponibles.Items.Clear();
         }
 
         /** @brief Método que actualiza la tabla donde estan los resultados de la ejecucion.
@@ -856,7 +872,6 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[1];
                 DropDownList lista = new DropDownList();
-                //lista.ID = "lista_estado";
 
                 switch (celda_tmp.Text) {                                   // Creacion del dropdown de estados
                     case "Satisfactoria":                        
@@ -892,7 +907,6 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[2];
                 DropDownList lista_conformidad = new DropDownList();
-                //lista_conformidad.ID = "lista_conformidad";
 
                 switch (celda_tmp.Text) {                                                  // Creacion del dropdown de tipos de no conformidad
                     case "No aplica":
@@ -986,14 +1000,14 @@ namespace SAPS.Fronteras
                 }
                 else                                                                                        // Consulta normal de resultados de ejecucion
                 {
-                    celda_tmp = new TableCell();
-                    Button btn_consultar_imagen = new Button();
-                    btn_consultar_imagen.CssClass = "btn btn-link";
-                    btn_consultar_imagen.Text = "Ver imagen";
-                    btn_consultar_imagen.ID = vec_tmp[6];
-                    btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
-                    celda_tmp.Controls.Add(btn_consultar_imagen);
-                    nueva_fila.Cells.Add(celda_tmp);
+                celda_tmp = new TableCell();
+                Button btn_consultar_imagen = new Button();
+                btn_consultar_imagen.CssClass = "btn btn-link";
+                btn_consultar_imagen.Text = "Ver imagen";
+                btn_consultar_imagen.ID = vec_tmp[6];
+                btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
+                celda_tmp.Controls.Add(btn_consultar_imagen);
+                nueva_fila.Cells.Add(celda_tmp);
                 }
                 #endregion
                 tabla_resultados.Rows.Add(nueva_fila);

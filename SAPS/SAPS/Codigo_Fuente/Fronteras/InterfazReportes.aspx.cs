@@ -97,12 +97,23 @@ namespace SAPS.Fronteras
             tabla_proyectos.Rows.Clear();
         }
 
-        /** @brief Metodo que se activa cuando el usuario selecciona una casilla de los proyectos
+        /** @brief Metodo que se activa cuando el usuario selecciona una casilla de los proyectos, lo marca como seleccionado en la estructura de control interno.
         */
         protected void check_estado_proyecto_Cambia(object sender, EventArgs e)
         {
-            int i = 24;
-            ///@todo En el ID del sender viene el identificador dle proyecto que se selecciono
+            int id_proyecto_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
+            int indice_proyecto = 0;
+            bool encontrado = false;
+            while (!encontrado && indice_proyecto < m_proyectos.Count)
+            {
+                if (m_proyectos[indice_proyecto].First.Equals(id_proyecto_seleccionado))
+                {
+                    m_proyectos[indice_proyecto].Second = !(Convert.ToBoolean(m_proyectos[indice_proyecto].Second));    //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
+                    encontrado = true;
+                }
+                ++indice_proyecto;
+            }
+
         }
 
         /** @brief Metodo que llena la tabla con los proyectos que hay disponibles en el sistema.
@@ -111,6 +122,7 @@ namespace SAPS.Fronteras
         {
             DataTable proyectos_disponibles = null;
             //Llena la DataTable con la información de todos los proyectos (si soy administrador) o con la del proyecto que tengo asociado (si soy usuario normal).
+            ///@todo Hacer la consulta dependiendo de los filtros que se seleccionaron
             if (m_es_administrador)
                 proyectos_disponibles = m_controladora_rep.solicitar_proyectos_disponibles();
             else
@@ -155,6 +167,29 @@ namespace SAPS.Fronteras
 
         protected void btn_cancelar_Click(object sender, EventArgs e)
         {
+
+        }
+
+        /** @brief Metodo que se encarga de marcar todos los proyectos como "seleccionados" tanto en interfaz como en la estructura de control interno.
+         *  @param Los parametros por defecto de un evento en ASP.
+        */
+        protected void proyecto_check_todos_CheckedChanged(object sender, EventArgs e)
+        {
+            bool estado = ((CheckBox)sender).Checked;
+            if (estado)
+            {
+                for (int i = 0; i < m_proyectos.Count; ++i)
+                {
+                    m_proyectos[i].Second = estado;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < m_proyectos.Count; ++i)
+                {
+                    m_proyectos[i].Second = estado;
+                }
+            }
 
         }
     }

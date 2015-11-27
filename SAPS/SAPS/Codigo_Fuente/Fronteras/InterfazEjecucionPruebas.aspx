@@ -351,8 +351,8 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <asp:Image ID="visor_imagen" runat="server" />
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <asp:Image ID="visor_imagen" runat="server" CssClass="img-thumbnail" />
                                     </div>
                                 </div>
                             </div>
