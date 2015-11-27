@@ -103,7 +103,7 @@
                                         <asp:Label runat="server" CssClass="control-label" Text="Proyectos disponibles" AssociatedControlID="tabla_proyectos" />
                                     </div>
                                     <div class="col-md-4 col-md-offset-4">
-                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="proyecto_check_todos" Text="Seleccionar todos" />
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="proyecto_check_todos" OnCheckedChanged="proyecto_check_todos_CheckedChanged" Text="Seleccionar todos" />
                                     </div>
                                 </div>
                                 <div class="form-group">

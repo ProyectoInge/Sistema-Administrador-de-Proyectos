@@ -97,12 +97,11 @@ namespace SAPS.Fronteras
             tabla_proyectos.Rows.Clear();
         }
 
-        /** @brief Metodo que se activa cuando el usuario selecciona una casilla de los proyectos
+        /** @brief Metodo que se activa cuando el usuario selecciona una casilla de los proyectos, lo marca como seleccionado en la estructura de control interno.
         */
         protected void check_estado_proyecto_Cambia(object sender, EventArgs e)
         {
-            int i = 24;
-            ///@todo En el ID del sender viene el identificador dle proyecto que se selecciono
+            ///@todo En el ID del sender viene el identificador del proyecto que se selecciono
         }
 
         /** @brief Metodo que llena la tabla con los proyectos que hay disponibles en el sistema.
@@ -156,6 +155,14 @@ namespace SAPS.Fronteras
         protected void btn_cancelar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /** @brief Metodo que se encarga de marcar todos los proyectos como "seleccionados" tanto en interfaz como en la estructura de control interno.
+         *  @param Los parametros por defecto de un evento en ASP.
+        */
+        protected void proyecto_check_todos_CheckedChanged(object sender, EventArgs e)
+        {
+            ///@todo
         }
     }
 }
