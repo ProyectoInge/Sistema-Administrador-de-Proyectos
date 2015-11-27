@@ -472,6 +472,8 @@ namespace SAPS.Fronteras
         */
         private bool eliminar_ejecucion()
         {
+            mensaje_exito_modal.Visible = false;
+            mensaje_error_modal.Visible = false;
             bool a_retornar = false;
             if (m_llave_ejecucion[0] != -1 && m_llave_ejecucion[1] != -1)
             {
@@ -579,9 +581,9 @@ namespace SAPS.Fronteras
         {
             int id_ejecucion = Convert.ToInt32(((Button)sender).ID);
             DataTable datos_ejecucion = m_controladora_ep.consultar_ejecucion(id_ejecucion);
-
-            m_llave_ejecucion[0] = id_ejecucion;
-            m_llave_ejecucion[1] = Convert.ToInt32(datos_ejecucion.Rows[0]["num_ejecucion"].ToString());
+            //ERROR
+            m_llave_ejecucion[0] = Convert.ToInt32(datos_ejecucion.Rows[0]["num_ejecucion"].ToString());
+            m_llave_ejecucion[1] = Convert.ToInt32(datos_ejecucion.Rows[0]["id_diseno"].ToString());
 
             // Responsable
             ListItem nombre_responsable = new ListItem();
@@ -689,9 +691,38 @@ namespace SAPS.Fronteras
 
         protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
         {
-            ///@todo sacar el num de resultado
-            int num_resultado = 0;
-            m_controladora_ep.eliminar_resultado(m_llave_ejecucion[1], m_llave_ejecucion[0], num_resultado);
+            foreach (string[] res_temp in m_resultados_tmp)
+                m_controladora_ep.eliminar_resultado(m_llave_ejecucion[1], m_llave_ejecucion[0], Convert.ToInt32(res_temp[0])); //borra todo de la tabla
+
+            foreach (TableRow row in tabla_resultados.Rows)
+            {
+                foreach (TableCell cell in row.Cells)
+                {
+                    foreach (Control ctrl in cell.Controls)
+                    {
+                        if (ctrl is CheckBox)
+                        {                           
+                            CheckBox chck = (CheckBox)ctrl;
+                            if (chck.Checked)
+                            {
+                                foreach (string[] res_temp in m_resultados_tmp)
+                                {
+                                    if (res_temp[0] == chck.ID)
+                                        m_resultados_tmp.Remove(res_temp); //lo saca de la lista                                        
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                }
+                
+            }
+
+            foreach (string[] res_temp in m_resultados_tmp)
+            {
+                // m_controladora_ep.
+            }
         }
 
         /** @brief Método que actualiza el combobox con los diseños disponibles en el sistema
@@ -821,7 +852,17 @@ namespace SAPS.Fronteras
                 TableRow nueva_fila = new TableRow();
                 TableCell celda_tmp = new TableCell();
 
+
+
                 #region Crea los controles de la fila
+
+                //Agrega el checkbox de selección
+                celda_tmp = new TableCell();
+                CheckBox check = new CheckBox();
+                check.ID = Convert.ToString(vec_tmp[0]);
+                celda_tmp.Controls.Add(check);
+                nueva_fila.Cells.Add(celda_tmp);
+
                 //Agrega el identificador del caso de prueba del resultado
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[3];
@@ -964,6 +1005,7 @@ namespace SAPS.Fronteras
             }
         }
 
+       
         /** @brief Metodo que se encarga de llenar el drop con los casos disponibles.
         */
         private void llena_casos()

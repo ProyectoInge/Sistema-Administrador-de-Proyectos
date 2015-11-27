@@ -175,6 +175,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TableHeaderRow header_tabla_resultados;
         
         /// <summary>
+        /// celda_check_holder_h control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell celda_check_holder_h;
+        
+        /// <summary>
         /// celda_id_caso_resultado control.
         /// </summary>
         /// <remarks>
@@ -245,6 +254,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TableRow fila_inputs;
+        
+        /// <summary>
+        /// celda_check_holder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableCell celda_check_holder;
         
         /// <summary>
         /// celda_drop_casos control.
