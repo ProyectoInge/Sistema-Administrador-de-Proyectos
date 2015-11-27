@@ -101,7 +101,19 @@ namespace SAPS.Fronteras
         */
         protected void check_estado_proyecto_Cambia(object sender, EventArgs e)
         {
-            ///@todo En el ID del sender viene el identificador del proyecto que se selecciono
+            int id_proyecto_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
+            int indice_proyecto = 0;
+            bool encontrado = false;
+            while (!encontrado && indice_proyecto < m_proyectos.Count)
+            {
+                if (m_proyectos[indice_proyecto].First.Equals(id_proyecto_seleccionado))
+                {
+                    m_proyectos[indice_proyecto].Second = !(Convert.ToBoolean(m_proyectos[indice_proyecto].Second));    //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
+                    encontrado = true;
+                }
+                ++indice_proyecto;
+            }
+
         }
 
         /** @brief Metodo que llena la tabla con los proyectos que hay disponibles en el sistema.
