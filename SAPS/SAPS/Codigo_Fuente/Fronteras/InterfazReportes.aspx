@@ -62,17 +62,17 @@
                             <section id="seccion_filtros_proyecto">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <asp:Label runat="server" CssClass="control-label" ID="label_filtros_proyecto" AssociatedControlID="proyecto_input_fecha_inicio" Text="Filtros" />
+                                        <asp:Label runat="server" CssClass="control-label" ID="label_filtros_proyecto" AssociatedControlID="proyecto_drop_oficina" Text="Filtros" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Oficinas" />
-                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_oficina" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_oficina" AutoPostBack="true"/>
                                     </div>
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Estado" />
-                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_estado">
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_estado" AutoPostBack="true">
                                             <asp:ListItem Text ="-Seleccione-" Value=""></asp:ListItem>
                                             <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
                                             <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
@@ -83,17 +83,17 @@
                                     </div>
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Miembros" />
-                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_miembro" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_miembro" AutoPostBack="true"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
                                         <asp:Label runat="server" CssClass="control-label" Text="Fecha de inicio" />
-                                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="proyecto_input_fecha_inicio" />
+                                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="proyecto_input_fecha_inicio" AutoPostBack="true" />
                                     </div>
                                     <div class="col-md-6">
                                         <asp:Label runat="server" CssClass="control-label" Text="Fecha de finalización" />
-                                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="proyecto_input_fecha_final" />
+                                        <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="proyecto_input_fecha_final" AutoPostBack="true" />
                                     </div>
                                 </div>
                             </section>
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <div style="height: 250px; overflow-y: scroll">
+                                        <div style="height: 200px; overflow-y: scroll">
                                             <asp:Table runat="server" ID="tabla_proyectos" CssClass="table table-hover">
                                             </asp:Table>
                                         </div>

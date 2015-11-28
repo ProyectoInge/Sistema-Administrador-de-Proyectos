@@ -69,7 +69,9 @@ CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 			ProyectoPruebas.id_proyecto,
 			ProyectoPruebas.estado,
 			ProyectoPruebas.id_oficina,
-			ProyectoPruebas.eliminado
+			ProyectoPruebas.eliminado,
+			ProyectoPruebas.fecha_inicio,
+			ProyectoPruebas.fecha_final
 	FROM  ProyectoPruebas
 	END
 GO
