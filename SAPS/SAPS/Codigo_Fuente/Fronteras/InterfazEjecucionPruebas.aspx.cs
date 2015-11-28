@@ -141,6 +141,7 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default";
             btn_eliminar.CssClass = "btn btn-default active";
             activa_desactiva_inputs(false);
+            actualiza_resultados();
         }
 
         protected void btn_crear_Click(object sender, EventArgs e)
@@ -150,6 +151,7 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default";
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
+            actualiza_resultados();
         }
 
         /** @brief Método que se activa al seleccionar el botón Aceptar, debe distinguir sobre cual funcionalidad de IME se trata
@@ -837,6 +839,7 @@ namespace SAPS.Fronteras
                 TableRow nueva_fila = new TableRow();
                 TableCell celda_tmp = new TableCell();
                 DropDownList casos = new DropDownList();
+                casos.CssClass = "form-control"; 
 
                 #region Crea los controles de la fila
                 //Agrega el identificador del caso de prueba del resultado
@@ -861,6 +864,14 @@ namespace SAPS.Fronteras
                     }
                 }
 
+                if (m_opcion == 'm') {
+                    casos.Enabled = true;
+                }
+                else
+                {
+                    casos.Enabled = false;
+                }
+
                 celda_tmp.Controls.Add(casos);                                                      // Se agrega la lista de casos al resultado
                 nueva_fila.Cells.Add(celda_tmp);
 
@@ -873,6 +884,7 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[1];
                 DropDownList lista = new DropDownList();
+                lista.CssClass = "form-control";
 
                 switch (celda_tmp.Text)
                 {                                   // Creacion del dropdown de estados
@@ -901,7 +913,16 @@ namespace SAPS.Fronteras
                         lista.Items.Add("Satisfactoria");
                         break;
                 }
-                lista.Enabled = false;
+
+                if (m_opcion == 'm')
+                {
+                    lista.Enabled = true;
+                }
+                else
+                {
+                    lista.Enabled = false;
+                }
+                
                 celda_tmp.Controls.Add(lista);                                              // Se agrega el dropdown de estados a la celda
                 nueva_fila.Cells.Add(celda_tmp);
 
@@ -909,6 +930,7 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[2];
                 DropDownList lista_conformidad = new DropDownList();
+                lista_conformidad.CssClass = "form-control";
 
                 switch (celda_tmp.Text)
                 {                                                  // Creacion del dropdown de tipos de no conformidad
@@ -961,7 +983,16 @@ namespace SAPS.Fronteras
                         lista_conformidad.Items.Add("No aplica");
                         break;
                 }
-                lista_conformidad.Enabled = false;
+
+                if (m_opcion == 'm')
+                {
+                    lista_conformidad.Enabled = true;
+                }
+                else
+                {
+                    lista_conformidad.Enabled = false;
+                }
+                
                 celda_tmp.Controls.Add(lista_conformidad);                                      // Se agrega el dropdown de tipos de no conformidad a la celda
                 nueva_fila.Cells.Add(celda_tmp);
 
@@ -969,7 +1000,14 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 TextBox input_tmp = new TextBox();
                 input_tmp.CssClass = "form-control";
-                input_tmp.Enabled = false;
+                if (m_opcion == 'm')
+                {
+                    input_tmp.Enabled = true;
+                }
+                else
+                {
+                    input_tmp.Enabled = false;
+                }                
                 input_tmp.TextMode = TextBoxMode.MultiLine;
                 input_tmp.Rows = 2;
                 input_tmp.Attributes.Add("resize", "none");
@@ -981,7 +1019,14 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 input_tmp = new TextBox();
                 input_tmp.CssClass = "form-control";
-                input_tmp.Enabled = false;
+                if (m_opcion == 'm')
+                {
+                    input_tmp.Enabled = true;
+                }
+                else
+                {
+                    input_tmp.Enabled = false;
+                }               
                 input_tmp.TextMode = TextBoxMode.MultiLine;
                 input_tmp.Rows = 2;
                 input_tmp.Attributes.Add("resize", "none");
