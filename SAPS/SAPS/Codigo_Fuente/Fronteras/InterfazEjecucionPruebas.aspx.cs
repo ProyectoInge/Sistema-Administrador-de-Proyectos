@@ -739,7 +739,7 @@ namespace SAPS.Fronteras
 
             foreach (string[] res_temp in m_resultados_tmp)
             {
-                // m_controladora_ep.
+                //m_controladora_ep.i
             }
         }
 
