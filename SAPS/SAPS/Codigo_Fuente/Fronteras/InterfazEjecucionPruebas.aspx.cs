@@ -128,6 +128,7 @@ namespace SAPS.Fronteras
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
             activa_desactiva_botones_ime(true);
+            actualiza_resultados();
         }
 
         /** @brief Método que se activa al seleccionar el botón eliminar de los botones de IME
@@ -140,6 +141,7 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default";
             btn_eliminar.CssClass = "btn btn-default active";
             activa_desactiva_inputs(false);
+            actualiza_resultados();
         }
 
         protected void btn_crear_Click(object sender, EventArgs e)
@@ -149,6 +151,7 @@ namespace SAPS.Fronteras
             btn_modificar.CssClass = "btn btn-default";
             btn_eliminar.CssClass = "btn btn-default";
             activa_desactiva_inputs(true);
+            actualiza_resultados();
         }
 
         /** @brief Método que se activa al seleccionar el botón Aceptar, debe distinguir sobre cual funcionalidad de IME se trata
@@ -487,6 +490,8 @@ namespace SAPS.Fronteras
         */
         private bool eliminar_ejecucion()
         {
+            mensaje_exito_modal.Visible = false;
+            mensaje_error_modal.Visible = false;
             bool a_retornar = false;
             if (m_llave_ejecucion[0] != -1 && m_llave_ejecucion[1] != -1)
             {
@@ -594,9 +599,9 @@ namespace SAPS.Fronteras
         {
             int id_ejecucion = Convert.ToInt32(((Button)sender).ID);
             DataTable datos_ejecucion = m_controladora_ep.consultar_ejecucion(id_ejecucion);
-
-            m_llave_ejecucion[0] = id_ejecucion;
-            m_llave_ejecucion[1] = Convert.ToInt32(datos_ejecucion.Rows[0]["num_ejecucion"].ToString());
+            //ERROR
+            m_llave_ejecucion[0] = Convert.ToInt32(datos_ejecucion.Rows[0]["num_ejecucion"].ToString());
+            m_llave_ejecucion[1] = Convert.ToInt32(datos_ejecucion.Rows[0]["id_diseno"].ToString());
 
             // Responsable
             ListItem nombre_responsable = new ListItem();
@@ -704,9 +709,38 @@ namespace SAPS.Fronteras
 
         protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
         {
-            ///@todo sacar el num de resultado
-            int num_resultado = 0;
-            m_controladora_ep.eliminar_resultado(m_llave_ejecucion[1], m_llave_ejecucion[0], num_resultado);
+            foreach (string[] res_temp in m_resultados_tmp)
+                m_controladora_ep.eliminar_resultado(m_llave_ejecucion[1], m_llave_ejecucion[0], Convert.ToInt32(res_temp[0])); //borra todo de la tabla
+
+            foreach (TableRow row in tabla_resultados.Rows)
+            {
+                foreach (TableCell cell in row.Cells)
+                {
+                    foreach (Control ctrl in cell.Controls)
+                    {
+                        if (ctrl is CheckBox)
+                        {
+                            CheckBox chck = (CheckBox)ctrl;
+                            if (chck.Checked)
+                            {
+                                foreach (string[] res_temp in m_resultados_tmp)
+                                {
+                                    if (res_temp[0] == chck.ID)
+                                        m_resultados_tmp.Remove(res_temp); //lo saca de la lista                                        
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+
+            }
+
+            foreach (string[] res_temp in m_resultados_tmp)
+            {
+                // m_controladora_ep.
+            }
         }
 
         /** @brief Método que actualiza el combobox con los diseños disponibles en el sistema
@@ -851,11 +885,52 @@ namespace SAPS.Fronteras
                 string[] vec_tmp = m_resultados_tmp[i]; //Agarra el i-esimo vector de la lista
                 TableRow nueva_fila = new TableRow();
                 TableCell celda_tmp = new TableCell();
+                DropDownList casos = new DropDownList();
+                casos.CssClass = "form-control";
+
+
 
                 #region Crea los controles de la fila
+
+                //Agrega el checkbox de selección
+                celda_tmp = new TableCell();
+                CheckBox check = new CheckBox();
+                check.ID = Convert.ToString(vec_tmp[0]);
+                celda_tmp.Controls.Add(check);
+                nueva_fila.Cells.Add(celda_tmp);
+
                 //Agrega el identificador del caso de prueba del resultado
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[3];
+
+                ListItem caso_escogido = new ListItem();                                            // Se agrega inicialmente el caso escogido
+                caso_escogido.Text = celda_tmp.Text;
+                caso_escogido.Value = celda_tmp.Text;
+                casos.Items.Add(caso_escogido);
+                // Posterior, se consulta el resto de casos y se agrega
+                DataTable casos_disponibles = m_controladora_ep.solicitar_casos_asociados_diseno(m_llave_ejecucion[1]);
+                ListItem item_tmp = new ListItem();
+                for (int j = 0; j < casos_disponibles.Rows.Count; ++j)
+                {
+                    item_tmp = new ListItem();
+                    item_tmp.Text = casos_disponibles.Rows[j]["id_caso"].ToString();
+                    item_tmp.Value = casos_disponibles.Rows[j]["id_caso"].ToString();
+                    if (item_tmp.Text != celda_tmp.Text)
+                    {
+                        casos.Items.Add(item_tmp);
+                    }
+                }
+
+                if (m_opcion == 'm')
+                {
+                    casos.Enabled = true;
+                }
+                else
+                {
+                    casos.Enabled = false;
+                }
+
+                celda_tmp.Controls.Add(casos);                                                      // Se agrega la lista de casos al resultado
                 nueva_fila.Cells.Add(celda_tmp);
 
                 //Agrega el numero de resultado
@@ -867,6 +942,7 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[1];
                 DropDownList lista = new DropDownList();
+                lista.CssClass = "form-control";
 
                 switch (celda_tmp.Text)
                 {                                   // Creacion del dropdown de estados
@@ -895,7 +971,16 @@ namespace SAPS.Fronteras
                         lista.Items.Add("Satisfactoria");
                         break;
                 }
-                lista.Enabled = false;
+
+                if (m_opcion == 'm')
+                {
+                    lista.Enabled = true;
+                }
+                else
+                {
+                    lista.Enabled = false;
+                }
+
                 celda_tmp.Controls.Add(lista);                                              // Se agrega el dropdown de estados a la celda
                 nueva_fila.Cells.Add(celda_tmp);
 
@@ -903,6 +988,7 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[2];
                 DropDownList lista_conformidad = new DropDownList();
+                lista_conformidad.CssClass = "form-control";
 
                 switch (celda_tmp.Text)
                 {                                                  // Creacion del dropdown de tipos de no conformidad
@@ -955,7 +1041,16 @@ namespace SAPS.Fronteras
                         lista_conformidad.Items.Add("No aplica");
                         break;
                 }
-                lista_conformidad.Enabled = false;
+
+                if (m_opcion == 'm')
+                {
+                    lista_conformidad.Enabled = true;
+                }
+                else
+                {
+                    lista_conformidad.Enabled = false;
+                }
+
                 celda_tmp.Controls.Add(lista_conformidad);                                      // Se agrega el dropdown de tipos de no conformidad a la celda
                 nueva_fila.Cells.Add(celda_tmp);
 
@@ -963,7 +1058,14 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 TextBox input_tmp = new TextBox();
                 input_tmp.CssClass = "form-control";
-                input_tmp.Enabled = false;
+                if (m_opcion == 'm')
+                {
+                    input_tmp.Enabled = true;
+                }
+                else
+                {
+                    input_tmp.Enabled = false;
+                }
                 input_tmp.TextMode = TextBoxMode.MultiLine;
                 input_tmp.Rows = 2;
                 input_tmp.Attributes.Add("resize", "none");
@@ -975,7 +1077,14 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 input_tmp = new TextBox();
                 input_tmp.CssClass = "form-control";
-                input_tmp.Enabled = false;
+                if (m_opcion == 'm')
+                {
+                    input_tmp.Enabled = true;
+                }
+                else
+                {
+                    input_tmp.Enabled = false;
+                }
                 input_tmp.TextMode = TextBoxMode.MultiLine;
                 input_tmp.Rows = 2;
                 input_tmp.Attributes.Add("resize", "none");
@@ -984,18 +1093,34 @@ namespace SAPS.Fronteras
                 nueva_fila.Cells.Add(celda_tmp);
 
                 //Hace el boton para consultar la imagen
-                celda_tmp = new TableCell();
-                Button btn_consultar_imagen = new Button();
-                btn_consultar_imagen.CssClass = "btn btn-link";
-                btn_consultar_imagen.Text = "Ver imagen";
-                btn_consultar_imagen.ID = vec_tmp[6];
-                btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
-                celda_tmp.Controls.Add(btn_consultar_imagen);
-                nueva_fila.Cells.Add(celda_tmp);
+
+                if (m_opcion == 'm')
+                {                                                                      // Se permite al usuario subir otra imagen
+                    celda_tmp = new TableCell();
+                    Button btn_modificar_imagen = new Button();
+                    btn_modificar_imagen.CssClass = "btn btn-link";
+                    btn_modificar_imagen.Text = "Cambiar imagen";
+                    btn_modificar_imagen.ID = vec_tmp[6];
+                    btn_modificar_imagen.Click += new EventHandler(activar_modal_imagen);
+                    celda_tmp.Controls.Add(btn_modificar_imagen);
+                    nueva_fila.Cells.Add(celda_tmp);
+                }
+                else                                                                                        // Consulta normal de resultados de ejecucion
+                {
+                    celda_tmp = new TableCell();
+                    Button btn_consultar_imagen = new Button();
+                    btn_consultar_imagen.CssClass = "btn btn-link";
+                    btn_consultar_imagen.Text = "Ver imagen";
+                    btn_consultar_imagen.ID = vec_tmp[6];
+                    btn_consultar_imagen.Click += new EventHandler(btn_consultar_imagen_Click);
+                    celda_tmp.Controls.Add(btn_consultar_imagen);
+                    nueva_fila.Cells.Add(celda_tmp);
+                }
                 #endregion
                 tabla_resultados.Rows.Add(nueva_fila);
             }
         }
+
 
         /** @brief Metodo que se encarga de llenar el drop con los casos disponibles.
         */
@@ -1011,6 +1136,17 @@ namespace SAPS.Fronteras
                 drop_casos.Items.Add(item_tmp);
             }
         }
+
+
+        /**@brief Evento encargado de mostrar el modal apropiado para cargar una imagen relacionada al resultado.
+        */
+        protected void activar_modal_imagen(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "modal_imagen", "$('#modal_imagen').modal();", true);
+            upModalImagen.Update();
+        }
+
+
 
         /** @brief Evento que guarda una imagen que subió el usuario al servidor.
          * @param Los parametros por defecto de ASP para un evento.
