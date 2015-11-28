@@ -182,17 +182,39 @@ namespace SAPS.Fronteras
         private void llenar_oficinas()
         {
             DataTable oficinas_disponibles = m_controladora_rep.solicitar_oficinas_disponibles();
-            for(int i=0; i<oficinas_disponibles.Rows.Count; ++i)
+            foreach(DataRow fila in oficinas_disponibles.Rows)
             {
                 ListItem item_tmp = new ListItem();
-                item_tmp.Text = oficinas_disponibles.Rows[i]["nombre_oficina"].ToString();
-                item_tmp.Value = oficinas_disponibles.Rows[i]["id_oficina"].ToString();
+                item_tmp.Text = fila["nombre_oficina"].ToString();
+                item_tmp.Value =fila["id_oficina"].ToString();
                 proyecto_drop_oficina.Items.Add(item_tmp);
                 ///@todo Hacer que cuando selecciona una oficina filtre los proyectos que muestra.
-
             }
         }
 
+        private void actualizar_recursos_humanos()
+        {
+            vaciar_recursos_humanos();
+            llena_recursos_humanos();
+        }
+
+        private void vaciar_recursos_humanos()
+        {
+            proyecto_drop_miembro.Items.Clear();
+        }
+
+        private void llena_recursos_humanos()
+        {
+            DataTable recursos_disponibles = m_controladora_rep.solicitar_recursos_disponibles();
+            foreach(DataRow fila in recursos_disponibles.Rows)
+            {
+                ListItem item_tmp = new ListItem();
+                item_tmp.Text = fila["nombre"].ToString();
+                item_tmp.Value = fila["id_rh"].ToString();
+                proyecto_drop_miembro.Items.Add(item_tmp);
+                ///@todo Hacer que cuando selecciona un recurso humano filtre los proyectos que se muestran.
+            }
+        }
         protected void btn_generar_reporte_Click(object sender, EventArgs e)
         {
         }

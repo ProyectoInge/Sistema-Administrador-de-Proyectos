@@ -109,6 +109,15 @@ namespace SAPS.Controladoras
             return m_controladora_pdp.solicitar_oficinas_disponibles();
         }
 
+        /** @brief Método que asigna las operaciones necesarias para poder consultar los recursos humanos disponibles.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable solicitar_recursos_disponibles()
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.solicitar_recursos_disponibles();
+        }
+
 
     }
 }
