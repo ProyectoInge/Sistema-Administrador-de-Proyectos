@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        <div class="container body-content" id="cuerpo" runat="server">
+        <div class="container" id="cuerpo" runat="server">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
         </div>

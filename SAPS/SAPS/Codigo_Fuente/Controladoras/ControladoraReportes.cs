@@ -22,9 +22,9 @@ namespace SAPS.Controladoras
 
         // Controladoras de las clases con las que interactua la clase EjecucionesPruebas
         private ControladoraRecursosHumanos m_controladora_rh;
-        private ControladoraProyectoPruebas m_controladora_pyp;
         private ControladoraDisenosPruebas m_controladora_dp;
         private ControladoraCasoPruebas m_controladora_cp;
+        private ControladoraProyectoPruebas m_controladora_pdp;
 
         
 
@@ -34,7 +34,7 @@ namespace SAPS.Controladoras
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
             m_controladora_dp = new ControladoraDisenosPruebas();
-            m_controladora_cp = new ControladoraCasoPruebas();
+            m_controladora_cp = new ControladoraCasoPruebas(); 
 
             //Constantes para el documento
             /*var fuente_titulo = FontFactory.GetFont("Arial", 18, Font.BOLD);
@@ -109,26 +109,61 @@ namespace SAPS.Controladoras
             document.Close();
 
         }
-       
 
-
-
-        private void agregar_proyectos_PDF(ref Document documento, Object[]datos)
+        /** @brief Metodo que consulta los proyectos disponibles en el sistema.
+         *  @return DataTable con la informacion de los proyectos disponibles en la base de datos.
+         */
+        public DataTable solicitar_proyectos_disponibles()
         {
-            DataTable info_proyectos = null; 
-            string []datos_incluidos = (string[])datos[0];
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.solicitar_proyectos_disponibles();
+        }
+
+        /** @brief Método que asigna las operaciones necesarias para poder consultar mi proyecto de pruebas.
+         * @param username de quien hace la consulta.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable consultar_mi_proyecto(string nombre_usuario)
+        {
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.consultar_mi_proyecto(nombre_usuario);
+        }
+
+        /** @brief Método que consulta el perfil de un usuario del sistema, permite que se mantenga la arquitectura N capas.
+         * @param nombre_usuario usuario cuyo perfil se desea consultar.
+         * @return false si es administrador, true si es miembro
+        */
+        public bool es_administrador(string nombre_usuario)
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.es_administrador(nombre_usuario);
+        }
+
+        /** @brief Método que asigna las operaciones necesarias para poder consultar las oficibas disponibles.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable solicitar_oficinas_disponibles()
+        {
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.solicitar_oficinas_disponibles();
+        }
+
+        private void agregar_proyectos_PDF(ref Document documento, Object[] datos)
+        {
+            DataTable info_proyectos = null;
+            string[] datos_incluidos = (string[])datos[0];
 
             //Se traen los datos relacionados con los proyectos.
-            if ( typeof(string[])== datos[1].GetType())
+            if (typeof(string[]) == datos[1].GetType())
             {
-                info_proyectos = m_controladora_pyp.solicitar_proyectos_filtrados(((string[])datos[1]));
+                info_proyectos = m_controladora_pdp.solicitar_proyectos_filtrados(((string[])datos[1]));
             }
             else
             {
-                //info_proyectos = m_controladora_pyp.solicitar_proyectos_filtrados((List<string>)datos[1]);
+                //info_proyectos = m_controladora_pdp.solicitar_proyectos_filtrados((List<string>)datos[1]);
             }
 
-            for(int i=0; i<info_proyectos.Rows.Count; i++)
+            for (int i = 0; i < info_proyectos.Rows.Count; i++)
             {
                 //agregar cosas al documento
                 //Agregar datos con formato **aquí se escogerían campos a mostrar 
@@ -141,5 +176,14 @@ namespace SAPS.Controladoras
                 //agregar final de página
             }
         }
+        /** @brief Método que asigna las operaciones necesarias para poder consultar los recursos humanos disponibles.
+         * @return DataTable con los resultados de la consultas.
+         */
+        public DataTable solicitar_recursos_disponibles()
+        {
+            m_controladora_rh = new ControladoraRecursosHumanos();
+            return m_controladora_rh.solicitar_recursos_disponibles();
+        }
+
     }
 }

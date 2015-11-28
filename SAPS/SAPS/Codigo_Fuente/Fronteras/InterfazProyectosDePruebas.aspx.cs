@@ -352,13 +352,6 @@ namespace SAPS.Fronteras
             input_finish_date.Enabled = estado;
         }
 
-        /**@brief Se encarga de llenar la tabla de disenos de pruebas con todos los disenos asociados a dicho proyecto de pruebas.
-        */
-        private void llena_disenos_prueba()
-        {
-            // TO DO --> Sprint 2, cuando ya existan diseños de pruebas.
-        }
-
         /** @brief Metodo que se encarga de llenar el dropbox con las oficinas disponibles.
          */
         private void llena_oficinas_disponibles()

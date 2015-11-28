@@ -67,6 +67,69 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label cuerpo_alerta_advertencia;
         
         /// <summary>
+        /// label_filtros_proyecto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_filtros_proyecto;
+        
+        /// <summary>
+        /// proyecto_drop_oficina control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList proyecto_drop_oficina;
+        
+        /// <summary>
+        /// proyecto_drop_estado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList proyecto_drop_estado;
+        
+        /// <summary>
+        /// proyecto_drop_miembro control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList proyecto_drop_miembro;
+        
+        /// <summary>
+        /// proyecto_input_fecha_inicio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox proyecto_input_fecha_inicio;
+        
+        /// <summary>
+        /// proyecto_input_fecha_final control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox proyecto_input_fecha_final;
+        
+        /// <summary>
+        /// proyecto_check_todos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox proyecto_check_todos;
+        
+        /// <summary>
         /// tabla_proyectos control.
         /// </summary>
         /// <remarks>
@@ -74,42 +137,6 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table tabla_proyectos;
-        
-        /// <summary>
-        /// header_tabla_proyectos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderRow header_tabla_proyectos;
-        
-        /// <summary>
-        /// celda_check_proyectos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderCell celda_check_proyectos;
-        
-        /// <summary>
-        /// check_header_proyecto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox check_header_proyecto;
-        
-        /// <summary>
-        /// celda_nombre_proyecto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderCell celda_nombre_proyecto;
         
         /// <summary>
         /// label_info_proyectos control.
@@ -121,112 +148,49 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label label_info_proyectos;
         
         /// <summary>
-        /// check_miembros control.
+        /// proyecto_check_miembros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox check_miembros;
+        protected global::System.Web.UI.WebControls.CheckBox proyecto_check_miembros;
         
         /// <summary>
-        /// check_fechas control.
+        /// proyecto_check_fechas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox check_fechas;
+        protected global::System.Web.UI.WebControls.CheckBox proyecto_check_fechas;
         
         /// <summary>
-        /// check_disenos control.
+        /// proyecto_check_disenos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox check_disenos;
+        protected global::System.Web.UI.WebControls.CheckBox proyecto_check_disenos;
         
         /// <summary>
-        /// check_oficina control.
+        /// proyecto_check_oficina control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox check_oficina;
+        protected global::System.Web.UI.WebControls.CheckBox proyecto_check_oficina;
         
         /// <summary>
-        /// check_objetivos control.
+        /// proyecto_check_objetivos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox check_objetivos;
-        
-        /// <summary>
-        /// label_filtros_proyecto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_filtros_proyecto;
-        
-        /// <summary>
-        /// drop_encargado control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_encargado;
-        
-        /// <summary>
-        /// drop_fecha_ini control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_fecha_ini;
-        
-        /// <summary>
-        /// drop_fecha_fin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_fecha_fin;
-        
-        /// <summary>
-        /// drop_oficina control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_oficina;
-        
-        /// <summary>
-        /// drop_estado control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_estado;
-        
-        /// <summary>
-        /// drop_miembro control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_miembro;
+        protected global::System.Web.UI.WebControls.CheckBox proyecto_check_objetivos;
         
         /// <summary>
         /// btn_generar_reporte control.

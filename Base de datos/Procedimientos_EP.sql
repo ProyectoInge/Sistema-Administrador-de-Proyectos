@@ -68,4 +68,5 @@ CREATE PROCEDURE CONSULTAR_EJECUCIONES
 AS
 	SELECT *
 	FROM Ejecucion
+	WHERE id_diseno = @id_diseno
 GO

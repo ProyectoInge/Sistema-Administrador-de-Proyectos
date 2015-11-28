@@ -102,15 +102,21 @@
                                 <div class="col-md-12">
                                     <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-bordered">
                                         <asp:TableHeaderRow runat="server" ID="header_tabla_resultados">
+                                            <asp:TableHeaderCell runat="server" ID="celda_check_holder_h" Text="  "></asp:TableHeaderCell>
+                                            <asp:TableHeaderCell runat="server" ID="celda_id_caso_resultado" Text="ID caso de prueba"></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_num_resultado" Text="#"></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_estado_resultado" Text="Estado"></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_no_conformidad_resultado" Text="Tipo de no conformidad"></asp:TableHeaderCell>
-                                            <asp:TableHeaderCell runat="server" ID="celda_id_caso_resultado" Text="ID caso de prueba"></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_descripcion_resultado">Descripción <span class="text-danger">*</span></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_justificacion_resultado">Justificación <span class="text-danger">*</span></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_resultados_resultado" Text="Resultados"></asp:TableHeaderCell>
                                         </asp:TableHeaderRow>
                                         <asp:TableRow runat="server" ID="fila_inputs">
+                                            <asp:TableCell runat="server" ID="celda_check_holder"/>
+                                            <asp:TableCell runat="server" ID="celda_drop_casos">
+                                                <asp:DropDownList runat="server" ID="drop_casos" CssClass="form-control">
+                                                </asp:DropDownList>
+                                            </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_drop_num_resultado"></asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_drop_estado">
                                                 <asp:DropDownList runat="server" ID="drop_estado" CssClass="form-control">
@@ -128,10 +134,6 @@
                                                     <asp:ListItem runat="server" Text="Opciones que no funcionan" Value="Opciones que no funcionan"></asp:ListItem>
                                                     <asp:ListItem runat="server" Text="Errores de usabilidad" Value="Errores de usabilidad"></asp:ListItem>
                                                     <asp:ListItem runat="server" Text="Excepciones" Value="Excepciones"></asp:ListItem>
-                                                </asp:DropDownList>
-                                            </asp:TableCell>
-                                            <asp:TableCell runat="server" ID="celda_drop_casos">
-                                                <asp:DropDownList runat="server" ID="drop_casos" CssClass="form-control">
                                                 </asp:DropDownList>
                                             </asp:TableCell>
                                             <asp:TableCell runat="server" ID="celda_descripcion">
@@ -351,8 +353,8 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <asp:Image ID="visor_imagen" runat="server" />
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <asp:Image ID="visor_imagen" runat="server" CssClass="img-thumbnail" />
                                     </div>
                                 </div>
                             </div>
@@ -417,6 +419,18 @@
 
             //Valida la entrada de datos en la tabla de los resultados
             $("#<%= btn_agregar_resultado.ClientID %>").click(function () {
+                var caso_seleccionado = $("#<%= drop_casos.ClientID %>").val();
+                //alert(caso_seleccionado);
+                if (caso_seleccionado == null) {
+                    $("#<%= celda_drop_casos.ClientID%>").addClass("has-error");
+                    $("#<%= drop_casos.ClientID%>").focus();
+                    $("#<%= label_error_input_resultado.ClientID%>").fadeIn();
+                    return false;
+                } else {
+                    $("#<%= celda_drop_casos.ClientID%>").removeClass("has-error");
+                    $("#<%= label_error_input_resultado.ClientID%>").fadeOut();
+                }
+
                 var descripcion_ingresada = $("#<%= input_descripcion.ClientID%>").val();
                 var justificacion_ingresada = $("#<%= input_justificacion.ClientID%>").val();
                 if (descripcion_ingresada == "") {
@@ -425,6 +439,7 @@
                     $("#<%= label_error_input_resultado.ClientID%>").fadeIn();
                     return false;
                 } else {
+                    $("#<%= celda_descripcion.ClientID%>").removeClass("has-error");
                     $("#<%= label_error_input_resultado.ClientID%>").fadeOut();
                 }
                 if (justificacion_ingresada == "") {
@@ -433,6 +448,7 @@
                     $("#<%= label_error_input_resultado.ClientID%>").fadeIn();
                     return false;
                 } else {
+                    $("#<%= celda_justificacion.ClientID%>").removeClass("has-error");
                     $("#<%= label_error_input_resultado.ClientID%>").fadeOut();
                 }
             });

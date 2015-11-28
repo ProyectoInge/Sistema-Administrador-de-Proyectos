@@ -175,6 +175,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.TableHeaderRow header_tabla_resultados;
         
         /// <summary>
+        /// celda_check_holder_h control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell celda_check_holder_h;
+        
+        /// <summary>
+        /// celda_id_caso_resultado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableHeaderCell celda_id_caso_resultado;
+        
+        /// <summary>
         /// celda_num_resultado control.
         /// </summary>
         /// <remarks>
@@ -200,15 +218,6 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TableHeaderCell celda_no_conformidad_resultado;
-        
-        /// <summary>
-        /// celda_id_caso_resultado control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableHeaderCell celda_id_caso_resultado;
         
         /// <summary>
         /// celda_descripcion_resultado control.
@@ -245,6 +254,33 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TableRow fila_inputs;
+        
+        /// <summary>
+        /// celda_check_holder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableCell celda_check_holder;
+        
+        /// <summary>
+        /// celda_drop_casos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TableCell celda_drop_casos;
+        
+        /// <summary>
+        /// drop_casos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList drop_casos;
         
         /// <summary>
         /// celda_drop_num_resultado control.
@@ -290,24 +326,6 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList drop_tipo_no_conformidad;
-        
-        /// <summary>
-        /// celda_drop_casos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TableCell celda_drop_casos;
-        
-        /// <summary>
-        /// drop_casos control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop_casos;
         
         /// <summary>
         /// celda_descripcion control.
