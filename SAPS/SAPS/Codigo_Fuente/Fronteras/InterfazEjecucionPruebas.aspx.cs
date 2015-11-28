@@ -709,9 +709,7 @@ namespace SAPS.Fronteras
 
         protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
         {
-            foreach (string[] res_temp in m_resultados_tmp)
-                m_controladora_ep.eliminar_resultado(m_llave_ejecucion[1], m_llave_ejecucion[0], Convert.ToInt32(res_temp[0])); //borra todo de la tabla
-
+            
             foreach (TableRow row in tabla_resultados.Rows)
             {
                 foreach (TableCell cell in row.Cells)
@@ -723,10 +721,10 @@ namespace SAPS.Fronteras
                             CheckBox chck = (CheckBox)ctrl;
                             if (chck.Checked)
                             {
-                                foreach (string[] res_temp in m_resultados_tmp)
+                                for (int i = m_resultados_tmp.Count - 1; i >= 0; i--)
                                 {
-                                    if (res_temp[0] == chck.ID)
-                                        m_resultados_tmp.Remove(res_temp); //lo saca de la lista                                        
+                                    if (m_resultados_tmp[0][0] == chck.ID)
+                                        m_resultados_tmp.RemoveAt(i); //lo saca de la lista                                        
                                 }
 
                             }
@@ -736,11 +734,7 @@ namespace SAPS.Fronteras
                 }
 
             }
-
-            foreach (string[] res_temp in m_resultados_tmp)
-            {
-                //m_controladora_ep.i
-            }
+            actualiza_resultados();
         }
 
         /** @brief Método que actualiza el combobox con los diseños disponibles en el sistema
@@ -895,6 +889,7 @@ namespace SAPS.Fronteras
                 //Agrega el checkbox de selección
                 celda_tmp = new TableCell();
                 CheckBox check = new CheckBox();
+                check.AutoPostBack = true;
                 check.ID = Convert.ToString(vec_tmp[0]);
                 celda_tmp.Controls.Add(check);
                 nueva_fila.Cells.Add(celda_tmp);
