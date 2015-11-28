@@ -73,6 +73,7 @@
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Estado" />
                                         <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_estado">
+                                            <asp:ListItem Text ="-Seleccione-" Value=""></asp:ListItem>
                                             <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
                                             <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
                                             <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>

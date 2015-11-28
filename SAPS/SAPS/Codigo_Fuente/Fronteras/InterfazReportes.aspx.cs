@@ -170,9 +170,12 @@ namespace SAPS.Fronteras
         private void llenar_oficinas()
         {
             DataTable oficinas_disponibles = m_controladora_rep.solicitar_oficinas_disponibles();
+            ListItem item_tmp = new ListItem();
+            item_tmp.Text = "-Seleccione-";
+            item_tmp.Value = "";
             foreach(DataRow fila in oficinas_disponibles.Rows)
             {
-                ListItem item_tmp = new ListItem();
+                item_tmp = new ListItem();
                 item_tmp.Text = fila["nombre_oficina"].ToString();
                 item_tmp.Value =fila["id_oficina"].ToString();
                 proyecto_drop_oficina.Items.Add(item_tmp);
@@ -194,9 +197,12 @@ namespace SAPS.Fronteras
         private void llena_recursos_humanos()
         {
             DataTable recursos_disponibles = m_controladora_rep.solicitar_recursos_disponibles();
+            ListItem item_tmp = new ListItem();
+            item_tmp.Text = "-Seleccione-";
+            item_tmp.Value = "";
             foreach(DataRow fila in recursos_disponibles.Rows)
             {
-                ListItem item_tmp = new ListItem();
+                item_tmp = new ListItem();
                 item_tmp.Text = fila["nombre"].ToString();
                 item_tmp.Value = fila["id_rh"].ToString();
                 proyecto_drop_miembro.Items.Add(item_tmp);

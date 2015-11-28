@@ -5,7 +5,7 @@
     <div style="margin-top: -100px">
         <section id="login">
             <div class="row">
-                <div id="panel_login" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 col-xs-12">
+                <div id="panel_login" class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-lg-8 col-lg-offset-2 col-xs-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-horizontal">

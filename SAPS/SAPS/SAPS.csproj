@@ -182,6 +182,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\hover.css" />
     <Content Include="Content\rotating-card.css" />
+    <Content Include="ErrorPage\404.html" />
     <Content Include="ErrorPage\Error404.aspx" />
     <Content Include="ErrorPage\ErrorPage.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
