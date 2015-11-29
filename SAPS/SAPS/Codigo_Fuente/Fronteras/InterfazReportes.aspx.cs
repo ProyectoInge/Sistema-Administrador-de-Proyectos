@@ -30,6 +30,7 @@ namespace SAPS.Fronteras
             |     0     |   ID Proyecto  |  int  |
             |     1     |   Estado       |  bool |
             */
+
         private static List<Pair> m_disenos; //Va a tener los diseños que se estan mostrando en la interfaz
         /*
              |   Indice  | Significado    | Tipo  |
@@ -37,6 +38,7 @@ namespace SAPS.Fronteras
              |     0     |   ID Diseño    |  int  |
              |     1     |   Estado       |  bool |
              */
+
         private static List<Pair> m_casos; //Va a tener los casos que se estan mostrando en la interfaz
         /*
              |   Indice  | Significado    |   Tipo   |
@@ -44,6 +46,7 @@ namespace SAPS.Fronteras
              |     0     |   ID Caso      |  string  |
              |     1     |   Estado       |  bool    |
              */
+
         private static List<Pair> m_ejecuciones; //Va a tener las ejecuciones que se estan mostrando en la interfaz
         /*
              |   Indice  | Significado    |                 Tipo                     |
@@ -139,7 +142,7 @@ namespace SAPS.Fronteras
             filtros[4] = proyecto_drop_estado.SelectedItem.Value;
 
             return m_controladora_rep.solicitar_proyectos_filtrados(filtros);
-        }
+            }
 
         /** @brief Metodo que llena la tabla con los proyectos que hay disponibles en el sistema.
          */
@@ -297,6 +300,33 @@ namespace SAPS.Fronteras
             proyecto_input_fecha_final.Text = "";
             proyecto_input_fecha_inicio.Text = "";
         }
+
+
+        #region Métodos relacionados con panel casos de pruebas
+
+        /** @brief Método que cargará los casos de prueba para mostrar en  el panel.
+        *          Este método revisa los diseños para obtener los casos de prueba relacionados. 
+        */ 
+        protected void obtener_casos_de_prueba()
+        {
+            List<int> llaves_disenos = new List<int>();
+
+            foreach (Pair item in m_disenos)
+            {
+                llaves_disenos.Add(Convert.ToInt32(item.First));
+            }
+
+            DataTable casos_de_prueba_disponibles = m_controladora_rep.obtener_casos_de_prueba(llaves_disenos);
+
+            // @todo llenar tabla con los casos de prueba
+        }
+
+        protected void Checkbox_casos_de_prueba_todos_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
 
         protected void diseno_btn_limpiar_filtros_Click(object sender, EventArgs e)
         {

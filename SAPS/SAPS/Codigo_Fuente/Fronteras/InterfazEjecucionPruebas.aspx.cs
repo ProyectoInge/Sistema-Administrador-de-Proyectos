@@ -43,6 +43,7 @@ namespace SAPS.Fronteras
             |   4       |   Descripcion         |
             |   5       |   Justificacion       |
             |   6       |   Ruta imagen         |
+            |   7       |   bool check selected |
 
             */
 
@@ -61,6 +62,7 @@ namespace SAPS.Fronteras
 
                 if (!IsPostBack)
                 {
+                    des_habilita_header_resultados();
                     m_llave_ejecucion = new int[2] { -1, -1 };
                     m_es_administrador = m_controladora_ep.es_administrador(Context.User.Identity.Name);
                     actualiza_disenos();
@@ -84,7 +86,7 @@ namespace SAPS.Fronteras
                 }
                 else
                 {
-                    celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
+                    celda_drop_num_resultado.Text = "1";
                 }
             }
             else
@@ -532,7 +534,7 @@ namespace SAPS.Fronteras
         */
         protected void btn_agregar_resultado_Click(object sender, EventArgs e)
         {
-            string[] fila_tmp = new string[7];
+            string[] fila_tmp = new string[8];
 
             string ruta = "";
             if (m_nombre_archivo != "")
@@ -553,6 +555,7 @@ namespace SAPS.Fronteras
             fila_tmp[4] = input_descripcion.Text;
             fila_tmp[5] = input_justificacion.Text;
             fila_tmp[6] = ruta;
+            fila_tmp[7] = null;
             m_resultados_tmp.Add(fila_tmp);     //Agrega la fila a la lista que contiene la informacion en memoria
             #endregion
 
@@ -633,7 +636,7 @@ namespace SAPS.Fronteras
 
             for (int i = 0; i < resultados_ejecucion.Rows.Count; ++i)
             {
-                string[] datos_resultado = new string[7];
+                string[] datos_resultado = new string[8];
                 datos_resultado[0] = resultados_ejecucion.Rows[i]["num_resultado"].ToString();
                 datos_resultado[1] = resultados_ejecucion.Rows[i]["estado"].ToString();
                 datos_resultado[2] = resultados_ejecucion.Rows[i]["tipo_no_conformidad"].ToString();
@@ -641,6 +644,7 @@ namespace SAPS.Fronteras
                 datos_resultado[4] = resultados_ejecucion.Rows[i]["desc_no_conformidad"].ToString();
                 datos_resultado[5] = resultados_ejecucion.Rows[i]["justificacion"].ToString();
                 datos_resultado[6] = resultados_ejecucion.Rows[i]["ruta_imagen"].ToString();
+                datos_resultado[7] = null;
                 m_resultados_tmp.Add(datos_resultado);
             }
 
@@ -709,31 +713,24 @@ namespace SAPS.Fronteras
 
         protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
         {
-            
-            foreach (TableRow row in tabla_resultados.Rows)
+
+            for (int j = m_resultados_tmp.Count-1; j>=0; j--)
             {
-                foreach (TableCell cell in row.Cells)
+                string[] fila = m_resultados_tmp[j];
+
+                if (fila[7]=="1")
                 {
-                    foreach (Control ctrl in cell.Controls)
+                    for (int i = m_resultados_tmp.Count - 1; i >= 0; i--)
                     {
-                        if (ctrl is CheckBox)
-                        {
-                            CheckBox chck = (CheckBox)ctrl;
-                            if (chck.Checked)
-                            {
-                                for (int i = m_resultados_tmp.Count - 1; i >= 0; i--)
-                                {
-                                    if (m_resultados_tmp[0][0] == chck.ID)
-                                        m_resultados_tmp.RemoveAt(i); //lo saca de la lista                                        
-                                }
-
-                            }
-
-                        }
+                        if(fila[0] == m_resultados_tmp[i][0])
+                            m_resultados_tmp.Remove(fila); //lo saca de la lista                                        
                     }
+
                 }
 
-            }
+            }     
+    
+                
             actualiza_resultados();
         }
 
@@ -869,11 +866,52 @@ namespace SAPS.Fronteras
             }
         }
 
+        private void des_habilita_header_resultados()
+        {
+            if (m_opcion == 'm')
+            {
+                foreach (Control c in celda_drop_casos.Controls)
+                    ((DropDownList)c).Enabled = true;
+                foreach (Control c in celda_drop_estado.Controls)
+                    ((DropDownList)c).Enabled = true;
+                foreach (Control c in celda_drop_tipo_no_conformidad.Controls)
+                    ((DropDownList)c).Enabled = true;
+                foreach (Control c in celda_descripcion.Controls)
+                    ((TextBox)c).Enabled = true;
+                foreach (Control c in celda_justificacion.Controls)
+                    ((TextBox)c).Enabled = true;
+                foreach (Control c in celda_btn_agregar_imagen.Controls)
+                    if (c is Button) ((Button)c).Enabled = true;
+            }
+            else
+            {
+                foreach (Control c in celda_drop_casos.Controls)
+                    ((DropDownList)c).Enabled = false;
+                foreach (Control c in celda_drop_estado.Controls)
+                    ((DropDownList)c).Enabled = false;
+                foreach (Control c in celda_drop_tipo_no_conformidad.Controls)
+                    ((DropDownList)c).Enabled = false;
+                foreach (Control c in celda_descripcion.Controls)
+                    ((TextBox)c).Enabled = false;
+                foreach (Control c in celda_justificacion.Controls)
+                    ((TextBox)c).Enabled = false;
+                foreach (Control c in celda_btn_agregar_imagen.Controls)
+                    if (c is Button) ((Button)c).Enabled = false;
+            }
+        }
         /** @brief Método que llena la tabla donde estan los resultados de la ejecución.
          */
         private void llena_resultados()
         {
-            celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
+
+            ///Deshabilita? la primer fila
+            des_habilita_header_resultados();
+
+            if (m_resultados_tmp.Count > 0)
+                celda_drop_num_resultado.Text = (Convert.ToInt32(m_resultados_tmp[m_resultados_tmp.Count - 1][0]) + 1).ToString();
+            else
+                celda_drop_num_resultado.Text = "1";
+
             for (int i = 0; i < m_resultados_tmp.Count; ++i)
             {
                 string[] vec_tmp = m_resultados_tmp[i]; //Agarra el i-esimo vector de la lista
@@ -891,6 +929,7 @@ namespace SAPS.Fronteras
                 CheckBox check = new CheckBox();
                 check.AutoPostBack = true;
                 check.ID = Convert.ToString(vec_tmp[0]);
+                check.CheckedChanged += new EventHandler(marcar_check);
                 celda_tmp.Controls.Add(check);
                 nueva_fila.Cells.Add(celda_tmp);
 
@@ -1114,6 +1153,21 @@ namespace SAPS.Fronteras
                 #endregion
                 tabla_resultados.Rows.Add(nueva_fila);
             }
+        }
+
+        private void marcar_check(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            foreach (string[] fila in m_resultados_tmp)
+            {
+                if(fila[0] == checkbox.ID)
+                {
+                    if (checkbox.Checked == false)
+                        fila[7] = null;
+                    else
+                        fila[7] = "1";
+                }
+            }            
         }
 
 
