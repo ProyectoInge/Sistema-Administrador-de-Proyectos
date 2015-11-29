@@ -66,18 +66,18 @@
                                         <asp:Label runat="server" CssClass="control-label" ID="label_filtros_proyecto" AssociatedControlID="proyecto_drop_oficina" Text="Filtros" />
                                     </div>
                                     <div class="col-md-3 col-md-offset-7">
-                                        <small><asp:Button runat="server" CssClass="btn btn-link" style="color:darkgray" ID="proyecto_btn_limpiar_filtros" Text="Limpiar filtros" OnClick="proyecto_btn_limpiar_filtros_Click"/></small>
-                                </div>
+                                        <small><asp:Button runat="server" CssClass="btn btn-link" Style="color: darkgray" ID="proyecto_btn_limpiar_filtros" Text="Limpiar filtros" OnClick="proyecto_btn_limpiar_filtros_Click" /></small>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Oficinas" />
-                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_oficina" AutoPostBack="true"/>
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_oficina" AutoPostBack="true" />
                                     </div>
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Estado" />
                                         <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_estado" AutoPostBack="true">
-                                            <asp:ListItem Text ="-Seleccione-" Value=""></asp:ListItem>
+                                            <asp:ListItem Text="-Seleccione-" Value=""></asp:ListItem>
                                             <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
                                             <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
                                             <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>
@@ -87,7 +87,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Miembros" />
-                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_miembro" AutoPostBack="true"/>
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_miembro" AutoPostBack="true" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -177,14 +177,14 @@
                         <div class="panel-title">
                             Caso de pruebas
                             <div class="btn-group col-md-offset-6">
-                                <button type="button" class="btn btn-default" id="btn_estado_casos">Habilitado</button>
+                                <button type="button" class="btn btn-default" id="btn_estado_casos">Incluir en reporte</button>
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li id="casos_habilitado"><a href="#">Habilitado</a></li>
-                                    <li id="casos_inhabilitado"><a href="#">Inhabilitado</a></li>
+                                    <li id="casos_habilitado"><a href="#">Incluir en reporte</a></li>
+                                    <li id="casos_inhabilitado"><a href="#">No incluir en reporte</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -342,6 +342,33 @@
                 $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
             });
             // ---------------------------------------------------------------------- Fin panel proyectos ---------------------------------------------------------------------
+
+            // ---------------------------------------------------------------------- Panel de casos ----------------------------------------------------------------------
+
+            //Revisa si el check de proyectos esta seleccionado para marcar todos
+            if ($("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").is(":checked")) {
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
+                //Deshabilito la tabla de los proyectos
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", true);
+            } else {
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", false);
+                //Habilito la tabla de los proyectos
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", false);
+            }
+
+            //Selecciono todos los proyectos
+            $("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").click(function () {
+                if ($("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").is(":checked")) {
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
+                    //Deshabilito la tabla de los proyectos
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", true);
+                } else {
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", false);
+                    //Habilito la tabla de los proyectos
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", false);
+                }
+                return true;
+            });
         });
     </script>
 

@@ -5,6 +5,7 @@
  * Sistema Administrador de Proyectos de Software (SAPS)
  * II Semestre 2015
 */
+
 using SAPS.Controladoras;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SAPS.Controladoras;
 using System.Data;
 
 namespace SAPS.Fronteras
@@ -23,38 +23,42 @@ namespace SAPS.Fronteras
         ///Variables de instancia
         private static bool m_es_administrador;
         private static ControladoraReportes m_controladora_rep;
+
+
+        /* |   Indice  | Significado    | Tipo  |
+        *  |:---------:|:--------------:|:-----:|
+        *  |     0     |   ID Proyecto  |  int  |
+        *  |     1     |   Estado       |  bool |
+        */
         private static List<Pair> m_proyectos; //Va a tener los proyectos que se estan mostrando en la interfaz
-        /*
-            |   Indice  | Significado    | Tipo  |
-            |:---------:|:--------------:|:-----:|
-            |     0     |   ID Proyecto  |  int  |
-            |     1     |   Estado       |  bool |
-            */
 
+
+        /* |   Indice  | Significado    | Tipo  |
+         *  |:---------:|:--------------:|:-----:|
+         *  |     0     |   ID Diseño    |  int  |
+         *  |     1     |   Estado       |  bool |
+         */
         private static List<Pair> m_disenos; //Va a tener los diseños que se estan mostrando en la interfaz
-        /*
-             |   Indice  | Significado    | Tipo  |
-             |:---------:|:--------------:|:-----:|
-             |     0     |   ID Diseño    |  int  |
-             |     1     |   Estado       |  bool |
-             */
 
+
+        /*
+         * |   Indice  | Significado    |   Tipo   |
+         * |:---------:|:--------------:|:--------:|
+         * |     0     |   ID Caso      |  string  |
+         * |     1     |   Estado       |  bool    |
+         */
         private static List<Pair> m_casos; //Va a tener los casos que se estan mostrando en la interfaz
-        /*
-             |   Indice  | Significado    |   Tipo   |
-             |:---------:|:--------------:|:--------:|
-             |     0     |   ID Caso      |  string  |
-             |     1     |   Estado       |  bool    |
-             */
 
+
+        /* |   Indice  | Significado    |                 Tipo                     |
+        *  |:---------:|:--------------:|:----------------------------------------:|
+        *  |     0     |  ID Ejecucion  |  Pair<int id_diseno, int num_ejecucion>  |
+        *  |     1     |   Estado       |                 bool                     |
+        */
         private static List<Pair> m_ejecuciones; //Va a tener las ejecuciones que se estan mostrando en la interfaz
-        /*
-             |   Indice  | Significado    |                 Tipo                     |
-             |:---------:|:--------------:|:----------------------------------------:|
-             |     0     |  ID Ejecucion  |  Pair<int id_diseno, int num_ejecucion>  |
-             |     1     |   Estado       |                 bool                     |
-             */
+
         #endregion
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -118,7 +122,6 @@ namespace SAPS.Fronteras
                 }
                 ++indice_proyecto;
             }
-
         }
 
         /** @brief Metodo que revisa los filtros que selecciono el usuario para elegir los proyectos que cumplan estos filtros.
@@ -143,7 +146,7 @@ namespace SAPS.Fronteras
                 a_retornar = tabla_tmp;
             }
 
-            //Si estan todos los filtros seleccionados
+            // Si estan todos los filtros seleccionados
             if (proyecto_drop_estado.SelectedItem.Value != "" && proyecto_drop_miembro.SelectedItem.Value != "" && proyecto_drop_oficina.SelectedItem.Value != ""
                 && proyecto_input_fecha_final.Text != "" && proyecto_input_fecha_inicio.Text != "")
             {
@@ -153,7 +156,7 @@ namespace SAPS.Fronteras
                 DateTime fecha_inicio_seleccionada = Convert.ToDateTime(proyecto_input_fecha_inicio.Text);
                 DateTime fecha_finalizacion_seleccionada = Convert.ToDateTime(proyecto_input_fecha_final.Text);
 
-                foreach(DataRow fila in tabla_tmp.Rows)
+                foreach (DataRow fila in tabla_tmp.Rows)
                 {
                     //Solo lo agrega si cumple todos los filtros
                     if (fila["estado"].ToString().Equals(estado_seleccionado) && Convert.ToInt32(fila["id_oficina"]).Equals(id_oficina_seleccionada)
@@ -319,11 +322,11 @@ namespace SAPS.Fronteras
             foreach (DataRow fila in recursos_disponibles.Rows)
             {
                 if (!m_controladora_rep.es_administrador(fila["username"].ToString()))   //Solo agrega los que no son administradores
-            {
-                item_tmp = new ListItem();
-                item_tmp.Text = fila["nombre"].ToString();
+                {
+                    item_tmp = new ListItem();
+                    item_tmp.Text = fila["nombre"].ToString();
                     item_tmp.Value = fila["username"].ToString();
-                proyecto_drop_miembro.Items.Add(item_tmp);
+                    proyecto_drop_miembro.Items.Add(item_tmp);
                 }
             }
         }
@@ -334,7 +337,6 @@ namespace SAPS.Fronteras
 
         protected void btn_cancelar_Click(object sender, EventArgs e)
         {
-
         }
 
         /** @brief Metodo que se encarga de marcar todos los proyectos como "seleccionados" tanto en interfaz como en la estructura de control interno.
@@ -358,8 +360,7 @@ namespace SAPS.Fronteras
                 }
             }
 
-            }
-
+        }
 
         /** @brief Metodo que limpia los campos de los filtros en el panel de los proyectos
          *  @param Los parametros por defecto de un evento de ASP
@@ -378,24 +379,61 @@ namespace SAPS.Fronteras
 
         /** @brief Método que cargará los casos de prueba para mostrar en  el panel.
         *          Este método revisa los diseños para obtener los casos de prueba relacionados. 
-        */ 
+        */
         protected void obtener_casos_de_prueba()
         {
             List<int> llaves_disenos = new List<int>();
-
-            foreach (Pair item in m_disenos)
-            {
-                llaves_disenos.Add(Convert.ToInt32(item.First));
-            }
+            foreach (Pair item in m_disenos) { llaves_disenos.Add(Convert.ToInt32(item.First)); }
 
             DataTable casos_de_prueba_disponibles = m_controladora_rep.obtener_casos_de_prueba(llaves_disenos);
+            for (int i = 0; i < casos_de_prueba_disponibles.Rows.Count; ++i)
+            {
+                // Lo agrego a la estructura que lleva control de los proyectos
+                string id_caso = casos_de_prueba_disponibles.Rows[i]["id_caso"].ToString();
+                m_casos.Add(new Pair(id_caso, false));
 
-            // @todo llenar tabla con los casos de prueba
+                // Agrego el elemento a la tabla que se muestra en la vista
+                TableRow fila_tmp = new TableRow();
+                TableCell celda_tmp = new TableCell();
+
+                celda_tmp.Text = id_caso;
+                fila_tmp.Cells.Add(celda_tmp);
+
+                celda_tmp = new TableCell();
+                CheckBox check_tmp = new CheckBox();
+                check_tmp.ID = id_caso;
+                check_tmp.CheckedChanged += new EventHandler(check_estado_casos_Cambia);
+                check_tmp.AutoPostBack = true;
+                check_tmp.CssClass = "checkbox-inline";
+                celda_tmp.Controls.Add(check_tmp);
+
+                fila_tmp.Cells.Add(celda_tmp);
+                tabla_proyectos.Rows.Add(fila_tmp);
+            }
+        }
+
+        protected void check_estado_casos_Cambia(object sender, EventArgs e)
+        {
+            int id_casos_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
+            int indice_casos = 0;
+            bool encontrado = false;
+            while (!encontrado && indice_casos < m_casos.Count)
+            {
+                if (m_casos[indice_casos].First.Equals(id_casos_seleccionado))
+                {
+                    m_casos[indice_casos].Second = !(Convert.ToBoolean(m_casos[indice_casos].Second)); //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
+                    encontrado = true;
+                }
+                ++indice_casos;
+            }
         }
 
         protected void Checkbox_casos_de_prueba_todos_CheckedChanged(object sender, EventArgs e)
         {
-
+            foreach (var item in m_casos)
+            {
+                item.Second = true;
+            }
         }
 
         #endregion
