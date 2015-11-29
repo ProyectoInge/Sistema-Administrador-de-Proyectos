@@ -12,7 +12,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SAPS.Controladoras;
 using System.Data;
 
 namespace SAPS.Fronteras
@@ -29,28 +28,31 @@ namespace SAPS.Fronteras
             |:---------:|:--------------:|:-----:|
             |     0     |   ID Proyecto  |  int  |
             |     1     |   Estado       |  bool |
-            */
+        */
+
         private static List<Pair> m_disenos; //Va a tener los diseños que se estan mostrando en la interfaz
         /*
              |   Indice  | Significado    | Tipo  |
              |:---------:|:--------------:|:-----:|
              |     0     |   ID Diseño    |  int  |
              |     1     |   Estado       |  bool |
-             */
+         */
+
         private static List<Pair> m_casos; //Va a tener los casos que se estan mostrando en la interfaz
         /*
              |   Indice  | Significado    |   Tipo   |
              |:---------:|:--------------:|:--------:|
              |     0     |   ID Caso      |  string  |
              |     1     |   Estado       |  bool    |
-             */
+        */
+
         private static List<Pair> m_ejecuciones; //Va a tener las ejecuciones que se estan mostrando en la interfaz
         /*
              |   Indice  | Significado    |                 Tipo                     |
              |:---------:|:--------------:|:----------------------------------------:|
              |     0     |  ID Ejecucion  |  Pair<int id_diseno, int num_ejecucion>  |
              |     1     |   Estado       |                 bool                     |
-             */
+        */
         #endregion
 
         protected void Page_Load(object sender, EventArgs e)
@@ -252,5 +254,32 @@ namespace SAPS.Fronteras
             }
 
         }
+
+
+        #region Métodos relacionados con panel casos de pruebas
+
+        /** @brief Método que cargará los casos de prueba para mostrar en  el panel.
+        *          Este método revisa los diseños para obtener los casos de prueba relacionados. 
+        */ 
+        protected void obtener_casos_de_prueba()
+        {
+            List<int> llaves_disenos = new List<int>();
+
+            foreach (Pair item in m_disenos)
+            {
+                llaves_disenos.Add(Convert.ToInt32(item.First));
+            }
+
+            DataTable casos_de_prueba_disponibles = m_controladora_rep.obtener_casos_de_prueba(llaves_disenos);
+
+            // @todo llenar tabla con los casos de prueba
+        }
+
+        protected void Checkbox_casos_de_prueba_todos_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
     }
 }

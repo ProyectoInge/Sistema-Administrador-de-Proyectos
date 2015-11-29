@@ -44,17 +44,18 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             Proyecto
-                                <div class="btn-group col-md-offset-6">
-                                    <button type="button" class="btn btn-default" id="btn_estado_proyecto">Habilitado</button>
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li id="proyecto_habilitado"><a href="#">Habilitado</a></li>
-                                        <li id="proyecto_inhabilitado"><a href="#">Inhabilitado</a></li>
-                                    </ul>
-                                </div>
+                               
+                            <div class="btn-group col-md-offset-6">
+                                <button type="button" class="btn btn-default" id="btn_estado_proyecto">Habilitado</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="proyecto_habilitado"><a href="#">Habilitado</a></li>
+                                    <li id="proyecto_inhabilitado"><a href="#">Inhabilitado</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -73,7 +74,7 @@
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Estado" />
                                         <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_estado">
-                                            <asp:ListItem Text ="-Seleccione-" Value=""></asp:ListItem>
+                                            <asp:ListItem Text="-Seleccione-" Value=""></asp:ListItem>
                                             <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
                                             <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
                                             <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>
@@ -150,11 +151,92 @@
                     </div>
                 </div>
             </div>
-            <!--Segunda caja-->
+            <!-- Panel Diseño de pruebas -->
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">Diseño</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Panel Caso de pruebas -->
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            Caso de pruebas
+                            <div class="btn-group col-md-offset-6">
+                                <button type="button" class="btn btn-default" id="btn_estado_casos">Habilitado</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="casos_habilitado"><a href="#">Habilitado</a></li>
+                                    <li id="casos_inhabilitado"><a href="#">Inhabilitado</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Tabla de casos de prueba disponibles-->
+                        <section id="seccion_casos_de_prueba_disponibles">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <asp:Label runat="server" CssClass="control-label" Text="Casos de prueba disponibles" AssociatedControlID="tabla_casos_de_prueba_disponibles" />
+                                </div>
+                                <div class="col-md-4 col-md-offset-4">
+                                    <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="Checkbox_casos_de_prueba_todos" OnCheckedChanged="Checkbox_casos_de_prueba_todos_CheckedChanged" Text="Seleccionar todos" AutoPostBack="true" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div style="height: 250px; overflow-y: scroll">
+                                        <asp:Table runat="server" ID="tabla_casos_de_prueba_disponibles" CssClass="table table-hover"></asp:Table>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Checkbox de información a incluir -->
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <asp:Label runat="server" CssClass="control-label" Text="Información a incluir" AssociatedControlID="tabla_proyectos" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <asp:CheckBox runat="server" ID="CheckBox6" CssClass="checkbox checkbox-inline" Text="Propósito" />
+                                </div>
+                                <div class="col-md-6">
+                                    <asp:CheckBox runat="server" ID="CheckBox1" CssClass="checkbox checkbox-inline" Text="Flujo central" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <asp:CheckBox runat="server" ID="CheckBox2" CssClass="checkbox checkbox-inline" Text="Entrada de datos" />
+                                </div>
+                                <div class="col-md-6">
+                                    <asp:CheckBox runat="server" ID="CheckBox3" CssClass="checkbox checkbox-inline" Text="Resultado esperado" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Panel número 4 Ejecución -->
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">Ejecución de pruebas</div>
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">

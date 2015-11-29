@@ -119,5 +119,14 @@ namespace SAPS.Controladoras
         }
 
 
+        /** @brief Devuelve los casos de pruebas asociados a una lista de llaves primarias de disenos.
+        *   @param llaves_disenos lista con las llaves primarias de los diseños
+        */
+        public DataTable obtener_casos_de_prueba(List<int> llaves_disenos)
+        {
+            return null;
+        }
+
+
     }
 }
