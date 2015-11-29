@@ -76,6 +76,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Label label_filtros_proyecto;
         
         /// <summary>
+        /// proyecto_btn_limpiar_filtros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button proyecto_btn_limpiar_filtros;
+        
+        /// <summary>
         /// proyecto_drop_oficina control.
         /// </summary>
         /// <remarks>
