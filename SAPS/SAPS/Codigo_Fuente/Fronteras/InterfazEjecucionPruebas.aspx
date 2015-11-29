@@ -100,7 +100,7 @@
                         <div class="form-horizontal">
                             <div id="row1_panel2" class="form-group">
                                 <div class="col-md-12">
-                                    <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-bordered">
+                                    <asp:Table runat="server" ID="tabla_resultados" CssClass="table table-hover">
                                         <asp:TableHeaderRow runat="server" ID="header_tabla_resultados">
                                             <asp:TableHeaderCell runat="server" ID="celda_check_holder_h" Text="  "></asp:TableHeaderCell>
                                             <asp:TableHeaderCell runat="server" ID="celda_id_caso_resultado" Text="ID caso de prueba"></asp:TableHeaderCell>

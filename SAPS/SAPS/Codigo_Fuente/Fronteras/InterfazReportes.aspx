@@ -61,8 +61,11 @@
                         <div class="form-horizontal">
                             <section id="seccion_filtros_proyecto">
                                 <div class="form-group">
-                                    <div class="col-md-12">
+                                    <div class="col-md-2">
                                         <asp:Label runat="server" CssClass="control-label" ID="label_filtros_proyecto" AssociatedControlID="proyecto_drop_oficina" Text="Filtros" />
+                                    </div>
+                                    <div class="col-md-3 col-md-offset-7">
+                                        <small><asp:Button runat="server" CssClass="btn btn-link" style="color:darkgray" ID="proyecto_btn_limpiar_filtros" Text="Limpiar filtros" OnClick="proyecto_btn_limpiar_filtros_Click"/></small>
                                     </div>
                                 </div>
                                 <div class="form-group">

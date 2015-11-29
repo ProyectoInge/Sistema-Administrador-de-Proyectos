@@ -140,6 +140,27 @@ namespace SAPS.Fronteras
                 a_retornar = tabla_tmp;
             }
 
+            //Si estan todos los filtros seleccionados
+            if (proyecto_drop_estado.SelectedItem.Value != "" && proyecto_drop_miembro.SelectedItem.Value != "" && proyecto_drop_oficina.SelectedItem.Value != ""
+                && proyecto_input_fecha_final.Text != "" && proyecto_input_fecha_inicio.Text != "")
+            {
+                tabla_tmp = m_controladora_rep.consultar_mi_proyecto(proyecto_drop_miembro.SelectedItem.Value);
+                string estado_seleccionado = proyecto_drop_estado.SelectedItem.Value;
+                int id_oficina_seleccionada = Convert.ToInt32(proyecto_drop_oficina.SelectedItem.Value);
+                DateTime fecha_inicio_seleccionada = Convert.ToDateTime(proyecto_input_fecha_inicio.Text);
+                DateTime fecha_finalizacion_seleccionada = Convert.ToDateTime(proyecto_input_fecha_final.Text);
+
+                foreach(DataRow fila in tabla_tmp.Rows)
+                {
+                    //Solo lo agrega si cumple todos los filtros
+                    if (fila["estado"].ToString().Equals(estado_seleccionado) && Convert.ToInt32(fila["id_oficina"]).Equals(id_oficina_seleccionada)
+                        && Convert.ToDateTime(fila["fecha_inicio"]).Equals(fecha_inicio_seleccionada) && Convert.ToDateTime(fila["fecha_final"]).Equals(fecha_finalizacion_seleccionada))
+                    {
+                        a_retornar.ImportRow(fila);
+                    }
+                }
+            }
+
             //El filtro de "estado" esta puesto
             if (proyecto_drop_estado.SelectedItem.Value != "" && proyecto_drop_miembro.SelectedItem.Value == "" && proyecto_drop_oficina.SelectedItem.Value == ""
                 && proyecto_input_fecha_final.Text == "" && proyecto_input_fecha_inicio.Text == "")
@@ -189,10 +210,10 @@ namespace SAPS.Fronteras
             if (proyecto_drop_estado.SelectedItem.Value == "" && proyecto_drop_miembro.SelectedItem.Value == "" && proyecto_drop_oficina.SelectedItem.Value == ""
                 && proyecto_input_fecha_final.Text != "" && proyecto_input_fecha_inicio.Text == "")
             {
-                DateTime fecha_inicio_seleccionada = Convert.ToDateTime(proyecto_input_fecha_final.Text);
+                DateTime fecha_finalizacion_seleccionada = Convert.ToDateTime(proyecto_input_fecha_final.Text);
                 foreach (DataRow fila in tabla_tmp.Rows)
                 {
-                    if (Convert.ToDateTime(fila["fecha_inicio"]).Equals(fecha_inicio_seleccionada))
+                    if (Convert.ToDateTime(fila["fecha_final"]).Equals(fecha_finalizacion_seleccionada))
                         a_retornar.ImportRow(fila);
                 }
             }
@@ -334,6 +355,19 @@ namespace SAPS.Fronteras
                 }
             }
 
+        }
+
+
+        /** @brief Metodo que limpia los campos de los filtros en el panel de los proyectos
+         *  @param Los parametros por defecto de un evento de ASP
+        */
+        protected void proyecto_btn_limpiar_filtros_Click(object sender, EventArgs e)
+        {
+            actualizar_oficinas();
+            actualizar_recursos_humanos();
+            actualiza_proyectos_disponibles();
+            proyecto_input_fecha_final.Text = "";
+            proyecto_input_fecha_inicio.Text = "";
         }
     }
 }
