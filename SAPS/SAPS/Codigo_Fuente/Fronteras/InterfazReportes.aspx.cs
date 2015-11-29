@@ -288,11 +288,34 @@ namespace SAPS.Fronteras
         */
         protected void proyecto_btn_limpiar_filtros_Click(object sender, EventArgs e)
         {
+            proyecto_drop_estado.ClearSelection();
+            proyecto_drop_miembro.ClearSelection();
+            proyecto_drop_oficina.ClearSelection();
             actualizar_oficinas();
             actualizar_recursos_humanos();
             actualiza_proyectos_disponibles();
             proyecto_input_fecha_final.Text = "";
             proyecto_input_fecha_inicio.Text = "";
+        }
+
+        protected void diseno_btn_limpiar_filtros_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void diseno_drop_tecnicas_prueba_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void diseno_drop_tipo_prueba_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void diseno_drop_nivel_prueba_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

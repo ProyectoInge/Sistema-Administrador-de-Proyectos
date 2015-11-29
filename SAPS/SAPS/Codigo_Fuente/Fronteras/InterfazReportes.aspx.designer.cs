@@ -202,6 +202,78 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.CheckBox proyecto_check_objetivos;
         
         /// <summary>
+        /// label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label1;
+        
+        /// <summary>
+        /// diseno_btn_limpiar_filtros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button diseno_btn_limpiar_filtros;
+        
+        /// <summary>
+        /// diseno_drop_tecnicas_prueba control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList diseno_drop_tecnicas_prueba;
+        
+        /// <summary>
+        /// diseno_drop_tipo_prueba control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList diseno_drop_tipo_prueba;
+        
+        /// <summary>
+        /// diseno_drop_nivel_prueba control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList diseno_drop_nivel_prueba;
+        
+        /// <summary>
+        /// diseno_fecha_despues control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox diseno_fecha_despues;
+        
+        /// <summary>
+        /// diseno_fecha_antes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox diseno_fecha_antes;
+        
+        /// <summary>
+        /// diseno_drop_responsables control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList diseno_drop_responsables;
+        
+        /// <summary>
         /// btn_generar_reporte control.
         /// </summary>
         /// <remarks>

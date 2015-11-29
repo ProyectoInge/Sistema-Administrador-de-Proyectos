@@ -43,16 +43,16 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Proyecto
-                                <div class="btn-group col-md-offset-6">
-                                    <button type="button" class="btn btn-default" id="btn_estado_proyecto">Habilitado</button>
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Proyectos
+                                <div class="btn-group col-md-offset-8">
+                                    <button type="button" class="btn btn-default btn-sm" id="btn_estado_proyecto">Incluir</button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li id="proyecto_habilitado"><a href="#">Habilitado</a></li>
-                                        <li id="proyecto_inhabilitado"><a href="#">Inhabilitado</a></li>
+                                        <li id="proyecto_habilitado"><a href="#">Incluir</a></li>
+                                        <li id="proyecto_inhabilitado"><a href="#">No incluir</a></li>
                                     </ul>
                                 </div>
                         </div>
@@ -65,18 +65,19 @@
                                         <asp:Label runat="server" CssClass="control-label" ID="label_filtros_proyecto" AssociatedControlID="proyecto_drop_oficina" Text="Filtros" />
                                     </div>
                                     <div class="col-md-3 col-md-offset-7">
-                                        <small><asp:Button runat="server" CssClass="btn btn-link" style="color:darkgray" ID="proyecto_btn_limpiar_filtros" Text="Limpiar filtros" OnClick="proyecto_btn_limpiar_filtros_Click"/></small>
+                                        <small>
+                                            <asp:Button runat="server" CssClass="btn btn-link btn-sm" Style="color: darkgray" ID="proyecto_btn_limpiar_filtros" Text="Limpiar filtros" OnClick="proyecto_btn_limpiar_filtros_Click" /></small>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Oficinas" />
-                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_oficina" AutoPostBack="true"/>
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_oficina" AutoPostBack="true" />
                                     </div>
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Estado" />
                                         <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_estado" AutoPostBack="true">
-                                            <asp:ListItem Text ="-Seleccione-" Value=""></asp:ListItem>
+                                            <asp:ListItem Text="-Seleccione-" Value=""></asp:ListItem>
                                             <asp:ListItem Text="Asignado" Value="Asignado"></asp:ListItem>
                                             <asp:ListItem Text="Pendiente de asignación" Value="Pendiente de asignación"></asp:ListItem>
                                             <asp:ListItem Text="En ejecución" Value="En ejecución"></asp:ListItem>
@@ -86,16 +87,16 @@
                                     </div>
                                     <div class="col-md-4">
                                         <asp:Label runat="server" CssClass="control-label" Text="Miembros" />
-                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_miembro" AutoPostBack="true"/>
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="proyecto_drop_miembro" AutoPostBack="true" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                        <asp:Label runat="server" CssClass="control-label" Text="Fecha de inicio" />
+                                        <asp:Label runat="server" CssClass="control-label" Text="Después de" />
                                         <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="proyecto_input_fecha_inicio" AutoPostBack="true" />
                                     </div>
                                     <div class="col-md-6">
-                                        <asp:Label runat="server" CssClass="control-label" Text="Fecha de finalización" />
+                                        <asp:Label runat="server" CssClass="control-label" Text="Antes de" />
                                         <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="proyecto_input_fecha_final" AutoPostBack="true" />
                                     </div>
                                 </div>
@@ -149,6 +150,11 @@
                                     </div>
                                 </div>
                             </section>
+                            <section id="proyecto_boton_continuar">
+                                <div class="col-md-3 col-md-offset-9">
+                                    <button class="btn btn-primary btn-block" type="button" id="proyecto_btn_continuar">Continuar</button>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>
@@ -157,12 +163,101 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="panel-title">Diseño</div>
+                        <div class="panel-title">
+                            Diseños
+                            <div class="btn-group col-md-offset-8">
+                                <button type="button" class="btn btn-default btn-sm" id="btn_estado_diseno">Incluir</button>
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="diseno_habilitado"><a href="#">Incluir</a></li>
+                                    <li id="diseno_inhabilitado"><a href="#">No incluir</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <div class="form-horizontal">
-                            <div class="form-group">
-                            </div>
+                            <section id="seccion_filtros_diseno">
+                                <div class="form-group">
+                                    <div class="col-md-2">
+                                        <asp:Label runat="server" CssClass="control-label" ID="label1" AssociatedControlID="proyecto_drop_oficina" Text="Filtros" />
+                                    </div>
+                                    <div class="col-md-3 col-md-offset-7">
+                                        <small>
+                                            <asp:Button runat="server" CssClass="btn btn-link btn-sm" Style="color: darkgray" ID="diseno_btn_limpiar_filtros" Text="Limpiar filtros" OnClick="diseno_btn_limpiar_filtros_Click" /></small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Técnica de prueba" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="diseno_drop_tecnicas_prueba" AutoPostBack="true">
+                                            <asp:ListItem Text="-Seleccione-" Value="" />
+                                            <asp:ListItem Text="Caja negra" Value="Caja negra" />
+                                            <asp:ListItem Text="Caja blanca" Value="Caja blanca" />
+                                            <asp:ListItem Text="Exploratoria" Value="Exploratoria" />
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Tipo de prueba" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="diseno_drop_tipo_prueba" AutoPostBack="true">
+                                            <asp:ListItem Text="-Seleccione-" Value="" />
+                                            <asp:ListItem Text="Funcional" Value="Funcional" />
+                                            <asp:ListItem Text="Interfaz de usuario" Value="Interfaz de usuario" />
+                                            <asp:ListItem Text="Rendimiento" Value="Rendimiento" />
+                                            <asp:ListItem Text="Stress" Value="Stress" />
+                                            <asp:ListItem Text="Volumen" Value="Volumen" />
+                                            <asp:ListItem Text="Configuración" Value="Configuración" />
+                                            <asp:ListItem Text="Instalación" Value="Instalación" />
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Nivel de prueba" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="diseno_drop_nivel_prueba" AutoPostBack="true">
+                                            <asp:ListItem Text="-Seleccione-" Value="" />
+                                            <asp:ListItem Text="Unitaria" Value="Unitaria" />
+                                            <asp:ListItem Text="De integración" Value="De integración" />
+                                            <asp:ListItem Text="Del sistema" Value="Del sistema" />
+                                            <asp:ListItem Text="De aceptación" Value="De aceptación" />
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Despues de" />
+                                        <asp:TextBox runat="server" CssClass="form-control" ID="diseno_fecha_despues" TextMode="Date" AutoPostBack="true" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Antes de" />
+                                        <asp:TextBox runat="server" CssClass="form-control" ID="diseno_fecha_antes" TextMode="Date" AutoPostBack="true" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Responsable" />
+                                        <asp:DropDownList runat="server" CssClass="form-control" ID="diseno_drop_responsables" AutoPostBack="true">
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                            </section>
+                            <hr />
+                            <section id="seccion_disenos_disponibles">
+                            </section>
+                            <hr />
+                            <section id="seccion_info_incluir_diseno">
+                            </section>
+                            <section id="diseno_botones_volver_continuar">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <button class="btn btn-primary btn-block" type="button" id="diseno_btn_volver">Volver</button>
+                                    </div>
+                                    <div class="col-md-3 col-md-offset-6">
+                                        <button class="btn btn-primary btn-block" type="button" id="diseno_btn_continuar">Continuar</button>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>
@@ -221,29 +316,17 @@
                 return true;
             });
 
-            //Habilito los campos
             $("#proyecto_habilitado").click(function () {
-                $("#btn_estado_proyecto").text("Habilitado");
-                $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_input_fecha_final.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_input_fecha_inicio.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_drop_miembro.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_drop_oficina.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_disenos.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_fechas.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", false);
-
-                //Habilito la tabla de los proyectos
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
+                $("#btn_estado_proyecto").text("Incluir");
 
             });
 
-            //Deshabilito los campos
             $("#proyecto_inhabilitado").click(function () {
-                $("#btn_estado_proyecto").text("Inhabilitado");
+                $("#btn_estado_proyecto").text("No inlcuir");
+            });
+
+            //Desactivo los campos del panel de proyectos y activo el de diseños
+            $("#proyecto_btn_continuar").click(function () {
                 $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", true);
                 $("#<%=proyecto_input_fecha_final.ClientID%>").prop("disabled", true);
                 $("#<%=proyecto_input_fecha_inicio.ClientID%>").prop("disabled", true);
@@ -255,9 +338,38 @@
                 $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", true);
                 $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", true);
                 $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", true);
-
                 //Deshabilito la tabla de los proyectos
                 $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
+
+                /*
+                $("#proyecto_btn_continuar").prop("disabled", true);
+
+                //Habilito los botones en el panel de disenos
+                $("#diseno_btn_volver").prop("disabled", false);
+                $("#diseno_btn_continuar").prop("disabled", false);*/
+            });
+
+            $("#diseno_btn_volver").click(function () {
+                $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_input_fecha_final.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_input_fecha_inicio.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_drop_miembro.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_drop_oficina.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_disenos.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_fechas.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", false);
+                $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", false);
+                //Habilito la tabla de los proyectos
+                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
+
+                /*
+                //Habilito  el boton de continuar en el panel de proyectos
+                $("#proyecto_btn_continuar").prop("disabled", false);
+                //Deshabilito los botones de volver y continuar en el panel de 
+                $("#diseno_btn_volver").prop("disabled", true);
+                $("#diseno_btn_continuar").prop("disabled", true);*/
             });
             // ---------------------------------------------------------------------- Fin panel proyectos ---------------------------------------------------------------------
         });
