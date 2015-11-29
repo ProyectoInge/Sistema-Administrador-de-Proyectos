@@ -123,104 +123,22 @@ namespace SAPS.Fronteras
         */
         private DataTable obtener_proyectos_filtrados()
         {
-            DataTable tabla_tmp;
+            Object[] filtros = new Object[5];
+            int oficina_seleccionada = -1;
+            if(proyecto_drop_oficina.SelectedItem.Value != "")
+                oficina_seleccionada = Int32.Parse(proyecto_drop_oficina.SelectedItem.Value);
+            filtros[0] = oficina_seleccionada;
+            filtros[1] = default(DateTime);
+            if (proyecto_input_fecha_inicio.Text != "")
+                filtros[1] = DateTime.Parse(proyecto_input_fecha_inicio.Text);
+            filtros[2] = default(DateTime);
+            if(proyecto_input_fecha_final.Text != "")
+                filtros[2] = DateTime.Parse(proyecto_input_fecha_final.Text);
 
-            //Llena la DataTable con la información de todos los proyectos (si soy administrador) o con la del proyecto que tengo asociado (si soy usuario normal).
-            if (m_es_administrador)
-                tabla_tmp = m_controladora_rep.solicitar_proyectos_disponibles();
-            else
-                tabla_tmp = m_controladora_rep.consultar_mi_proyecto(Context.User.Identity.Name);
+            filtros[3] = proyecto_drop_miembro.SelectedItem.Value;
+            filtros[4] = proyecto_drop_estado.SelectedItem.Value;
 
-            DataTable a_retornar = tabla_tmp.Clone();   // ** Esto es importante para que le clone la estructura de la tabla original **
-            #region Llena la tabla dependiendo de los filtros
-            //Si no hay ningun filtro seleccionado
-            if (proyecto_drop_estado.SelectedItem.Value == "" && proyecto_drop_miembro.SelectedItem.Value == "" && proyecto_drop_oficina.SelectedItem.Value == ""
-                && proyecto_input_fecha_final.Text == "" && proyecto_input_fecha_inicio.Text == "")
-            {
-                a_retornar = tabla_tmp;
-            }
-
-            //Si estan todos los filtros seleccionados
-            if (proyecto_drop_estado.SelectedItem.Value != "" && proyecto_drop_miembro.SelectedItem.Value != "" && proyecto_drop_oficina.SelectedItem.Value != ""
-                && proyecto_input_fecha_final.Text != "" && proyecto_input_fecha_inicio.Text != "")
-            {
-                tabla_tmp = m_controladora_rep.consultar_mi_proyecto(proyecto_drop_miembro.SelectedItem.Value);
-                string estado_seleccionado = proyecto_drop_estado.SelectedItem.Value;
-                int id_oficina_seleccionada = Convert.ToInt32(proyecto_drop_oficina.SelectedItem.Value);
-                DateTime fecha_inicio_seleccionada = Convert.ToDateTime(proyecto_input_fecha_inicio.Text);
-                DateTime fecha_finalizacion_seleccionada = Convert.ToDateTime(proyecto_input_fecha_final.Text);
-
-                foreach(DataRow fila in tabla_tmp.Rows)
-                {
-                    //Solo lo agrega si cumple todos los filtros
-                    if (fila["estado"].ToString().Equals(estado_seleccionado) && Convert.ToInt32(fila["id_oficina"]).Equals(id_oficina_seleccionada)
-                        && Convert.ToDateTime(fila["fecha_inicio"]).Equals(fecha_inicio_seleccionada) && Convert.ToDateTime(fila["fecha_final"]).Equals(fecha_finalizacion_seleccionada))
-                    {
-                        a_retornar.ImportRow(fila);
-                    }
-                }
-            }
-
-            //El filtro de "estado" esta puesto
-            if (proyecto_drop_estado.SelectedItem.Value != "" && proyecto_drop_miembro.SelectedItem.Value == "" && proyecto_drop_oficina.SelectedItem.Value == ""
-                && proyecto_input_fecha_final.Text == "" && proyecto_input_fecha_inicio.Text == "")
-            {
-                string estado_seleccionado = proyecto_drop_estado.SelectedItem.Value;
-                foreach (DataRow fila in tabla_tmp.Rows)
-                {
-                    //Solo agrega los proyectos que tengan el estado que se seleccionó.
-                    if (fila["estado"].ToString().Equals(estado_seleccionado))
-                        a_retornar.ImportRow(fila);//Le agrega la fila al datatable que va a retornar
-                }
-            }
-
-            //El filtro de "miembro" esta puesto
-            if (proyecto_drop_estado.SelectedItem.Value == "" && proyecto_drop_miembro.SelectedItem.Value != "" && proyecto_drop_oficina.SelectedItem.Value == ""
-                && proyecto_input_fecha_final.Text == "" && proyecto_input_fecha_inicio.Text == "")
-            {
-                a_retornar = m_controladora_rep.consultar_mi_proyecto(proyecto_drop_miembro.SelectedItem.Value);    //Trae el proyecto del usuario seleccionado
-            }
-
-            //El filtro de "oficina" esta seleccionado
-            if (proyecto_drop_estado.SelectedItem.Value == "" && proyecto_drop_miembro.SelectedItem.Value == "" && proyecto_drop_oficina.SelectedItem.Value != ""
-                && proyecto_input_fecha_final.Text == "" && proyecto_input_fecha_inicio.Text == "")
-            {
-                int id_oficina_seleccionada = Convert.ToInt32(proyecto_drop_oficina.SelectedItem.Value);
-                foreach (DataRow fila in tabla_tmp.Rows)
-                {
-                    //Solo agrega los proyectos que pertenecen a la oficina que se seleccionó
-                    if (Convert.ToInt32(fila["id_oficina"]).Equals(id_oficina_seleccionada))
-                        a_retornar.ImportRow(fila);//Le agrega la fila al datatable que va a retornar
-                }
-            }
-
-            //El filtro de la "fecha de inicio" esta seleccionado
-            if (proyecto_drop_estado.SelectedItem.Value == "" && proyecto_drop_miembro.SelectedItem.Value == "" && proyecto_drop_oficina.SelectedItem.Value == ""
-                && proyecto_input_fecha_final.Text == "" && proyecto_input_fecha_inicio.Text != "")
-            {
-                DateTime fecha_inicio_seleccionada = Convert.ToDateTime(proyecto_input_fecha_inicio.Text);
-                foreach (DataRow fila in tabla_tmp.Rows)
-                {
-                    if (Convert.ToDateTime(fila["fecha_inicio"]).Equals(fecha_inicio_seleccionada))
-                        a_retornar.ImportRow(fila);
-                }
-            }
-
-            //El filtro de la "fecha de finalizacion" esta seleccionado
-            if (proyecto_drop_estado.SelectedItem.Value == "" && proyecto_drop_miembro.SelectedItem.Value == "" && proyecto_drop_oficina.SelectedItem.Value == ""
-                && proyecto_input_fecha_final.Text != "" && proyecto_input_fecha_inicio.Text == "")
-            {
-                DateTime fecha_finalizacion_seleccionada = Convert.ToDateTime(proyecto_input_fecha_final.Text);
-                foreach (DataRow fila in tabla_tmp.Rows)
-                {
-                    if (Convert.ToDateTime(fila["fecha_final"]).Equals(fecha_finalizacion_seleccionada))
-                        a_retornar.ImportRow(fila);
-                }
-            }
-
-
-            #endregion
-            return a_retornar;
+            return m_controladora_rep.solicitar_proyectos_filtrados(filtros);
         }
 
         /** @brief Metodo que llena la tabla con los proyectos que hay disponibles en el sistema.
@@ -295,17 +213,23 @@ namespace SAPS.Fronteras
             }
         }
 
+        /** @brief Metodo que actualiza el drop de los recursos humanos para agregar al filtrado.
+        */
         private void actualizar_recursos_humanos()
         {
             vaciar_recursos_humanos();
             llena_recursos_humanos();
         }
 
+        /** @brief Metodo que vacia el drop de los recursos humanos en la vista.
+        */
         private void vaciar_recursos_humanos()
         {
             proyecto_drop_miembro.Items.Clear();
         }
 
+        /** @brief Metodo que llena con los recursos humanos que hay en el sistema el drop en la interfaz.
+        */
         private void llena_recursos_humanos()
         {
             DataTable recursos_disponibles = m_controladora_rep.solicitar_recursos_disponibles();
@@ -327,11 +251,12 @@ namespace SAPS.Fronteras
 
         protected void btn_generar_reporte_Click(object sender, EventArgs e)
         {
+            ///@todo
         }
 
         protected void btn_cancelar_Click(object sender, EventArgs e)
         {
-
+            ///@todo
         }
 
         /** @brief Metodo que se encarga de marcar todos los proyectos como "seleccionados" tanto en interfaz como en la estructura de control interno.
