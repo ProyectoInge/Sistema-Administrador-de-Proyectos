@@ -2,7 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="barra-celeste"></div>
-    <div style="margin-top: -100px"><!-- Hace que el panel se "monte"sobre la barra celeste -->
+    <div style="margin-top: -100px">
+        <!-- Hace que el panel se "monte"sobre la barra celeste -->
         <section id="informacion">
             <div class="row">
                 <div id="panel_contacto" class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">

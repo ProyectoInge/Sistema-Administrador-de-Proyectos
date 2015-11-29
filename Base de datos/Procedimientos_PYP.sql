@@ -69,7 +69,9 @@ CREATE PROCEDURE CONSULTAR_PROYECTOS_DISPONIBLES
 			ProyectoPruebas.id_proyecto,
 			ProyectoPruebas.estado,
 			ProyectoPruebas.id_oficina,
-			ProyectoPruebas.eliminado
+			ProyectoPruebas.eliminado,
+			ProyectoPruebas.fecha_inicio,
+			ProyectoPruebas.fecha_final
 	FROM  ProyectoPruebas
 	END
 GO
@@ -96,7 +98,9 @@ AS BEGIN
 			ProyectoPruebas.id_proyecto,
 			ProyectoPruebas.estado,
 			ProyectoPruebas.id_oficina,
-			ProyectoPruebas.eliminado
+			ProyectoPruebas.eliminado,
+			ProyectoPruebas.fecha_inicio,
+			ProyectoPruebas.fecha_final
 	FROM ProyectoPruebas
 	WHERE ProyectoPruebas.id_proyecto = (SELECT RecursosHumanos.id_proyecto
 											FROM RecursosHumanos
@@ -139,3 +143,5 @@ CREATE PROCEDURE SOLICITAR_PROYECTOS_NO_ELIMINADOS
 	WHERE ProyectoPruebas.eliminado = 0
 	END
 GO
+
+select * from ProyectoPruebas;
