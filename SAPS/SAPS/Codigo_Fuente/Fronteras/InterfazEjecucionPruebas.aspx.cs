@@ -891,6 +891,7 @@ namespace SAPS.Fronteras
                 CheckBox check = new CheckBox();
                 check.AutoPostBack = true;
                 check.ID = Convert.ToString(vec_tmp[0]);
+                check.CheckedChanged += new EventHandler(marcar_check);
                 celda_tmp.Controls.Add(check);
                 nueva_fila.Cells.Add(celda_tmp);
 
@@ -1114,6 +1115,12 @@ namespace SAPS.Fronteras
                 #endregion
                 tabla_resultados.Rows.Add(nueva_fila);
             }
+        }
+
+        private void marcar_check(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            ///@todo
         }
 
 
