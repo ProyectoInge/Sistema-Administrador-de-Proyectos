@@ -34,7 +34,7 @@ namespace SAPS.Controladoras
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
             m_controladora_dp = new ControladoraDisenosPruebas();
-            m_controladora_cp = new ControladoraCasoPruebas(); 
+            m_controladora_cp = new ControladoraCasoPruebas();
 
             //Constantes para el documento
             /*var fuente_titulo = FontFactory.GetFont("Arial", 18, Font.BOLD);
@@ -211,7 +211,5 @@ namespace SAPS.Controladoras
         {
             return null;
         }
-
-
     }
 }

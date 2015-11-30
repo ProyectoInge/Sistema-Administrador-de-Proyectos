@@ -44,6 +44,7 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             Proyectos
+                               
                                 <div class="btn-group col-md-offset-8">
                                     <button type="button" class="btn btn-default btn-sm" id="btn_estado_proyecto">Incluir</button>
                                     <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -165,6 +166,7 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             Diseños
+                           
                             <div class="btn-group col-md-offset-8">
                                 <button type="button" class="btn btn-default btn-sm" id="btn_estado_diseno">Incluir</button>
                                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -271,14 +273,14 @@
                         <div class="panel-title">
                             Caso de pruebas
                             <div class="btn-group col-md-offset-6">
-                                <button type="button" class="btn btn-default" id="btn_estado_casos">Habilitado</button>
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="btn btn-default btn-sm" id="btn_estado_casos">Incluir</button>
+                                <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li id="casos_habilitado"><a href="#">Habilitado</a></li>
-                                    <li id="casos_inhabilitado"><a href="#">Inhabilitado</a></li>
+                                    <li id="casos_habilitado"><a href="#">Incluir</a></li>
+                                    <li id="casos_inhabilitado"><a href="#">No incluir</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -371,7 +373,7 @@
         $(document).ready(function () {
 
             // ---------------------------------------------------------------------- Panel de proyectos ----------------------------------------------------------------------
-            
+
 
             $("#proyecto_habilitado").click(function () {
                 $("#btn_estado_proyecto").text("Incluir");
@@ -429,6 +431,33 @@
                 $("#diseno_btn_continuar").prop("disabled", true);*/
             });
             // ---------------------------------------------------------------------- Fin panel proyectos ---------------------------------------------------------------------
+
+            // ---------------------------------------------------------------------- Panel de casos ----------------------------------------------------------------------
+
+            //Revisa si el check de proyectos esta seleccionado para marcar todos
+            if ($("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").is(":checked")) {
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
+                //Deshabilito la tabla de los proyectos
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", true);
+            } else {
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", false);
+                //Habilito la tabla de los proyectos
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", false);
+            }
+
+            //Selecciono todos los proyectos
+            $("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").click(function () {
+                if ($("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").is(":checked")) {
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
+                    //Deshabilito la tabla de los proyectos
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", true);
+                } else {
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", false);
+                    //Habilito la tabla de los proyectos
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", false);
+                }
+                return true;
+            });
         });
     </script>
 
