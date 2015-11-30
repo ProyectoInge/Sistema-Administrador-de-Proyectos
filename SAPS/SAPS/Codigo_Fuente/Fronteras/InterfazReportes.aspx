@@ -371,31 +371,7 @@
         $(document).ready(function () {
 
             // ---------------------------------------------------------------------- Panel de proyectos ----------------------------------------------------------------------
-
-            //Revisa si el check de proyectos esta seleccionado para marcar todos
-            if ($("#<%=proyecto_check_todos.ClientID%>").is(":checked")) {
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", true);
-                //Deshabilito la tabla de los proyectos
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
-            } else {
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", false);
-                //Habilito la tabla de los proyectos
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
-            }
-
-            //Selecciono todos los proyectos
-            $("#<%=proyecto_check_todos.ClientID%>").click(function () {
-                if ($("#<%=proyecto_check_todos.ClientID%>").is(":checked")) {
-                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", true);
-                    //Deshabilito la tabla de los proyectos
-                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
-                } else {
-                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", false);
-                    //Habilito la tabla de los proyectos
-                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
-                }
-                return true;
-            });
+            
 
             $("#proyecto_habilitado").click(function () {
                 $("#btn_estado_proyecto").text("Incluir");

@@ -73,6 +73,7 @@ namespace SAPS.Fronteras
                     m_es_administrador = m_controladora_rep.es_administrador(Context.User.Identity.Name);
                     actualizar_oficinas();
                     actualizar_recursos_humanos();
+                    llenar_lista_proyectos();   // ******** Esto es nuevo ********
                 }
                 else
                 {
@@ -85,6 +86,20 @@ namespace SAPS.Fronteras
                 Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
             }
 
+        }
+
+        /** @brief Metodo que carga todos los proyectos que hay en el sistema en la lista de pairs con los IDs de los proyectos y el estado.
+        */
+        private void llenar_lista_proyectos()
+        {
+            DataTable todos_proyectos = m_controladora_rep.solicitar_proyectos_disponibles();
+            foreach (DataRow fila_tmp in todos_proyectos.Rows)
+            {
+                Pair pair_tmp = new Pair();
+                pair_tmp.First = fila_tmp["id_proyecto"].ToString();
+                pair_tmp.Second = false;
+                m_proyectos.Add(pair_tmp);
+            }
         }
 
         /** @brief Metodo que actualiza los proyectos que hay en el sistema en la interfaz
@@ -107,17 +122,8 @@ namespace SAPS.Fronteras
         protected void check_estado_proyecto_Cambia(object sender, EventArgs e)
         {
             int id_proyecto_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
-            int indice_proyecto = 0;
-            bool encontrado = false;
-            while (!encontrado && indice_proyecto < m_proyectos.Count)
-            {
-                if (m_proyectos[indice_proyecto].First.Equals(id_proyecto_seleccionado))
-                {
-                    m_proyectos[indice_proyecto].Second = !(Convert.ToBoolean(m_proyectos[indice_proyecto].Second));    //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
-                    encontrado = true;
-                }
-                ++indice_proyecto;
-            }
+            int indice_proyecto = buscar_proyecto_en_lista(id_proyecto_seleccionado);
+            m_proyectos[indice_proyecto].Second = Convert.ToBoolean(((CheckBox)sender).Checked);
 
         }
 
@@ -128,21 +134,21 @@ namespace SAPS.Fronteras
         {
             Object[] filtros = new Object[5];
             int oficina_seleccionada = -1;
-            if(proyecto_drop_oficina.SelectedItem.Value != "")
+            if (proyecto_drop_oficina.SelectedItem.Value != "")
                 oficina_seleccionada = Int32.Parse(proyecto_drop_oficina.SelectedItem.Value);
             filtros[0] = oficina_seleccionada;
             filtros[1] = default(DateTime);
             if (proyecto_input_fecha_inicio.Text != "")
                 filtros[1] = DateTime.Parse(proyecto_input_fecha_inicio.Text);
             filtros[2] = default(DateTime);
-            if(proyecto_input_fecha_final.Text != "")
+            if (proyecto_input_fecha_final.Text != "")
                 filtros[2] = DateTime.Parse(proyecto_input_fecha_final.Text);
 
             filtros[3] = proyecto_drop_miembro.SelectedItem.Value;
             filtros[4] = proyecto_drop_estado.SelectedItem.Value;
 
             return m_controladora_rep.solicitar_proyectos_filtrados(filtros);
-            }
+        }
 
         /** @brief Metodo que llena la tabla con los proyectos que hay disponibles en el sistema.
          */
@@ -153,10 +159,11 @@ namespace SAPS.Fronteras
             for (int i = 0; i < proyectos_disponibles.Rows.Count; ++i)
             {
                 //Lo agrego a la estructura que lleva control de los proyectos
+                /*
                 Pair pareja_tmp = new Pair();
                 pareja_tmp.First = Convert.ToInt32(proyectos_disponibles.Rows[i]["id_proyecto"]);
                 pareja_tmp.Second = false;
-                m_proyectos.Add(pareja_tmp);
+                m_proyectos.Add(pareja_tmp);*/
 
                 //Agrego el elemento a la tabla que se muestra en la vista
                 TableRow fila_tmp = new TableRow();
@@ -170,6 +177,7 @@ namespace SAPS.Fronteras
                 check_tmp.ID = proyectos_disponibles.Rows[i]["id_proyecto"].ToString();
                 check_tmp.CheckedChanged += new EventHandler(check_estado_proyecto_Cambia);
                 check_tmp.AutoPostBack = true;
+                check_tmp.Checked = Convert.ToBoolean(m_proyectos[buscar_proyecto_en_lista(Convert.ToInt32(check_tmp.ID))].Second);
                 check_tmp.CssClass = "checkbox-inline";
                 celda_tmp.Controls.Add(check_tmp);
 
@@ -268,23 +276,37 @@ namespace SAPS.Fronteras
         protected void proyecto_check_todos_CheckedChanged(object sender, EventArgs e)
         {
             bool estado = ((CheckBox)sender).Checked;
-            if (estado)
+            foreach (TableRow fila in tabla_proyectos.Rows)
             {
-                for (int i = 0; i < m_proyectos.Count; ++i)
-                {
-                    m_proyectos[i].Second = estado;
-                }
+                ((CheckBox)fila.Cells[1].Controls[0]).Checked = estado;
+                ((CheckBox)fila.Cells[1].Controls[0]).Enabled = !estado;
+                int id_proyecto = Convert.ToInt32(((CheckBox)fila.Cells[1].Controls[0]).ID);
+                int indice_proyecto = buscar_proyecto_en_lista(id_proyecto);
+                if (indice_proyecto != -1)
+                    m_proyectos[indice_proyecto].Second = estado;
             }
-            else
-            {
-                for (int i = 0; i < m_proyectos.Count; ++i)
-                {
-                    m_proyectos[i].Second = estado;
-                }
-            }
-
         }
 
+        /** @brief Metodo que buscar por un proyecto en especifico en la lista de los proyectos
+         *  @param El identificador del proyecto que se desea buscar
+         *  @return El indice en base 0 en la lista de los proyectos, -1 si no lo encontro.
+        */
+        private int buscar_proyecto_en_lista(int id_proyecto_buscar)
+        {
+            int a_retornar = -1;
+            bool encontrado = false;
+            int indice = 0;
+            while (!encontrado && indice < m_proyectos.Count)
+            {
+                if(Convert.ToInt32(m_proyectos[indice].First) == id_proyecto_buscar)
+                {
+                    a_retornar = indice;
+                    encontrado = true;
+                }
+                ++indice;
+            }
+            return a_retornar;
+        }
 
         /** @brief Metodo que limpia los campos de los filtros en el panel de los proyectos
          *  @param Los parametros por defecto de un evento de ASP
@@ -306,7 +328,7 @@ namespace SAPS.Fronteras
 
         /** @brief Método que cargará los casos de prueba para mostrar en  el panel.
         *          Este método revisa los diseños para obtener los casos de prueba relacionados. 
-        */ 
+        */
         protected void obtener_casos_de_prueba()
         {
             List<int> llaves_disenos = new List<int>();
