@@ -137,7 +137,7 @@ namespace SAPS.Controladoras
 
 
 
-        public DataTable solicitar_proyectos_filtrados(string [] datos)
+        public DataTable solicitar_proyectos_filtrados(Object [] datos)
         {
             return m_base_datos_pdp.aplicar_filtros_proyecto_pruebas(datos);
         }

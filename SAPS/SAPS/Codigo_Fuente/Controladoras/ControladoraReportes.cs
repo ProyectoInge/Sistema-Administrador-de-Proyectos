@@ -176,6 +176,7 @@ namespace SAPS.Controladoras
                 //agregar final de página
             }
         }
+
         /** @brief Método que asigna las operaciones necesarias para poder consultar los recursos humanos disponibles.
          * @return DataTable con los resultados de la consultas.
          */
@@ -185,6 +186,23 @@ namespace SAPS.Controladoras
             return m_controladora_rh.solicitar_recursos_disponibles();
         }
 
+        /** @brief Metodo que se encarga de hacer una busqueda en los proyectos que cumplan con los filtros que selecciono el usuario.
+         *  @param Vector de strings con los filtros de la siguiente manera:
+                |   Indice  |   Filtro      |   Tipo    |
+                |:---------:|:-------------:|:---------:|
+                |   0       |   oficina     |   int     |
+                |   1       | fecha_inicio  | DateTime  |
+                |   2       | fecha_final   | DateTime  |
+                |   3       |   estado      |   string  |
+                |   4       |   miembro     |   string  |
+                Si no desea filtrar, entonces en la posicion del filtro se envia "".
+         *  @return Un DataTable en el que viene toda la información de los proyectos que cumplieron los filtros que se enviaron.
+        */
+        public DataTable solicitar_proyectos_filtrados(Object[] filtros)
+        {
+            m_controladora_pdp = new ControladoraProyectoPruebas();
+            return m_controladora_pdp.solicitar_proyectos_filtrados(filtros);
+        }
 
         /** @brief Devuelve los casos de pruebas asociados a una lista de llaves primarias de disenos.
         *   @param llaves_disenos lista con las llaves primarias de los diseños
