@@ -373,8 +373,6 @@
         $(document).ready(function () {
 
             // ---------------------------------------------------------------------- Panel de proyectos ----------------------------------------------------------------------
-
-
             $("#proyecto_habilitado").click(function () {
                 $("#btn_estado_proyecto").text("Incluir");
 
