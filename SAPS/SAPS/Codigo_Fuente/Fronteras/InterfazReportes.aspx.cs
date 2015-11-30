@@ -320,11 +320,12 @@ namespace SAPS.Fronteras
             proyecto_drop_estado.ClearSelection();
             proyecto_drop_miembro.ClearSelection();
             proyecto_drop_oficina.ClearSelection();
-            actualizar_oficinas();
-            actualizar_recursos_humanos();
-            actualiza_proyectos_disponibles();
+            proyecto_drop_estado.Items[0].Selected = true;
+            proyecto_drop_miembro.Items[0].Selected = true;
+            proyecto_drop_oficina.Items[0].Selected = true;
             proyecto_input_fecha_final.Text = "";
             proyecto_input_fecha_inicio.Text = "";
+            actualiza_proyectos_disponibles();
         }
 
 
