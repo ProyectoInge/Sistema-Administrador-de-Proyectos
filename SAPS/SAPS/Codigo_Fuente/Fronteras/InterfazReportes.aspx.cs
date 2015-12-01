@@ -131,11 +131,6 @@ namespace SAPS.Fronteras
             proyecto_input_fecha_inicio.Enabled = m_habilitado_proyecto;
 
             //Checks
-            proyecto_check_disenos.Enabled = m_habilitado_proyecto;
-            proyecto_check_fechas.Enabled = m_habilitado_proyecto;
-            proyecto_check_miembros.Enabled = m_habilitado_proyecto;
-            proyecto_check_objetivos.Enabled = m_habilitado_proyecto;
-            proyecto_check_oficina.Enabled = m_habilitado_proyecto;
             proyecto_check_todos.Enabled = m_habilitado_proyecto;
 
             //Tabla de los proyectos disponibles
@@ -161,9 +156,6 @@ namespace SAPS.Fronteras
             diseno_fecha_despues.Enabled = m_habilitado_disenos;
 
             //Checks
-            diseno_check_entrada_datos.Enabled = m_habilitado_disenos;
-            diseno_check_flujo_central.Enabled = m_habilitado_disenos;
-            diseno_check_resultado_esperado.Enabled = m_habilitado_disenos;
             diseno_check_todos.Enabled = m_habilitado_disenos;
 
             //Tabla de los disenos disponibles
@@ -182,10 +174,6 @@ namespace SAPS.Fronteras
             casos_btn_volver.Disabled = !m_habilitado_casos;
 
             //Checks
-            casos_check_entrada_datos.Enabled = m_habilitado_casos;
-            casos_check_flujo.Enabled = m_habilitado_casos;
-            casos_check_proposito.Enabled = m_habilitado_casos;
-            casos_check_resultado.Enabled = m_habilitado_casos;
             Checkbox_casos_de_prueba_todos.Enabled = m_habilitado_casos;
 
             //Tabla de los casos disponibles
@@ -205,10 +193,6 @@ namespace SAPS.Fronteras
             ejecucion_input_fecha.Enabled = m_habilitado_ejecuciones;
 
             //Checks
-            ejecucion_check_fecha.Enabled = m_habilitado_ejecuciones;
-            ejecucion_check_incidentes.Enabled = m_habilitado_ejecuciones;
-            ejecucion_check_responsable.Enabled = m_habilitado_ejecuciones;
-            ejecucion_check_resultados.Enabled = m_habilitado_ejecuciones;
             check_ejecuciones_todos.Enabled = m_habilitado_ejecuciones;
 
             //Tabla
@@ -678,11 +662,28 @@ namespace SAPS.Fronteras
         // ---------------------------------------------- Botones de continuar y volver ----------------------------------------------
         protected void proyecto_btn_continuar_ServerClick(object sender, EventArgs e)
         {
-            m_habilitado_proyecto = false;
-            m_habilitado_disenos = true;
-            m_habilitado_casos = false;
-            m_habilitado_ejecuciones = false;
-            habilitar_deshabilitar_paneles();
+            bool alguno_seleccionado = false;
+            int indice = 0;
+            //Busco si existe al menos un elemento marcado como seleccionado.
+            do
+            {
+                if (Convert.ToBoolean(m_proyectos[indice].Second))
+                    alguno_seleccionado = true;
+                ++indice;
+            } while (!alguno_seleccionado && indice < m_proyectos.Count);
+            if (alguno_seleccionado)//Existe alguno seleccionado
+            {
+                m_habilitado_proyecto = false;
+                m_habilitado_disenos = true;
+                m_habilitado_casos = false;
+                m_habilitado_ejecuciones = false;
+                habilitar_deshabilitar_paneles();
+            }
+            else
+            {
+                cuerpo_alerta_advertencia.Text = " Es necesario que seleccione al menos un proyecto para poder continuar.";
+                alerta_advertencia.Visible = true;
+            }
         }
 
         protected void diseno_btn_volver_ServerClick(object sender, EventArgs e)
