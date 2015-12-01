@@ -202,6 +202,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.CheckBox proyecto_check_objetivos;
         
         /// <summary>
+        /// proyecto_btn_continuar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton proyecto_btn_continuar;
+        
+        /// <summary>
         /// label1 control.
         /// </summary>
         /// <remarks>
@@ -319,6 +328,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.CheckBox diseno_check_entrada_datos;
         
         /// <summary>
+        /// diseno_btn_volver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton diseno_btn_volver;
+        
+        /// <summary>
+        /// diseno_btn_continuar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton diseno_btn_continuar;
+        
+        /// <summary>
         /// Checkbox_casos_de_prueba_todos control.
         /// </summary>
         /// <remarks>
@@ -371,6 +398,114 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBox3;
+        
+        /// <summary>
+        /// casos_btn_volver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton casos_btn_volver;
+        
+        /// <summary>
+        /// casos_btn_continuar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton casos_btn_continuar;
+        
+        /// <summary>
+        /// ejecucion_btn_limpiar_filtros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ejecucion_btn_limpiar_filtros;
+        
+        /// <summary>
+        /// ejecucion_drop_responsables control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ejecucion_drop_responsables;
+        
+        /// <summary>
+        /// ejecucion_input_fecha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ejecucion_input_fecha;
+        
+        /// <summary>
+        /// check_ejecuciones_todos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check_ejecuciones_todos;
+        
+        /// <summary>
+        /// tabla_ejecuciones_ejecuciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tabla_ejecuciones_ejecuciones;
+        
+        /// <summary>
+        /// ejecucion_check_resultados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_resultados;
+        
+        /// <summary>
+        /// ejecucion_check_responsable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_responsable;
+        
+        /// <summary>
+        /// ejecucion_check_fecha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_fecha;
+        
+        /// <summary>
+        /// ejecucion_check_incidentes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_incidentes;
+        
+        /// <summary>
+        /// ejecuciono_btn_volver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton ejecuciono_btn_volver;
         
         /// <summary>
         /// btn_generar_reporte control.

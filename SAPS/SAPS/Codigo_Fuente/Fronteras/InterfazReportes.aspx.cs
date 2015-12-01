@@ -33,7 +33,7 @@ namespace SAPS.Fronteras
         private static List<Pair> m_proyectos; //Va a tener los proyectos que se estan mostrando en la interfaz
 
 
-        /* |   Indice  | Significado    | Tipo  |
+        /*  |   Indice  | Significado    | Tipo  |
          *  |:---------:|:--------------:|:-----:|
          *  |     0     |   ID Diseño    |  int  |
          *  |     1     |   Estado       |  bool |
@@ -332,7 +332,9 @@ namespace SAPS.Fronteras
         protected void obtener_casos_de_prueba()
         {
             List<int> llaves_disenos = new List<int>();
-            foreach (Pair item in m_disenos) { llaves_disenos.Add(Convert.ToInt32(item.First)); }
+            foreach (Pair item in m_disenos) {
+                if (Convert.ToBoolean(item.Second)) llaves_disenos.Add(Convert.ToInt32(item.First));
+            }
 
             DataTable casos_de_prueba_disponibles = m_controladora_rep.obtener_casos_de_prueba(llaves_disenos);
             for (int i = 0; i < casos_de_prueba_disponibles.Rows.Count; ++i)
@@ -357,20 +359,20 @@ namespace SAPS.Fronteras
                 celda_tmp.Controls.Add(check_tmp);
 
                 fila_tmp.Cells.Add(celda_tmp);
-                tabla_proyectos.Rows.Add(fila_tmp);
+                tabla_casos_de_prueba_disponibles.Rows.Add(fila_tmp);
             }
         }
 
         protected void check_estado_casos_Cambia(object sender, EventArgs e)
         {
-            int id_casos_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
+            string id_casos_seleccionado = ((CheckBox)sender).ID;
             int indice_casos = 0;
             bool encontrado = false;
             while (!encontrado && indice_casos < m_casos.Count)
             {
-                if (m_casos[indice_casos].First.Equals(id_casos_seleccionado))
+                if (m_casos[indice_casos].ToString() == id_casos_seleccionado)
                 {
-                    m_casos[indice_casos].Second = !(Convert.ToBoolean(m_casos[indice_casos].Second)); //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
+                    m_casos[indice_casos].Second = !(Convert.ToBoolean(m_casos[indice_casos].Second));
                     encontrado = true;
                 }
                 ++indice_casos;
@@ -401,7 +403,7 @@ namespace SAPS.Fronteras
             diseno_drop_tecnicas_prueba.Items[0].Selected = true;
             diseno_drop_tipo_prueba.Items[0].Selected = true;
             diseno_drop_nivel_prueba.Items[0].Selected = true;
-            if(diseno_drop_responsables.Items.Count>0)
+            if (diseno_drop_responsables.Items.Count > 0)
                 diseno_drop_responsables.Items[0].Selected = true;
             ///@todo Llamar a actualizar_disenos()
         }
@@ -542,6 +544,60 @@ namespace SAPS.Fronteras
         }
 
         protected void diseno_check_todos_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ejecucion_btn_limpiar_filtros_Click(object sender, EventArgs e)
+        {
+            ejecucion_drop_responsables.ClearSelection();
+            if (ejecucion_drop_responsables.Items.Count > 0)
+                ejecucion_drop_responsables.Items[0].Selected = true;
+            ejecucion_input_fecha.Text = "";
+            ///@todo Llamar a actualizar ejecuciones
+        }
+
+        protected void check_ejecuciones_todos_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void proyecto_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ejecuciones_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ejecuciones_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void diseno_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void diseno_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ejecuciono_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void casos_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void casos_btn_continuar_ServerClick(object sender, EventArgs e)
         {
 
         }

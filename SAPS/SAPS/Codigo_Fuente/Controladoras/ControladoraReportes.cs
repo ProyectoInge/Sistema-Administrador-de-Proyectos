@@ -238,7 +238,7 @@ namespace SAPS.Controladoras
         */
         public DataTable obtener_casos_de_prueba(List<int> llaves_disenos)
         {
-            return null;
+            return m_controladora_cp.solicitar_casos_filtrados(llaves_disenos);
         }
 
 
@@ -256,7 +256,7 @@ namespace SAPS.Controladoras
         |   5       |   filtro_antes_de              |   DateTime         |
         |   6       |   filtro_id_proyectos          |   List<string>     |
 
-                   Si no desea filtrar, entonces en la posicion del filtro se envia "".
+        Si no desea filtrar, entonces en la posicion del filtro se envia "".
  *  @return Un DataTable en el que viene toda la información de los proyectos que cumplieron los filtros que se enviaron.
 */
 
