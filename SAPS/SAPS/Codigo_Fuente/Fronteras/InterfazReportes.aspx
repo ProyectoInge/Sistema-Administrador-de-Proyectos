@@ -44,7 +44,8 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             Proyectos
-                                <div class="btn-group col-md-offset-8">
+                               
+                                <div class="btn-group col-md-offset-7">
                                     <button type="button" class="btn btn-default btn-sm" id="btn_estado_proyecto">Incluir</button>
                                     <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="caret"></span>
@@ -140,12 +141,12 @@
                                     <div class="col-md-6">
                                         <asp:CheckBox runat="server" ID="proyecto_check_disenos" CssClass="checkbox checkbox-inline" Text="Diseños asociados" />
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-6">
                                         <asp:CheckBox runat="server" ID="proyecto_check_oficina" CssClass="checkbox checkbox-inline" Text="Oficina asociada" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <asp:CheckBox runat="server" ID="proyecto_check_objetivos" CssClass="checkbox checkbox-inline" Text="Objetivos" />
                                     </div>
                                 </div>
@@ -165,7 +166,8 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             Diseños
-                            <div class="btn-group col-md-offset-8">
+                           
+                            <div class="btn-group col-md-offset-7">
                                 <button type="button" class="btn btn-default btn-sm" id="btn_estado_diseno">Incluir</button>
                                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caret"></span>
@@ -244,18 +246,50 @@
                             </section>
                             <hr />
                             <section id="seccion_disenos_disponibles">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Diseños disponibles" AssociatedControlID="diseno_check_todos" />
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_todos" Text="Seleccionar todos" AutoPostBack="true" OnCheckedChanged="diseno_check_todos_CheckedChanged" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div style="height: 195px; overflow-y: scroll">
+                                            <asp:Table runat="server" ID="tabla_disenos" CssClass="table table-hover">
+                                            </asp:Table>
+                                        </div>
+                                    </div>
+                                </div>
                             </section>
                             <hr />
                             <section id="seccion_info_incluir_diseno">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Información a incluir" AssociatedControlID="diseno_check_flujo_central"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_flujo_central" Text="Flujo central" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_resultado_esperado" Text="Resultado esperado" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_entrada_datos" Text="Entrada de datos" />
+                                    </div>
+                                </div>
                             </section>
                             <section id="diseno_botones_volver_continuar">
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                        <button class="btn btn-primary btn-block" type="button" id="diseno_btn_volver">Volver</button>
-                                    </div>
-                                    <div class="col-md-3 col-md-offset-6">
-                                        <button class="btn btn-primary btn-block" type="button" id="diseno_btn_continuar">Continuar</button>
-                                    </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary btn-block" type="button" id="diseno_btn_volver">Volver</button>
+                                </div>
+                                <div class="col-md-3 col-md-offset-6">
+                                    <button class="btn btn-primary btn-block" type="button" id="diseno_btn_continuar">Continuar</button>
                                 </div>
                             </section>
                         </div>
@@ -271,14 +305,14 @@
                         <div class="panel-title">
                             Caso de pruebas
                             <div class="btn-group col-md-offset-6">
-                                <button type="button" class="btn btn-default" id="btn_estado_casos">Habilitado</button>
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button type="button" class="btn btn-default btn-sm" id="btn_estado_casos">Incluir</button>
+                                <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li id="casos_habilitado"><a href="#">Habilitado</a></li>
-                                    <li id="casos_inhabilitado"><a href="#">Inhabilitado</a></li>
+                                    <li id="casos_habilitado"><a href="#">Incluir</a></li>
+                                    <li id="casos_inhabilitado"><a href="#">No incluir</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -368,92 +402,101 @@
         </div>
     </section>
     <script type="text/javascript">
-        $(document).ready(function () {
+        // ---------------------------------------------------------------------- Panel de proyectos ----------------------------------------------------------------------
+        $("#proyecto_habilitado").click(function () {
+            $("#btn_estado_proyecto").text("Incluir");
 
-            // ---------------------------------------------------------------------- Panel de proyectos ----------------------------------------------------------------------
+        });
 
-            //Revisa si el check de proyectos esta seleccionado para marcar todos
-            if ($("#<%=proyecto_check_todos.ClientID%>").is(":checked")) {
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", true);
+        $("#proyecto_inhabilitado").click(function () {
+            $("#btn_estado_proyecto").text("No inlcuir");
+        });
+
+        //Desactivo los campos del panel de proyectos y activo el de diseños
+        $("#proyecto_btn_continuar").click(function () {
+            $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_input_fecha_final.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_input_fecha_inicio.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_drop_miembro.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_drop_oficina.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_check_disenos.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_check_fechas.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", true);
+            $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", true);
+            //Deshabilito la tabla de los proyectos
+            $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
+
+            /*
+            $("#proyecto_btn_continuar").prop("disabled", true);
+
+            //Habilito los botones en el panel de disenos
+            $("#diseno_btn_volver").prop("disabled", false);
+            $("#diseno_btn_continuar").prop("disabled", false);*/
+        });
+
+        $("#diseno_btn_volver").click(function () {
+            $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_input_fecha_final.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_input_fecha_inicio.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_drop_miembro.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_drop_oficina.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_check_disenos.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_check_fechas.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", false);
+            $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", false);
+            //Habilito la tabla de los proyectos
+            $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
+
+            /*
+            //Habilito  el boton de continuar en el panel de proyectos
+            $("#proyecto_btn_continuar").prop("disabled", false);
+            //Deshabilito los botones de volver y continuar en el panel de 
+            $("#diseno_btn_volver").prop("disabled", true);
+            $("#diseno_btn_continuar").prop("disabled", true);*/
+        });
+        // ---------------------------------------------------------------------- Fin panel proyectos ---------------------------------------------------------------------
+
+        //---------------------------------------------------------------------- Panel de diseños ----------------------------------------------------------------------
+
+        $("#diseno_habilitado").click(function () {
+            $("#btn_estado_diseno").text("Incluir");
+        });
+
+        $("#diseno_inhabilitado").click(function () {
+            $("#btn_estado_diseno").text("No incluir");
+        });
+        // ---------------------------------------------------------------------- Fin panel diseños ---------------------------------------------------------------------
+
+        // ---------------------------------------------------------------------- Panel de casos ----------------------------------------------------------------------
+
+        //Revisa si el check de proyectos esta seleccionado para marcar todos
+        if ($("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").is(":checked")) {
+            $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
                 //Deshabilito la tabla de los proyectos
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", true);
             } else {
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", false);
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", false);
                 //Habilito la tabla de los proyectos
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", false);
             }
 
             //Selecciono todos los proyectos
-            $("#<%=proyecto_check_todos.ClientID%>").click(function () {
-                if ($("#<%=proyecto_check_todos.ClientID%>").is(":checked")) {
-                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", true);
-                    //Deshabilito la tabla de los proyectos
-                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
-                } else {
-                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("checked", false);
-                    //Habilito la tabla de los proyectos
-                    $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
-                }
+            $("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").click(function () {
+            if ($("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").is(":checked")) {
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
+                //Deshabilito la tabla de los proyectos
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", true);
+            } else {
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", false);
+                //Habilito la tabla de los proyectos
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", false);
+            }
                 return true;
             });
-
-            $("#proyecto_habilitado").click(function () {
-                $("#btn_estado_proyecto").text("Incluir");
-
-            });
-
-            $("#proyecto_inhabilitado").click(function () {
-                $("#btn_estado_proyecto").text("No inlcuir");
-            });
-
-            //Desactivo los campos del panel de proyectos y activo el de diseños
-            $("#proyecto_btn_continuar").click(function () {
-                $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_input_fecha_final.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_input_fecha_inicio.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_drop_miembro.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_drop_oficina.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_check_disenos.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_check_fechas.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", true);
-                $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", true);
-                //Deshabilito la tabla de los proyectos
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", true);
-
-                /*
-                $("#proyecto_btn_continuar").prop("disabled", true);
-
-                //Habilito los botones en el panel de disenos
-                $("#diseno_btn_volver").prop("disabled", false);
-                $("#diseno_btn_continuar").prop("disabled", false);*/
-            });
-
-            $("#diseno_btn_volver").click(function () {
-                $("#<%=proyecto_drop_estado.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_input_fecha_final.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_input_fecha_inicio.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_drop_miembro.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_drop_oficina.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_disenos.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_fechas.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_miembros.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_objetivos.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_oficina.ClientID%>").prop("disabled", false);
-                $("#<%=proyecto_check_todos.ClientID%>").prop("disabled", false);
-                //Habilito la tabla de los proyectos
-                $("#<%= tabla_proyectos.ClientID%>").find("*").prop("disabled", false);
-
-                /*
-                //Habilito  el boton de continuar en el panel de proyectos
-                $("#proyecto_btn_continuar").prop("disabled", false);
-                //Deshabilito los botones de volver y continuar en el panel de 
-                $("#diseno_btn_volver").prop("disabled", true);
-                $("#diseno_btn_continuar").prop("disabled", true);*/
-            });
-            // ---------------------------------------------------------------------- Fin panel proyectos ---------------------------------------------------------------------
-        });
     </script>
 
 </asp:Content>

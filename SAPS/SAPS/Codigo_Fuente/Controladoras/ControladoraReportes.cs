@@ -34,7 +34,7 @@ namespace SAPS.Controladoras
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
             m_controladora_dp = new ControladoraDisenosPruebas();
-            m_controladora_cp = new ControladoraCasoPruebas();
+            m_controladora_cp = new ControladoraCasoPruebas(); 
 
             var document = new Document(PageSize.A4, 50, 50, 25, 25);
 
@@ -122,7 +122,7 @@ namespace SAPS.Controladoras
 
             var document = new Document(PageSize.A4, 50, 50, 25, 25);
             // Create a new PdfWriter object, specifying the output stream
-            var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\MyFirstPDF.pdf"), FileMode.Create);
+            //var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\MyFirstPDF.pdf"), FileMode.Create);
 
 
             var writer = PdfWriter.GetInstance(document, output);
@@ -208,7 +208,7 @@ namespace SAPS.Controladoras
             m_controladora_rh = new ControladoraRecursosHumanos();
             return m_controladora_rh.solicitar_recursos_disponibles();
         }
-        
+
         /** @brief Metodo que se encarga de hacer una busqueda en los proyectos que cumplan con los filtros que selecciono el usuario.
          *  @param Vector de strings con los filtros de la siguiente manera:
                 |   Indice  |   Filtro      |   Tipo    |

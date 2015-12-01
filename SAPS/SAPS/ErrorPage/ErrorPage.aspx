@@ -31,11 +31,16 @@
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <asp:Button runat="server" ID="btn_home" CssClass="btn btn-warning btn-block" Text="Volver a home" OnClick="btn_home_Click" />
+                            <button class="btn btn-waring btn-block" id="btn_volver">Volver al inicio</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+                $("#btn_volver").click(function () {
+                    window.location = "../Default.aspx";
+                });
+            </script>
         </section>
     </div>
 </asp:Content>
