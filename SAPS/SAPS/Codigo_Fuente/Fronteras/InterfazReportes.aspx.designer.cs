@@ -508,6 +508,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.HtmlControls.HtmlButton ejecucion_btn_volver;
         
         /// <summary>
+        /// btn_listo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btn_listo;
+        
+        /// <summary>
         /// btn_generar_reporte control.
         /// </summary>
         /// <remarks>
@@ -515,14 +524,5 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_generar_reporte;
-        
-        /// <summary>
-        /// btn_cancelar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_cancelar;
     }
 }
