@@ -400,22 +400,22 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.CheckBox CheckBox3;
         
         /// <summary>
-        /// ejecuciones_btn_volver control.
+        /// casos_btn_volver control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton ejecuciones_btn_volver;
+        protected global::System.Web.UI.HtmlControls.HtmlButton casos_btn_volver;
         
         /// <summary>
-        /// ejecuciones_btn_continuar control.
+        /// casos_btn_continuar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton ejecuciones_btn_continuar;
+        protected global::System.Web.UI.HtmlControls.HtmlButton casos_btn_continuar;
         
         /// <summary>
         /// ejecucion_btn_limpiar_filtros control.

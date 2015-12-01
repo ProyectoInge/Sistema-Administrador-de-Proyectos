@@ -365,10 +365,10 @@
                             </section>
                             <section id="ejecuciones_botones_volver_continuar">
                                 <div class="col-md-2">
-                                    <button class="btn btn-default btn-sm btn-block" runat="server" type="button" id="ejecuciones_btn_volver" onserverclick="ejecuciones_btn_volver_ServerClick"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+                                    <button class="btn btn-default btn-sm btn-block" runat="server" type="button" id="casos_btn_volver" onserverclick="casos_btn_volver_ServerClick"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
                                 </div>
                                 <div class="col-md-2 col-md-offset-8">
-                                    <button class="btn btn-default btn-sm btn-block" runat="server" type="button" id="ejecuciones_btn_continuar" onserverclick="ejecuciones_btn_continuar_ServerClick"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+                                    <button class="btn btn-default btn-sm btn-block" runat="server" type="button" id="casos_btn_continuar" onserverclick="casos_btn_continuar_ServerClick"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                                 </div>
                             </section>
                         </div>
@@ -582,7 +582,7 @@
         //Selecciono todos los proyectos
         $("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").click(function () {
             if ($("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").is(":checked")) {
-                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
+                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
                 //Deshabilito la tabla de los proyectos
                 $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", true);
             } else {
@@ -590,8 +590,8 @@
                 //Habilito la tabla de los proyectos
                 $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", false);
             }
-            return true;
-        });
+                return true;
+            });
         // ---------------------------------------------------------------------- Fin panel casos ---------------------------------------------------------------------
         // ---------------------------------------------------------------------- Panel de ejecuciones ----------------------------------------------------------------------
         $("#ejecucion_habilitado").click(function () {

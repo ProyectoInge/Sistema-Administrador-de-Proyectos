@@ -27,6 +27,25 @@ SET @SQLCommand = @SQLCommand+' 0=0 ';  --se podrá mejorar?
 EXECUTE(@SQLCommand)
 GO
 
+-- Casos de prueba 
+GO
+CREATE PROCEDURE FILTRAR_CASOS
+	@id_disenos_pruebas varchar(64)
+AS
+DECLARE @SQLCommand nvarchar(2048)
+SET @SQLCommand = 'SELECT * FROM CasoPrueba WHERE '
+IF @id_disenos_pruebas != ''
+SET @SQLCommand = @SQLCommand+'id_diseno IN (' + @id_disenos_pruebas + ') AND ';
+SET @SQLCommand = @SQLCommand+' 0=0 ';
+EXECUTE(@SQLCommand)
+GO
+
+SELECT * FROM CasoPrueba 
+
+DROP PROCEDURE FILTRAR_CASOS
+
+EXECUTE FILTRAR_CASOS '3'
+
 --PRUEBAS FILTRO Diseno
 
 execute FILTRAR_DISENOS '','','','','','',''						--Sin filtro

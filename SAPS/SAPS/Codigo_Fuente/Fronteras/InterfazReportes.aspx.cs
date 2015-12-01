@@ -33,7 +33,7 @@ namespace SAPS.Fronteras
         private static List<Pair> m_proyectos; //Va a tener los proyectos que se estan mostrando en la interfaz
 
 
-        /* |   Indice  | Significado    | Tipo  |
+        /*  |   Indice  | Significado    | Tipo  |
          *  |:---------:|:--------------:|:-----:|
          *  |     0     |   ID Diseño    |  int  |
          *  |     1     |   Estado       |  bool |
@@ -78,6 +78,7 @@ namespace SAPS.Fronteras
                     actualizar_oficinas();
                     actualizar_recursos_humanos();
                     llenar_lista_proyectos();   // ******** Esto es nuevo ********
+                    llenar_lista_disenos();     // ******** Esto también lol *****
                 }
                 else
                 {
@@ -331,7 +332,9 @@ namespace SAPS.Fronteras
         protected void obtener_casos_de_prueba()
         {
             List<int> llaves_disenos = new List<int>();
-            foreach (Pair item in m_disenos) { llaves_disenos.Add(Convert.ToInt32(item.First)); }
+            foreach (Pair item in m_disenos) {
+                if (Convert.ToBoolean(item.Second)) llaves_disenos.Add(Convert.ToInt32(item.First));
+            }
 
             DataTable casos_de_prueba_disponibles = m_controladora_rep.obtener_casos_de_prueba(llaves_disenos);
             for (int i = 0; i < casos_de_prueba_disponibles.Rows.Count; ++i)
@@ -356,20 +359,20 @@ namespace SAPS.Fronteras
                 celda_tmp.Controls.Add(check_tmp);
 
                 fila_tmp.Cells.Add(celda_tmp);
-                tabla_proyectos.Rows.Add(fila_tmp);
+                tabla_casos_de_prueba_disponibles.Rows.Add(fila_tmp);
             }
         }
 
         protected void check_estado_casos_Cambia(object sender, EventArgs e)
         {
-            int id_casos_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
+            string id_casos_seleccionado = ((CheckBox)sender).ID;
             int indice_casos = 0;
             bool encontrado = false;
             while (!encontrado && indice_casos < m_casos.Count)
             {
-                if (m_casos[indice_casos].First.Equals(id_casos_seleccionado))
+                if (m_casos[indice_casos].ToString() == id_casos_seleccionado)
                 {
-                    m_casos[indice_casos].Second = !(Convert.ToBoolean(m_casos[indice_casos].Second)); //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
+                    m_casos[indice_casos].Second = !(Convert.ToBoolean(m_casos[indice_casos].Second));
                     encontrado = true;
                 }
                 ++indice_casos;
@@ -403,6 +406,114 @@ namespace SAPS.Fronteras
             if (diseno_drop_responsables.Items.Count > 0)
                 diseno_drop_responsables.Items[0].Selected = true;
             ///@todo Llamar a actualizar_disenos()
+        }
+
+
+        ///@brief metodo que trae todos los ids de disenos de la BD e inicializa m_disenos
+        protected void llenar_lista_disenos()
+        {
+            DataTable all_disenos = m_controladora_rep.solicitar_disenos_disponibles();
+            foreach(DataRow fila_it in all_disenos.Rows)
+            {
+                Pair pair_tmp = new Pair();
+                pair_tmp.First = fila_it["id_diseno"].ToString();
+                pair_tmp.Second = false;
+                m_disenos.Add(pair_tmp);
+            }
+        }
+
+        ///@brief metodo que construye lista de todos los ids de proyectos seleccionados
+
+        protected List<string> get_selected_projects()
+        {
+            List<string> lista_seleccionados = new List<string>();
+            for(int i = 0; i< m_proyectos.Count; i++)
+            {
+                if(Convert.ToBoolean(m_proyectos[i].Second) == true )
+                {
+                    lista_seleccionados.Add(Convert.ToString(m_proyectos[i].First));
+                }
+            }
+            return lista_seleccionados;
+        }
+
+        ///@brief metodo que busca en m_disenos el id de diseno y devuelve true o false segun esté o no seleccionado.
+        protected bool get_check_selected_diseno(string id_diseno)
+        {
+            foreach(Pair pair_tmp in m_disenos)
+            {
+                if (Convert.ToString(pair_tmp.First) == id_diseno)
+                    return Convert.ToBoolean(pair_tmp.Second);
+            }
+
+            //deberia ser unreachable 
+            return false;
+        }     
+
+        ///@brief metodo que obtiene todos los disenos segun los filtros y devuelve la lista de strings[] (id, nombre, checked) de los filtrados
+        protected List<string[]> get_lista_disenos_filtrados()
+        {
+            Object[] sql_param = new Object[5];
+            List<string[]> lista_pares_disenos_seleccionados = new List<string[]>();
+
+            //obtiene los proyectos que se seleccionaron
+            List<string> lista_seleccionados = get_selected_projects();
+
+            //@todo construir Object[]
+
+            //@todo sacar disenos del metodo de charles
+            DataTable disenos_filtrados = null;
+            
+            foreach(DataRow fila_tmp in disenos_filtrados.Rows)
+            {
+                string[] pair_tmp = new string[3];
+                pair_tmp[0] = fila_tmp["id_diseno"].ToString();
+                pair_tmp[1] = fila_tmp["nombre_diseno"].ToString();
+                pair_tmp[2] = Convert.ToString(get_check_selected_diseno(Convert.ToString(pair_tmp[0])));
+                lista_pares_disenos_seleccionados.Add(pair_tmp);             
+            }
+
+            return lista_pares_disenos_seleccionados;
+        }
+
+        protected void llena_tabla_disenos()
+        {
+            List<string[]> lista_pares_disenos_filtrados = get_lista_disenos_filtrados();
+
+            foreach(string[] array_tmp in lista_pares_disenos_filtrados)
+            {
+                TableRow fila_tmp = new TableRow();
+
+                TableCell celda_nombre_tmp = new TableCell();
+                celda_nombre_tmp.Text = Convert.ToString(array_tmp[1]);
+                fila_tmp.Cells.Add(celda_nombre_tmp);
+
+                TableCell celda_chck_tmp = new TableCell();
+                CheckBox check_tmp = new CheckBox();
+                check_tmp.ID = array_tmp[0];
+                check_tmp.CheckedChanged += new EventHandler(check_estado_disenos_Cambia);
+                check_tmp.AutoPostBack = true;
+                check_tmp.Checked = Convert.ToBoolean(array_tmp[2]);
+                check_tmp.CssClass = "checkbox-inline";
+                fila_tmp.Cells.Add(celda_chck_tmp);                
+            }
+        }
+
+        ///@brief cambia el valor en m_disenos de seleccion del diseno, se activa cuando se checkea el compa
+        private void check_estado_disenos_Cambia(object sender, EventArgs e)
+        {
+            int id_diseno_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
+            int it_disenos = 0;
+            bool encontrado = false;
+            while (!encontrado && it_disenos < m_disenos.Count)
+            {
+                if (m_disenos[it_disenos].First.Equals(id_diseno_seleccionado))
+                {
+                    m_disenos[it_disenos].Second = !(Convert.ToBoolean(m_disenos[it_disenos].Second)); //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
+                    encontrado = true;
+                }
+                ++it_disenos;
+            }
         }
 
         protected void diseno_drop_tecnicas_prueba_SelectedIndexChanged(object sender, EventArgs e)
@@ -468,5 +579,16 @@ namespace SAPS.Fronteras
         {
 
         }
+
+        protected void casos_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void casos_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+ 
