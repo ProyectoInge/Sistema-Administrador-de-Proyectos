@@ -342,7 +342,7 @@
 
             //TO DO Mostrar procedimiento cuando se acerca el mouse
             $("#<%= tabla_requerimientos_asociados. ClientID%>").hover(function () {
-                $("#<%= output_procedimiento_requerimiento.ClientID %>").text("La idea esq se muestre el procedimiento cuando se pasa sobre un requerimiento");
+                $("#<%= output_procedimiento_requerimiento.ClientID %>").text();
             });
 
 
