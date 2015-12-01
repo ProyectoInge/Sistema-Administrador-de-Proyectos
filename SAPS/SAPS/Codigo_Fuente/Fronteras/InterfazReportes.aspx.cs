@@ -92,6 +92,7 @@ namespace SAPS.Fronteras
                     m_habilitado_ejecuciones = false;
                     llenar_disenos_drop_responsables();
 
+                    btn_generar_reporte.Enabled = false;
                 }
                 else
                 {
@@ -165,7 +166,6 @@ namespace SAPS.Fronteras
             if (tabla_disenos.Rows.Count > 0)
                 foreach (TableRow fila in tabla_disenos.Rows)
                     ((CheckBox)fila.Cells[1].Controls[0]).Enabled = m_habilitado_disenos;
-
         }
 
         /** @brief Metodo que habilita o deshabilita el panel de los casos
@@ -191,6 +191,7 @@ namespace SAPS.Fronteras
         {
             //Filtros
             ejecucion_btn_volver.Disabled = !m_habilitado_ejecuciones;
+            btn_listo.Disabled = !m_habilitado_ejecuciones;
             ejecucion_btn_limpiar_filtros.Enabled = m_habilitado_ejecuciones;
             ejecucion_drop_responsables.Enabled = m_habilitado_ejecuciones;
             ejecucion_input_fecha.Enabled = m_habilitado_ejecuciones;
@@ -240,7 +241,6 @@ namespace SAPS.Fronteras
             int id_proyecto_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
             int indice_proyecto = buscar_proyecto_en_lista(id_proyecto_seleccionado);
             m_proyectos[indice_proyecto].Second = Convert.ToBoolean(((CheckBox)sender).Checked);
-
         }
 
         /** @brief Metodo que revisa los filtros que selecciono el usuario para elegir los proyectos que cumplan estos filtros.
@@ -358,6 +358,7 @@ namespace SAPS.Fronteras
             item_tmp.Text = "-Seleccione-";
             item_tmp.Value = "";
             proyecto_drop_miembro.Items.Add(item_tmp);
+            ejecucion_drop_responsables.Items.Add(item_tmp);
             foreach (DataRow fila in recursos_disponibles.Rows)
             {
                 if (!m_controladora_rep.es_administrador(fila["username"].ToString()))   //Solo agrega los que no son administradores
@@ -366,6 +367,7 @@ namespace SAPS.Fronteras
                     item_tmp.Text = fila["nombre"].ToString();
                     item_tmp.Value = fila["username"].ToString();
                     proyecto_drop_miembro.Items.Add(item_tmp);
+                    ejecucion_drop_responsables.Items.Add(item_tmp);
                 }
             }
         }
@@ -375,10 +377,6 @@ namespace SAPS.Fronteras
             ///@todo
         }
 
-        protected void btn_cancelar_Click(object sender, EventArgs e)
-        {
-            ///@todo
-        }
 
         /** @brief Metodo que se encarga de marcar todos los proyectos como "seleccionados" tanto en interfaz como en la estructura de control interno.
          *  @param Los parametros por defecto de un evento en ASP.
@@ -611,7 +609,7 @@ namespace SAPS.Fronteras
 
 
             DataTable disenos_filtrados = m_controladora_rep.solicitar_disenos_filtrados(parametros);
-
+            
             foreach (DataRow fila_tmp in disenos_filtrados.Rows)
             {
                 string[] pair_tmp = new string[3];
@@ -662,16 +660,12 @@ namespace SAPS.Fronteras
             string id_diseno_str = (((CheckBox)sender).ID).Replace("d", "");
             int id_diseno_seleccionado = Convert.ToInt32(id_diseno_str);
 
-            int it_disenos = 0;
-            bool encontrado = false;
-            while (!encontrado && it_disenos < m_disenos.Count)
+            foreach(Pair pair_tmp in m_disenos)
             {
-                if (m_disenos[it_disenos].First.Equals(id_diseno_seleccionado))
+                if (Convert.ToString(pair_tmp.First) == Convert.ToString(id_diseno_seleccionado))
                 {
-                    m_disenos[it_disenos].Second = !(Convert.ToBoolean(m_disenos[it_disenos].Second)); //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
-                    encontrado = true;
+                    pair_tmp.Second = !(Convert.ToBoolean(pair_tmp.Second)); //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
                 }
-                ++it_disenos;
             }
             llena_tabla_disenos();
         }
@@ -756,12 +750,13 @@ namespace SAPS.Fronteras
                     seleccionado = true;
             if (seleccionado)
             {
-                m_habilitado_proyecto = false;
-                m_habilitado_disenos = false;
-                m_habilitado_casos = true;
-                m_habilitado_ejecuciones = false;
-                habilitar_deshabilitar_paneles();
-            }
+            m_habilitado_proyecto = false;
+            m_habilitado_disenos = false;
+            m_habilitado_casos = true;
+            m_habilitado_ejecuciones = false;
+            habilitar_deshabilitar_paneles();
+            obtener_casos_de_prueba();
+        }
             else
             {
                 cuerpo_alerta_advertencia.Text = "Es necesario que seleccione al menos un diseño de pruebas";
@@ -805,6 +800,12 @@ namespace SAPS.Fronteras
             m_habilitado_ejecuciones = false;
             habilitar_deshabilitar_paneles();
         }
+
+        protected void btn_listo_ServerClick(object sender, EventArgs e)
+        {
+            btn_generar_reporte.Enabled = true;
+        }
+
     }
 }
  

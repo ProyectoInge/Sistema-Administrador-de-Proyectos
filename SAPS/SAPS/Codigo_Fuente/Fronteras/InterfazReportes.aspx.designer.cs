@@ -301,31 +301,49 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Table tabla_disenos;
         
         /// <summary>
-        /// diseno_check_flujo_central control.
+        /// diseno_check_procedimiento control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox diseno_check_flujo_central;
+        protected global::System.Web.UI.WebControls.CheckBox diseno_check_procedimiento;
         
         /// <summary>
-        /// diseno_check_resultado_esperado control.
+        /// diseno_check_criterios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox diseno_check_resultado_esperado;
+        protected global::System.Web.UI.WebControls.CheckBox diseno_check_criterios;
         
         /// <summary>
-        /// diseno_check_entrada_datos control.
+        /// diseno_check_fecha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox diseno_check_entrada_datos;
+        protected global::System.Web.UI.WebControls.CheckBox diseno_check_fecha;
+        
+        /// <summary>
+        /// diseno_check_requerimientos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox diseno_check_requerimientos;
+        
+        /// <summary>
+        /// diseno_check_ambiente control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox diseno_check_ambiente;
         
         /// <summary>
         /// diseno_btn_volver control.
@@ -508,6 +526,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.HtmlControls.HtmlButton ejecucion_btn_volver;
         
         /// <summary>
+        /// btn_listo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btn_listo;
+        
+        /// <summary>
         /// btn_generar_reporte control.
         /// </summary>
         /// <remarks>
@@ -515,14 +542,5 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_generar_reporte;
-        
-        /// <summary>
-        /// btn_cancelar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_cancelar;
     }
 }
