@@ -102,11 +102,11 @@ namespace SAPS.Controladoras
             |    4   |  Incidencias            |     string    |
          * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
          */
-        public int modificar_ejecucion(Object[] datos_ejecucion)
+        public int modificar_ejecucion(Object[] datos_ejecucion, int id_diseno_eliminar, int id_ejecucion_eliminar)
         {
             EjecucionPruebas ejecucion = new EjecucionPruebas(datos_ejecucion);
 
-            int primer_resultado = m_base_datos.eliminar_ejecucion(Convert.ToInt32(datos_ejecucion[2]), Convert.ToInt32(datos_ejecucion[0]));
+            int primer_resultado = m_base_datos.eliminar_ejecucion(id_diseno_eliminar, id_ejecucion_eliminar);
 
             int segundo_resultado = m_base_datos.insertar_ejecucion(ejecucion);
 
@@ -129,11 +129,11 @@ namespace SAPS.Controladoras
                 |    8   |  Ruta de la imagen      |     string    |
          * @return 0 si no hubo algun problema, números negativos si se presentó algún inconveniente.
          */
-        public int modificar_resultado(Object[] datos_resultado)
+        public int modificar_resultado(Object[] datos_resultado, int id_diseno_eliminar, int id_ejecucion_eliminar, int id_resultado_eliminar)
         {
             ResultadosEP resultado = new ResultadosEP(datos_resultado);
 
-            int primer_resultado = m_base_datos.eliminar_resultado(Convert.ToInt32(datos_resultado[1]), Convert.ToInt32(datos_resultado[2]), Convert.ToInt32(datos_resultado[0]));
+            int primer_resultado = m_base_datos.eliminar_resultado(id_diseno_eliminar, id_ejecucion_eliminar, id_resultado_eliminar);
 
             int segundo_resultado = m_base_datos.insertar_resultado(resultado);
 

@@ -57,6 +57,13 @@ namespace SAPS.Fronteras
              */
         private static List<Pair> m_ejecuciones; //Va a tener las ejecuciones que se estan mostrando en la interfaz
 
+        /* Estos booleanos funcionan para saber si hay que habilitar o deshabilitar los campos en los paneles.
+        */
+        private static bool m_habilitado_proyecto;
+        private static bool m_habilitado_disenos;
+        private static bool m_habilitado_casos;
+        private static bool m_habilitado_ejecuciones;
+
         #endregion
 
 
@@ -79,18 +86,119 @@ namespace SAPS.Fronteras
                     actualizar_recursos_humanos();
                     llenar_lista_proyectos();   // ******** Esto es nuevo ********
                     llenar_lista_disenos();     // ******** Esto también lol *****
+                    m_habilitado_proyecto = true;
+                    m_habilitado_disenos = false;
+                    m_habilitado_casos = false;
+                    m_habilitado_ejecuciones = false;
                 }
                 else
                 {
 
                 }
                 actualiza_proyectos_disponibles();
+
+                // ***** Esto siempre tienen que dejarlo al final del Page_Load
+                habilitar_deshabilitar_paneles();
             }
             else
             {
                 Response.Redirect("~/Codigo_Fuente/Fronteras/InterfazLogin.aspx");
             }
 
+        }
+
+        /** @brief Metodo que se encarga de habilitar o deshabilitar los paneles.
+        */
+        private void habilitar_deshabilitar_paneles()
+        {
+            habilita_deshabilita_panel_proyectos();
+            habilita_deshabilita_panel_disenos();
+            habilita_deshabilita_panel_casos();
+            habilita_deshabilita_panel_ejecuciones();
+        }
+
+        /** @brief Metodo que habilita o deshabilita el panel de los proyectos
+        */
+        private void habilita_deshabilita_panel_proyectos()
+        {
+            //Filtros
+            proyecto_btn_continuar.Disabled = !m_habilitado_proyecto;
+            proyecto_btn_limpiar_filtros.Enabled = m_habilitado_proyecto;
+            proyecto_drop_estado.Enabled = m_habilitado_proyecto;
+            proyecto_drop_miembro.Enabled = m_habilitado_proyecto;
+            proyecto_drop_oficina.Enabled = m_habilitado_proyecto;
+            proyecto_input_fecha_final.Enabled = m_habilitado_proyecto;
+            proyecto_input_fecha_inicio.Enabled = m_habilitado_proyecto;
+
+            //Checks
+            proyecto_check_todos.Enabled = m_habilitado_proyecto;
+
+            //Tabla de los proyectos disponibles
+            if (tabla_proyectos.Rows.Count > 0)
+                foreach (TableRow fila in tabla_proyectos.Rows)
+                    ((CheckBox)fila.Cells[1].Controls[0]).Enabled = m_habilitado_proyecto;
+
+        }
+
+        /** @brief Metodo que habilita o deshabilita el panel de los diseños
+        */
+        private void habilita_deshabilita_panel_disenos()
+        {
+            //Filtros
+            diseno_btn_continuar.Disabled = !m_habilitado_disenos;
+            diseno_btn_volver.Disabled = !m_habilitado_disenos;
+            diseno_btn_limpiar_filtros.Enabled = m_habilitado_disenos;
+            diseno_drop_nivel_prueba.Enabled = m_habilitado_disenos;
+            diseno_drop_responsables.Enabled = m_habilitado_disenos;
+            diseno_drop_tecnicas_prueba.Enabled = m_habilitado_disenos;
+            diseno_drop_tipo_prueba.Enabled = m_habilitado_disenos;
+            diseno_fecha_antes.Enabled = m_habilitado_disenos;
+            diseno_fecha_despues.Enabled = m_habilitado_disenos;
+
+            //Checks
+            diseno_check_todos.Enabled = m_habilitado_disenos;
+
+            //Tabla de los disenos disponibles
+            if (tabla_disenos.Rows.Count > 0)
+                foreach (TableRow fila in tabla_disenos.Rows)
+                    ((CheckBox)fila.Cells[1].Controls[0]).Enabled = m_habilitado_disenos;
+
+        }
+
+        /** @brief Metodo que habilita o deshabilita el panel de los casos
+        */
+        private void habilita_deshabilita_panel_casos()
+        {
+            //Botones
+            casos_btn_continuar.Disabled = !m_habilitado_casos;
+            casos_btn_volver.Disabled = !m_habilitado_casos;
+
+            //Checks
+            Checkbox_casos_de_prueba_todos.Enabled = m_habilitado_casos;
+
+            //Tabla de los casos disponibles
+            if (tabla_casos_de_prueba_disponibles.Rows.Count > 0)
+                foreach (TableRow fila in tabla_casos_de_prueba_disponibles.Rows)
+                    ((CheckBox)fila.Cells[1].Controls[0]).Enabled = m_habilitado_casos;
+        }
+
+        /** @brief Metodo que habilita o deshabilita el panel de las ejecuciones
+        */
+        private void habilita_deshabilita_panel_ejecuciones()
+        {
+            //Filtros
+            ejecucion_btn_volver.Disabled = !m_habilitado_ejecuciones;
+            ejecucion_btn_limpiar_filtros.Enabled = m_habilitado_ejecuciones;
+            ejecucion_drop_responsables.Enabled = m_habilitado_ejecuciones;
+            ejecucion_input_fecha.Enabled = m_habilitado_ejecuciones;
+
+            //Checks
+            check_ejecuciones_todos.Enabled = m_habilitado_ejecuciones;
+
+            //Tabla
+            if (tabla_ejecuciones_disponibles.Rows.Count > 0)
+                foreach (TableRow fila in tabla_ejecuciones_disponibles.Rows)
+                    ((CheckBox)fila.Cells[1].Controls[0]).Enabled = m_habilitado_ejecuciones;
         }
 
         /** @brief Metodo que carga todos los proyectos que hay en el sistema en la lista de pairs con los IDs de los proyectos y el estado.
@@ -332,7 +440,8 @@ namespace SAPS.Fronteras
         protected void obtener_casos_de_prueba()
         {
             List<int> llaves_disenos = new List<int>();
-            foreach (Pair item in m_disenos) {
+            foreach (Pair item in m_disenos)
+            {
                 if (Convert.ToBoolean(item.Second)) llaves_disenos.Add(Convert.ToInt32(item.First));
             }
 
@@ -403,7 +512,7 @@ namespace SAPS.Fronteras
             diseno_drop_tecnicas_prueba.Items[0].Selected = true;
             diseno_drop_tipo_prueba.Items[0].Selected = true;
             diseno_drop_nivel_prueba.Items[0].Selected = true;
-            if(diseno_drop_responsables.Items.Count>0)
+            if (diseno_drop_responsables.Items.Count > 0)
                 diseno_drop_responsables.Items[0].Selected = true;
             ///@todo Llamar a actualizar_disenos()
         }
@@ -413,7 +522,7 @@ namespace SAPS.Fronteras
         protected void llenar_lista_disenos()
         {
             DataTable all_disenos = m_controladora_rep.solicitar_disenos_disponibles();
-            foreach(DataRow fila_it in all_disenos.Rows)
+            foreach (DataRow fila_it in all_disenos.Rows)
             {
                 Pair pair_tmp = new Pair();
                 pair_tmp.First = fila_it["id_diseno"].ToString();
@@ -427,9 +536,9 @@ namespace SAPS.Fronteras
         protected List<string> get_selected_projects()
         {
             List<string> lista_seleccionados = new List<string>();
-            for(int i = 0; i< m_proyectos.Count; i++)
+            for (int i = 0; i < m_proyectos.Count; i++)
             {
-                if(Convert.ToBoolean(m_proyectos[i].Second) == true )
+                if (Convert.ToBoolean(m_proyectos[i].Second) == true)
                 {
                     lista_seleccionados.Add(Convert.ToString(m_proyectos[i].First));
                 }
@@ -440,7 +549,7 @@ namespace SAPS.Fronteras
         ///@brief metodo que busca en m_disenos el id de diseno y devuelve true o false segun esté o no seleccionado.
         protected bool get_check_selected_diseno(string id_diseno)
         {
-            foreach(Pair pair_tmp in m_disenos)
+            foreach (Pair pair_tmp in m_disenos)
             {
                 if (Convert.ToString(pair_tmp.First) == id_diseno)
                     return Convert.ToBoolean(pair_tmp.Second);
@@ -459,12 +568,24 @@ namespace SAPS.Fronteras
             //obtiene los proyectos que se seleccionaron
             List<string> lista_seleccionados = get_selected_projects();
 
-            //@todo construir Object[]
+            //se construye el Object[] de parametros
+            Object[] parametros = new Object[7];
+            parametros[0] = diseno_drop_tecnicas_prueba.SelectedItem.Value;
+            parametros[1] = diseno_drop_tipo_prueba.SelectedItem.Value;
+            parametros[2] = diseno_drop_nivel_prueba.SelectedItem.Value;
+            parametros[3] = diseno_drop_responsables.SelectedItem.Value;
+            parametros[4] = default(DateTime);
+            if (diseno_fecha_despues.Text != "")
+                parametros[4] = DateTime.Parse(diseno_fecha_despues.Text);
+            parametros[5] = default(DateTime);
+            if (diseno_fecha_antes.Text != "")
+                parametros[5] = DateTime.Parse(diseno_fecha_antes.Text);
+            parametros[6] = lista_seleccionados;
 
-            //@todo sacar disenos del metodo de charles
-            DataTable disenos_filtrados = null;
+
+            DataTable disenos_filtrados = m_controladora_rep.solicitar_disenos_filtrados(parametros);
             
-            foreach(DataRow fila_tmp in disenos_filtrados.Rows)
+            foreach (DataRow fila_tmp in disenos_filtrados.Rows)
             {
                 string[] pair_tmp = new string[3];
                 pair_tmp[0] = fila_tmp["id_diseno"].ToString();
@@ -480,7 +601,7 @@ namespace SAPS.Fronteras
         {
             List<string[]> lista_pares_disenos_filtrados = get_lista_disenos_filtrados();
 
-            foreach(string[] array_tmp in lista_pares_disenos_filtrados)
+            foreach (string[] array_tmp in lista_pares_disenos_filtrados)
             {
                 TableRow fila_tmp = new TableRow();
 
@@ -534,6 +655,102 @@ namespace SAPS.Fronteras
         protected void diseno_check_todos_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void ejecucion_btn_limpiar_filtros_Click(object sender, EventArgs e)
+        {
+            ejecucion_drop_responsables.ClearSelection();
+            if (ejecucion_drop_responsables.Items.Count > 0)
+                ejecucion_drop_responsables.Items[0].Selected = true;
+            ejecucion_input_fecha.Text = "";
+            ///@todo Llamar a actualizar ejecuciones
+        }
+
+        protected void check_ejecuciones_todos_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        // ---------------------------------------------- Botones de continuar y volver ----------------------------------------------
+        protected void proyecto_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+            bool alguno_seleccionado = false;
+            int indice = 0;
+            //Busco si existe al menos un elemento marcado como seleccionado.
+            do
+            {
+                if (Convert.ToBoolean(m_proyectos[indice].Second))
+                    alguno_seleccionado = true;
+                ++indice;
+            } while (!alguno_seleccionado && indice < m_proyectos.Count);
+            if (alguno_seleccionado)//Existe alguno seleccionado
+            {
+                m_habilitado_proyecto = false;
+                m_habilitado_disenos = true;
+                m_habilitado_casos = false;
+                m_habilitado_ejecuciones = false;
+                habilitar_deshabilitar_paneles();
+        }
+            else
+        {
+                cuerpo_alerta_advertencia.Text = " Es necesario que seleccione al menos un proyecto para poder continuar.";
+                alerta_advertencia.Visible = true;
+        }
+        }
+
+        protected void diseno_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+            m_habilitado_proyecto = true;
+            m_habilitado_disenos = false;
+            m_habilitado_casos = false;
+            m_habilitado_ejecuciones = false;
+            habilitar_deshabilitar_paneles();
+        }
+
+        protected void diseno_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+            m_habilitado_proyecto = false;
+            m_habilitado_disenos = false;
+            m_habilitado_casos = true;
+            m_habilitado_ejecuciones = false;
+            habilitar_deshabilitar_paneles();
+        }
+
+
+        protected void casos_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+            m_habilitado_proyecto = false;
+            m_habilitado_disenos = true;
+            m_habilitado_casos = false;
+            m_habilitado_ejecuciones = false;
+            habilitar_deshabilitar_paneles();
+        }
+
+        protected void casos_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+            m_habilitado_proyecto = false;
+            m_habilitado_disenos = false;
+            m_habilitado_casos = false;
+            m_habilitado_ejecuciones = true;
+            habilitar_deshabilitar_paneles();
+        }
+
+        protected void ejecuciones_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+            m_habilitado_proyecto = false;
+            m_habilitado_disenos = false;
+            m_habilitado_casos = true;
+            m_habilitado_ejecuciones = false;
+            habilitar_deshabilitar_paneles();
+        }
+
+        protected void ejecucion_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+            m_habilitado_proyecto = true;
+            m_habilitado_disenos = false;
+            m_habilitado_casos = false;
+            m_habilitado_ejecuciones = false;
+            habilitar_deshabilitar_paneles();
         }
     }
 }

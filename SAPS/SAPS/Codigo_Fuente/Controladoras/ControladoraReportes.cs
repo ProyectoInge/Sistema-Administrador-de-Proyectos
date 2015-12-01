@@ -322,17 +322,19 @@ namespace SAPS.Controladoras
 
 
 
-        //TEFO DOCUMENTE! ESTO NO ESTÁ BN 
-
         /** @brief Metodo que se encarga de hacer una busqueda en los proyectos que cumplan con los filtros que selecciono el usuario.
  *  @param Vector de strings con los filtros de la siguiente manera:
-        |   Indice  |   Filtro      |   Tipo    |
-        |:---------:|:-------------:|:---------:|
-        |   0       |   oficina     |   int     |
-        |   1       | fecha_inicio  | DateTime  |
-        |   2       | fecha_final   | DateTime  |
-        |   3       |   estado      |   string  |
-        |   4       |   miembro     |   string  |
+
+        |   Indice  |   Filtro                       |   Tipo             |
+        |:---------:|:------------------------------:|:------------------:|
+        |   0       |   filtro_tecnica_de_prueba     |   string           |
+        |   1       |   filtro_tipo_de_prueba        |   string           |
+        |   2       |   filtro_nivel_de_prueba       |   string           |
+        |   3       |   filtro_responsable           |   string           |
+        |   4       |   filtro_despues_de            |   DateTime         |
+        |   5       |   filtro_antes_de              |   DateTime         |
+        |   6       |   filtro_id_proyectos          |   List<string>     |
+
         Si no desea filtrar, entonces en la posicion del filtro se envia "".
  *  @return Un DataTable en el que viene toda la información de los proyectos que cumplieron los filtros que se enviaron.
 */
