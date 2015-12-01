@@ -451,7 +451,7 @@ namespace SAPS.Fronteras
             for (int i = 2; i < tabla_resultados.Rows.Count; ++i)                  // Iteracion por las filas de la tabla de resultados
             {
                 // Se toman los valores modificados por el usuario en la lista de resultados
-                string[] fila_tmp = new string[8];
+                string[] fila_tmp = new string[7];
                 fila_tmp[0] = tabla_resultados.Rows[i].Cells[2].Text;                                                       // Numero de resultado
                 fila_tmp[1] = ((DropDownList)tabla_resultados.Rows[i].Cells[3].Controls[0]).SelectedItem.Value;             // Estado
                 fila_tmp[2] = ((DropDownList)tabla_resultados.Rows[i].Cells[4].Controls[0]).SelectedItem.Value;             // Tipo de no conformidad
@@ -905,7 +905,7 @@ namespace SAPS.Fronteras
 
             if (m_opcion == 'm')
             {                       
-                    //recargar_lista_resultados();
+                    recargar_lista_resultados();
                     vacia_resultados();
                 
             }

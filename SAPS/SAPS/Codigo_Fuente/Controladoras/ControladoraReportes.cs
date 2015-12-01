@@ -334,7 +334,7 @@ namespace SAPS.Controladoras
 
 
         /** @brief Metodo que se encarga de hacer una busqueda en los proyectos que cumplan con los filtros que selecciono el usuario.
- *  @param Vector de strings con los filtros de la siguiente manera:
+          *  @param Vector de strings con los filtros de la siguiente manera:
 
         |   Indice  |   Filtro                       |   Tipo             |
         |:---------:|:------------------------------:|:------------------:|
@@ -360,7 +360,7 @@ namespace SAPS.Controladoras
             m_controladora_dp = new ControladoraDisenosPruebas();
             return m_controladora_dp.solicitar_disenos_disponibles();
         }
-
+        
 
         #endregion
 
