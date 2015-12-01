@@ -209,6 +209,7 @@ namespace SAPS.Fronteras
             ejecucion_check_incidentes.Enabled = m_habilitado_ejecuciones;
             ejecucion_check_responsable.Enabled = m_habilitado_ejecuciones;
             ejecucion_check_resultados.Enabled = m_habilitado_ejecuciones;
+            check_ejecuciones_todos.Enabled = m_habilitado_ejecuciones;
 
             //Tabla
             if (tabla_ejecuciones_disponibles.Rows.Count > 0)
