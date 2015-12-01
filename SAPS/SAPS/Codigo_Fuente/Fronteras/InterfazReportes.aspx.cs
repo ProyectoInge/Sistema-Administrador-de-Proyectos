@@ -165,7 +165,6 @@ namespace SAPS.Fronteras
             if (tabla_disenos.Rows.Count > 0)
                 foreach (TableRow fila in tabla_disenos.Rows)
                     ((CheckBox)fila.Cells[1].Controls[0]).Enabled = m_habilitado_disenos;
-
         }
 
         /** @brief Metodo que habilita o deshabilita el panel de los casos
@@ -240,7 +239,6 @@ namespace SAPS.Fronteras
             int id_proyecto_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
             int indice_proyecto = buscar_proyecto_en_lista(id_proyecto_seleccionado);
             m_proyectos[indice_proyecto].Second = Convert.ToBoolean(((CheckBox)sender).Checked);
-
         }
 
         /** @brief Metodo que revisa los filtros que selecciono el usuario para elegir los proyectos que cumplan estos filtros.
@@ -752,6 +750,7 @@ namespace SAPS.Fronteras
             m_habilitado_casos = true;
             m_habilitado_ejecuciones = false;
             habilitar_deshabilitar_paneles();
+            obtener_casos_de_prueba();
         }
 
 
