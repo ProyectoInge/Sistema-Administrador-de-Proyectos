@@ -1,6 +1,31 @@
 use proyectoDB
 DROP PROCEDURE FILTRAR_PROYECTOS
 DROP PROCEDURE FILTRAR_DISENOS
+DROP PROCEDURE FILTRAR_EJECUCIONES
+
+GO
+CREATE PROCEDURE FILTRAR_EJECUCIONES
+	@filtro_responsable varchar(64), @filtro_despues_de varchar(64), @filtro_id_disenos varchar(64)
+AS
+DECLARE @SQLCommand nvarchar(512)
+SET @SQLCommand = 'SELECT *FROM Ejecucion WHERE ' --los espacios importan
+IF @filtro_responsable != ''
+SET @SQLCommand = @SQLCommand+char(39)+@filtro_responsable+char(39)+' = Ejecucion.responsable AND ';
+IF @filtro_despues_de != ''
+SET @SQLCommand = @SQLCommand+'Cast('+char(39)+Convert(varchar(16),@filtro_despues_de,10)+char(39)+' as datetime) <= Ejecucion.fecha_ultima_ejec AND '; 
+IF @filtro_id_disenos != ''
+SET @SQLCommand = @SQLCommand+' Ejecucion.id_proyecto IN ('+@filtro_id_disenos+') AND ';
+SET @SQLCommand = @SQLCommand+' 0=0 ';  --se podrá mejorar?
+EXECUTE(@SQLCommand)
+GO
+
+execute FILTRAR_EJECUCIONES '','',''
+execute FILTRAR_EJECUCIONES 'kefds','',''
+execute FILTRAR_EJECUCIONES '','',''
+
+DECLARE @date1 datetime
+SET @date1= '08-01-2016'
+execute FILTRAR_EJECUCIONES '',@date1,''
 
 
 GO
