@@ -45,19 +45,17 @@
                         <div class="panel-title">
                             Proyectos
                                
-                               
-
-                            <div class="btn-group col-md-offset-8">
-                                <button type="button" class="btn btn-default btn-sm" id="btn_estado_proyecto">Incluir</button>
-                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li id="proyecto_habilitado"><a href="#">Incluir</a></li>
-                                    <li id="proyecto_inhabilitado"><a href="#">No incluir</a></li>
-                                </ul>
-                            </div>
+                                <div class="btn-group col-md-offset-7">
+                                    <button type="button" class="btn btn-default btn-sm" id="btn_estado_proyecto">Incluir</button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li id="proyecto_habilitado"><a href="#">Incluir</a></li>
+                                        <li id="proyecto_inhabilitado"><a href="#">No incluir</a></li>
+                                    </ul>
+                                </div>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -143,12 +141,12 @@
                                     <div class="col-md-6">
                                         <asp:CheckBox runat="server" ID="proyecto_check_disenos" CssClass="checkbox checkbox-inline" Text="Diseños asociados" />
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-6">
                                         <asp:CheckBox runat="server" ID="proyecto_check_oficina" CssClass="checkbox checkbox-inline" Text="Oficina asociada" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <asp:CheckBox runat="server" ID="proyecto_check_objetivos" CssClass="checkbox checkbox-inline" Text="Objetivos" />
                                     </div>
                                 </div>
@@ -169,9 +167,7 @@
                         <div class="panel-title">
                             Diseños
                            
-                           
-
-                            <div class="btn-group col-md-offset-8">
+                            <div class="btn-group col-md-offset-7">
                                 <button type="button" class="btn btn-default btn-sm" id="btn_estado_diseno">Incluir</button>
                                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caret"></span>
@@ -250,19 +246,51 @@
                             </section>
                             <hr />
                             <section id="seccion_disenos_disponibles">
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Diseños disponibles" AssociatedControlID="diseno_check_todos" />
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_todos" Text="Seleccionar todos" AutoPostBack="true" OnCheckedChanged="diseno_check_todos_CheckedChanged" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div style="height: 195px; overflow-y: scroll">
+                                            <asp:Table runat="server" ID="tabla_disenos" CssClass="table table-hover">
+                                            </asp:Table>
+                                        </div>
+                                    </div>
+                                </div>
                             </section>
                             <hr />
                             <section id="seccion_info_incluir_diseno">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <asp:Label runat="server" CssClass="control-label" Text="Información a incluir" AssociatedControlID="diseno_check_flujo_central"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_flujo_central" Text="Flujo central" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_resultado_esperado" Text="Resultado esperado" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_entrada_datos" Text="Entrada de datos" />
+                                    </div>
+                                </div>
                             </section>
                             <section id="diseno_botones_volver_continuar">
-                                <div class="form-group">
                                     <div class="col-md-3">
                                         <button class="btn btn-primary btn-block" type="button" id="diseno_btn_volver">Volver</button>
                                     </div>
                                     <div class="col-md-3 col-md-offset-6">
                                         <button class="btn btn-primary btn-block" type="button" id="diseno_btn_continuar">Continuar</button>
                                     </div>
-                                </div>
                             </section>
                         </div>
                     </div>
@@ -345,8 +373,8 @@
                                 </div>
                                 <div class="col-md-3 col-md-offset-6">
                                     <button class="btn btn-primary btn-block" type="button" id="casos_btn_continuar">Continuar</button>
-                                </div>
                             </div>
+                        </div>
                         </section>
                     </div>
                 </div>
@@ -390,11 +418,7 @@
         </div>
     </section>
     <script type="text/javascript">
-        $(document).ready(function () {
-
             // ---------------------------------------------------------------------- Panel de proyectos ----------------------------------------------------------------------
-
-
             $("#proyecto_habilitado").click(function () {
                 $("#btn_estado_proyecto").text("Incluir");
 
@@ -452,6 +476,17 @@
             });
             // ---------------------------------------------------------------------- Fin panel proyectos ---------------------------------------------------------------------
 
+        //---------------------------------------------------------------------- Panel de diseños ----------------------------------------------------------------------
+
+        $("#diseno_habilitado").click(function () {
+            $("#btn_estado_diseno").text("Incluir");
+        });
+
+        $("#diseno_inhabilitado").click(function () {
+            $("#btn_estado_diseno").text("No incluir");
+        });
+        // ---------------------------------------------------------------------- Fin panel diseños ---------------------------------------------------------------------
+
             // ---------------------------------------------------------------------- Panel de casos ----------------------------------------------------------------------
 
             //Revisa si el check de proyectos esta seleccionado para marcar todos
@@ -478,7 +513,6 @@
                 }
                 return true;
             });
-        });
     </script>
 
 </asp:Content>

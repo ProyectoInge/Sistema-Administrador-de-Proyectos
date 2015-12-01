@@ -29,10 +29,5 @@ namespace SAPS.ErrorPage
             HtmlGenericControl cuerpo = (HtmlGenericControl)Page.Master.FindControl("cuerpo");
             cuerpo.Attributes.Add("class", "container-fluid body-content");
         }
-
-        protected void btn_home_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Default.aspx");
-        }
     }
 }

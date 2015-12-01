@@ -125,10 +125,35 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
-        public DataTable solicitar_disenos_filtrados()
+        /**@brief Método que se encarga de realizar una sentencia SQL para obtener los disenos aplicandole una serie de filtros
+        * @param datos array con los valores de los filtros que se desean aplicar.
+        * @return Información de todos los proyectos que cumplen las condiciones específicadas en los filtros.
+        */
+        public DataTable aplicar_filtros_disenos(Object[] datos)
         {
-            return null;
+            ///@todo Creo que el parametro hay que cambiarlo por un Object[]
+            SqlCommand comando = new SqlCommand("FILTRAR_DISENOS");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@filtro_tecnica_de_prueba", SqlDbType.VarChar).Value = datos[0];
+            comando.Parameters.Add("@filtro_tipo_de_prueba", SqlDbType.VarChar).Value = datos[1];
+            comando.Parameters.Add("@filtro_nivel_de_prueba", SqlDbType.VarChar).Value = datos[2];
+            comando.Parameters.Add("@filtro_responsable", SqlDbType.VarChar).Value = datos[3];
+            if (Convert.ToDateTime(datos[4]) == default(DateTime))
+                comando.Parameters.Add("@filtro_despues_de", SqlDbType.DateTime).Value = DBNull.Value;
+            else
+                comando.Parameters.Add("@filtro_despues_de", SqlDbType.DateTime).Value = Convert.ToDateTime(datos[4]);
+            if (Convert.ToDateTime(datos[5]) == default(DateTime))
+                comando.Parameters.Add("@filtro_antes_de", SqlDbType.DateTime).Value = DBNull.Value;
+            else
+                comando.Parameters.Add("@filtro_antes_de", SqlDbType.DateTime).Value = Convert.ToDateTime(datos[5]);
+            comando.Parameters.Add("@filtro_id_proyectos", SqlDbType.VarChar).Value = datos[6];
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
+
+
+
+
+
 
         // Métodos auxiliares
 

@@ -208,7 +208,7 @@ namespace SAPS.Base_de_Datos
         }
 
         /** @brief Metodo que se encarga de sacar la informacion del objeto "Oficina" y con esta informacion
-                   construye llama al procedimiento almacenado de la base de datos.
+           construye llama al procedimiento almacenado de la base de datos.
          * @param La referencia al procedimiento almacenado en la base.
          * @param El objeto Oficina del que va a obtener la información.
         */
