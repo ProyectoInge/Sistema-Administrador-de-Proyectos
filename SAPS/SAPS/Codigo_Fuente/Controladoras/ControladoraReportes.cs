@@ -36,6 +36,9 @@ namespace SAPS.Controladoras
             m_controladora_dp = new ControladoraDisenosPruebas();
             m_controladora_cp = new ControladoraCasoPruebas();
 
+            var document = new Document(PageSize.A4, 50, 50, 25, 25);
+
+            agregar_proyectos_PDF(ref document, null);
             //Constantes para el documento
             /*var fuente_titulo = FontFactory.GetFont("Arial", 18, Font.BOLD);
             var boldTableFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
@@ -82,14 +85,46 @@ namespace SAPS.Controladoras
         }
 
 
+        /**@brief Método que agrega proyectos de pruebas a un PDF
+        * @param document con la referencia al documento donde se van a agregar la información de los proyectos de pruebas
+        * datos array con arrays que contienen información sobre los filtros y los espacios a mostrar.  
+                |            Object [] datos            |
+                |:--------0--------:||:--------1-------:|
+                |   filtros []      || info a mostrar []|
+        */
+
+        private void agregar_proyectos_PDF(ref Document documento, Object[] datos)
+        {
+
+            DataTable info_proyectos = solicitar_proyectos_filtrados((string[])datos[0]);
+
+            // Read in the contents of the Receipt.htm HTML template file
+            //Instrución ORIGINAL: string contents = File.ReadAllText(Server.MapPath("~/HTMLTemplate/Receipt.htm"));
+            string contents = File.ReadAllText("E:\\Documentos\\GitHub\\Sistema-Administrador-de-Proyectos\\SAPS\\Plantillas HTML\\PYPTemplate.htm");
 
 
+            for (int i = 0; i < info_proyectos.Rows.Count; ++i)
+            {
+                if (0 == i % 3) documento.NewPage();//crear nueva página cada tres proyectos
+                //agregar info al documento 
+                /*if(null != datos_incluidos[0])//incluir objetivos
+                if(null != datos_incluidos[1]) // incluir diseños
+                if(null != datos_incluidos[2]) // incluir fechas
+                if(null != datos_incluidos[3]) // incluir oficina
+                if(null != datos_incluidos[4])*/ // incluir miembros
+                                                 //agregar final de página
 
-        public void generar_reporte_PDF(Object[] info_proyectos, Object[] info_disenos, Object[] info_casos, Object[] info_ejecuciones) {
+            }
+        }
+
+        public void generar_reporte_PDF(Object[] info_proyectos, Object[] info_disenos, Object[] info_casos, Object[] info_ejecuciones)
+        {
 
             var document = new Document(PageSize.A4, 50, 50, 25, 25);
             // Create a new PdfWriter object, specifying the output stream
-            var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\MyFirstPDF.pdf"), FileMode.Create);
+            //var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\MyFirstPDF.pdf"), FileMode.Create);
+
+
             var writer = PdfWriter.GetInstance(document, output);
             // Open the Document for writing
             document.Open();
@@ -100,15 +135,31 @@ namespace SAPS.Controladoras
             document.Add(welcomeParagraph);
 
             if (null != info_proyectos) agregar_proyectos_PDF(ref document, info_proyectos);//llamar método que devuelva n páginas con proyectos
-            if(null != info_disenos)//llamar método que devuelva n páginas con disenos
-            if(null != info_casos) //llamar método que devuelva n páginas con casos
-            if(null != info_ejecuciones) //llamar método que devuelva n páginas con ejecuciones
+            if (null != info_disenos); //llamar método que devuelva n páginas con disenos
+            if (null != info_casos) ;  //llamar método que devuelva n páginas con casos
+            if (null != info_ejecuciones) ; //llamar método que devuelva n páginas con ejecuciones
+
 
 
             // Close the Document - this saves the document contents to the output stream
             document.Close();
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #region Métodos relacionados con otras controladoras
 
         /** @brief Metodo que consulta los proyectos disponibles en el sistema.
          *  @return DataTable con la informacion de los proyectos disponibles en la base de datos.
@@ -148,34 +199,6 @@ namespace SAPS.Controladoras
             return m_controladora_pdp.solicitar_oficinas_disponibles();
         }
 
-        private void agregar_proyectos_PDF(ref Document documento, Object[] datos)
-        {
-            DataTable info_proyectos = null;
-            string[] datos_incluidos = (string[])datos[0];
-
-            //Se traen los datos relacionados con los proyectos.
-            if (typeof(string[]) == datos[1].GetType())
-            {
-                info_proyectos = m_controladora_pdp.solicitar_proyectos_filtrados(((string[])datos[1]));
-            }
-            else
-            {
-                //info_proyectos = m_controladora_pdp.solicitar_proyectos_filtrados((List<string>)datos[1]);
-            }
-
-            for (int i = 0; i < info_proyectos.Rows.Count; i++)
-            {
-                //agregar cosas al documento
-                //Agregar datos con formato **aquí se escogerían campos a mostrar 
-                //Por cada tres proyectos fila del DataTable crear una página?
-                /*if(null != datos_incluidos[0])//incluir objetivos
-                if(null != datos_incluidos[1]) // incluir diseños
-                if(null != datos_incluidos[2]) // incluir fechas
-                if(null != datos_incluidos[3]) // incluir oficina
-                if(null != datos_incluidos[4])*/ // incluir miembros
-                //agregar final de página
-            }
-        }
 
         /** @brief Método que asigna las operaciones necesarias para poder consultar los recursos humanos disponibles.
          * @return DataTable con los resultados de la consultas.
