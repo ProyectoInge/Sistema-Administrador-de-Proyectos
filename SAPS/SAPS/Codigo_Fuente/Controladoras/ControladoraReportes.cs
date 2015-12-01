@@ -116,7 +116,7 @@ namespace SAPS.Controladoras
             for (int i = 0; i < info_proyectos.Rows.Count; ++i)
             {
                 string contents = File.ReadAllText("E:\\Documentos\\GitHub\\Sistema-Administrador-de-Proyectos\\SAPS\\Plantillas HTML\\PYP.htm");
-                
+
                 contents = contents.Replace("[NOMBRE]", info_proyectos.Rows[i]["nombre_proyecto"].ToString());
                 contents = contents.Replace("[NOMBRE_SISTEMA]", info_proyectos.Rows[i]["nombre_sistema"].ToString());
                 contents = contents.Replace("[ESTADO]", info_proyectos.Rows[i]["estado"].ToString());
@@ -125,7 +125,7 @@ namespace SAPS.Controladoras
                 {
                     documento.Add(htmlElement as IElement);
                 }
-            }                      
+            }
         }
 
         public void generar_reporte_PDF(Object[] info_proyectos, Object[] info_disenos, Object[] info_casos, Object[] info_ejecuciones)
