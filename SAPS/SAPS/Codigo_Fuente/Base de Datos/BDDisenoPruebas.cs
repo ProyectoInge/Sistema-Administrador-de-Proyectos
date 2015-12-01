@@ -125,6 +125,11 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        public DataTable solicitar_disenos_filtrados()
+        {
+            return null;
+        }
+
         // Métodos auxiliares
 
         /** @brief Método auxiliar que rellena los parámetros de un diseño de pruebas para poder realizar un procedimiento almacenado,

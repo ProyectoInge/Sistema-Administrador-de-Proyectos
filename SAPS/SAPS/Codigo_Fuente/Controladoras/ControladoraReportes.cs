@@ -209,7 +209,7 @@ namespace SAPS.Controladoras
         */
         public DataTable obtener_casos_de_prueba(List<int> llaves_disenos)
         {
-            return null;
+            return m_controladora_cp.solicitar_casos_filtrados(llaves_disenos);
         }
     }
 }

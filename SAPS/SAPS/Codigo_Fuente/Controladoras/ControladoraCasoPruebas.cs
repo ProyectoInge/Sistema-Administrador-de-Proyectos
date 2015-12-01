@@ -11,6 +11,7 @@ using SAPS.Base_de_Datos;
 using SAPS.Entidades;
 using SAPS.Entidades.Ayudantes;
 using System.Data;
+using System.Collections.Generic;
 
 namespace SAPS.Controladoras
 {
@@ -91,6 +92,11 @@ namespace SAPS.Controladoras
             return m_base_datos.solicitar_casos_disponibles(id_diseno);
         }
 
+
+        public DataTable solicitar_casos_filtrados(List<int> llaves_disenos)
+        {
+            return m_base_datos.solicitar_casos_filtrados(llaves_disenos);
+        }
 
         // Métodos que llaman a otras controladoras
 

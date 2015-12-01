@@ -45,17 +45,19 @@
                         <div class="panel-title">
                             Proyectos
                                
-                                <div class="btn-group col-md-offset-8">
-                                    <button type="button" class="btn btn-default btn-sm" id="btn_estado_proyecto">Incluir</button>
-                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li id="proyecto_habilitado"><a href="#">Incluir</a></li>
-                                        <li id="proyecto_inhabilitado"><a href="#">No incluir</a></li>
-                                    </ul>
-                                </div>
+                               
+
+                            <div class="btn-group col-md-offset-8">
+                                <button type="button" class="btn btn-default btn-sm" id="btn_estado_proyecto">Incluir</button>
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li id="proyecto_habilitado"><a href="#">Incluir</a></li>
+                                    <li id="proyecto_inhabilitado"><a href="#">No incluir</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -167,6 +169,8 @@
                         <div class="panel-title">
                             Diseños
                            
+                           
+
                             <div class="btn-group col-md-offset-8">
                                 <button type="button" class="btn btn-default btn-sm" id="btn_estado_diseno">Incluir</button>
                                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -272,6 +276,7 @@
                     <div class="panel-heading">
                         <div class="panel-title">
                             Caso de pruebas
+                           
                             <div class="btn-group col-md-offset-6">
                                 <button type="button" class="btn btn-default btn-sm" id="btn_estado_casos">Incluir</button>
                                 <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -328,6 +333,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr />
+                            </div>
+                        </div>
+                        <section id="casos_boton_continuar">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary btn-block" type="button" id="casos_btn_volver">Volver</button>
+                                </div>
+                                <div class="col-md-3 col-md-offset-6">
+                                    <button class="btn btn-primary btn-block" type="button" id="casos_btn_continuar">Continuar</button>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
