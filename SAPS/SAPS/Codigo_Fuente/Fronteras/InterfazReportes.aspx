@@ -298,7 +298,7 @@
             </div>
         </div>
         <div class="row">
-            <!-- Tercera caja - Casos de pruebas -->
+            <!-- Tercer caja - Casos de pruebas -->
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
