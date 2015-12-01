@@ -130,5 +130,10 @@ namespace SAPS.Controladoras
             return m_controladora_dp.solicitar_requerimientos_asociados(id_diseno);
         }
 
+        public DataTable solicitar_casos_filtrados(Object[] datos)
+        {
+            return null;//return m_base_datos.aplicar_filtros_caso_pruebas(datos);
+        }
+        
     }
 }
