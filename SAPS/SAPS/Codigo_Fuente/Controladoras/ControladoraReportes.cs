@@ -43,62 +43,24 @@ namespace SAPS.Controladoras
             var document = new Document(PageSize.A4, 50, 50, 25, 25);
             // Create a new PdfWrite object, writing the output to a MemoryStream
 
-            var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\Reporte1.pdf"), FileMode.Create);
+            //var output = new FileStream(System.Web.HttpContext.Current.Server.MapPath("~/Reportes/Reporte1.pdf"), FileMode.Create);
+            //var writer = PdfWriter.GetInstance(document, output);
+            var output = new MemoryStream();
             var writer = PdfWriter.GetInstance(document, output);
+
 
             // Open the Document for writing
             document.Open();
 
-
-            Object []prueba = {-1, default(DateTime), default(DateTime),"","" };
-            agregar_proyectos_PDF(ref document, prueba);
+            Object[] prueba = {-1, default(DateTime), default(DateTime),"","" };
+            string[] feo = { "s", "s","f","y","r","t" };
+            agregar_proyectos_PDF(ref document, prueba, feo);
 
             document.Close();
-            */
-
-            //Constantes para el documento
-            /*var fuente_titulo = FontFactory.GetFont("Arial", 18, Font.BOLD);
-            var boldTableFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
-            var info_general = new PdfPTable(2);
-            info_general.HorizontalAlignment = 0;
-            info_general.SpacingBefore = 10;
-            info_general.SpacingAfter = 10;
-            info_general.DefaultCell.Border = 0;
-            info_general.SetWidths(new int[] { 1, 2 });
-
-            info_general.AddCell(new Phrase("Nombre Proyecto: ", boldTableFont));
-            info_general.AddCell("Aquí hay que meter la info");
-            info_general.AddCell(new Phrase("Nombre Sistema: ", boldTableFont));
-            info_general.AddCell("Aquí hay que meter la info");
-            info_general.AddCell(new Phrase("Estado: ", boldTableFont));
-            info_general.AddCell("Aquí hay que meter la info");
-
-            // Create a Document object
-            var document = new Document(PageSize.A4, 50, 50, 25, 25);
-
-            // Create a new PdfWriter object, specifying the output stream
-            var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\Reporte1.pdf"), FileMode.Create);
-            var writer = PdfWriter.GetInstance(document, output);
-
-            // Open the Document for writing
-            document.Open();
-
-            // Create a new Paragraph object with the text, "Hello, World!"
-            document.Add(new Paragraph("Proyectos Consultados", fuente_titulo));
-            document.Add(info_general);
-            var welcomeParagraph = new Paragraph("Aquí van los proyectos");
-            var endParagraph = new Paragraph("Aquí van los diseños");
-
+            string fecha_hora = (DateTime.Now).ToString() ;
             
-            // Add the Paragraph object to the document
-            document.Add(welcomeParagraph);
-            document.NewPage();
-
-            document.Add(endParagraph);
-
-            // Close the Document - this saves the document contents to the output stream
-            document.Close();*/
-
+            HttpContext.Current.Response.AddHeader("Content-Disposition", string.Format("attachment;filename=Reporte-{0}.pdf", fecha_hora));
+            HttpContext.Current.Response.BinaryWrite(output.ToArray());*/
         }
 
 
@@ -110,9 +72,9 @@ namespace SAPS.Controladoras
                 |   filtros []      || info a mostrar []|
         */
 
-        private void agregar_proyectos_PDF(ref Document documento, Object[] datos)
+        private void agregar_proyectos_PDF(ref Document documento, Object[]filtros, string[] info)
         {
-            DataTable info_proyectos = m_controladora_pdp.solicitar_proyectos_filtrados(datos);         
+            DataTable info_proyectos = m_controladora_pdp.solicitar_proyectos_filtrados(filtros);         
             for (int i = 0; i < info_proyectos.Rows.Count; ++i)
             {
                 string contents = File.ReadAllText("E:\\Documentos\\GitHub\\Sistema-Administrador-de-Proyectos\\SAPS\\Plantillas HTML\\PYP.htm");
@@ -120,6 +82,49 @@ namespace SAPS.Controladoras
                 contents = contents.Replace("[NOMBRE]", info_proyectos.Rows[i]["nombre_proyecto"].ToString());
                 contents = contents.Replace("[NOMBRE_SISTEMA]", info_proyectos.Rows[i]["nombre_sistema"].ToString());
                 contents = contents.Replace("[ESTADO]", info_proyectos.Rows[i]["estado"].ToString());
+
+                if (null != info)
+                {
+                    var info_adicional = @"< h2 style = ""font-weight: bold"" > Información Adicional: </ h2 >";
+                    if ("" != info[0])
+                    {
+                        string aux = "";
+                        DataTable miembros_asociados = m_controladora_rh.consultar_rh_asociados_proyecto(Int32.Parse(info_proyectos.Rows[i]["id_proyecto"].ToString()));
+                        for (int j = 0; j < miembros_asociados.Rows.Count; ++j)
+                        {
+                            aux += miembros_asociados.Rows[j]["nombre"].ToString()+"   ";
+                        }
+                        info_adicional += "<p> Miembros asociados: " + aux + " </p>";
+                    }
+                    if ("" != info[1])
+                    {
+                        info_adicional += "<p> Fecha inicio: "+ info_proyectos.Rows[i]["fecha_inicio"].ToString() + " </p>";
+                        info_adicional += "<p> Fecha de asignación: " + info_proyectos.Rows[i]["fecha_asignacion"].ToString() + " </p>";
+                        info_adicional += "<p> Fecha final: " + info_proyectos.Rows[i]["fecha_final"].ToString() + " </p>";
+                    }
+                    if ("" != info[2])
+                    {
+                        string aux = "";
+                        DataTable disenos_asociados = m_controladora_dp.solicitar_disenos_asociados_proyecto(Int32.Parse(info_proyectos.Rows[i]["id_proyecto"].ToString()));
+                        for (int j= 0; j<disenos_asociados.Rows.Count; ++j)
+                        {
+                            aux += " "+disenos_asociados.Rows[j]["nombre_diseno"].ToString();
+                        }
+                        info_adicional += "<p> Diseños asociados: " + aux + " </p>";
+                    } 
+                    if ("" != info[3]) 
+                    {
+                        DataTable oficina_asociada = m_controladora_pdp.consultar_oficina(Int32.Parse(info_proyectos.Rows[i]["id_oficina"].ToString()));
+                        info_adicional += "<p> Oficina asociada: " +" "+oficina_asociada.Rows[0]["nombre_oficina"].ToString() +" "+ oficina_asociada.Rows[0]["telefono"].ToString() + " ("+oficina_asociada.Rows[0]["nom_representante"].ToString()+ ") </p>";
+                    }                
+                    if ("" != info[4]) info_adicional += "<p> Objetivo de proyecto: " + info_proyectos.Rows[i]["obj_general"].ToString() + " </p>";
+                    contents = contents.Replace("[ITEMS]", info_adicional);
+                }
+                else
+                {
+                    contents = contents.Replace("[ITEMS]", info_proyectos.Rows[i][""].ToString());
+                }
+                
                 var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(contents), null);
                 foreach (var htmlElement in parsedHtmlElements)
                 {
@@ -128,26 +133,100 @@ namespace SAPS.Controladoras
             }
         }
 
-        public void generar_reporte_PDF(Object[] info_proyectos, Object[] info_disenos, Object[] info_casos, Object[] info_ejecuciones)
-        {
+        /**@brief Método que agrega proyectos de pruebas a un PDF
+       * @param document con la referencia al documento donde se van a agregar la información de los proyectos de pruebas
+       * datos array con arrays que contienen información sobre los filtros y los espacios a mostrar.  
+               |            Object [] datos            |
+               |:--------0--------:||:--------1-------:|
+               |   filtros []      || info a mostrar []|
+       */
 
+        private void agregar_casos_PDF(ref Document documento, Object[] filtros, string[] info)
+        {
+            DataTable info_proyectos = m_controladora_pdp.solicitar_proyectos_filtrados(filtros);
+            for (int i = 0; i < info_proyectos.Rows.Count; ++i)
+            {
+                string contents = File.ReadAllText("E:\\Documentos\\GitHub\\Sistema-Administrador-de-Proyectos\\SAPS\\Plantillas HTML\\PYP.htm");
+
+                contents = contents.Replace("[NOMBRE]", info_proyectos.Rows[i]["nombre_proyecto"].ToString());
+                contents = contents.Replace("[NOMBRE_SISTEMA]", info_proyectos.Rows[i]["nombre_sistema"].ToString());
+                contents = contents.Replace("[ESTADO]", info_proyectos.Rows[i]["estado"].ToString());
+
+                if (null != info)
+                {
+                    var info_adicional = @"< h2 style = ""font-weight: bold"" > Información Adicional: </ h2 >";
+                    if ("" != info[0])
+                    {
+                        string aux = "";
+                        DataTable miembros_asociados = m_controladora_rh.consultar_rh_asociados_proyecto(Int32.Parse(info_proyectos.Rows[i]["id_proyecto"].ToString()));
+                        for (int j = 0; j < miembros_asociados.Rows.Count; ++j)
+                        {
+                            aux += miembros_asociados.Rows[j]["nombre"].ToString() + "   ";
+                        }
+                        info_adicional += "<p> Miembros asociados: " + aux + " </p>";
+                    }
+                    if ("" != info[1])
+                    {
+                        info_adicional += "<p> Fecha inicio: " + info_proyectos.Rows[i]["fecha_inicio"].ToString() + " </p>";
+                        info_adicional += "<p> Fecha de asignación: " + info_proyectos.Rows[i]["fecha_asignacion"].ToString() + " </p>";
+                        info_adicional += "<p> Fecha final: " + info_proyectos.Rows[i]["fecha_final"].ToString() + " </p>";
+                    }
+                    if ("" != info[2])
+                    {
+                        string aux = "";
+                        DataTable disenos_asociados = m_controladora_dp.solicitar_disenos_asociados_proyecto(Int32.Parse(info_proyectos.Rows[i]["id_proyecto"].ToString()));
+                        for (int j = 0; j < disenos_asociados.Rows.Count; ++j)
+                        {
+                            aux += " " + disenos_asociados.Rows[j]["nombre_diseno"].ToString();
+                        }
+                        info_adicional += "<p> Diseños asociados: " + aux + " </p>";
+                    }
+                    if ("" != info[3])
+                    {
+                        DataTable oficina_asociada = m_controladora_pdp.consultar_oficina(Int32.Parse(info_proyectos.Rows[i]["id_oficina"].ToString()));
+                        info_adicional += "<p> Oficina asociada: " + " " + oficina_asociada.Rows[0]["nombre_oficina"].ToString() + " " + oficina_asociada.Rows[0]["telefono"].ToString() + " (" + oficina_asociada.Rows[0]["nom_representante"].ToString() + ") </p>";
+                    }
+                    if ("" != info[4]) info_adicional += "<p> Objetivo de proyecto: " + info_proyectos.Rows[i]["obj_general"].ToString() + " </p>";
+                    contents = contents.Replace("[ITEMS]", info_adicional);
+                }
+                else
+                {
+                    contents = contents.Replace("[ITEMS]", info_proyectos.Rows[i][""].ToString());
+                }
+
+                var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(contents), null);
+                foreach (var htmlElement in parsedHtmlElements)
+                {
+                    documento.Add(htmlElement as IElement);
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        public void generar_reporte_PDF(Object[] filtro_proyectos, string [] info_proeyctos, Object[] info_disenos, Object[] info_casos, Object[] info_ejecuciones)
+        {
             var document = new Document(PageSize.A4, 50, 50, 25, 25);
             // Create a new PdfWriter object, specifying the output stream
-            //var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\MyFirstPDF.pdf"), FileMode.Create);
+
+            var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\Reporte1.pdf"), FileMode.Create);
+            var writer = PdfWriter.GetInstance(document, output);
 
             // Open the Document for writing
             document.Open();
-            // Create a new Paragraph object with the text, "Hello, World!"
-            var welcomeParagraph = new Paragraph("MPLP");
 
-            // Add the Paragraph object to the document
-            document.Add(welcomeParagraph);
-
-            if (null != info_proyectos) agregar_proyectos_PDF(ref document, info_proyectos);//llamar método que devuelva n páginas con proyectos
+            //if (null != filtro_proyectos) agregar_proyectos_PDF(ref document, filtro_proyectos, info_proyectos);//llamar método que devuelva n páginas con proyectos
             if (null != info_disenos); //llamar método que devuelva n páginas con disenos
             if (null != info_casos) ;  //llamar método que devuelva n páginas con casos
             if (null != info_ejecuciones) ; //llamar método que devuelva n páginas con ejecuciones
-
+           
             // Close the Document - this saves the document contents to the output stream
             document.Close();
 

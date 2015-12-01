@@ -228,7 +228,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                        <asp:Label runat="server" CssClass="control-label" Text="Despues de" />
+                                        <asp:Label runat="server" CssClass="control-label" Text="Después de" />
                                         <asp:TextBox runat="server" CssClass="form-control" ID="diseno_fecha_despues" TextMode="Date" AutoPostBack="true" />
                                     </div>
                                     <div class="col-md-6">
@@ -348,18 +348,18 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                        <asp:CheckBox runat="server" ID="CheckBox6" CssClass="checkbox checkbox-inline" Text="Propósito" />
+                                        <asp:CheckBox runat="server" ID="casos_check_proposito" CssClass="checkbox checkbox-inline" Text="Propósito" />
                                     </div>
                                     <div class="col-md-6">
-                                        <asp:CheckBox runat="server" ID="CheckBox1" CssClass="checkbox checkbox-inline" Text="Flujo central" />
+                                        <asp:CheckBox runat="server" ID="casos_check_flujo" CssClass="checkbox checkbox-inline" Text="Flujo central" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                        <asp:CheckBox runat="server" ID="CheckBox2" CssClass="checkbox checkbox-inline" Text="Entrada de datos" />
+                                        <asp:CheckBox runat="server" ID="casos_check_entrada_datos" CssClass="checkbox checkbox-inline" Text="Entrada de datos" />
                                     </div>
                                     <div class="col-md-6">
-                                        <asp:CheckBox runat="server" ID="CheckBox3" CssClass="checkbox checkbox-inline" Text="Resultado esperado" />
+                                        <asp:CheckBox runat="server" ID="casos_check_resultado" CssClass="checkbox checkbox-inline" Text="Resultado esperado" />
                                     </div>
                                 </div>
                             </section>
@@ -432,7 +432,7 @@
                                 <div class="form-group">
                                     <div class="col-md-12">
                                         <div style="height: 250px; overflow-y: scroll">
-                                            <asp:Table runat="server" ID="tabla_ejecuciones_ejecuciones" CssClass="table table-hover">
+                                            <asp:Table runat="server" ID="tabla_ejecuciones_disponibles" CssClass="table table-hover">
                                             </asp:Table>
                                         </div>
                                     </div>
@@ -465,7 +465,7 @@
                             </section>
                             <section id="seccion_ejecuciones_boton_volver">
                                 <div class="col-md-2">
-                                    <button class="btn btn-default btn-block btn-sm" type="button" id="ejecuciono_btn_volver" runat="server" onserverclick="ejecuciono_btn_volver_ServerClick"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+                                    <button class="btn btn-default btn-block btn-sm" type="button" id="ejecucion_btn_volver" runat="server" onserverclick="ejecucion_btn_volver_ServerClick"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
                                 </div>
                             </section>
                         </div>

@@ -151,10 +151,10 @@ namespace SAPS.Base_de_Datos
             if (((List<string>)datos[6]).Count > 0)
             {
                 for (int i = 0; i < ((List<string>)datos[6]).Count - 1; i++)
-                {
+            {
                     parametros_ids += "'" + ((List<string>)datos[6])[i] + "',";
-                }
-                parametros_ids += "'" + ((List<string>)datos[6])[((List<string>)datos[6]).Count - 1] + "'";
+            }
+            parametros_ids += "'" + ((List<string>)datos[6])[((List<string>)datos[6]).Count - 1] + "'";
             }
 
             comando.Parameters.Add("@filtro_id_proyectos", SqlDbType.VarChar).Value = parametros_ids;

@@ -364,40 +364,40 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.Table tabla_casos_de_prueba_disponibles;
         
         /// <summary>
-        /// CheckBox6 control.
+        /// casos_check_proposito control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox6;
+        protected global::System.Web.UI.WebControls.CheckBox casos_check_proposito;
         
         /// <summary>
-        /// CheckBox1 control.
+        /// casos_check_flujo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox1;
+        protected global::System.Web.UI.WebControls.CheckBox casos_check_flujo;
         
         /// <summary>
-        /// CheckBox2 control.
+        /// casos_check_entrada_datos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox2;
+        protected global::System.Web.UI.WebControls.CheckBox casos_check_entrada_datos;
         
         /// <summary>
-        /// CheckBox3 control.
+        /// casos_check_resultado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox3;
+        protected global::System.Web.UI.WebControls.CheckBox casos_check_resultado;
         
         /// <summary>
         /// casos_btn_volver control.
@@ -454,13 +454,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.CheckBox check_ejecuciones_todos;
         
         /// <summary>
-        /// tabla_ejecuciones_ejecuciones control.
+        /// tabla_ejecuciones_disponibles control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tabla_ejecuciones_ejecuciones;
+        protected global::System.Web.UI.WebControls.Table tabla_ejecuciones_disponibles;
         
         /// <summary>
         /// ejecucion_check_resultados control.
@@ -499,13 +499,13 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_incidentes;
         
         /// <summary>
-        /// ejecuciono_btn_volver control.
+        /// ejecucion_btn_volver control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton ejecuciono_btn_volver;
+        protected global::System.Web.UI.HtmlControls.HtmlButton ejecucion_btn_volver;
         
         /// <summary>
         /// btn_generar_reporte control.
