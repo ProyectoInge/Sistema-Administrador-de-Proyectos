@@ -375,6 +375,7 @@ namespace SAPS.Fronteras
         protected void btn_generar_reporte_Click(object sender, EventArgs e)
         {
             ///@todo
+            generar_reporte();
         }
 
 
@@ -654,6 +655,8 @@ namespace SAPS.Fronteras
 
         }
 
+
+
         ///@brief cambia el valor en m_disenos de seleccion del diseno, se activa cuando se checkea el compa
         private void check_estado_disenos_Cambia(object sender, EventArgs e)
         {
@@ -703,6 +706,53 @@ namespace SAPS.Fronteras
 
         protected void check_ejecuciones_todos_CheckedChanged(object sender, EventArgs e)
         {
+
+        }
+
+        protected void generar_reporte()
+        {
+            Object[] sql_param = new Object[5];
+            List<string[]> lista_pares_disenos_seleccionados = new List<string[]>();
+
+            //obtiene los proyectos que se seleccionaron
+            List<string> lista_seleccionados = get_selected_projects();
+            Object[] parametros = new Object[7];
+            if (lista_seleccionados.Count > 0)
+            {
+                //se construye el Object[] de parametros
+                
+                parametros[0] = diseno_drop_tecnicas_prueba.SelectedItem.Value;
+                parametros[1] = diseno_drop_tipo_prueba.SelectedItem.Value;
+                parametros[2] = diseno_drop_nivel_prueba.SelectedItem.Value;
+                if (diseno_drop_nivel_prueba.Items.Count > 0)
+                    parametros[3] = diseno_drop_responsables.SelectedItem.Value;
+                else
+                    parametros[3] = "";
+                parametros[4] = default(DateTime);
+                if (diseno_fecha_despues.Text != "")
+                    parametros[4] = DateTime.Parse(diseno_fecha_despues.Text);
+                parametros[5] = default(DateTime);
+                if (diseno_fecha_antes.Text != "")
+                    parametros[5] = DateTime.Parse(diseno_fecha_antes.Text);
+                parametros[6] = lista_seleccionados;      
+            }
+            //sacar filtros de proy
+            Object[] filtros = new Object[5];
+            int oficina_seleccionada = -1;
+            if (proyecto_drop_oficina.SelectedItem.Value != "")
+                oficina_seleccionada = Int32.Parse(proyecto_drop_oficina.SelectedItem.Value);
+            filtros[0] = oficina_seleccionada;
+            filtros[1] = default(DateTime);
+            if (proyecto_input_fecha_inicio.Text != "")
+                filtros[1] = DateTime.Parse(proyecto_input_fecha_inicio.Text);
+            filtros[2] = default(DateTime);
+            if (proyecto_input_fecha_final.Text != "")
+                filtros[2] = DateTime.Parse(proyecto_input_fecha_final.Text);
+
+            filtros[3] = proyecto_drop_miembro.SelectedItem.Value;
+            filtros[4] = proyecto_drop_estado.SelectedItem.Value;
+            string[] lista = { "s", "s", "f", "y", "r", "t" };
+            m_controladora_rep.generar_reporte_PDF(filtros, parametros, lista, lista);
 
         }
 
