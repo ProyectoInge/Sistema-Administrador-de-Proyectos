@@ -234,7 +234,7 @@ namespace SAPS.Controladoras
             //if (null != info_disenos); //llamar método que devuelva n páginas con disenos
             //if (null != info_casos) ;  //llamar método que devuelva n páginas con casos
             //if (null != info_ejecuciones) ; //llamar método que devuelva n páginas con ejecuciones         
-            
+           
             // Close the Document - this saves the document contents to the output stream
             document.Close();
             string fecha_hora = (DateTime.Now).ToString();
@@ -360,6 +360,7 @@ namespace SAPS.Controladoras
             m_controladora_dp = new ControladoraDisenosPruebas();
             return m_controladora_dp.solicitar_disenos_disponibles();
         }
+
 
         #endregion
 

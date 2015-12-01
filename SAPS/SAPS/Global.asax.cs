@@ -20,14 +20,14 @@ namespace SAPS
         }
 
         protected void Application_Error(object sender, EventArgs e)
-        {
-            /*
+{
+            
             Exception objErr = Server.GetLastError().GetBaseException();
             string err = "Se capturó una exepción en el evento Application_Error\n" +
                     "Error en: " + Request.Url.ToString() +
                     "\nMensaje:" + objErr.Message.ToString() +
                     "\nStack Trace:" + objErr.StackTrace.ToString();
-            EventLog.WriteEntry("SAPS", err, EventLogEntryType.Error);*/
+            EventLog.WriteEntry("SAPS", err, EventLogEntryType.Error);
         }
     }
 }

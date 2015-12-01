@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <button class="btn btn-waring btn-block" id="btn_volver">Volver al inicio</button>
+                            <button class="btn btn-warning btn-block" id="btn_volver">Volver al inicio</button>
                         </div>
                     </div>
                 </div>
