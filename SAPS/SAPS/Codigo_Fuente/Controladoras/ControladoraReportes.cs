@@ -39,12 +39,11 @@ namespace SAPS.Controladoras
             m_controladora_pdp = new ControladoraProyectoPruebas();
             m_controladora_dp = new ControladoraDisenosPruebas();
             m_controladora_cp = new ControladoraCasoPruebas(); 
+
+
             /*
             var document = new Document(PageSize.A4, 50, 50, 25, 25);
             // Create a new PdfWrite object, writing the output to a MemoryStream
-
-            //var output = new FileStream(System.Web.HttpContext.Current.Server.MapPath("~/Reportes/Reporte1.pdf"), FileMode.Create);
-            //var writer = PdfWriter.GetInstance(document, output);
             var output = new MemoryStream();
             var writer = PdfWriter.GetInstance(document, output);
 
@@ -60,7 +59,10 @@ namespace SAPS.Controladoras
             string fecha_hora = (DateTime.Now).ToString() ;
             
             HttpContext.Current.Response.AddHeader("Content-Disposition", string.Format("attachment;filename=Reporte-{0}.pdf", fecha_hora));
-            HttpContext.Current.Response.BinaryWrite(output.ToArray());*/
+            HttpContext.Current.Response.BinaryWrite(output.ToArray());
+            */
+            
+
         }
 
 
@@ -133,7 +135,7 @@ namespace SAPS.Controladoras
             }
         }
 
-        /**@brief Método que agrega proyectos de pruebas a un PDF
+       /**@brief Método que agrega casos de pruebas a un PDF
        * @param document con la referencia al documento donde se van a agregar la información de los proyectos de pruebas
        * datos array con arrays que contienen información sobre los filtros y los espacios a mostrar.  
                |            Object [] datos            |
@@ -141,24 +143,25 @@ namespace SAPS.Controladoras
                |   filtros []      || info a mostrar []|
        */
 
-        private void agregar_casos_PDF(ref Document documento, Object[] filtros, string[] info)
+        private void agregar_casos_PDF(ref Document documento, Object[] filtros, List<int> llaves_disenos)
         {
-            DataTable info_proyectos = m_controladora_pdp.solicitar_proyectos_filtrados(filtros);
-            for (int i = 0; i < info_proyectos.Rows.Count; ++i)
+            /*DataTable info_casos = m_controladora_cp.solicitar_casos_filtrados(llaves_disenos);
+
+            for (int i = 0; i < info_casos.Rows.Count; ++i)
             {
                 string contents = File.ReadAllText("E:\\Documentos\\GitHub\\Sistema-Administrador-de-Proyectos\\SAPS\\Plantillas HTML\\PYP.htm");
 
-                contents = contents.Replace("[NOMBRE]", info_proyectos.Rows[i]["nombre_proyecto"].ToString());
-                contents = contents.Replace("[NOMBRE_SISTEMA]", info_proyectos.Rows[i]["nombre_sistema"].ToString());
-                contents = contents.Replace("[ESTADO]", info_proyectos.Rows[i]["estado"].ToString());
+                contents = contents.Replace("[NOMBRE]", info_casos.Rows[i]["nombre_proyecto"].ToString());
+                contents = contents.Replace("[NOMBRE_SISTEMA]", info_casos.Rows[i]["nombre_sistema"].ToString());
+                contents = contents.Replace("[ESTADO]", info_casos.Rows[i]["estado"].ToString());
 
-                if (null != info)
+                if (null !=)
                 {
                     var info_adicional = @"< h2 style = ""font-weight: bold"" > Información Adicional: </ h2 >";
                     if ("" != info[0])
                     {
                         string aux = "";
-                        DataTable miembros_asociados = m_controladora_rh.consultar_rh_asociados_proyecto(Int32.Parse(info_proyectos.Rows[i]["id_proyecto"].ToString()));
+                        DataTable miembros_asociados = m_controladora_rh.consultar_rh_asociados_proyecto(Int32.Parse(info_casos.Rows[i]["id_proyecto"].ToString()));
                         for (int j = 0; j < miembros_asociados.Rows.Count; ++j)
                         {
                             aux += miembros_asociados.Rows[j]["nombre"].ToString() + "   ";
@@ -167,14 +170,14 @@ namespace SAPS.Controladoras
                     }
                     if ("" != info[1])
                     {
-                        info_adicional += "<p> Fecha inicio: " + info_proyectos.Rows[i]["fecha_inicio"].ToString() + " </p>";
-                        info_adicional += "<p> Fecha de asignación: " + info_proyectos.Rows[i]["fecha_asignacion"].ToString() + " </p>";
-                        info_adicional += "<p> Fecha final: " + info_proyectos.Rows[i]["fecha_final"].ToString() + " </p>";
+                        info_adicional += "<p> Fecha inicio: " + info_casos.Rows[i]["fecha_inicio"].ToString() + " </p>";
+                        info_adicional += "<p> Fecha de asignación: " + info_casos.Rows[i]["fecha_asignacion"].ToString() + " </p>";
+                        info_adicional += "<p> Fecha final: " + info_casos.Rows[i]["fecha_final"].ToString() + " </p>";
                     }
                     if ("" != info[2])
                     {
                         string aux = "";
-                        DataTable disenos_asociados = m_controladora_dp.solicitar_disenos_asociados_proyecto(Int32.Parse(info_proyectos.Rows[i]["id_proyecto"].ToString()));
+                        DataTable disenos_asociados = m_controladora_dp.solicitar_disenos_asociados_proyecto(Int32.Parse(info_casos.Rows[i]["id_proyecto"].ToString()));
                         for (int j = 0; j < disenos_asociados.Rows.Count; ++j)
                         {
                             aux += " " + disenos_asociados.Rows[j]["nombre_diseno"].ToString();
@@ -183,15 +186,15 @@ namespace SAPS.Controladoras
                     }
                     if ("" != info[3])
                     {
-                        DataTable oficina_asociada = m_controladora_pdp.consultar_oficina(Int32.Parse(info_proyectos.Rows[i]["id_oficina"].ToString()));
+                        DataTable oficina_asociada = m_controladora_pdp.consultar_oficina(Int32.Parse(info_casos.Rows[i]["id_oficina"].ToString()));
                         info_adicional += "<p> Oficina asociada: " + " " + oficina_asociada.Rows[0]["nombre_oficina"].ToString() + " " + oficina_asociada.Rows[0]["telefono"].ToString() + " (" + oficina_asociada.Rows[0]["nom_representante"].ToString() + ") </p>";
                     }
-                    if ("" != info[4]) info_adicional += "<p> Objetivo de proyecto: " + info_proyectos.Rows[i]["obj_general"].ToString() + " </p>";
+                    if ("" != info[4]) info_adicional += "<p> Objetivo de proyecto: " + info_casos.Rows[i]["obj_general"].ToString() + " </p>";
                     contents = contents.Replace("[ITEMS]", info_adicional);
                 }
                 else
                 {
-                    contents = contents.Replace("[ITEMS]", info_proyectos.Rows[i][""].ToString());
+                    contents = contents.Replace("[ITEMS]", info_casos.Rows[i][""].ToString());
                 }
 
                 var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(contents), null);
@@ -199,7 +202,7 @@ namespace SAPS.Controladoras
                 {
                     documento.Add(htmlElement as IElement);
                 }
-            }
+            }*/
         }
 
 
@@ -211,25 +214,33 @@ namespace SAPS.Controladoras
 
 
 
-        public void generar_reporte_PDF(Object[] filtro_proyectos, string [] info_proeyctos, Object[] info_disenos, Object[] info_casos, Object[] info_ejecuciones)
+        public void generar_reporte_PDF(Object[] filtro_proyectos, string [] info_proyectos, Object[] info_disenos, Object[] info_casos, Object[] info_ejecuciones)
         {
-            var document = new Document(PageSize.A4, 50, 50, 25, 25);
-            // Create a new PdfWriter object, specifying the output stream
-
-            var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\Reporte1.pdf"), FileMode.Create);
+            /*var document = new Document(PageSize.A4, 50, 50, 25, 25);
+            // Create a new PdfWrite object, writing the output to a MemoryStream
+            var output = new MemoryStream();
             var writer = PdfWriter.GetInstance(document, output);
+
 
             // Open the Document for writing
             document.Open();
 
-            //if (null != filtro_proyectos) agregar_proyectos_PDF(ref document, filtro_proyectos, info_proyectos);//llamar método que devuelva n páginas con proyectos
-            if (null != info_disenos); //llamar método que devuelva n páginas con disenos
-            if (null != info_casos) ;  //llamar método que devuelva n páginas con casos
-            if (null != info_ejecuciones) ; //llamar método que devuelva n páginas con ejecuciones
-           
+            Object[] prueba = { -1, default(DateTime), default(DateTime), "", "" };
+            string[] feo = { "s", "s", "f", "y", "r", "t" };
+            agregar_proyectos_PDF(ref document, prueba, feo);
+
+            
+            if (null != filtro_proyectos) agregar_proyectos_PDF(ref document, filtro_proyectos, info_proyectos);    //llamar método que devuelva n páginas con proyectos
+            //if (null != info_disenos); //llamar método que devuelva n páginas con disenos
+            //if (null != info_casos) ;  //llamar método que devuelva n páginas con casos
+            //if (null != info_ejecuciones) ; //llamar método que devuelva n páginas con ejecuciones         
+            
             // Close the Document - this saves the document contents to the output stream
             document.Close();
+            string fecha_hora = (DateTime.Now).ToString();
 
+            HttpContext.Current.Response.AddHeader("Content-Disposition", string.Format("attachment;filename=Reporte-{0}.pdf", fecha_hora));
+            HttpContext.Current.Response.BinaryWrite(output.ToArray());*/
         }
 
 

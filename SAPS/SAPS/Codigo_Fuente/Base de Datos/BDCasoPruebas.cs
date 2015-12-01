@@ -11,6 +11,7 @@ using SAPS.Entidades.Ayudantes;
 using System.Data.SqlClient;
 using System.Data;
 using System.Collections.Generic;
+using System;
 
 namespace SAPS.Base_de_Datos
 {
@@ -150,7 +151,6 @@ namespace SAPS.Base_de_Datos
             comando.Parameters.Add("@id_disenos_pruebas", SqlDbType.VarChar).Value = llaves_disenos_string;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
-
 
         // Métodos auxiliares
 
