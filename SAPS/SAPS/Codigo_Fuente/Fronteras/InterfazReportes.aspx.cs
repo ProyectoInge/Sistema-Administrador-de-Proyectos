@@ -673,6 +673,7 @@ namespace SAPS.Fronteras
                 }
                 ++it_disenos;
             }
+            llena_tabla_disenos();
         }
 
         protected void diseno_drop_tecnicas_prueba_SelectedIndexChanged(object sender, EventArgs e)
@@ -692,7 +693,9 @@ namespace SAPS.Fronteras
 
         protected void diseno_check_todos_CheckedChanged(object sender, EventArgs e)
         {
-
+            foreach (Pair pair_temp in m_disenos)
+                pair_temp.Second = true;
+            llena_tabla_disenos();
         }
 
         protected void ejecucion_btn_limpiar_filtros_Click(object sender, EventArgs e)
@@ -747,11 +750,23 @@ namespace SAPS.Fronteras
 
         protected void diseno_btn_continuar_ServerClick(object sender, EventArgs e)
         {
-            m_habilitado_proyecto = false;
-            m_habilitado_disenos = false;
-            m_habilitado_casos = true;
-            m_habilitado_ejecuciones = false;
-            habilitar_deshabilitar_paneles();
+            bool seleccionado = false;
+            foreach (Pair pair_tmp in m_disenos)
+                if (Convert.ToBoolean(pair_tmp.Second) == true)
+                    seleccionado = true;
+            if (seleccionado)
+            {
+                m_habilitado_proyecto = false;
+                m_habilitado_disenos = false;
+                m_habilitado_casos = true;
+                m_habilitado_ejecuciones = false;
+                habilitar_deshabilitar_paneles();
+            }
+            else
+            {
+                cuerpo_alerta_advertencia.Text = "Es necesario que seleccione al menos un diseño de pruebas";
+                alerta_advertencia.Visible = true;
+            }
         }
 
 
