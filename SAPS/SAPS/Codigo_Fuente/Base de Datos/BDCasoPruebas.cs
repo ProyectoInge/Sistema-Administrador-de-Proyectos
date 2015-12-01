@@ -10,6 +10,7 @@ using SAPS.Entidades;
 using SAPS.Entidades.Ayudantes;
 using System.Data.SqlClient;
 using System.Data;
+using System.Collections.Generic;
 
 namespace SAPS.Base_de_Datos
 {
@@ -131,6 +132,22 @@ namespace SAPS.Base_de_Datos
             SqlCommand comando = new SqlCommand("CONSULTAR_CASOS_DISPONIBLES");
             comando.CommandType = CommandType.StoredProcedure;
             comando.Parameters.Add("@id_diseno", SqlDbType.Int).Value = id_diseno;
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
+        public DataTable solicitar_casos_filtrados(List<int> llaves_disenos)
+        {
+            string llaves_disenos_string = "";
+            
+            for (int i = 0; i < llaves_disenos.Count-1; ++i)
+            {
+                llaves_disenos_string += llaves_disenos[i] + ",";
+            }
+            llaves_disenos_string += llaves_disenos[llaves_disenos.Count - 1];
+
+            SqlCommand comando = new SqlCommand("FILTRAR_CASOS");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@id_disenos_pruebas", SqlDbType.VarChar).Value = llaves_disenos_string;
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 

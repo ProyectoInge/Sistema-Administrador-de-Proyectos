@@ -158,14 +158,23 @@ namespace SAPS.Base_de_Datos
         * @param datos array con los valores de los filtros que se desean aplicar.
         * @return Información de todos los proyectos que cumplen las condiciones específicadas en los filtros.
         */
-        public DataTable aplicar_filtros_proyecto_pruebas(string[] datos)
+        public DataTable aplicar_filtros_proyecto_pruebas(Object[] datos)
         {
-            SqlCommand comando = new SqlCommand("");
+            ///@todo Creo que el parametro hay que cambiarlo por un Object[]
+            SqlCommand comando = new SqlCommand("FILTRAR_PROYECTOS");
             comando.CommandType = CommandType.StoredProcedure;
-            comando.Parameters.Add("@filtro_id_oficina", SqlDbType.Int).Value = datos[0];
-            comando.Parameters.Add("@filtro_despues_de", SqlDbType.DateTime).Value = datos[1];
-            comando.Parameters.Add("@filtro_antes_de", SqlDbType.DateTime).Value = datos[2];
-            comando.Parameters.Add("@filtro_nombre_sistema", SqlDbType.VarChar).Value = datos[3];
+            comando.Parameters.Add("@filtro_id_oficina", SqlDbType.Int).Value = Convert.ToInt32(datos[0]);
+
+            if (Convert.ToDateTime(datos[1]) == default(DateTime))
+                comando.Parameters.Add("@filtro_despues_de", SqlDbType.DateTime).Value = DBNull.Value;
+            else
+                comando.Parameters.Add("@filtro_despues_de", SqlDbType.DateTime).Value = Convert.ToDateTime(datos[1]);
+            if (Convert.ToDateTime(datos[2]) == default(DateTime))
+                comando.Parameters.Add("@filtro_antes_de", SqlDbType.DateTime).Value = DBNull.Value;
+            else
+                comando.Parameters.Add("@filtro_antes_de", SqlDbType.DateTime).Value = Convert.ToDateTime(datos[2]);
+
+            comando.Parameters.Add("@filtro_miembro", SqlDbType.VarChar).Value = datos[3];
             comando.Parameters.Add("@filtro_estado", SqlDbType.VarChar).Value = datos[4];
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
@@ -199,7 +208,7 @@ namespace SAPS.Base_de_Datos
         }
 
         /** @brief Metodo que se encarga de sacar la informacion del objeto "Oficina" y con esta informacion
-                   construye llama al procedimiento almacenado de la base de datos.
+           construye llama al procedimiento almacenado de la base de datos.
          * @param La referencia al procedimiento almacenado en la base.
          * @param El objeto Oficina del que va a obtener la información.
         */

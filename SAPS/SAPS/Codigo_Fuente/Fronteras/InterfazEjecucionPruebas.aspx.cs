@@ -43,6 +43,7 @@ namespace SAPS.Fronteras
             |   4       |   Descripcion         |
             |   5       |   Justificacion       |
             |   6       |   Ruta imagen         |
+            |   7       |   bool check selected |
 
             */
 
@@ -61,6 +62,7 @@ namespace SAPS.Fronteras
 
                 if (!IsPostBack)
                 {
+                    des_habilita_header_resultados();
                     m_llave_ejecucion = new int[2] { -1, -1 };
                     m_es_administrador = m_controladora_ep.es_administrador(Context.User.Identity.Name);
                     actualiza_disenos();
@@ -84,12 +86,12 @@ namespace SAPS.Fronteras
 
                 // Si hay ejecuciones
                 if (m_resultados_tmp.Count > 0)
-                {                    
+                {
                     actualiza_resultados();
                 }
                 else
                 {
-                    celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
+                    celda_drop_num_resultado.Text = "1";
                 }
 
             }
@@ -176,7 +178,7 @@ namespace SAPS.Fronteras
                     eliminar_ejecucion();
                     break;
 
-                case 'm':                    
+                case 'm':
                     modificar_ejecucion();
                     break;
                 default:
@@ -334,10 +336,10 @@ namespace SAPS.Fronteras
             {
                 if (drop_rh_disponibles.SelectedItem.Value != "")
                 {
-                    if (input_fecha.Text != "")
-                    {
+                                if (input_fecha.Text != "")
+                                {
                         if (input_incidentes.Text != "")
-                        {
+                                    {
                             #region Guardo la ejecución en la base
                             /*
                                 | Índice | Descripción             | Tipo de datos |
@@ -356,11 +358,11 @@ namespace SAPS.Fronteras
                             datos_ejecucion[4] = input_incidentes.Text;
                             #endregion
                             int resultado = m_controladora_ep.modificar_ejecucion(datos_ejecucion, m_llave_ejecucion[1], m_llave_ejecucion[0]);
-                            if (resultado == 0)
-                            {
+                                        if (resultado == 0)
+                                        {
                                 DataTable ejecuciones_disponibles = m_controladora_ep.consultar_ejecuciones(Int32.Parse(drop_disenos_disponibles.SelectedItem.Value));
                                 int id_ejecucion_recien_agrgada = Convert.ToInt32(ejecuciones_disponibles.Rows[ejecuciones_disponibles.Rows.Count - 1]["num_ejecucion"]);
-                                                                
+
                                 recargar_lista_resultados();                                    // Se recargan los resultados con las modificaciones en el vector m_resultados_tmp
                                 //actualiza_resultados();
 
@@ -422,9 +424,9 @@ namespace SAPS.Fronteras
         /**@brief Metodo que vuelve a insertar los resultados de la ejecucion en el vector m_resultados_tmp , cuando ocurre una modificacion.
         */
         protected void recargar_lista_resultados() {
-            
+
             // if  tabla_resultados.Rows.Count != 2
-            /*
+                /*
                 m_resultados_tmp.Clear()
             */
 
@@ -434,17 +436,17 @@ namespace SAPS.Fronteras
                 {
                     string num_resultado = tabla_resultados.Rows[i].Cells[2].Text;
                     for(int j = 0; j < m_resultados_tmp.Count; ++j)
-                    {
+                {
                         string[] temporal = m_resultados_tmp[j];
                         if( temporal[0] == num_resultado)                           // El resultado en interfaz si se encuentra en el vector, por lo que se elimina del vector
-                        {
+                    {
                             m_resultados_tmp.Remove(temporal);
                         }
 
                     }
-                }
+                    }
                 //m_resultados_tmp.Clear();                                               // Se limpia la lista de resultados
-            }            
+                }
 
             for (int i = 2; i < tabla_resultados.Rows.Count; ++i)                  // Iteracion por las filas de la tabla de resultados
             {
@@ -460,7 +462,7 @@ namespace SAPS.Fronteras
 
                 m_resultados_tmp.Add(fila_tmp);
             }
-        }
+            }
 
 
 
@@ -520,7 +522,7 @@ namespace SAPS.Fronteras
         */
         protected void btn_agregar_resultado_Click(object sender, EventArgs e)
         {
-            string[] fila_tmp = new string[7];
+            string[] fila_tmp = new string[8];
 
             string ruta = "";
             if (m_nombre_archivo != "")
@@ -541,6 +543,7 @@ namespace SAPS.Fronteras
             fila_tmp[4] = input_descripcion.Text;
             fila_tmp[5] = input_justificacion.Text;
             fila_tmp[6] = ruta;
+            fila_tmp[7] = null;
             m_resultados_tmp.Add(fila_tmp);     //Agrega la fila a la lista que contiene la informacion en memoria
             #endregion
 
@@ -624,7 +627,7 @@ namespace SAPS.Fronteras
 
             for (int i = 0; i < resultados_ejecucion.Rows.Count; ++i)
             {
-                string[] datos_resultado = new string[7];
+                string[] datos_resultado = new string[8];
                 datos_resultado[0] = resultados_ejecucion.Rows[i]["num_resultado"].ToString();
                 datos_resultado[1] = resultados_ejecucion.Rows[i]["estado"].ToString();
                 datos_resultado[2] = resultados_ejecucion.Rows[i]["tipo_no_conformidad"].ToString();
@@ -632,6 +635,7 @@ namespace SAPS.Fronteras
                 datos_resultado[4] = resultados_ejecucion.Rows[i]["desc_no_conformidad"].ToString();
                 datos_resultado[5] = resultados_ejecucion.Rows[i]["justificacion"].ToString();
                 datos_resultado[6] = resultados_ejecucion.Rows[i]["ruta_imagen"].ToString();
+                datos_resultado[7] = null;
                 m_resultados_tmp.Add(datos_resultado);
             }
 
@@ -701,30 +705,23 @@ namespace SAPS.Fronteras
         protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
         {
             
-            foreach (TableRow row in tabla_resultados.Rows)
+            for (int j = m_resultados_tmp.Count-1; j>=0; j--)
             {
-                foreach (TableCell cell in row.Cells)
+                string[] fila = m_resultados_tmp[j];
+
+                if (fila[7]=="1")
                 {
-                    foreach (Control ctrl in cell.Controls)
-                    {
-                        if (ctrl is CheckBox)
-                        {
-                            CheckBox chck = (CheckBox)ctrl;
-                            if (chck.Checked)
-                            {
                                 for (int i = m_resultados_tmp.Count - 1; i >= 0; i--)
                                 {
-                                    if (m_resultados_tmp[0][0] == chck.ID)
-                                        m_resultados_tmp.RemoveAt(i); //lo saca de la lista                                        
+                        if(fila[0] == m_resultados_tmp[i][0])
+                            m_resultados_tmp.Remove(fila); //lo saca de la lista                                        
                                 }
 
                             }
 
                         }
-                    }
-                }
 
-            }
+                
             actualiza_resultados();
         }
 
@@ -860,12 +857,52 @@ namespace SAPS.Fronteras
             }
         }
 
-        
-
+        private void des_habilita_header_resultados()
+        {
+            if (m_opcion == 'm')
+            {
+                foreach (Control c in celda_drop_casos.Controls)
+                    ((DropDownList)c).Enabled = true;
+                foreach (Control c in celda_drop_estado.Controls)
+                    ((DropDownList)c).Enabled = true;
+                foreach (Control c in celda_drop_tipo_no_conformidad.Controls)
+                    ((DropDownList)c).Enabled = true;
+                foreach (Control c in celda_descripcion.Controls)
+                    ((TextBox)c).Enabled = true;
+                foreach (Control c in celda_justificacion.Controls)
+                    ((TextBox)c).Enabled = true;
+                foreach (Control c in celda_btn_agregar_imagen.Controls)
+                    if (c is Button) ((Button)c).Enabled = true;
+            }
+            else
+            {
+                foreach (Control c in celda_drop_casos.Controls)
+                    ((DropDownList)c).Enabled = false;
+                foreach (Control c in celda_drop_estado.Controls)
+                    ((DropDownList)c).Enabled = false;
+                foreach (Control c in celda_drop_tipo_no_conformidad.Controls)
+                    ((DropDownList)c).Enabled = false;
+                foreach (Control c in celda_descripcion.Controls)
+                    ((TextBox)c).Enabled = false;
+                foreach (Control c in celda_justificacion.Controls)
+                    ((TextBox)c).Enabled = false;
+                foreach (Control c in celda_btn_agregar_imagen.Controls)
+                    if (c is Button) ((Button)c).Enabled = false;
+            }
+        }
         /** @brief Método que llena la tabla donde estan los resultados de la ejecución.
          */
         private void llena_resultados()
         {
+
+            ///Deshabilita? la primer fila
+            des_habilita_header_resultados();
+
+            if (m_resultados_tmp.Count > 0)
+                celda_drop_num_resultado.Text = (Convert.ToInt32(m_resultados_tmp[m_resultados_tmp.Count - 1][0]) + 1).ToString();
+            else
+                celda_drop_num_resultado.Text = "1";
+
             if (m_opcion == 'm')
             {                       
                     recargar_lista_resultados();
@@ -897,18 +934,19 @@ namespace SAPS.Fronteras
                 CheckBox check = new CheckBox();
                 check.AutoPostBack = true;
                 check.ID = Convert.ToString(vec_tmp[0]);
+                check.CheckedChanged += new EventHandler(marcar_check);
                 celda_tmp.Controls.Add(check);
                 nueva_fila.Cells.Add(celda_tmp);
 
                 //Agrega el identificador del caso de prueba del resultado
                 celda_tmp = new TableCell();
                 celda_tmp.Text = vec_tmp[3];
-               
+
                 ListItem caso_escogido = new ListItem();                                            // Se agrega inicialmente el caso escogido
                 caso_escogido.Text = celda_tmp.Text;
                 caso_escogido.Value = celda_tmp.Text;
                 casos.Items.Add(caso_escogido);
-                                                                                                    // Posterior, se consulta el resto de casos y se agrega
+                // Posterior, se consulta el resto de casos y se agrega
                 DataTable casos_disponibles = m_controladora_ep.solicitar_casos_asociados_diseno(m_llave_ejecucion[1]);
                 ListItem item_tmp = new ListItem();
                 for (int j = 0; j < casos_disponibles.Rows.Count; ++j)
@@ -924,7 +962,7 @@ namespace SAPS.Fronteras
 
                 if (m_opcion == 'm')
                 {
-                    casos.Enabled = true;                    
+                    casos.Enabled = true;
                 }
                 else
                 {
@@ -976,7 +1014,7 @@ namespace SAPS.Fronteras
 
                 if (m_opcion == 'm')
                 {
-                    lista.Enabled = true;                    
+                    lista.Enabled = true;
                 }
                 else
                 {
@@ -1048,7 +1086,7 @@ namespace SAPS.Fronteras
 
                 if (m_opcion == 'm')
                 {
-                    lista_conformidad.Enabled = true;                    
+                    lista_conformidad.Enabled = true;
                 }
                 else
                 {
@@ -1106,7 +1144,7 @@ namespace SAPS.Fronteras
                     Button btn_modificar_imagen = new Button();
                     btn_modificar_imagen.CssClass = "btn btn-link";
                     btn_modificar_imagen.Text = "Cambiar imagen";
-                    btn_modificar_imagen.ID = vec_tmp[6];                    
+                    btn_modificar_imagen.ID = vec_tmp[6];
                     btn_modificar_imagen.Click += new EventHandler(activar_modal_imagen);
                     celda_tmp.Controls.Add(btn_modificar_imagen);
                     nueva_fila.Cells.Add(celda_tmp);
@@ -1125,6 +1163,21 @@ namespace SAPS.Fronteras
                 #endregion
                 tabla_resultados.Rows.Add(nueva_fila);
             }
+        }
+
+        private void marcar_check(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            foreach (string[] fila in m_resultados_tmp)
+            {
+                if(fila[0] == checkbox.ID)
+                {
+                    if (checkbox.Checked == false)
+                        fila[7] = null;
+                    else
+                        fila[7] = "1";
+                }
+            }            
         }
 
 

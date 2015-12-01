@@ -125,6 +125,45 @@ namespace SAPS.Base_de_Datos
             return m_data_base_adapter.obtener_resultado_consulta(comando);
         }
 
+        /**@brief Método que se encarga de realizar una sentencia SQL para obtener los disenos aplicandole una serie de filtros
+        * @param datos array con los valores de los filtros que se desean aplicar.
+        * @return Información de todos los proyectos que cumplen las condiciones específicadas en los filtros.
+        */
+        public DataTable aplicar_filtros_disenos(Object[] datos)
+        {
+            ///@todo Creo que el parametro hay que cambiarlo por un Object[]
+            SqlCommand comando = new SqlCommand("FILTRAR_DISENOS");
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.Add("@filtro_tecnica_de_prueba", SqlDbType.VarChar).Value = datos[0];
+            comando.Parameters.Add("@filtro_tipo_de_prueba", SqlDbType.VarChar).Value = datos[1];
+            comando.Parameters.Add("@filtro_nivel_de_prueba", SqlDbType.VarChar).Value = datos[2];
+            comando.Parameters.Add("@filtro_responsable", SqlDbType.VarChar).Value = datos[3];
+            if (Convert.ToDateTime(datos[4]) == default(DateTime))
+                comando.Parameters.Add("@filtro_despues_de", SqlDbType.DateTime).Value = DBNull.Value;
+            else
+                comando.Parameters.Add("@filtro_despues_de", SqlDbType.DateTime).Value = Convert.ToDateTime(datos[4]);
+            if (Convert.ToDateTime(datos[5]) == default(DateTime))
+                comando.Parameters.Add("@filtro_antes_de", SqlDbType.DateTime).Value = DBNull.Value;
+            else
+                comando.Parameters.Add("@filtro_antes_de", SqlDbType.DateTime).Value = Convert.ToDateTime(datos[5]);
+
+            string parametros_ids="";
+            for( int i = 0; i< ((List<string>)datos[6]).Count-1 ; i++)
+            {
+                parametros_ids += "'"+((List<string>)datos[6])[i]+"',";
+            }
+            parametros_ids += "'" + ((List<string>)datos[6])[((List<string>)datos[6]).Count - 1] + "'";
+
+            comando.Parameters.Add("@filtro_id_proyectos", SqlDbType.VarChar).Value = parametros_ids;
+
+            return m_data_base_adapter.obtener_resultado_consulta(comando);
+        }
+
+
+
+
+
+
         // Métodos auxiliares
 
         /** @brief Método auxiliar que rellena los parámetros de un diseño de pruebas para poder realizar un procedimiento almacenado,
