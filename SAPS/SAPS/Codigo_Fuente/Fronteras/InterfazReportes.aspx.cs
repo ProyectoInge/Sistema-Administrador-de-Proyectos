@@ -457,12 +457,24 @@ namespace SAPS.Fronteras
             //obtiene los proyectos que se seleccionaron
             List<string> lista_seleccionados = get_selected_projects();
 
-            //@todo construir Object[]
+            //se construye el Object[] de parametros
+            Object[] parametros = new Object[7];
+            parametros[0] = diseno_drop_tecnicas_prueba.SelectedItem.Value;
+            parametros[1] = diseno_drop_tipo_prueba.SelectedItem.Value;
+            parametros[2] = diseno_drop_nivel_prueba.SelectedItem.Value;
+            parametros[3] = diseno_drop_responsables.SelectedItem.Value;
+            parametros[4] = default(DateTime);
+            if (diseno_fecha_despues.Text != "")
+                parametros[4] = DateTime.Parse(diseno_fecha_despues.Text);
+            parametros[5] = default(DateTime);
+            if (diseno_fecha_antes.Text != "")
+                parametros[5] = DateTime.Parse(diseno_fecha_antes.Text);
+            parametros[6] = lista_seleccionados;
 
-            //@todo sacar disenos del metodo de charles
-            DataTable disenos_filtrados = null;
-            
-            foreach(DataRow fila_tmp in disenos_filtrados.Rows)
+
+            DataTable disenos_filtrados = m_controladora_rep.solicitar_disenos_filtrados(parametros);
+
+            foreach (DataRow fila_tmp in disenos_filtrados.Rows)
             {
                 string[] pair_tmp = new string[3];
                 pair_tmp[0] = fila_tmp["id_diseno"].ToString();
