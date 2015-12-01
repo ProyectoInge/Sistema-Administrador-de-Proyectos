@@ -28,13 +28,16 @@
                             </div>
                         </div>
                         <div class="panel-footer">
-                            <div class="col-md-12">
-                            <button class="btn btn-warning btn-block" type="button">Volver al inicio</button>
-                                </div>
+                            <button class="btn btn-warning btn-block" type="button" id="btn_volver">Volver al inicio</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <script type="text/javascript">
+            $("#btn_volver").click(function () {
+                window.location = "../Default.aspx";
+            });
+        </script>
     </div>
 </asp:Content>

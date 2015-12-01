@@ -162,12 +162,6 @@ namespace SAPS.Fronteras
 
             for (int i = 0; i < proyectos_disponibles.Rows.Count; ++i)
             {
-                //Lo agrego a la estructura que lleva control de los proyectos
-                /*
-                Pair pareja_tmp = new Pair();
-                pareja_tmp.First = Convert.ToInt32(proyectos_disponibles.Rows[i]["id_proyecto"]);
-                pareja_tmp.Second = false;
-                m_proyectos.Add(pareja_tmp);*/
 
                 //Agrego el elemento a la tabla que se muestra en la vista
                 TableRow fila_tmp = new TableRow();
@@ -392,9 +386,23 @@ namespace SAPS.Fronteras
 
         #endregion
 
+        /** @brief Evento que limpia deja el valor por defecto en los dropdown de filtros para diseños
+         *  @param Los parametros por defecto de un evento de ASP
+        */
         protected void diseno_btn_limpiar_filtros_Click(object sender, EventArgs e)
         {
-
+            diseno_drop_tecnicas_prueba.ClearSelection();
+            diseno_drop_tipo_prueba.ClearSelection();
+            diseno_drop_nivel_prueba.ClearSelection();
+            diseno_drop_responsables.ClearSelection();
+            diseno_fecha_antes.Text = "";
+            diseno_fecha_despues.Text = "";
+            diseno_drop_tecnicas_prueba.Items[0].Selected = true;
+            diseno_drop_tipo_prueba.Items[0].Selected = true;
+            diseno_drop_nivel_prueba.Items[0].Selected = true;
+            if(diseno_drop_responsables.Items.Count>0)
+                diseno_drop_responsables.Items[0].Selected = true;
+            ///@todo Llamar a actualizar_disenos()
         }
 
         protected void diseno_drop_tecnicas_prueba_SelectedIndexChanged(object sender, EventArgs e)
@@ -408,6 +416,11 @@ namespace SAPS.Fronteras
         }
 
         protected void diseno_drop_nivel_prueba_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void diseno_check_todos_CheckedChanged(object sender, EventArgs e)
         {
 
         }
