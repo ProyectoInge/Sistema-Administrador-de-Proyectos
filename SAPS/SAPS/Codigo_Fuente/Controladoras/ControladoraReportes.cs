@@ -13,7 +13,10 @@ using System.Linq;
 using System.Web;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.text.html.simpleparser;
 using System.IO;
+
+
 
 namespace SAPS.Controladoras
 {
@@ -33,12 +36,26 @@ namespace SAPS.Controladoras
         public ControladoraReportes()
         {
             m_controladora_rh = new ControladoraRecursosHumanos();
+            m_controladora_pdp = new ControladoraProyectoPruebas();
             m_controladora_dp = new ControladoraDisenosPruebas();
             m_controladora_cp = new ControladoraCasoPruebas(); 
-
+            /*
             var document = new Document(PageSize.A4, 50, 50, 25, 25);
+            // Create a new PdfWrite object, writing the output to a MemoryStream
 
-            agregar_proyectos_PDF(ref document, null);
+            var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\Reporte1.pdf"), FileMode.Create);
+            var writer = PdfWriter.GetInstance(document, output);
+
+            // Open the Document for writing
+            document.Open();
+
+
+            Object []prueba = {-1, default(DateTime), default(DateTime),"","" };
+            agregar_proyectos_PDF(ref document, prueba);
+
+            document.Close();
+            */
+
             //Constantes para el documento
             /*var fuente_titulo = FontFactory.GetFont("Arial", 18, Font.BOLD);
             var boldTableFont = FontFactory.GetFont("Arial", 12, Font.NORMAL);
@@ -95,26 +112,20 @@ namespace SAPS.Controladoras
 
         private void agregar_proyectos_PDF(ref Document documento, Object[] datos)
         {
-
-            DataTable info_proyectos = solicitar_proyectos_filtrados((string[])datos[0]);
-
-            // Read in the contents of the Receipt.htm HTML template file
-            //Instrución ORIGINAL: string contents = File.ReadAllText(Server.MapPath("~/HTMLTemplate/Receipt.htm"));
-            string contents = File.ReadAllText("E:\\Documentos\\GitHub\\Sistema-Administrador-de-Proyectos\\SAPS\\Plantillas HTML\\PYPTemplate.htm");
-
-
+            DataTable info_proyectos = m_controladora_pdp.solicitar_proyectos_filtrados(datos);         
             for (int i = 0; i < info_proyectos.Rows.Count; ++i)
             {
-                if (0 == i % 3) documento.NewPage();//crear nueva página cada tres proyectos
-                //agregar info al documento 
-                /*if(null != datos_incluidos[0])//incluir objetivos
-                if(null != datos_incluidos[1]) // incluir diseños
-                if(null != datos_incluidos[2]) // incluir fechas
-                if(null != datos_incluidos[3]) // incluir oficina
-                if(null != datos_incluidos[4])*/ // incluir miembros
-                                                 //agregar final de página
-
-            }
+                string contents = File.ReadAllText("E:\\Documentos\\GitHub\\Sistema-Administrador-de-Proyectos\\SAPS\\Plantillas HTML\\PYP.htm");
+                
+                contents = contents.Replace("[NOMBRE]", info_proyectos.Rows[i]["nombre_proyecto"].ToString());
+                contents = contents.Replace("[NOMBRE_SISTEMA]", info_proyectos.Rows[i]["nombre_sistema"].ToString());
+                contents = contents.Replace("[ESTADO]", info_proyectos.Rows[i]["estado"].ToString());
+                var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(contents), null);
+                foreach (var htmlElement in parsedHtmlElements)
+                {
+                    documento.Add(htmlElement as IElement);
+                }
+            }                      
         }
 
         public void generar_reporte_PDF(Object[] info_proyectos, Object[] info_disenos, Object[] info_casos, Object[] info_ejecuciones)
@@ -124,8 +135,6 @@ namespace SAPS.Controladoras
             // Create a new PdfWriter object, specifying the output stream
             //var output = new FileStream(("C:\\Users\\Carlos_2\\Downloads\\MyFirstPDF.pdf"), FileMode.Create);
 
-
-            var writer = PdfWriter.GetInstance(document, output);
             // Open the Document for writing
             document.Open();
             // Create a new Paragraph object with the text, "Hello, World!"
@@ -138,8 +147,6 @@ namespace SAPS.Controladoras
             if (null != info_disenos); //llamar método que devuelva n páginas con disenos
             if (null != info_casos) ;  //llamar método que devuelva n páginas con casos
             if (null != info_ejecuciones) ; //llamar método que devuelva n páginas con ejecuciones
-
-
 
             // Close the Document - this saves the document contents to the output stream
             document.Close();
@@ -223,7 +230,6 @@ namespace SAPS.Controladoras
         */
         public DataTable solicitar_proyectos_filtrados(Object[] filtros)
         {
-            m_controladora_pdp = new ControladoraProyectoPruebas();
             return m_controladora_pdp.solicitar_proyectos_filtrados(filtros);
         }
 
@@ -233,6 +239,28 @@ namespace SAPS.Controladoras
         public DataTable obtener_casos_de_prueba(List<int> llaves_disenos)
         {
             return null;
+        }
+
+
+
+        //TEFO DOCUMENTE! ESTO NO ESTÁ BN 
+
+        /** @brief Metodo que se encarga de hacer una busqueda en los proyectos que cumplan con los filtros que selecciono el usuario.
+ *  @param Vector de strings con los filtros de la siguiente manera:
+        |   Indice  |   Filtro      |   Tipo    |
+        |:---------:|:-------------:|:---------:|
+        |   0       |   oficina     |   int     |
+        |   1       | fecha_inicio  | DateTime  |
+        |   2       | fecha_final   | DateTime  |
+        |   3       |   estado      |   string  |
+        |   4       |   miembro     |   string  |
+        Si no desea filtrar, entonces en la posicion del filtro se envia "".
+ *  @return Un DataTable en el que viene toda la información de los proyectos que cumplieron los filtros que se enviaron.
+*/
+
+        public DataTable solicitar_disenos_filtrados(Object[] filtros)
+        {
+            return m_controladora_dp.solicitar_disenos_filtrados(filtros);
         }
 
         #endregion

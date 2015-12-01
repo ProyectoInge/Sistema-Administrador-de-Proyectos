@@ -188,5 +188,13 @@ namespace SAPS.Controladoras
             m_controladora_req = new ControladoraRequerimientos();
             m_controladora_req.modificar_requerimiento(datosAsoc);
         }
+
+        public DataTable solicitar_disenos_filtrados(Object[] datos)
+        {
+            return m_base_datos.aplicar_filtros_disenos(datos);
+        }
+
+
+
     }
 }
