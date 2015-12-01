@@ -662,16 +662,12 @@ namespace SAPS.Fronteras
             string id_diseno_str = (((CheckBox)sender).ID).Replace("d", "");
             int id_diseno_seleccionado = Convert.ToInt32(id_diseno_str);
 
-            int it_disenos = 0;
-            bool encontrado = false;
-            while (!encontrado && it_disenos < m_disenos.Count)
+            foreach(Pair pair_tmp in m_disenos)
             {
-                if (m_disenos[it_disenos].First.Equals(id_diseno_seleccionado))
+                if (Convert.ToString(pair_tmp.First) == Convert.ToString(id_diseno_seleccionado))
                 {
-                    m_disenos[it_disenos].Second = !(Convert.ToBoolean(m_disenos[it_disenos].Second)); //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
-                    encontrado = true;
+                    pair_tmp.Second = !(Convert.ToBoolean(pair_tmp.Second)); //Si esta seleccionado (true) lo deselecciono (lo paso a false) y si esta en false, lo paso a true
                 }
-                ++it_disenos;
             }
             llena_tabla_disenos();
         }

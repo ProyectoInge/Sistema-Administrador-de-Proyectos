@@ -267,20 +267,28 @@
                             <section id="seccion_info_incluir_diseno">
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <asp:Label runat="server" CssClass="control-label" Text="Información a incluir" AssociatedControlID="diseno_check_flujo_central"></asp:Label>
+                                        <asp:Label runat="server" CssClass="control-label" Text="Información a incluir" AssociatedControlID="diseno_check_procedimiento"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_flujo_central" Text="Flujo central" />
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_procedimiento" Text="Procedimiento" />
                                     </div>
                                     <div class="col-md-6">
-                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_resultado_esperado" Text="Resultado esperado" />
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_criterios" Text="Criterios de aceptación" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-6">
-                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_entrada_datos" Text="Entrada de datos" />
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_fecha" Text="Fecha" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_requerimientos" Text="Requerimientos asociados" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <asp:CheckBox runat="server" CssClass="checkbox checkbox-inline" ID="diseno_check_ambiente" Text="Ambiente" />
                                     </div>
                                 </div>
                             </section>
