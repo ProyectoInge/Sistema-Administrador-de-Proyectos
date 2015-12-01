@@ -755,6 +755,7 @@ namespace SAPS.Fronteras
         {
             btn_generar_reporte.Enabled = true;
         }
+
     }
 }
  

@@ -380,7 +380,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Ejecucones de pruebas
+                            Ejecuciones de pruebas
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-sm" id="btn_estado_ejecucion">Incluir</button>
                                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -487,6 +487,8 @@
                 </div>
                 <div class="form-group">
                     <!-- Aca van los iconos de pdf o excel y los respectivos checkbox-->
+                    <div class="col-md-2 col-md-offset-4">
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-2 col-md-offset-4">
