@@ -380,7 +380,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Ejecucones de pruebas
+                            Ejecuciones de pruebas
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-sm" id="btn_estado_ejecucion">Incluir</button>
                                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -463,9 +463,12 @@
                                     </div>
                                 </div>
                             </section>
-                            <section id="seccion_ejecuciones_boton_volver">
+                            <section id="seccion_ejecuciones_boton_volver_y_listo">
                                 <div class="col-md-2">
                                     <button class="btn btn-default btn-block btn-sm" type="button" id="ejecucion_btn_volver" runat="server" onserverclick="ejecucion_btn_volver_ServerClick"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+                                </div>
+                                <div class="col-md-2 col-md-offset-8">
+                                    <button class="btn btn-success btn-block btn-sm" type="button" id="btn_listo" runat="server" onserverclick="btn_listo_ServerClick"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
                                 </div>
                             </section>
                         </div>
@@ -484,19 +487,26 @@
                 </div>
                 <div class="form-group">
                     <!-- Aca van los iconos de pdf o excel y los respectivos checkbox-->
+                    <div class="col-md-2 col-md-offset-4">
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-2 col-md-offset-4">
                         <asp:Button runat="server" CssClass="btn btn-success btn-block" ID="btn_generar_reporte" OnClick="btn_generar_reporte_Click" Text="Generar reporte" />
                     </div>
                     <div class="col-md-2">
-                        <asp:Button runat="server" CssClass="btn btn-danger btn-block" ID="btn_cancelar" OnClick="btn_cancelar_Click" Text="Cancelar" />
+                        <button class="btn btn-danger btn-block" type="button" id="btn_cancelar">Cancelar</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <script type="text/javascript">
+
+        $("#btn_cancelar").click(function () {
+            window.location = "InterfazReportes.aspx";
+        });
+
         // ---------------------------------------------------------------------- Panel de proyectos ----------------------------------------------------------------------
         $("#proyecto_habilitado").click(function () {
             $("#btn_estado_proyecto").text("Incluir");
@@ -582,7 +592,7 @@
         //Selecciono todos los proyectos
         $("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").click(function () {
             if ($("#<%=Checkbox_casos_de_prueba_todos.ClientID%>").is(":checked")) {
-                    $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
+                $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("checked", true);
                 //Deshabilito la tabla de los proyectos
                 $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", true);
             } else {
@@ -590,8 +600,8 @@
                 //Habilito la tabla de los proyectos
                 $("#<%= tabla_casos_de_prueba_disponibles.ClientID%>").find("*").prop("disabled", false);
             }
-                return true;
-            });
+            return true;
+        });
         // ---------------------------------------------------------------------- Fin panel casos ---------------------------------------------------------------------
         // ---------------------------------------------------------------------- Panel de ejecuciones ----------------------------------------------------------------------
         $("#ejecucion_habilitado").click(function () {

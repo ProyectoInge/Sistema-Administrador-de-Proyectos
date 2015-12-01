@@ -92,6 +92,7 @@ namespace SAPS.Fronteras
                     m_habilitado_ejecuciones = false;
                     llenar_disenos_drop_responsables();
 
+                    btn_generar_reporte.Enabled = false;
                 }
                 else
                 {
@@ -190,6 +191,7 @@ namespace SAPS.Fronteras
         {
             //Filtros
             ejecucion_btn_volver.Disabled = !m_habilitado_ejecuciones;
+            btn_listo.Disabled = !m_habilitado_ejecuciones;
             ejecucion_btn_limpiar_filtros.Enabled = m_habilitado_ejecuciones;
             ejecucion_drop_responsables.Enabled = m_habilitado_ejecuciones;
             ejecucion_input_fecha.Enabled = m_habilitado_ejecuciones;
@@ -356,6 +358,7 @@ namespace SAPS.Fronteras
             item_tmp.Text = "-Seleccione-";
             item_tmp.Value = "";
             proyecto_drop_miembro.Items.Add(item_tmp);
+            ejecucion_drop_responsables.Items.Add(item_tmp);
             foreach (DataRow fila in recursos_disponibles.Rows)
             {
                 if (!m_controladora_rep.es_administrador(fila["username"].ToString()))   //Solo agrega los que no son administradores
@@ -364,6 +367,7 @@ namespace SAPS.Fronteras
                     item_tmp.Text = fila["nombre"].ToString();
                     item_tmp.Value = fila["username"].ToString();
                     proyecto_drop_miembro.Items.Add(item_tmp);
+                    ejecucion_drop_responsables.Items.Add(item_tmp);
                 }
             }
         }
@@ -373,10 +377,6 @@ namespace SAPS.Fronteras
             ///@todo
         }
 
-        protected void btn_cancelar_Click(object sender, EventArgs e)
-        {
-            ///@todo
-        }
 
         /** @brief Metodo que se encarga de marcar todos los proyectos como "seleccionados" tanto en interfaz como en la estructura de control interno.
          *  @param Los parametros por defecto de un evento en ASP.
@@ -609,7 +609,7 @@ namespace SAPS.Fronteras
 
 
             DataTable disenos_filtrados = m_controladora_rep.solicitar_disenos_filtrados(parametros);
-
+            
             foreach (DataRow fila_tmp in disenos_filtrados.Rows)
             {
                 string[] pair_tmp = new string[3];
@@ -804,6 +804,12 @@ namespace SAPS.Fronteras
             m_habilitado_ejecuciones = false;
             habilitar_deshabilitar_paneles();
         }
+
+        protected void btn_listo_ServerClick(object sender, EventArgs e)
+        {
+            btn_generar_reporte.Enabled = true;
+        }
+
     }
 }
  
