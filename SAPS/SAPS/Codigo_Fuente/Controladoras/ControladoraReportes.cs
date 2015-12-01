@@ -28,7 +28,7 @@ namespace SAPS.Controladoras
         private ControladoraDisenosPruebas m_controladora_dp;
         private ControladoraCasoPruebas m_controladora_cp;
         private ControladoraProyectoPruebas m_controladora_pdp;
-
+        private ControladoraEjecuciones m_controladora_ep;
         
 
 
@@ -205,7 +205,25 @@ namespace SAPS.Controladoras
             }*/
         }
 
+        private void agregar_ejecuciones_PDF(ref Document documento, Object[] filtros, string[] info)
+        {
+            /*DataTable info_ejecuciones = m_controladora_ep.solicitar_ejecuciones_filtradas(filtros);
 
+            for(int i = 0; i < info_ejecuciones.Rows.Count; ++i)
+            {
+                string contents = File.ReadAllText("E:\\Documentos\\GitHub\\Sistema-Administrador-de-Proyectos\\SAPS\\Plantillas HTML\\EPTemplate.html");
+
+                contents = contents.Replace("[RESPONSABLE]", info_ejecuciones.Rows[i]["responsable"].ToString());
+                contents = contents.Replace("[FECHA]", info_ejecuciones.Rows[i]["fecha_ultima_ejec"].ToString());
+                contents = contents.Replace("[INCIDENTES]", info_ejecuciones.Rows[i]["incidencias"].ToString());
+
+                var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(contents), null);
+                foreach (var htmlElement in parsedHtmlElements)
+                {
+                    documento.Add(htmlElement as IElement);
+                }
+            }*/            
+        }
 
 
 
