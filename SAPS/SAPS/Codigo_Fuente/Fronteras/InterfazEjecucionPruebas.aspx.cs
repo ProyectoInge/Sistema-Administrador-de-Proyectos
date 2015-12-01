@@ -72,6 +72,11 @@ namespace SAPS.Fronteras
                     label_img_agregada.Visible = false;
                     m_resultados_tmp = new List<string[]>();
                     m_nombre_archivo = "";
+
+                    //recargar_lista_resultados();
+                    //vacia_resultados();
+                    //llena_resultados();
+
                 }
 
                 if (drop_disenos_disponibles.SelectedItem.Value != "")
@@ -88,6 +93,7 @@ namespace SAPS.Fronteras
                 {
                     celda_drop_num_resultado.Text = "1";
                 }
+
             }
             else
             {
@@ -325,158 +331,140 @@ namespace SAPS.Fronteras
         }
         private bool modificar_ejecucion()
         {
-            bool respuesta = false;                                      // Bandera especifica que indica el exito o fallo de la modificacion
-
-            if (drop_disenos_disponibles.Text != "")
+            bool a_retornar = false;
+            if (drop_disenos_disponibles.SelectedItem.Value != "")
             {
-                if (input_ambiente_diseno.Text != "")
+                if (drop_rh_disponibles.SelectedItem.Value != "")
                 {
-
-                    if (input_procedimiento_diseno.Text != "")
-                    {
-                        if (input_criterios_aceptacion_diseno.Text != "")
-                        {
-
-                            if (drop_rh_disponibles.Text != "")
-                            {
-
                                 if (input_fecha.Text != "")
                                 {
-
-                                    if (label_incidentes.Text != "")
+                        if (input_incidentes.Text != "")
                                     {
-                                        Object[] datos = new Object[5];
-                                        datos[0] = m_llave_ejecucion[0];                                // Al consultar una ejecucion, el vector de llaves se llena
-                                        datos[1] = drop_rh_disponibles.Text;
-                                        datos[2] = Convert.ToInt32(drop_disenos_disponibles.Text);
-                                        datos[3] = Convert.ToDateTime(input_fecha.Text);
-                                        datos[4] = label_incidentes.Text;
-
-                                        int resultado = m_controladora_ep.modificar_ejecucion(datos);
+                            #region Guardo la ejecución en la base
+                            /*
+                                | Índice | Descripción             | Tipo de datos |
+                                |:------:|:-----------------------:|:-------------:|
+                                |    0   |  Numero de ejecucion    |      int      |
+                                |    1   |  Responsable            |     string    |
+                                |    2   |  Id del diseno          |      int      |
+                                |    3   |  Fecha de ejecucion     |    Datetime   |
+                                |    4   |  Incidencias            |     string    |
+                            */
+                            Object[] datos_ejecucion = new Object[5];
+                            datos_ejecucion[0] = 0;                                                 // No se utiliza la llave anterior ya que la base genera una nueva
+                            datos_ejecucion[1] = drop_rh_disponibles.SelectedItem.Value;
+                            datos_ejecucion[2] = drop_disenos_disponibles.SelectedItem.Value;
+                            datos_ejecucion[3] = DateTime.Parse(input_fecha.Text);
+                            datos_ejecucion[4] = input_incidentes.Text;
+                            #endregion
+                            int resultado = m_controladora_ep.modificar_ejecucion(datos_ejecucion, m_llave_ejecucion[1], m_llave_ejecucion[0]);
                                         if (resultado == 0)
                                         {
-                                            respuesta = true;                                               // La insercion de la ejecucion es valida
-                                                                                                            // Es necesario verificar los resultados de pruebas                                    
-                                        }
-                                        else
-                                        {
-                                            respuesta = false;
-                                        }
+                                DataTable ejecuciones_disponibles = m_controladora_ep.consultar_ejecuciones(Int32.Parse(drop_disenos_disponibles.SelectedItem.Value));
+                                int id_ejecucion_recien_agrgada = Convert.ToInt32(ejecuciones_disponibles.Rows[ejecuciones_disponibles.Rows.Count - 1]["num_ejecucion"]);
 
-                                    }
-                                    else
-                                    {
-                                        cuerpo_alerta_error.Text = "Debe ingresar una fecha de ejecución.";
-                                        SetFocus(input_fecha);
-                                        respuesta = false;
-                                    }
+                                recargar_lista_resultados();                                    // Se recargan los resultados con las modificaciones en el vector m_resultados_tmp
+                                //actualiza_resultados();
 
-                                }
+                                bool resultado_resultados = ingresar_resultados_sistema(id_ejecucion_recien_agrgada);
+                                if (resultado_resultados)
+                                {
+                                    cuerpo_alerta_exito.Text = " Se agregó la ejecución con sus resultados correctamente.";
+                                    alerta_exito.Visible = true;
+                                    a_retornar = true;
+                                    vacia_resultados();
+                                    //m_resultados_tmp.Clear();                                         // Debido que se recarga la pagina
+                                }                                                               // Es necesario vaciar la tabla y evitar repeticion de ID
                                 else
                                 {
-                                    cuerpo_alerta_error.Text = "Debe ingresar una fecha de ejecución.";
-                                    SetFocus(input_fecha);
-                                    respuesta = false;
+                                    cuerpo_alerta_error.Text = "Se presento un error al agregar uno de los resultados";
+                                    alerta_error.Visible = true;
                                 }
 
                             }
                             else
                             {
-                                cuerpo_alerta_error.Text = "Debe insertar un responsable asociado.";
-                                SetFocus(drop_rh_disponibles);
-                                respuesta = false;
+                                cuerpo_alerta_error.Text = " Ocurrio un error al insertar la ejecución";
+                                alerta_error.Visible = true;
                             }
 
                         }
                         else
                         {
-                            cuerpo_alerta_error.Text = "Debe insertar Criterios de Aceptación.";
-                            SetFocus(input_criterios_aceptacion_diseno);
-                            respuesta = false;
+                            cuerpo_alerta_error.Text = " Tiene que ingresar un valor en ejecución";
+                            alerta_error.Visible = true;
+                            SetFocus(input_justificacion);
                         }
                     }
                     else
                     {
-                        cuerpo_alerta_error.Text = "Debe insertar los datos de Procedimiento";
-                        SetFocus(input_procedimiento_diseno);
-                        respuesta = false;
+                        cuerpo_alerta_error.Text = " No ha seleccionado la fecha de la ejecución";
+                        alerta_error.Visible = true;
+                        SetFocus(input_fecha);
                     }
-
                 }
                 else
                 {
-                    cuerpo_alerta_error.Text = "Debe insertar los datos de Ambiente.";
-                    SetFocus(input_ambiente_diseno);
-                    respuesta = false;
+                    cuerpo_alerta_error.Text = " No ha seleccionado ningún responsable para la ejecución.";
+                    alerta_error.Visible = true;
+                    SetFocus(drop_rh_disponibles);
                 }
-
             }
             else
             {
-                cuerpo_alerta_error.Text = "Debe seleccionar un diseño asociado.";
+                cuerpo_alerta_error.Text = " No ha seleccionado ningún diseño.";
+                alerta_error.Visible = true;
                 SetFocus(drop_disenos_disponibles);
-                respuesta = false;
             }
 
+            return a_retornar;
+        }
 
-            // Seccion que verifica si la lista de resultados no posee errores
 
-            if (respuesta)
-            {                            // Verificados los datos de ejecucion, se verifican los de resultados
-                DataTable ejecuciones_disponibles = m_controladora_ep.consultar_ejecuciones(Int32.Parse(drop_disenos_disponibles.SelectedItem.Value));
-                int id_ejecucion_recien_agrgada = Convert.ToInt32(ejecuciones_disponibles.Rows[ejecuciones_disponibles.Rows.Count - 1]["num_ejecucion"]);
+        /**@brief Metodo que vuelve a insertar los resultados de la ejecucion en el vector m_resultados_tmp , cuando ocurre una modificacion.
+        */
+        protected void recargar_lista_resultados() {
 
+            // if  tabla_resultados.Rows.Count != 2
                 /*
-                    | Índice | Descripción             | Tipo de datos |
-                    |:------:|:-----------------------:|:-------------:|
-                    |    0   |  Numero de resultado    |      int      |
-                    |    1   |  Id del diseno          |      int      |
-                    |    2   |  Numero de ejecucion    |      int      |
-                    |    3   |  Estado                 |     string    |
-                    |    4   |  Tipo No Conformidad    |     string    |
-                    |    5   |  Id del Caso            |     string    |
-                    |    6   |  Descripcion No Conf.   |     string    |
-                    |    7   |  Justificacion          |     string    |
-                    |    8   |  Ruta de la imagen      |     string    |
+                m_resultados_tmp.Clear()
+            */
 
-                    |   Indice  |   Significado         |
-                    |:---------:|:---------------------:|
-                    |   0       |   # resultado         |
-                    |   1       |   estado              |
-                    |   2       |   tipo no conformidad |   Todos son string
-                    |   3       |   ID Caso             |
-                    |   4       |   Descripcion         |
-                    |   5       |   Justificacion       |
-                    |   6       |   Ruta imagen         |
-                */
-                for (int i = 0; i < m_resultados_tmp.Count; ++i)
+            if (tabla_resultados.Rows.Count != 2)                                     // No se limpia el vector de resultados si no estan cargados en pantalla
+            {
+                for(int i = 2; i < tabla_resultados.Rows.Count; ++i)                 // Se eliminan los elementos de la lista que se encuentren en la tabla, para recargarlos con los nuevos datos 
                 {
-                    string[] vec_tmp = m_resultados_tmp[i];
-                    Object[] datos_resultado = new Object[9];
-                    datos_resultado[0] = Int32.Parse(vec_tmp[0]);
-                    datos_resultado[1] = Int32.Parse(drop_disenos_disponibles.SelectedItem.Value);
-                    datos_resultado[2] = id_ejecucion_recien_agrgada;
-                    datos_resultado[3] = vec_tmp[1];
-                    datos_resultado[4] = vec_tmp[2];
-                    datos_resultado[5] = vec_tmp[3];
-                    datos_resultado[6] = vec_tmp[4];
-                    datos_resultado[7] = vec_tmp[5];
-                    datos_resultado[8] = vec_tmp[6];
-                    int resultado_agrega_resultado = m_controladora_ep.modificar_resultado(datos_resultado);
-                    if (resultado_agrega_resultado != 0)
+                    string num_resultado = tabla_resultados.Rows[i].Cells[2].Text;
+                    for(int j = 0; j < m_resultados_tmp.Count; ++j)
+                {
+                        string[] temporal = m_resultados_tmp[j];
+                        if( temporal[0] == num_resultado)                           // El resultado en interfaz si se encuentra en el vector, por lo que se elimina del vector
                     {
-                        cuerpo_alerta_error.Text = " Se presentó un error al insertar el resultado " + vec_tmp[0];
-                        alerta_error.Visible = true;
-                        return false;
+                            m_resultados_tmp.Remove(temporal);
+                        }
+
                     }
+                    }
+                //m_resultados_tmp.Clear();                                               // Se limpia la lista de resultados
                 }
 
-                cuerpo_alerta_exito.Text = " Se agregó la ejecución con sus resultados correctamente.";
-                alerta_exito.Visible = true;
+            for (int i = 2; i < tabla_resultados.Rows.Count; ++i)                  // Iteracion por las filas de la tabla de resultados
+            {
+                // Se toman los valores modificados por el usuario en la lista de resultados
+                string[] fila_tmp = new string[7];
+                fila_tmp[0] = tabla_resultados.Rows[i].Cells[2].Text;                                                       // Numero de resultado
+                fila_tmp[1] = ((DropDownList)tabla_resultados.Rows[i].Cells[3].Controls[0]).SelectedItem.Value;             // Estado
+                fila_tmp[2] = ((DropDownList)tabla_resultados.Rows[i].Cells[4].Controls[0]).SelectedItem.Value;             // Tipo de no conformidad
+                fila_tmp[3] = ((DropDownList)tabla_resultados.Rows[i].Cells[1].Controls[0]).SelectedItem.Value;             // Casos
+                fila_tmp[4] = ((TextBox)tabla_resultados.Rows[i].Cells[5].Controls[0]).Text;                                // Descripcion
+                fila_tmp[5] = ((TextBox)tabla_resultados.Rows[i].Cells[6].Controls[0]).Text;                                // Justificacion
+                fila_tmp[6] = ((Button)tabla_resultados.Rows[i].Cells[7].Controls[0]).ID;                                   // Ruta de imagen
+
+                m_resultados_tmp.Add(fila_tmp);
+            }
             }
 
-            return respuesta;
-        }
+
 
         protected void btn_Cancelar_Click(object sender, EventArgs e)
         {
@@ -539,7 +527,7 @@ namespace SAPS.Fronteras
             string ruta = "";
             if (m_nombre_archivo != "")
             {
-                ruta = Server.MapPath("~") + "/imagenes/" + m_nombre_archivo;
+                ruta = Server.MapPath("~") + "/imagenes/" + m_nombre_archivo;  // Hace unico el id
             }
             else
             {
@@ -571,6 +559,8 @@ namespace SAPS.Fronteras
             label_img_agregada.Visible = false;
 
         }
+
+
 
 
         // Métodos relacionados a consultar
@@ -632,6 +622,7 @@ namespace SAPS.Fronteras
 
             // Resultados
             vacia_resultados();
+            m_resultados_tmp.Clear();
             DataTable resultados_ejecucion = m_controladora_ep.consultar_resultados(id_ejecucion);
 
             for (int i = 0; i < resultados_ejecucion.Rows.Count; ++i)
@@ -713,23 +704,23 @@ namespace SAPS.Fronteras
 
         protected void btn_eliminar_resultado_Click(object sender, EventArgs e)
         {
-
+            
             for (int j = m_resultados_tmp.Count-1; j>=0; j--)
             {
                 string[] fila = m_resultados_tmp[j];
 
                 if (fila[7]=="1")
                 {
-                    for (int i = m_resultados_tmp.Count - 1; i >= 0; i--)
-                    {
+                                for (int i = m_resultados_tmp.Count - 1; i >= 0; i--)
+                                {
                         if(fila[0] == m_resultados_tmp[i][0])
                             m_resultados_tmp.Remove(fila); //lo saca de la lista                                        
-                    }
+                                }
 
-                }
+                            }
 
-            }     
-    
+                        }
+
                 
             actualiza_resultados();
         }
@@ -852,7 +843,7 @@ namespace SAPS.Fronteras
          */
         private void actualiza_resultados()
         {
-            vacia_resultados();
+            //vacia_resultados();
             llena_resultados();
         }
 
@@ -912,6 +903,19 @@ namespace SAPS.Fronteras
             else
                 celda_drop_num_resultado.Text = "1";
 
+            if (m_opcion == 'm')
+            {                       
+                    recargar_lista_resultados();
+                    vacia_resultados();
+                
+            }
+
+            if(m_opcion == 'i')
+            {
+                vacia_resultados();
+            }
+
+            celda_drop_num_resultado.Text = (m_resultados_tmp.Count + 1).ToString();
             for (int i = 0; i < m_resultados_tmp.Count; ++i)
             {
                 string[] vec_tmp = m_resultados_tmp[i]; //Agarra el i-esimo vector de la lista
@@ -919,6 +923,7 @@ namespace SAPS.Fronteras
                 TableCell celda_tmp = new TableCell();
                 DropDownList casos = new DropDownList();
                 casos.CssClass = "form-control";
+                casos.AutoPostBack = true;
 
 
 
@@ -977,6 +982,7 @@ namespace SAPS.Fronteras
                 celda_tmp.Text = vec_tmp[1];
                 DropDownList lista = new DropDownList();
                 lista.CssClass = "form-control";
+                lista.AutoPostBack = true;
 
                 switch (celda_tmp.Text)
                 {                                   // Creacion del dropdown de estados
@@ -1023,6 +1029,8 @@ namespace SAPS.Fronteras
                 celda_tmp.Text = vec_tmp[2];
                 DropDownList lista_conformidad = new DropDownList();
                 lista_conformidad.CssClass = "form-control";
+                lista_conformidad.AutoPostBack = true;
+
 
                 switch (celda_tmp.Text)
                 {                                                  // Creacion del dropdown de tipos de no conformidad
@@ -1092,6 +1100,7 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 TextBox input_tmp = new TextBox();
                 input_tmp.CssClass = "form-control";
+                input_tmp.AutoPostBack = true;
                 if (m_opcion == 'm')
                 {
                     input_tmp.Enabled = true;
@@ -1111,6 +1120,7 @@ namespace SAPS.Fronteras
                 celda_tmp = new TableCell();
                 input_tmp = new TextBox();
                 input_tmp.CssClass = "form-control";
+                input_tmp.AutoPostBack = true;
                 if (m_opcion == 'm')
                 {
                     input_tmp.Enabled = true;

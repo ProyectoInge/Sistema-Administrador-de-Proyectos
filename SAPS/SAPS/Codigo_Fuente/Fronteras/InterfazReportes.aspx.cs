@@ -557,7 +557,7 @@ namespace SAPS.Fronteras
 
             //deberia ser unreachable 
             return false;
-        }
+        }     
 
         ///@brief metodo que obtiene todos los disenos segun los filtros y devuelve la lista de strings[] (id, nombre, checked) de los filtrados
         protected List<string[]> get_lista_disenos_filtrados()
@@ -568,18 +568,30 @@ namespace SAPS.Fronteras
             //obtiene los proyectos que se seleccionaron
             List<string> lista_seleccionados = get_selected_projects();
 
-            //@todo construir Object[]
+            //se construye el Object[] de parametros
+            Object[] parametros = new Object[7];
+            parametros[0] = diseno_drop_tecnicas_prueba.SelectedItem.Value;
+            parametros[1] = diseno_drop_tipo_prueba.SelectedItem.Value;
+            parametros[2] = diseno_drop_nivel_prueba.SelectedItem.Value;
+            parametros[3] = diseno_drop_responsables.SelectedItem.Value;
+            parametros[4] = default(DateTime);
+            if (diseno_fecha_despues.Text != "")
+                parametros[4] = DateTime.Parse(diseno_fecha_despues.Text);
+            parametros[5] = default(DateTime);
+            if (diseno_fecha_antes.Text != "")
+                parametros[5] = DateTime.Parse(diseno_fecha_antes.Text);
+            parametros[6] = lista_seleccionados;
 
-            //@todo sacar disenos del metodo de charles
-            DataTable disenos_filtrados = null;
 
+            DataTable disenos_filtrados = m_controladora_rep.solicitar_disenos_filtrados(parametros);
+            
             foreach (DataRow fila_tmp in disenos_filtrados.Rows)
             {
                 string[] pair_tmp = new string[3];
                 pair_tmp[0] = fila_tmp["id_diseno"].ToString();
                 pair_tmp[1] = fila_tmp["nombre_diseno"].ToString();
                 pair_tmp[2] = Convert.ToString(get_check_selected_diseno(Convert.ToString(pair_tmp[0])));
-                lista_pares_disenos_seleccionados.Add(pair_tmp);
+                lista_pares_disenos_seleccionados.Add(pair_tmp);             
             }
 
             return lista_pares_disenos_seleccionados;
@@ -604,7 +616,7 @@ namespace SAPS.Fronteras
                 check_tmp.AutoPostBack = true;
                 check_tmp.Checked = Convert.ToBoolean(array_tmp[2]);
                 check_tmp.CssClass = "checkbox-inline";
-                fila_tmp.Cells.Add(celda_chck_tmp);
+                fila_tmp.Cells.Add(celda_chck_tmp);                
             }
         }
 
@@ -678,12 +690,12 @@ namespace SAPS.Fronteras
                 m_habilitado_casos = false;
                 m_habilitado_ejecuciones = false;
                 habilitar_deshabilitar_paneles();
-            }
+        }
             else
-            {
+        {
                 cuerpo_alerta_advertencia.Text = " Es necesario que seleccione al menos un proyecto para poder continuar.";
                 alerta_advertencia.Visible = true;
-            }
+        }
         }
 
         protected void diseno_btn_volver_ServerClick(object sender, EventArgs e)
@@ -742,4 +754,4 @@ namespace SAPS.Fronteras
         }
     }
 }
-
+ 
