@@ -152,15 +152,15 @@
                                 </div>
                             </section>
                             <section id="proyecto_boton_continuar">
-                                <div class="col-md-3 col-md-offset-9">
-                                    <button class="btn btn-primary btn-block" type="button" id="proyecto_btn_continuar">Continuar</button>
+                                <div class="col-md-2 col-md-offset-10">
+                                    <button class="btn btn-default btn-sm btn-block" type="button" id="proyecto_btn_continuar" runat="server" onserverclick="proyecto_btn_continuar_ServerClick"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                                 </div>
                             </section>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--Segunda caja-->
+            <!--Segunda caja - Diseños -->
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -285,11 +285,11 @@
                                 </div>
                             </section>
                             <section id="diseno_botones_volver_continuar">
-                                <div class="col-md-3">
-                                    <button class="btn btn-primary btn-block" type="button" id="diseno_btn_volver">Volver</button>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default btn-sm btn-block" type="button" id="diseno_btn_volver" runat="server" onserverclick="diseno_btn_volver_ServerClick"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
                                 </div>
-                                <div class="col-md-3 col-md-offset-6">
-                                    <button class="btn btn-primary btn-block" type="button" id="diseno_btn_continuar">Continuar</button>
+                                <div class="col-md-2 col-md-offset-8">
+                                    <button class="btn btn-default btn-sm btn-block" type="button" id="diseno_btn_continuar" runat="server" onserverclick="diseno_btn_continuar_ServerClick"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                                 </div>
                             </section>
                         </div>
@@ -298,12 +298,12 @@
             </div>
         </div>
         <div class="row">
-            <!-- Panel Caso de pruebas -->
+            <!-- Tercera caja - Casos de pruebas -->
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-title">
-                            Caso de pruebas
+                            Casos de pruebas
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-sm" id="btn_estado_casos">Incluir</button>
                                 <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -331,13 +331,14 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <div style="height: 416px; overflow-y: scroll">
+                                        <div style="height: 390px; overflow-y: scroll">
                                             <asp:Table runat="server" ID="tabla_casos_de_prueba_disponibles" CssClass="table table-hover">
                                             </asp:Table>
                                         </div>
                                     </div>
                                 </div>
                             </section>
+                            <hr />
                             <!-- Checkbox de información a incluir -->
                             <section id="seccion_casos_de_prueba_info_incluir">
                                 <div class="form-group">
@@ -363,18 +364,18 @@
                                 </div>
                             </section>
                             <section id="ejecuciones_botones_volver_continuar">
-                                <div class="col-md-3">
-                                    <button class="btn btn-primary btn-block" type="button" id="ejecuciones_btn_volver">Volver</button>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default btn-sm btn-block" runat="server" type="button" id="ejecuciones_btn_volver" onserverclick="ejecuciones_btn_volver_ServerClick"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
                                 </div>
-                                <div class="col-md-3 col-md-offset-6">
-                                    <button class="btn btn-primary btn-block" type="button" id="ejecuciones_btn_continuar">Continuar</button>
+                                <div class="col-md-2 col-md-offset-8">
+                                    <button class="btn btn-default btn-sm btn-block" runat="server" type="button" id="ejecuciones_btn_continuar" onserverclick="ejecuciones_btn_continuar_ServerClick"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
                                 </div>
                             </section>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Panel número 4 Ejecución -->
+            <!-- Cuarta caja - Ejecución -->
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -412,7 +413,7 @@
                                         <asp:DropDownList runat="server" ID="ejecucion_drop_responsables" CssClass="form-control" AutoPostBack="true" />
                                     </div>
                                     <div class="col-md-6">
-                                        <asp:Label runat="server" CssClass="control-label" Text="Fecha de última ejecución" />
+                                        <asp:Label runat="server" CssClass="control-label" Text="Después de" />
                                         <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" AutoPostBack="true" ID="ejecucion_input_fecha" />
                                     </div>
                                 </div>
@@ -463,8 +464,8 @@
                                 </div>
                             </section>
                             <section id="seccion_ejecuciones_boton_volver">
-                                <div class="col-md-3">
-                                    <button class="btn btn-primary btn-block" type="button" id="ejecuciono_btn_volver">Volver</button>
+                                <div class="col-md-2">
+                                    <button class="btn btn-default btn-block btn-sm" type="button" id="ejecuciono_btn_volver" runat="server" onserverclick="ejecuciono_btn_volver_ServerClick"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
                                 </div>
                             </section>
                         </div>

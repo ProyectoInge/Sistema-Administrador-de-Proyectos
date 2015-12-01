@@ -438,5 +438,35 @@ namespace SAPS.Fronteras
         {
 
         }
+
+        protected void proyecto_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ejecuciones_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ejecuciones_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void diseno_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void diseno_btn_continuar_ServerClick(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ejecuciono_btn_volver_ServerClick(object sender, EventArgs e)
+        {
+
+        }
     }
 }

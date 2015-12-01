@@ -202,6 +202,15 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.CheckBox proyecto_check_objetivos;
         
         /// <summary>
+        /// proyecto_btn_continuar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton proyecto_btn_continuar;
+        
+        /// <summary>
         /// label1 control.
         /// </summary>
         /// <remarks>
@@ -319,6 +328,24 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.CheckBox diseno_check_entrada_datos;
         
         /// <summary>
+        /// diseno_btn_volver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton diseno_btn_volver;
+        
+        /// <summary>
+        /// diseno_btn_continuar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton diseno_btn_continuar;
+        
+        /// <summary>
         /// Checkbox_casos_de_prueba_todos control.
         /// </summary>
         /// <remarks>
@@ -371,6 +398,24 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBox3;
+        
+        /// <summary>
+        /// ejecuciones_btn_volver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton ejecuciones_btn_volver;
+        
+        /// <summary>
+        /// ejecuciones_btn_continuar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton ejecuciones_btn_continuar;
         
         /// <summary>
         /// ejecucion_btn_limpiar_filtros control.
@@ -452,6 +497,15 @@ namespace SAPS.Fronteras {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_incidentes;
+        
+        /// <summary>
+        /// ejecuciono_btn_volver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton ejecuciono_btn_volver;
         
         /// <summary>
         /// btn_generar_reporte control.
