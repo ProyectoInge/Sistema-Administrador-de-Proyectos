@@ -373,6 +373,87 @@ namespace SAPS.Fronteras {
         protected global::System.Web.UI.WebControls.CheckBox CheckBox3;
         
         /// <summary>
+        /// ejecucion_btn_limpiar_filtros control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ejecucion_btn_limpiar_filtros;
+        
+        /// <summary>
+        /// ejecucion_drop_responsables control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ejecucion_drop_responsables;
+        
+        /// <summary>
+        /// ejecucion_input_fecha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ejecucion_input_fecha;
+        
+        /// <summary>
+        /// check_ejecuciones_todos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check_ejecuciones_todos;
+        
+        /// <summary>
+        /// tabla_ejecuciones_ejecuciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table tabla_ejecuciones_ejecuciones;
+        
+        /// <summary>
+        /// ejecucion_check_resultados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_resultados;
+        
+        /// <summary>
+        /// ejecucion_check_responsable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_responsable;
+        
+        /// <summary>
+        /// ejecucion_check_fecha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_fecha;
+        
+        /// <summary>
+        /// ejecucion_check_incidentes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ejecucion_check_incidentes;
+        
+        /// <summary>
         /// btn_generar_reporte control.
         /// </summary>
         /// <remarks>

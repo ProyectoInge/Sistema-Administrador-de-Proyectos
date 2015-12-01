@@ -400,7 +400,7 @@ namespace SAPS.Fronteras
             diseno_drop_tecnicas_prueba.Items[0].Selected = true;
             diseno_drop_tipo_prueba.Items[0].Selected = true;
             diseno_drop_nivel_prueba.Items[0].Selected = true;
-            if(diseno_drop_responsables.Items.Count>0)
+            if (diseno_drop_responsables.Items.Count > 0)
                 diseno_drop_responsables.Items[0].Selected = true;
             ///@todo Llamar a actualizar_disenos()
         }
@@ -421,6 +421,20 @@ namespace SAPS.Fronteras
         }
 
         protected void diseno_check_todos_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ejecucion_btn_limpiar_filtros_Click(object sender, EventArgs e)
+        {
+            ejecucion_drop_responsables.ClearSelection();
+            if (ejecucion_drop_responsables.Items.Count > 0)
+                ejecucion_drop_responsables.Items[0].Selected = true;
+            ejecucion_input_fecha.Text = "";
+            ///@todo Llamar a actualizar ejecuciones
+        }
+
+        protected void check_ejecuciones_todos_CheckedChanged(object sender, EventArgs e)
         {
 
         }
