@@ -211,5 +211,11 @@ namespace SAPS.Controladoras
         {
             return null;
         }
+
+        internal DataTable solicitar_disenos_disponibles()
+        {
+            m_controladora_dp = new ControladoraDisenosPruebas();
+            return m_controladora_dp.solicitar_disenos_disponibles();
+        }
     }
 }
