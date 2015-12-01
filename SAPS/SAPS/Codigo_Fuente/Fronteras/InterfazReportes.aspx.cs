@@ -90,6 +90,8 @@ namespace SAPS.Fronteras
                     m_habilitado_disenos = false;
                     m_habilitado_casos = false;
                     m_habilitado_ejecuciones = false;
+                    llenar_disenos_drop_responsables();
+
                     btn_generar_reporte.Enabled = false;
                 }
                 else
@@ -97,6 +99,7 @@ namespace SAPS.Fronteras
 
                 }
                 actualiza_proyectos_disponibles();
+                llena_tabla_disenos();
 
                 // ***** Esto siempre tienen que dejarlo al final del Page_Load
                 habilitar_deshabilitar_paneles();
@@ -357,6 +360,7 @@ namespace SAPS.Fronteras
             item_tmp.Text = "-Seleccione-";
             item_tmp.Value = "";
             proyecto_drop_miembro.Items.Add(item_tmp);
+            ejecucion_drop_responsables.Items.Add(item_tmp);
             foreach (DataRow fila in recursos_disponibles.Rows)
             {
                 if (!m_controladora_rep.es_administrador(fila["username"].ToString()))   //Solo agrega los que no son administradores
@@ -365,6 +369,7 @@ namespace SAPS.Fronteras
                     item_tmp.Text = fila["nombre"].ToString();
                     item_tmp.Value = fila["username"].ToString();
                     proyecto_drop_miembro.Items.Add(item_tmp);
+                    ejecucion_drop_responsables.Items.Add(item_tmp);
                 }
             }
         }
@@ -373,7 +378,7 @@ namespace SAPS.Fronteras
         {
             ///@todo
         }
-        
+
 
         /** @brief Metodo que se encarga de marcar todos los proyectos como "seleccionados" tanto en interfaz como en la estructura de control interno.
          *  @param Los parametros por defecto de un evento en ASP.
@@ -557,6 +562,26 @@ namespace SAPS.Fronteras
             return false;
         }     
 
+        ///@brief llena el drop de responsables con todos los RH
+        protected void llenar_disenos_drop_responsables()
+        {
+            DataTable todos_rh = m_controladora_rep.solicitar_recursos_disponibles();
+            ListItem item_tmp = new ListItem();
+            item_tmp.Text = "-Seleccione-";
+            item_tmp.Value = "";
+            diseno_drop_responsables.Items.Add(item_tmp);
+            foreach (DataRow fila in todos_rh.Rows)
+            {
+                if (!m_controladora_rep.es_administrador(fila["username"].ToString()))   //Solo agrega los que no son administradores
+                {
+                    item_tmp = new ListItem();
+                    item_tmp.Text = fila["nombre"].ToString();
+                    item_tmp.Value = fila["username"].ToString();
+                    diseno_drop_responsables.Items.Add(item_tmp);
+                }
+            }
+        }
+
         ///@brief metodo que obtiene todos los disenos segun los filtros y devuelve la lista de strings[] (id, nombre, checked) de los filtrados
         protected List<string[]> get_lista_disenos_filtrados()
         {
@@ -565,13 +590,17 @@ namespace SAPS.Fronteras
 
             //obtiene los proyectos que se seleccionaron
             List<string> lista_seleccionados = get_selected_projects();
-
+            if (lista_seleccionados.Count>0)
+            {
             //se construye el Object[] de parametros
             Object[] parametros = new Object[7];
             parametros[0] = diseno_drop_tecnicas_prueba.SelectedItem.Value;
             parametros[1] = diseno_drop_tipo_prueba.SelectedItem.Value;
             parametros[2] = diseno_drop_nivel_prueba.SelectedItem.Value;
+                if (diseno_drop_nivel_prueba.Items.Count > 0)
             parametros[3] = diseno_drop_responsables.SelectedItem.Value;
+                else
+                    parametros[3] = "";
             parametros[4] = default(DateTime);
             if (diseno_fecha_despues.Text != "")
                 parametros[4] = DateTime.Parse(diseno_fecha_despues.Text);
@@ -591,15 +620,20 @@ namespace SAPS.Fronteras
                 pair_tmp[2] = Convert.ToString(get_check_selected_diseno(Convert.ToString(pair_tmp[0])));
                 lista_pares_disenos_seleccionados.Add(pair_tmp);             
             }
+            }
 
             return lista_pares_disenos_seleccionados;
         }
 
+        ///@brief llena la tabla de disenos y llena todos los metodos que requiere
         protected void llena_tabla_disenos()
         {
+            tabla_disenos.Rows.Clear();
             List<string[]> lista_pares_disenos_filtrados = get_lista_disenos_filtrados();
 
-            foreach (string[] array_tmp in lista_pares_disenos_filtrados)
+
+
+            foreach(string[] array_tmp in lista_pares_disenos_filtrados)
             {
                 TableRow fila_tmp = new TableRow();
 
@@ -609,19 +643,25 @@ namespace SAPS.Fronteras
 
                 TableCell celda_chck_tmp = new TableCell();
                 CheckBox check_tmp = new CheckBox();
-                check_tmp.ID = array_tmp[0];
+                check_tmp.ID = "d"+array_tmp[0];
                 check_tmp.CheckedChanged += new EventHandler(check_estado_disenos_Cambia);
                 check_tmp.AutoPostBack = true;
                 check_tmp.Checked = Convert.ToBoolean(array_tmp[2]);
                 check_tmp.CssClass = "checkbox-inline";
+                celda_chck_tmp.Controls.Add(check_tmp);
                 fila_tmp.Cells.Add(celda_chck_tmp);                
+
+                tabla_disenos.Rows.Add(fila_tmp);
             }
+
         }
 
         ///@brief cambia el valor en m_disenos de seleccion del diseno, se activa cuando se checkea el compa
         private void check_estado_disenos_Cambia(object sender, EventArgs e)
         {
-            int id_diseno_seleccionado = Convert.ToInt32(((CheckBox)sender).ID);
+            string id_diseno_str = (((CheckBox)sender).ID).Replace("d", "");
+            int id_diseno_seleccionado = Convert.ToInt32(id_diseno_str);
+
             int it_disenos = 0;
             bool encontrado = false;
             while (!encontrado && it_disenos < m_disenos.Count)
